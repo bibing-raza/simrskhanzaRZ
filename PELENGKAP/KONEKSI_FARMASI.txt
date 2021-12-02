@@ -1,0 +1,6 @@
+hostname:10.10.1.3
+port:3306
+username:sirsraza
+password:mNWtACEbNP
+database_name:sik
+nama_rumah_sakit:RSUD RATU ZALECHA MARTAPURA
