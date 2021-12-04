@@ -55,7 +55,7 @@ public class DlgJadwal extends javax.swing.JDialog {
         this.setLocation(8,1);
         setSize(628,674);
 
-        Object[] row={"P","Kode Dokter","Nama Dokter","Hari Kerja","Jam Mulai","Jam Selesai","Poliklinik"};
+        Object[] row = {"#", "Kode Dokter", "Nama Dokter", "Hari Kerja", "Jam Mulai", "Jam Selesai", "Poliklinik", "kdpoli"};
         tabMode=new DefaultTableModel(null,row){
              @Override public boolean isCellEditable(int rowIndex, int colIndex){
                 boolean a = false;
@@ -65,35 +65,39 @@ public class DlgJadwal extends javax.swing.JDialog {
                 return a;
              }
              Class[] types = new Class[] {
-                 java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, 
-                 java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                 java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class,
+                 java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
              };
              @Override
              public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
              }
         };
+        
         tbJadwal.setModel(tabMode);
-
         tbJadwal.setPreferredScrollableViewportSize(new Dimension(500,500));
         tbJadwal.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 8; i++) {
             TableColumn column = tbJadwal.getColumnModel().getColumn(i);
-            if(i==0){
+            if (i == 0) {
                 column.setPreferredWidth(20);
-            }else if(i==1){
+            } else if (i == 1) {
                 column.setPreferredWidth(100);
-            }else if(i==2){
+            } else if (i == 2) {
                 column.setPreferredWidth(250);
-            }else if(i==3){
+            } else if (i == 3) {
                 column.setPreferredWidth(150);
-            }else if(i==4){
+            } else if (i == 4) {
                 column.setPreferredWidth(150);
-            }else if(i==5){
+            } else if (i == 5) {
                 column.setPreferredWidth(150);
-            }else if(i==6){
+            } else if (i == 6) {
                 column.setPreferredWidth(250);
+            } else if (i == 7) {
+//                column.setPreferredWidth(250);
+                column.setMinWidth(0);
+                column.setMaxWidth(0);
             }
         }
         tbJadwal.setDefaultRenderer(Object.class, new WarnaTable());
@@ -730,7 +734,9 @@ public class DlgJadwal extends javax.swing.JDialog {
     private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHapusActionPerformed
         for (int i = 0; i < tbJadwal.getRowCount(); i++) {
             if (tbJadwal.getValueAt(i, 0).toString().equals("true")) {
-                Sequel.queryu("delete from jadwal where kd_dokter='" + tbJadwal.getValueAt(i, 1).toString() + "' and hari_kerja='" + tbJadwal.getValueAt(i, 3).toString() + "'");
+                Sequel.queryu("delete from jadwal where kd_dokter='" + tbJadwal.getValueAt(i, 1).toString() + "' "
+                        + "and hari_kerja='" + tbJadwal.getValueAt(i, 3).toString() + "' "
+                        + "and kd_poli='" + tbJadwal.getValueAt(i, 7).toString() + "'");
             }
         }
         tampil();
@@ -987,7 +993,7 @@ private void BtnPoliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     private void tampil() {
         Valid.tabelKosong(tabMode);
         try {
-            ps = koneksi.prepareStatement("select j.kd_dokter, d.nm_dokter, j.hari_kerja, j.jam_mulai, j.jam_selesai, pl.nm_poli from jadwal j "
+            ps = koneksi.prepareStatement("select j.kd_dokter, d.nm_dokter, j.hari_kerja, j.jam_mulai, j.jam_selesai, pl.nm_poli, j.kd_poli from jadwal j "
                     + "inner join poliklinik pl on pl.kd_poli=j.kd_poli inner join dokter d on d.kd_dokter=j.kd_dokter where "
                     + "j.kd_dokter like ? or "
                     + "d.nm_dokter like ? or "
@@ -1010,7 +1016,9 @@ private void BtnPoliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                         rs.getString("hari_kerja"),
                         rs.getString("jam_mulai"),
                         rs.getString("jam_selesai"),
-                        rs.getString("nm_poli")});
+                        rs.getString("nm_poli"),
+                        rs.getString("kd_poli")
+                    });
                 }
             } catch (Exception e) {
                 System.out.println("Notifikasi : " + e);
@@ -1057,9 +1065,9 @@ private void BtnPoliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
             cmbDtk1.setSelectedItem(tabMode.getValueAt(row,4).toString().substring(6,8));
             cmbJam2.setSelectedItem(tabMode.getValueAt(row,5).toString().substring(0,2));
             cmbMnt2.setSelectedItem(tabMode.getValueAt(row,5).toString().substring(3,5));
-            cmbDtk2.setSelectedItem(tabMode.getValueAt(row,5).toString().substring(6,8));
+            cmbDtk2.setSelectedItem(tabMode.getValueAt(row,5).toString().substring(6,8));            
             TPoli.setText(tabMode.getValueAt(row,6).toString());
-            Sequel.cariIsi("select kd_poli from poliklinik where nm_poli='"+tabMode.getValueAt(row,6).toString()+"'",KdPoli);
+            KdPoli.setText(tabMode.getValueAt(row,7).toString());
         }
     }  
     
