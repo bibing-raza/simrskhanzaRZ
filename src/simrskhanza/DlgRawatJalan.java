@@ -5611,6 +5611,8 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
             Valid.textKosong(KdDok, "Dokter");
         } else if (TResepObat.getText().trim().equals("")) {
             Valid.textKosong(TResepObat, "nama obat");
+        } else if (Sequel.cariInteger("select count(-1) from dokter where kd_dokter='" + var.getkode() + "'") == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Anda bukan dokter,.!! Fitur/menu ini khusus untuk dokter." );
         } else {
             Valid.autoNomer3("select ifnull(MAX(CONVERT(RIGHT(noId,6),signed)),0) from catatan_resep where tgl_perawatan like '%" + DTPTgl.getSelectedItem().toString().substring(6, 10) + "%' ", DTPTgl.getSelectedItem().toString().substring(6, 10), 6, noIdObat);
             try {
