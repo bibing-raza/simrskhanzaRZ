@@ -9159,12 +9159,12 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 //                        }
 
                     } else if (Rganti2.isSelected() == true) {
-                        kamarCovid = "";
-                        kamarCovid = Sequel.cariIsi("SELECT b.kd_bangsal FROM kamar k INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                                + "WHERE k.kd_kamar='" + tbKamIn.getValueAt(tbKamIn.getSelectedRow(), 7).toString() + "'");
+//                        kamarCovid = "";
+//                        kamarCovid = Sequel.cariIsi("SELECT b.kd_bangsal FROM kamar k INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+//                                + "WHERE k.kd_kamar='" + tbKamIn.getValueAt(tbKamIn.getSelectedRow(), 7).toString() + "'");
 
                         //ini hanya untuk admin utama & admin vip/isolasi covid aja
-                        if (var.getkode().equals("Admin Utama") || var.gettombolnota_billing()) {
+//                        if (var.getkode().equals("Admin Utama") || var.gettombolnota_billing()) {
                             if (Double.parseDouble(TJmlHari.getText().trim()) < 0) {
                                 JOptionPane.showMessageDialog(null, "Data Tidak Bisa disimpan, Cek Tanggal yang Anda Input !!!");
                             } else {
@@ -9180,29 +9180,29 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
                                 tampil();
                                 break;
                             }
-                        } else {
-                            if (kamarCovid.equals("ISOV") || kamarCovid.equals("ISOVB")) {
-                                JOptionPane.showMessageDialog(null, "Khusus utk. pasien Covid-19, silahkan gunakan pilihan No. 3, kamar sebelumnya dihitung sebagai data kunjungan...!!!");
-                                tampil();
-                                break;
-                            } else {
-                                if (Double.parseDouble(TJmlHari.getText().trim()) < 0) {
-                                    JOptionPane.showMessageDialog(null, "Data Tidak Bisa disimpan, Cek Tanggal yang Anda Input !!!");
-                                } else {
-                                    Sequel.queryu("update kamar_inap set kd_kamar='" + kdkamarpindah.getText() + "',trf_kamar='" + TTarifpindah.getText() + "',"
-                                            + "lama='" + TJmlHaripindah.getText() + "',ttl_biaya='" + ttlbiayapindah.getText()
-                                            + "' where no_rawat='" + tbKamIn.getValueAt(tbKamIn.getSelectedRow(), 0).toString()
-                                            + "' and kd_kamar='" + tbKamIn.getValueAt(tbKamIn.getSelectedRow(), 7).toString()
-                                            + "' and tgl_masuk='" + tbKamIn.getValueAt(tbKamIn.getSelectedRow(), 12).toString()
-                                            + "' and jam_masuk='" + tbKamIn.getValueAt(tbKamIn.getSelectedRow(), 13).toString() + "'");
-                                    Sequel.mengedit("kamar", "kd_kamar='" + kdkamarpindah.getText() + "'", "status='ISI'");
-                                    Sequel.mengedit("kamar", "kd_kamar='" + tbKamIn.getValueAt(tbKamIn.getSelectedRow(), 7).toString() + "'", "status='KOSONG'");
-                                    WindowPindahKamar.dispose();
-                                    tampil();
-                                    break;
-                                }
-                            }
-                        }
+//                        } else {
+//                            if (kamarCovid.equals("ISOV") || kamarCovid.equals("ISOVB")) {
+//                                JOptionPane.showMessageDialog(null, "Khusus utk. pasien Covid-19, silahkan gunakan pilihan No. 3, kamar sebelumnya dihitung sebagai data kunjungan...!!!");
+//                                tampil();
+//                                break;
+//                            } else {
+//                                if (Double.parseDouble(TJmlHari.getText().trim()) < 0) {
+//                                    JOptionPane.showMessageDialog(null, "Data Tidak Bisa disimpan, Cek Tanggal yang Anda Input !!!");
+//                                } else {
+//                                    Sequel.queryu("update kamar_inap set kd_kamar='" + kdkamarpindah.getText() + "',trf_kamar='" + TTarifpindah.getText() + "',"
+//                                            + "lama='" + TJmlHaripindah.getText() + "',ttl_biaya='" + ttlbiayapindah.getText()
+//                                            + "' where no_rawat='" + tbKamIn.getValueAt(tbKamIn.getSelectedRow(), 0).toString()
+//                                            + "' and kd_kamar='" + tbKamIn.getValueAt(tbKamIn.getSelectedRow(), 7).toString()
+//                                            + "' and tgl_masuk='" + tbKamIn.getValueAt(tbKamIn.getSelectedRow(), 12).toString()
+//                                            + "' and jam_masuk='" + tbKamIn.getValueAt(tbKamIn.getSelectedRow(), 13).toString() + "'");
+//                                    Sequel.mengedit("kamar", "kd_kamar='" + kdkamarpindah.getText() + "'", "status='ISI'");
+//                                    Sequel.mengedit("kamar", "kd_kamar='" + tbKamIn.getValueAt(tbKamIn.getSelectedRow(), 7).toString() + "'", "status='KOSONG'");
+//                                    WindowPindahKamar.dispose();
+//                                    tampil();
+//                                    break;
+//                                }
+//                            }
+//                        }
 
                     } else if (Rganti3.isSelected() == true) {
                         i = 1;
