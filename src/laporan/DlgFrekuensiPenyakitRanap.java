@@ -270,6 +270,8 @@ public class DlgFrekuensiPenyakitRanap extends javax.swing.JDialog {
             public void keyReleased(KeyEvent e) {
             }
         });
+        
+        jlhPenyakit.setDocument(new batasInput((byte) 2).getOnlyAngka(jlhPenyakit));
         emptText();        
     }
     
@@ -332,6 +334,9 @@ public class DlgFrekuensiPenyakitRanap extends javax.swing.JDialog {
         cmbRuangKhusus4 = new widget.ComboBox();
         cmbRuangKhusus5 = new widget.ComboBox();
         panelisi1 = new widget.panelisi();
+        label20 = new widget.Label();
+        jlhPenyakit = new widget.TextBox();
+        label21 = new widget.Label();
         jLabel6 = new widget.Label();
         TCari = new widget.TextBox();
         BtnAll = new widget.Button();
@@ -455,7 +460,7 @@ public class DlgFrekuensiPenyakitRanap extends javax.swing.JDialog {
         ppDaftarTerbanyakPerRuangan1.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         ppDaftarTerbanyakPerRuangan1.setForeground(new java.awt.Color(0, 0, 0));
         ppDaftarTerbanyakPerRuangan1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
-        ppDaftarTerbanyakPerRuangan1.setText("Daftar 10 Penyakit Terbanyak Per Ruangan");
+        ppDaftarTerbanyakPerRuangan1.setText("Daftar Penyakit Terbanyak Per Ruangan");
         ppDaftarTerbanyakPerRuangan1.setName("ppDaftarTerbanyakPerRuangan1"); // NOI18N
         ppDaftarTerbanyakPerRuangan1.setPreferredSize(new java.awt.Dimension(330, 25));
         ppDaftarTerbanyakPerRuangan1.addActionListener(new java.awt.event.ActionListener() {
@@ -468,7 +473,7 @@ public class DlgFrekuensiPenyakitRanap extends javax.swing.JDialog {
         ppDaftarTerbanyakSemuaRuangan1.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         ppDaftarTerbanyakSemuaRuangan1.setForeground(new java.awt.Color(0, 0, 0));
         ppDaftarTerbanyakSemuaRuangan1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
-        ppDaftarTerbanyakSemuaRuangan1.setText("Daftar 10 Penyakit Terbanyak Semua Ruangan");
+        ppDaftarTerbanyakSemuaRuangan1.setText("Daftar Penyakit Terbanyak Semua Ruangan");
         ppDaftarTerbanyakSemuaRuangan1.setName("ppDaftarTerbanyakSemuaRuangan1"); // NOI18N
         ppDaftarTerbanyakSemuaRuangan1.setPreferredSize(new java.awt.Dimension(330, 25));
         ppDaftarTerbanyakSemuaRuangan1.addActionListener(new java.awt.event.ActionListener() {
@@ -494,7 +499,7 @@ public class DlgFrekuensiPenyakitRanap extends javax.swing.JDialog {
         ppDaftarTerbanyakPerRuanganMati1.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         ppDaftarTerbanyakPerRuanganMati1.setForeground(new java.awt.Color(0, 0, 0));
         ppDaftarTerbanyakPerRuanganMati1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
-        ppDaftarTerbanyakPerRuanganMati1.setText("Daftar 10 Penyakit Terbanyak Kematian Per Ruangan");
+        ppDaftarTerbanyakPerRuanganMati1.setText("Daftar Penyakit Terbanyak Kematian Per Ruangan");
         ppDaftarTerbanyakPerRuanganMati1.setName("ppDaftarTerbanyakPerRuanganMati1"); // NOI18N
         ppDaftarTerbanyakPerRuanganMati1.setPreferredSize(new java.awt.Dimension(330, 25));
         ppDaftarTerbanyakPerRuanganMati1.addActionListener(new java.awt.event.ActionListener() {
@@ -507,7 +512,7 @@ public class DlgFrekuensiPenyakitRanap extends javax.swing.JDialog {
         ppDaftarTerbanyakSemuaRuanganMati1.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         ppDaftarTerbanyakSemuaRuanganMati1.setForeground(new java.awt.Color(0, 0, 0));
         ppDaftarTerbanyakSemuaRuanganMati1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
-        ppDaftarTerbanyakSemuaRuanganMati1.setText("Daftar 10 Penyakit Terbanyak Kematian Semua Ruangan");
+        ppDaftarTerbanyakSemuaRuanganMati1.setText("Daftar Penyakit Terbanyak Kematian Semua Ruangan");
         ppDaftarTerbanyakSemuaRuanganMati1.setName("ppDaftarTerbanyakSemuaRuanganMati1"); // NOI18N
         ppDaftarTerbanyakSemuaRuanganMati1.setPreferredSize(new java.awt.Dimension(330, 25));
         ppDaftarTerbanyakSemuaRuanganMati1.addActionListener(new java.awt.event.ActionListener() {
@@ -544,7 +549,7 @@ public class DlgFrekuensiPenyakitRanap extends javax.swing.JDialog {
         ppDaftarTerbanyakPerRuangan.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         ppDaftarTerbanyakPerRuangan.setForeground(new java.awt.Color(0, 0, 0));
         ppDaftarTerbanyakPerRuangan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
-        ppDaftarTerbanyakPerRuangan.setText("Daftar 10 Penyakit Terbanyak Per Ruangan");
+        ppDaftarTerbanyakPerRuangan.setText("Daftar Penyakit Terbanyak Per Ruangan");
         ppDaftarTerbanyakPerRuangan.setName("ppDaftarTerbanyakPerRuangan"); // NOI18N
         ppDaftarTerbanyakPerRuangan.setPreferredSize(new java.awt.Dimension(330, 25));
         ppDaftarTerbanyakPerRuangan.addActionListener(new java.awt.event.ActionListener() {
@@ -557,7 +562,7 @@ public class DlgFrekuensiPenyakitRanap extends javax.swing.JDialog {
         ppDaftarTerbanyakSemuaRuangan.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         ppDaftarTerbanyakSemuaRuangan.setForeground(new java.awt.Color(0, 0, 0));
         ppDaftarTerbanyakSemuaRuangan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
-        ppDaftarTerbanyakSemuaRuangan.setText("Daftar 10 Penyakit Terbanyak Semua Ruangan");
+        ppDaftarTerbanyakSemuaRuangan.setText("Daftar Penyakit Terbanyak Semua Ruangan");
         ppDaftarTerbanyakSemuaRuangan.setName("ppDaftarTerbanyakSemuaRuangan"); // NOI18N
         ppDaftarTerbanyakSemuaRuangan.setPreferredSize(new java.awt.Dimension(330, 25));
         ppDaftarTerbanyakSemuaRuangan.addActionListener(new java.awt.event.ActionListener() {
@@ -583,7 +588,7 @@ public class DlgFrekuensiPenyakitRanap extends javax.swing.JDialog {
         ppDaftarTerbanyakPerRuanganMati.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         ppDaftarTerbanyakPerRuanganMati.setForeground(new java.awt.Color(0, 0, 0));
         ppDaftarTerbanyakPerRuanganMati.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
-        ppDaftarTerbanyakPerRuanganMati.setText("Daftar 10 Penyakit Terbanyak Kematian Per Ruangan");
+        ppDaftarTerbanyakPerRuanganMati.setText("Daftar Penyakit Terbanyak Kematian Per Ruangan");
         ppDaftarTerbanyakPerRuanganMati.setName("ppDaftarTerbanyakPerRuanganMati"); // NOI18N
         ppDaftarTerbanyakPerRuanganMati.setPreferredSize(new java.awt.Dimension(330, 25));
         ppDaftarTerbanyakPerRuanganMati.addActionListener(new java.awt.event.ActionListener() {
@@ -596,7 +601,7 @@ public class DlgFrekuensiPenyakitRanap extends javax.swing.JDialog {
         ppDaftarTerbanyakSemuaRuanganMati.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         ppDaftarTerbanyakSemuaRuanganMati.setForeground(new java.awt.Color(0, 0, 0));
         ppDaftarTerbanyakSemuaRuanganMati.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
-        ppDaftarTerbanyakSemuaRuanganMati.setText("Daftar 10 Penyakit Terbanyak Kematian Semua Ruangan");
+        ppDaftarTerbanyakSemuaRuanganMati.setText("Daftar Penyakit Terbanyak Kematian Semua Ruangan");
         ppDaftarTerbanyakSemuaRuanganMati.setName("ppDaftarTerbanyakSemuaRuanganMati"); // NOI18N
         ppDaftarTerbanyakSemuaRuanganMati.setPreferredSize(new java.awt.Dimension(330, 25));
         ppDaftarTerbanyakSemuaRuanganMati.addActionListener(new java.awt.event.ActionListener() {
@@ -881,6 +886,25 @@ public class DlgFrekuensiPenyakitRanap extends javax.swing.JDialog {
         panelisi1.setPreferredSize(new java.awt.Dimension(100, 56));
         panelisi1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 9));
 
+        label20.setForeground(new java.awt.Color(0, 0, 0));
+        label20.setText("Jumlah : ");
+        label20.setName("label20"); // NOI18N
+        label20.setPreferredSize(new java.awt.Dimension(60, 23));
+        panelisi1.add(label20);
+
+        jlhPenyakit.setForeground(new java.awt.Color(0, 0, 0));
+        jlhPenyakit.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jlhPenyakit.setName("jlhPenyakit"); // NOI18N
+        jlhPenyakit.setPreferredSize(new java.awt.Dimension(40, 23));
+        panelisi1.add(jlhPenyakit);
+
+        label21.setForeground(new java.awt.Color(0, 0, 0));
+        label21.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        label21.setText("Besar Penyakit.");
+        label21.setName("label21"); // NOI18N
+        label21.setPreferredSize(new java.awt.Dimension(80, 23));
+        panelisi1.add(label21);
+
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Key Word :");
         jLabel6.setName("jLabel6"); // NOI18N
@@ -976,7 +1000,7 @@ public class DlgFrekuensiPenyakitRanap extends javax.swing.JDialog {
         label9.setForeground(new java.awt.Color(0, 0, 0));
         label9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         label9.setName("label9"); // NOI18N
-        label9.setPreferredSize(new java.awt.Dimension(415, 30));
+        label9.setPreferredSize(new java.awt.Dimension(300, 30));
         panelisi1.add(label9);
 
         internalFrame1.add(panelisi1, java.awt.BorderLayout.PAGE_END);
@@ -2846,50 +2870,56 @@ private void ppGrafikTerkecilPieActionPerformed(java.awt.event.ActionEvent evt) 
     private void ppDaftarTerbanyakSemuaRuanganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppDaftarTerbanyakSemuaRuanganActionPerformed
         if (var.getkode().equals("Admin Utama") || (var.getkode().equals("PPRM"))) {
             if (NmRuangan.getSelectedItem().equals("SEMUA RUANG")) {
-                this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-                Map<String, Object> param = new HashMap<>();
-                param.put("namars", var.getnamars());
-                param.put("alamatrs", var.getalamatrs());
-                param.put("kotars", var.getkabupatenrs());
-                param.put("propinsirs", var.getpropinsirs());
-                param.put("kontakrs", var.getkontakrs());
-                param.put("emailrs", var.getemailrs());
-                param.put("logo", Sequel.cariGambar("select logo from setting"));
-                param.put("periode", "PERIODE TGL. KELUAR " + Tgl1.getSelectedItem() + " S.D " + Tgl2.getSelectedItem());
-                Valid.MyReport("rpDaftar10BesarDiagnosaSI.jrxml", "report", "::[ Daftar 10 Besar Penyakit Terbanyak Semua Ruangan Inap Berdasarkan Tgl. Keluar ]::",
-                        " SELECT a.kd_penyakit AS KD_ICD_10, a.ciri_ciri AS Deskripsi_Diagnosa, IFNULL(b.qty, 0) LK, ifnull(c.qty, 0) PR, IFNULL(b.qty, 0) + IFNULL(c.qty, 0) Total "
-                        + " FROM ((SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, count(*) AS qty "
-                        + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
-                        + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
-                        + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
-                        + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
-                        + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
-                        + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
-                        + " WHERE diagnosa_pasien. STATUS = 'Ranap' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
-                        + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
-                        + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS a "
-                        + " LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
-                        + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
-                        + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
-                        + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
-                        + " WHERE diagnosa_pasien. STATUS = 'Ranap' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
-                        + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
-                        + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' AND pasien.jk = 'L' GROUP BY diagnosa_pasien.kd_penyakit "
-                        + " ORDER BY qty DESC) AS b ON b.kd_penyakit = a.kd_penyakit LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
-                        + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
-                        + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
-                        + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
-                        + " WHERE diagnosa_pasien. STATUS = 'Ranap' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
-                        + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
-                        + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' AND pasien.jk = 'P' GROUP BY diagnosa_pasien.kd_penyakit "
-                        + " ORDER BY qty DESC) AS c ON c.kd_penyakit = a.kd_penyakit) LIMIT 10", param);
-                this.setCursor(Cursor.getDefaultCursor());
+                if (jlhPenyakit.getText().trim().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Silakan isi dulu jumlah besar penyakit yang akan diambil datanya...!!!");
+                    jlhPenyakit.requestFocus();
+                } else {
+                    this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                    Map<String, Object> param = new HashMap<>();
+                    param.put("namars", var.getnamars());
+                    param.put("alamatrs", var.getalamatrs());
+                    param.put("kotars", var.getkabupatenrs());
+                    param.put("propinsirs", var.getpropinsirs());
+                    param.put("kontakrs", var.getkontakrs());
+                    param.put("emailrs", var.getemailrs());
+                    param.put("logo", Sequel.cariGambar("select logo from setting"));
+                    param.put("periode", "PERIODE TGL. KELUAR " + Tgl1.getSelectedItem() + " S.D " + Tgl2.getSelectedItem());
+                    param.put("jlhData", jlhPenyakit.getText());
+                    Valid.MyReport("rpDaftar10BesarDiagnosaSI.jrxml", "report", "::[ Daftar " + jlhPenyakit.getText() + " Besar Penyakit Terbanyak Semua Ruangan Inap Berdasarkan Tgl. Keluar ]::",
+                            " SELECT a.kd_penyakit AS KD_ICD_10, a.ciri_ciri AS Deskripsi_Diagnosa, IFNULL(b.qty, 0) LK, ifnull(c.qty, 0) PR, IFNULL(b.qty, 0) + IFNULL(c.qty, 0) Total "
+                            + " FROM ((SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, count(*) AS qty "
+                            + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
+                            + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
+                            + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
+                            + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
+                            + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
+                            + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
+                            + " WHERE diagnosa_pasien. STATUS = 'Ranap' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
+                            + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
+                            + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS a "
+                            + " LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
+                            + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
+                            + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
+                            + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
+                            + " WHERE diagnosa_pasien. STATUS = 'Ranap' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
+                            + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
+                            + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' AND pasien.jk = 'L' GROUP BY diagnosa_pasien.kd_penyakit "
+                            + " ORDER BY qty DESC) AS b ON b.kd_penyakit = a.kd_penyakit LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
+                            + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
+                            + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
+                            + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
+                            + " WHERE diagnosa_pasien. STATUS = 'Ranap' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
+                            + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
+                            + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' AND pasien.jk = 'P' GROUP BY diagnosa_pasien.kd_penyakit "
+                            + " ORDER BY qty DESC) AS c ON c.kd_penyakit = a.kd_penyakit) LIMIT " + jlhPenyakit.getText() + "", param);
+                    this.setCursor(Cursor.getDefaultCursor());
+                }
             } else if (!NmRuangan.getSelectedItem().equals("SEMUA RUANG")) {
                 JOptionPane.showMessageDialog(null, "Silakan pilih dulu SEMUA RUANG untuk nama ruangan inapnya...!!!");
                 NmRuangan.requestFocus();
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Untuk mencetak lap. 10 besar penyakit semua ruangan inap, silakan koordinasi dg. Inst. Rekam Medik...!!!");
+            JOptionPane.showMessageDialog(null, "Untuk mencetak lap. penyakit terbanyak semua ruangan inap, silakan koordinasi dg. Inst. Rekam Medik...!!!");
             Tgl1.requestFocus();
         }
     }//GEN-LAST:event_ppDaftarTerbanyakSemuaRuanganActionPerformed
@@ -2985,53 +3015,59 @@ private void ppGrafikTerkecilPieActionPerformed(java.awt.event.ActionEvent evt) 
     private void ppDaftarTerbanyakSemuaRuanganMatiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppDaftarTerbanyakSemuaRuanganMatiActionPerformed
         if (var.getkode().equals("Admin Utama") || (var.getkode().equals("PPRM"))) {
             if (NmRuangan.getSelectedItem().equals("SEMUA RUANG")) {
-                this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-                Map<String, Object> param = new HashMap<>();
-                param.put("namars", var.getnamars());
-                param.put("alamatrs", var.getalamatrs());
-                param.put("kotars", var.getkabupatenrs());
-                param.put("propinsirs", var.getpropinsirs());
-                param.put("kontakrs", var.getkontakrs());
-                param.put("emailrs", var.getemailrs());
-                param.put("periode", "PERIODE TGL. KELUAR " + Tgl1.getSelectedItem() + " S.D " + Tgl2.getSelectedItem());
-                param.put("logo", Sequel.cariGambar("select logo from setting"));
-                Valid.MyReport("rpDaftar10BesarDiagnosaSIMati.jrxml", "report", "::[ Daftar 10 Besar Penyakit Terbanyak Penyebab Kematian Semua Ruangan Inap Berdasarkan Tgl. Keluar ]::",
-                        " SELECT a.kd_penyakit AS KD_ICD_10, a.ciri_ciri AS Deskripsi_Diagnosa, IFNULL(b.qty, 0) LK, ifnull(c.qty, 0) PR, "
-                        + " IFNULL(b.qty, 0) + IFNULL(c.qty, 0) Total FROM ((SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, count(*) AS qty "
-                        + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
-                        + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
-                        + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
-                        + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
-                        + " WHERE diagnosa_pasien. STATUS = 'Ranap' AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%' "
-                        + " AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
-                        + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                        + " AND kamar_inap.stts_pulang like 'Meninggal%' GROUP BY diagnosa_pasien.kd_penyakit "
-                        + " ORDER BY qty DESC) AS a LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
-                        + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
-                        + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
-                        + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
-                        + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis WHERE diagnosa_pasien.STATUS = 'Ranap' "
-                        + " AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%' "
-                        + " AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
-                        + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                        + " AND kamar_inap.stts_pulang like 'Meninggal%' AND pasien.jk = 'L' GROUP BY diagnosa_pasien.kd_penyakit "
-                        + " ORDER BY qty DESC) AS b ON b.kd_penyakit = a.kd_penyakit LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
-                        + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
-                        + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
-                        + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
-                        + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis WHERE diagnosa_pasien. STATUS = 'Ranap' "
-                        + " AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%'  "
-                        + " AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%'  "
-                        + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                        + " AND kamar_inap.stts_pulang like 'Meninggal%' AND pasien.jk = 'P' "
-                        + " GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS c ON c.kd_penyakit = a.kd_penyakit) LIMIT 10", param);
-                this.setCursor(Cursor.getDefaultCursor());
+                if (jlhPenyakit.getText().trim().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Silakan isi dulu jumlah besar penyakit yang akan diambil datanya...!!!");
+                    jlhPenyakit.requestFocus();
+                } else {
+                    this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                    Map<String, Object> param = new HashMap<>();
+                    param.put("namars", var.getnamars());
+                    param.put("alamatrs", var.getalamatrs());
+                    param.put("kotars", var.getkabupatenrs());
+                    param.put("propinsirs", var.getpropinsirs());
+                    param.put("kontakrs", var.getkontakrs());
+                    param.put("emailrs", var.getemailrs());
+                    param.put("periode", "PERIODE TGL. KELUAR " + Tgl1.getSelectedItem() + " S.D " + Tgl2.getSelectedItem());
+                    param.put("logo", Sequel.cariGambar("select logo from setting"));
+                    param.put("jlhData", jlhPenyakit.getText());
+                    Valid.MyReport("rpDaftar10BesarDiagnosaSIMati.jrxml", "report", "::[ Daftar " + jlhPenyakit.getText() + " Besar Penyakit Terbanyak Penyebab Kematian Semua Ruangan Inap Berdasarkan Tgl. Keluar ]::",
+                            " SELECT a.kd_penyakit AS KD_ICD_10, a.ciri_ciri AS Deskripsi_Diagnosa, IFNULL(b.qty, 0) LK, ifnull(c.qty, 0) PR, "
+                            + " IFNULL(b.qty, 0) + IFNULL(c.qty, 0) Total FROM ((SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, count(*) AS qty "
+                            + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
+                            + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
+                            + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
+                            + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
+                            + " WHERE diagnosa_pasien. STATUS = 'Ranap' AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%' "
+                            + " AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
+                            + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                            + " AND kamar_inap.stts_pulang like 'Meninggal%' GROUP BY diagnosa_pasien.kd_penyakit "
+                            + " ORDER BY qty DESC) AS a LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
+                            + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
+                            + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
+                            + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
+                            + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis WHERE diagnosa_pasien.STATUS = 'Ranap' "
+                            + " AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%' "
+                            + " AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
+                            + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                            + " AND kamar_inap.stts_pulang like 'Meninggal%' AND pasien.jk = 'L' GROUP BY diagnosa_pasien.kd_penyakit "
+                            + " ORDER BY qty DESC) AS b ON b.kd_penyakit = a.kd_penyakit LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
+                            + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
+                            + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
+                            + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
+                            + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis WHERE diagnosa_pasien. STATUS = 'Ranap' "
+                            + " AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%'  "
+                            + " AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%'  "
+                            + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                            + " AND kamar_inap.stts_pulang like 'Meninggal%' AND pasien.jk = 'P' "
+                            + " GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS c ON c.kd_penyakit = a.kd_penyakit) LIMIT " + jlhPenyakit.getText() + "", param);
+                    this.setCursor(Cursor.getDefaultCursor());
+                }
             } else if (!NmRuangan.getSelectedItem().equals("SEMUA RUANG")) {
                 JOptionPane.showMessageDialog(null, "Silakan pilih dulu SEMUA RUANG untuk nama ruangan inapnya...!!!");
                 NmRuangan.requestFocus();
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Untuk mencetak lap. 10 besar penyakit kematian semua ruangan, silakan koordinasi dg. Inst. Rekam Medik...!!!");
+            JOptionPane.showMessageDialog(null, "Untuk mencetak lap. penyakit terbanyak kematian semua ruangan, silakan koordinasi dg. Inst. Rekam Medik...!!!");
             Tgl1.requestFocus();
         }
     }//GEN-LAST:event_ppDaftarTerbanyakSemuaRuanganMatiActionPerformed
@@ -3181,50 +3217,56 @@ private void ppGrafikTerkecilPieActionPerformed(java.awt.event.ActionEvent evt) 
     private void ppDaftarTerbanyakSemuaRuangan1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppDaftarTerbanyakSemuaRuangan1ActionPerformed
         if (var.getkode().equals("Admin Utama") || (var.getkode().equals("PPRM"))) {
             if (NmRuangan.getSelectedItem().equals("SEMUA RUANG")) {
-                this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-                Map<String, Object> param = new HashMap<>();
-                param.put("namars", var.getnamars());
-                param.put("alamatrs", var.getalamatrs());
-                param.put("kotars", var.getkabupatenrs());
-                param.put("propinsirs", var.getpropinsirs());
-                param.put("kontakrs", var.getkontakrs());
-                param.put("emailrs", var.getemailrs());
-                param.put("logo", Sequel.cariGambar("select logo from setting"));
-                param.put("periode", "PERIODE TGL. MASUK " + Tgl1.getSelectedItem() + " S.D " + Tgl2.getSelectedItem());
-                Valid.MyReport("rpDaftar10BesarDiagnosaSI.jrxml", "report", "::[ Daftar 10 Besar Penyakit Terbanyak Semua Ruangan Inap Berdasarkan Tgl. Masuk ]::",
-                        " SELECT a.kd_penyakit AS KD_ICD_10, a.ciri_ciri AS Deskripsi_Diagnosa, IFNULL(b.qty, 0) LK, ifnull(c.qty, 0) PR, IFNULL(b.qty, 0) + IFNULL(c.qty, 0) Total "
-                        + " FROM ((SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, count(*) AS qty "
-                        + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
-                        + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
-                        + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
-                        + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
-                        + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
-                        + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
-                        + " WHERE diagnosa_pasien. STATUS = 'Ranap' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
-                        + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
-                        + " AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS a "
-                        + " LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
-                        + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
-                        + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
-                        + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
-                        + " WHERE diagnosa_pasien. STATUS = 'Ranap' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
-                        + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
-                        + " AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' AND pasien.jk = 'L' GROUP BY diagnosa_pasien.kd_penyakit "
-                        + " ORDER BY qty DESC) AS b ON b.kd_penyakit = a.kd_penyakit LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
-                        + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
-                        + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
-                        + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
-                        + " WHERE diagnosa_pasien. STATUS = 'Ranap' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
-                        + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
-                        + " AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' AND pasien.jk = 'P' GROUP BY diagnosa_pasien.kd_penyakit "
-                        + " ORDER BY qty DESC) AS c ON c.kd_penyakit = a.kd_penyakit) LIMIT 10", param);
-                this.setCursor(Cursor.getDefaultCursor());
+                if (jlhPenyakit.getText().trim().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Silakan isi dulu jumlah besar penyakit yang akan diambil datanya...!!!");
+                    jlhPenyakit.requestFocus();
+                } else {
+                    this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                    Map<String, Object> param = new HashMap<>();
+                    param.put("namars", var.getnamars());
+                    param.put("alamatrs", var.getalamatrs());
+                    param.put("kotars", var.getkabupatenrs());
+                    param.put("propinsirs", var.getpropinsirs());
+                    param.put("kontakrs", var.getkontakrs());
+                    param.put("emailrs", var.getemailrs());
+                    param.put("logo", Sequel.cariGambar("select logo from setting"));
+                    param.put("periode", "PERIODE TGL. MASUK " + Tgl1.getSelectedItem() + " S.D " + Tgl2.getSelectedItem());
+                    param.put("jlhData", jlhPenyakit.getText());
+                    Valid.MyReport("rpDaftar10BesarDiagnosaSI.jrxml", "report", "::[ Daftar " + jlhPenyakit.getText() + " Besar Penyakit Terbanyak Semua Ruangan Inap Berdasarkan Tgl. Masuk ]::",
+                            " SELECT a.kd_penyakit AS KD_ICD_10, a.ciri_ciri AS Deskripsi_Diagnosa, IFNULL(b.qty, 0) LK, ifnull(c.qty, 0) PR, IFNULL(b.qty, 0) + IFNULL(c.qty, 0) Total "
+                            + " FROM ((SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, count(*) AS qty "
+                            + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
+                            + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
+                            + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
+                            + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
+                            + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
+                            + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
+                            + " WHERE diagnosa_pasien. STATUS = 'Ranap' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
+                            + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
+                            + " AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS a "
+                            + " LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
+                            + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
+                            + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
+                            + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
+                            + " WHERE diagnosa_pasien. STATUS = 'Ranap' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
+                            + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
+                            + " AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' AND pasien.jk = 'L' GROUP BY diagnosa_pasien.kd_penyakit "
+                            + " ORDER BY qty DESC) AS b ON b.kd_penyakit = a.kd_penyakit LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
+                            + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
+                            + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
+                            + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
+                            + " WHERE diagnosa_pasien. STATUS = 'Ranap' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
+                            + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
+                            + " AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' AND pasien.jk = 'P' GROUP BY diagnosa_pasien.kd_penyakit "
+                            + " ORDER BY qty DESC) AS c ON c.kd_penyakit = a.kd_penyakit) LIMIT " + jlhPenyakit.getText() + "", param);
+                    this.setCursor(Cursor.getDefaultCursor());
+                }
             } else if (!NmRuangan.getSelectedItem().equals("SEMUA RUANG")) {
                 JOptionPane.showMessageDialog(null, "Silakan pilih dulu SEMUA RUANG untuk nama ruangan inapnya...!!!");
                 NmRuangan.requestFocus();
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Untuk mencetak lap. 10 besar penyakit semua ruangan inap, silakan koordinasi dg. Inst. Rekam Medik...!!!");
+            JOptionPane.showMessageDialog(null, "Untuk mencetak lap. penyakit terbanyak semua ruangan inap, silakan koordinasi dg. Inst. Rekam Medik...!!!");
             Tgl1.requestFocus();
         }
     }//GEN-LAST:event_ppDaftarTerbanyakSemuaRuangan1ActionPerformed
@@ -3320,53 +3362,59 @@ private void ppGrafikTerkecilPieActionPerformed(java.awt.event.ActionEvent evt) 
     private void ppDaftarTerbanyakSemuaRuanganMati1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppDaftarTerbanyakSemuaRuanganMati1ActionPerformed
         if (var.getkode().equals("Admin Utama") || (var.getkode().equals("PPRM"))) {
             if (NmRuangan.getSelectedItem().equals("SEMUA RUANG")) {
-                this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-                Map<String, Object> param = new HashMap<>();
-                param.put("namars", var.getnamars());
-                param.put("alamatrs", var.getalamatrs());
-                param.put("kotars", var.getkabupatenrs());
-                param.put("propinsirs", var.getpropinsirs());
-                param.put("kontakrs", var.getkontakrs());
-                param.put("emailrs", var.getemailrs());
-                param.put("periode", "PERIODE TGL. MASUK " + Tgl1.getSelectedItem() + " S.D " + Tgl2.getSelectedItem());
-                param.put("logo", Sequel.cariGambar("select logo from setting"));
-                Valid.MyReport("rpDaftar10BesarDiagnosaSIMati.jrxml", "report", "::[ Daftar 10 Besar Penyakit Terbanyak Penyebab Kematian Semua Ruangan Inap Berdasarkan Tgl. Masuk ]::",
-                        " SELECT a.kd_penyakit AS KD_ICD_10, a.ciri_ciri AS Deskripsi_Diagnosa, IFNULL(b.qty, 0) LK, ifnull(c.qty, 0) PR, "
-                        + " IFNULL(b.qty, 0) + IFNULL(c.qty, 0) Total FROM ((SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, count(*) AS qty "
-                        + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
-                        + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
-                        + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
-                        + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
-                        + " WHERE diagnosa_pasien. STATUS = 'Ranap' AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%' "
-                        + " AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
-                        + " AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                        + " AND kamar_inap.stts_pulang like 'Meninggal%' GROUP BY diagnosa_pasien.kd_penyakit "
-                        + " ORDER BY qty DESC) AS a LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
-                        + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
-                        + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
-                        + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
-                        + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis WHERE diagnosa_pasien.STATUS = 'Ranap' "
-                        + " AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%' "
-                        + " AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
-                        + " AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                        + " AND kamar_inap.stts_pulang like 'Meninggal%' AND pasien.jk = 'L' GROUP BY diagnosa_pasien.kd_penyakit "
-                        + " ORDER BY qty DESC) AS b ON b.kd_penyakit = a.kd_penyakit LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
-                        + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
-                        + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
-                        + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
-                        + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis WHERE diagnosa_pasien. STATUS = 'Ranap' "
-                        + " AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%'  "
-                        + " AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%'  "
-                        + " AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                        + " AND kamar_inap.stts_pulang like 'Meninggal%' AND pasien.jk = 'P' "
-                        + " GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS c ON c.kd_penyakit = a.kd_penyakit) LIMIT 10", param);
-                this.setCursor(Cursor.getDefaultCursor());
+                if (jlhPenyakit.getText().trim().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Silakan isi dulu jumlah besar penyakit yang akan diambil datanya...!!!");
+                    jlhPenyakit.requestFocus();
+                } else {
+                    this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                    Map<String, Object> param = new HashMap<>();
+                    param.put("namars", var.getnamars());
+                    param.put("alamatrs", var.getalamatrs());
+                    param.put("kotars", var.getkabupatenrs());
+                    param.put("propinsirs", var.getpropinsirs());
+                    param.put("kontakrs", var.getkontakrs());
+                    param.put("emailrs", var.getemailrs());
+                    param.put("periode", "PERIODE TGL. MASUK " + Tgl1.getSelectedItem() + " S.D " + Tgl2.getSelectedItem());
+                    param.put("logo", Sequel.cariGambar("select logo from setting"));
+                    param.put("jlhData", jlhPenyakit.getText());
+                    Valid.MyReport("rpDaftar10BesarDiagnosaSIMati.jrxml", "report", "::[ Daftar " + jlhPenyakit.getText() + " Besar Penyakit Terbanyak Penyebab Kematian Semua Ruangan Inap Berdasarkan Tgl. Masuk ]::",
+                            " SELECT a.kd_penyakit AS KD_ICD_10, a.ciri_ciri AS Deskripsi_Diagnosa, IFNULL(b.qty, 0) LK, ifnull(c.qty, 0) PR, "
+                            + " IFNULL(b.qty, 0) + IFNULL(c.qty, 0) Total FROM ((SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, count(*) AS qty "
+                            + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
+                            + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
+                            + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
+                            + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
+                            + " WHERE diagnosa_pasien. STATUS = 'Ranap' AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%' "
+                            + " AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
+                            + " AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                            + " AND kamar_inap.stts_pulang like 'Meninggal%' GROUP BY diagnosa_pasien.kd_penyakit "
+                            + " ORDER BY qty DESC) AS a LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
+                            + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
+                            + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
+                            + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
+                            + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis WHERE diagnosa_pasien.STATUS = 'Ranap' "
+                            + " AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%' "
+                            + " AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
+                            + " AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                            + " AND kamar_inap.stts_pulang like 'Meninggal%' AND pasien.jk = 'L' GROUP BY diagnosa_pasien.kd_penyakit "
+                            + " ORDER BY qty DESC) AS b ON b.kd_penyakit = a.kd_penyakit LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
+                            + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
+                            + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
+                            + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
+                            + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis WHERE diagnosa_pasien. STATUS = 'Ranap' "
+                            + " AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%'  "
+                            + " AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%'  "
+                            + " AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                            + " AND kamar_inap.stts_pulang like 'Meninggal%' AND pasien.jk = 'P' "
+                            + " GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS c ON c.kd_penyakit = a.kd_penyakit) LIMIT " + jlhPenyakit.getText() + "", param);
+                    this.setCursor(Cursor.getDefaultCursor());
+                }
             } else if (!NmRuangan.getSelectedItem().equals("SEMUA RUANG")) {
                 JOptionPane.showMessageDialog(null, "Silakan pilih dulu SEMUA RUANG untuk nama ruangan inapnya...!!!");
                 NmRuangan.requestFocus();
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Untuk mencetak lap. 10 besar penyakit kematian semua ruangan, silakan koordinasi dg. Inst. Rekam Medik...!!!");
+            JOptionPane.showMessageDialog(null, "Untuk mencetak lap. penyakit terbanyak kematian semua ruangan, silakan koordinasi dg. Inst. Rekam Medik...!!!");
             Tgl1.requestFocus();
         }
     }//GEN-LAST:event_ppDaftarTerbanyakSemuaRuanganMati1ActionPerformed
@@ -3489,6 +3537,7 @@ private void ppGrafikTerkecilPieActionPerformed(java.awt.event.ActionEvent evt) 
     private widget.Label jLabel23;
     private widget.Label jLabel6;
     private javax.swing.JPopupMenu jPopupMenu1;
+    private widget.TextBox jlhPenyakit;
     private widget.TextBox judulRuangan;
     private widget.TextBox kdAkses;
     private widget.TextBox kdpenyakit;
@@ -3497,6 +3546,8 @@ private void ppGrafikTerkecilPieActionPerformed(java.awt.event.ActionEvent evt) 
     private widget.Label label17;
     private widget.Label label18;
     private widget.Label label19;
+    private widget.Label label20;
+    private widget.Label label21;
     private widget.Label label9;
     private widget.TextBox nmpenyakit;
     private widget.TextBox nmpnj;
@@ -4071,6 +4122,7 @@ private void ppGrafikTerkecilPieActionPerformed(java.awt.event.ActionEvent evt) 
         kdAkses.setText("");
         ruangDicetak.setText("");
         judulRuangan.setText("");
+        jlhPenyakit.setText("10");
         kdpnj.setText("");
     }
     
@@ -4186,401 +4238,449 @@ private void ppGrafikTerkecilPieActionPerformed(java.awt.event.ActionEvent evt) 
     }
     
     public void ctkPerRuanganTglKeluar() {
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        Map<String, Object> param = new HashMap<>();
-        param.put("namars", var.getnamars());
-        param.put("alamatrs", var.getalamatrs());
-        param.put("kotars", var.getkabupatenrs());
-        param.put("propinsirs", var.getpropinsirs());
-        param.put("kontakrs", var.getkontakrs());
-        param.put("emailrs", var.getemailrs());
-        param.put("logo", Sequel.cariGambar("select logo from setting"));
-        param.put("periode", "PERIODE TGL. KELUAR " + Tgl1.getSelectedItem() + " S.D " + Tgl2.getSelectedItem());
-        if (cmbRuangKhusus1.getSelectedItem().equals("AS-SAMI/UMUM") || (NmRuangan.getSelectedItem().equals("AS-SAMI/UMUM"))) {
-            param.put("nama_ruangan", "AS-SAMI/UMUM");
+        if (jlhPenyakit.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Silakan isi dulu jumlah besar penyakit yang akan diambil datanya...!!!");
+            jlhPenyakit.requestFocus();
         } else {
-            param.put("nama_ruangan", ruangDicetak.getText());
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            Map<String, Object> param = new HashMap<>();
+            param.put("namars", var.getnamars());
+            param.put("alamatrs", var.getalamatrs());
+            param.put("kotars", var.getkabupatenrs());
+            param.put("propinsirs", var.getpropinsirs());
+            param.put("kontakrs", var.getkontakrs());
+            param.put("emailrs", var.getemailrs());
+            param.put("logo", Sequel.cariGambar("select logo from setting"));
+            param.put("periode", "PERIODE TGL. KELUAR " + Tgl1.getSelectedItem() + " S.D " + Tgl2.getSelectedItem());
+            param.put("jlhData", jlhPenyakit.getText());
+            if (cmbRuangKhusus1.getSelectedItem().equals("AS-SAMI/UMUM") || (NmRuangan.getSelectedItem().equals("AS-SAMI/UMUM"))) {
+                param.put("nama_ruangan", "AS-SAMI/UMUM");
+            } else {
+                param.put("nama_ruangan", ruangDicetak.getText());
+            }
+
+            Valid.MyReport("rpDaftar10BesarDiagnosaInap.jrxml", "report", "::[ Daftar " + jlhPenyakit.getText() + " Besar Penyakit Terbanyak Per Ruangan Inap Berdasarkan Tgl. Keluar ]::",
+                    " SELECT a.kd_penyakit AS KD_ICD_10, a.ciri_ciri AS Deskripsi_Diagnosa, IFNULL(b.qty, 0) LK, ifnull(c.qty, 0) PR, IFNULL(b.qty, 0) + IFNULL(c.qty, 0) Total "
+                    + " FROM ((SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, count(*) AS qty "
+                    + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
+                    + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
+                    + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
+                    + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
+                    + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
+                    + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
+                    + " WHERE diagnosa_pasien. STATUS = 'Ranap' AND bangsal.nm_bangsal LIKE '%" + ruangDicetak.getText() + "%' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
+                    + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
+                    + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS a "
+                    + " LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
+                    + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
+                    + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
+                    + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
+                    + " WHERE diagnosa_pasien. STATUS = 'Ranap' AND bangsal.nm_bangsal LIKE '%" + ruangDicetak.getText() + "%' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
+                    + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
+                    + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' AND pasien.jk = 'L' GROUP BY diagnosa_pasien.kd_penyakit "
+                    + " ORDER BY qty DESC) AS b ON b.kd_penyakit = a.kd_penyakit LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
+                    + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
+                    + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
+                    + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
+                    + " WHERE diagnosa_pasien. STATUS = 'Ranap' AND bangsal.nm_bangsal LIKE '%" + ruangDicetak.getText() + "%' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
+                    + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
+                    + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' AND pasien.jk = 'P' GROUP BY diagnosa_pasien.kd_penyakit "
+                    + " ORDER BY qty DESC) AS c ON c.kd_penyakit = a.kd_penyakit) LIMIT " + jlhPenyakit.getText() + "", param);
+            this.setCursor(Cursor.getDefaultCursor());
         }
-        
-        Valid.MyReport("rpDaftar10BesarDiagnosaInap.jrxml", "report", "::[ Daftar 10 Besar Penyakit Terbanyak Per Ruangan Inap Berdasarkan Tgl. Keluar ]::",
-                " SELECT a.kd_penyakit AS KD_ICD_10, a.ciri_ciri AS Deskripsi_Diagnosa, IFNULL(b.qty, 0) LK, ifnull(c.qty, 0) PR, IFNULL(b.qty, 0) + IFNULL(c.qty, 0) Total "
-                + " FROM ((SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, count(*) AS qty "
-                + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
-                + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
-                + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
-                + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
-                + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
-                + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
-                + " WHERE diagnosa_pasien. STATUS = 'Ranap' AND bangsal.nm_bangsal LIKE '%" + ruangDicetak.getText() + "%' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
-                + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
-                + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS a "
-                + " LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
-                + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
-                + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
-                + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
-                + " WHERE diagnosa_pasien. STATUS = 'Ranap' AND bangsal.nm_bangsal LIKE '%" + ruangDicetak.getText() + "%' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
-                + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
-                + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' AND pasien.jk = 'L' GROUP BY diagnosa_pasien.kd_penyakit "
-                + " ORDER BY qty DESC) AS b ON b.kd_penyakit = a.kd_penyakit LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
-                + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
-                + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
-                + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
-                + " WHERE diagnosa_pasien. STATUS = 'Ranap' AND bangsal.nm_bangsal LIKE '%" + ruangDicetak.getText() + "%' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
-                + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
-                + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' AND pasien.jk = 'P' GROUP BY diagnosa_pasien.kd_penyakit "
-                + " ORDER BY qty DESC) AS c ON c.kd_penyakit = a.kd_penyakit) LIMIT 10", param);
-        this.setCursor(Cursor.getDefaultCursor());
     }
     
     public void ctkPerRuanganTglMasuk() {
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        Map<String, Object> param = new HashMap<>();
-        param.put("namars", var.getnamars());
-        param.put("alamatrs", var.getalamatrs());
-        param.put("kotars", var.getkabupatenrs());
-        param.put("propinsirs", var.getpropinsirs());
-        param.put("kontakrs", var.getkontakrs());
-        param.put("emailrs", var.getemailrs());
-        param.put("logo", Sequel.cariGambar("select logo from setting"));
-        param.put("periode", "PERIODE TGL. MASUK " + Tgl1.getSelectedItem() + " S.D " + Tgl2.getSelectedItem());
-        if (cmbRuangKhusus1.getSelectedItem().equals("AS-SAMI/UMUM") || (NmRuangan.getSelectedItem().equals("AS-SAMI/UMUM"))) {
-            param.put("nama_ruangan", "AS-SAMI/UMUM");
+        if (jlhPenyakit.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Silakan isi dulu jumlah besar penyakit yang akan diambil datanya...!!!");
+            jlhPenyakit.requestFocus();
         } else {
-            param.put("nama_ruangan", ruangDicetak.getText());
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            Map<String, Object> param = new HashMap<>();
+            param.put("namars", var.getnamars());
+            param.put("alamatrs", var.getalamatrs());
+            param.put("kotars", var.getkabupatenrs());
+            param.put("propinsirs", var.getpropinsirs());
+            param.put("kontakrs", var.getkontakrs());
+            param.put("emailrs", var.getemailrs());
+            param.put("logo", Sequel.cariGambar("select logo from setting"));
+            param.put("periode", "PERIODE TGL. MASUK " + Tgl1.getSelectedItem() + " S.D " + Tgl2.getSelectedItem());
+            param.put("jlhData", jlhPenyakit.getText());
+            if (cmbRuangKhusus1.getSelectedItem().equals("AS-SAMI/UMUM") || (NmRuangan.getSelectedItem().equals("AS-SAMI/UMUM"))) {
+                param.put("nama_ruangan", "AS-SAMI/UMUM");
+            } else {
+                param.put("nama_ruangan", ruangDicetak.getText());
+            }
+
+            Valid.MyReport("rpDaftar10BesarDiagnosaInap.jrxml", "report", "::[ Daftar " + jlhPenyakit.getText() + " Besar Penyakit Terbanyak Per Ruangan Inap Berdasarkan Tgl. Masuk ]::",
+                    " SELECT a.kd_penyakit AS KD_ICD_10, a.ciri_ciri AS Deskripsi_Diagnosa, IFNULL(b.qty, 0) LK, ifnull(c.qty, 0) PR, IFNULL(b.qty, 0) + IFNULL(c.qty, 0) Total "
+                    + " FROM ((SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, count(*) AS qty "
+                    + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
+                    + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
+                    + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
+                    + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
+                    + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
+                    + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
+                    + " WHERE diagnosa_pasien.STATUS = 'Ranap' AND bangsal.nm_bangsal LIKE '%" + ruangDicetak.getText() + "%' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
+                    + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
+                    + " AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS a "
+                    + " LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
+                    + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
+                    + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
+                    + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
+                    + " WHERE diagnosa_pasien.STATUS = 'Ranap' AND bangsal.nm_bangsal LIKE '%" + ruangDicetak.getText() + "%' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
+                    + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
+                    + " AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' AND pasien.jk = 'L' GROUP BY diagnosa_pasien.kd_penyakit "
+                    + " ORDER BY qty DESC) AS b ON b.kd_penyakit = a.kd_penyakit LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
+                    + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
+                    + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
+                    + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
+                    + " WHERE diagnosa_pasien.STATUS = 'Ranap' AND bangsal.nm_bangsal LIKE '%" + ruangDicetak.getText() + "%' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
+                    + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
+                    + " AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' AND pasien.jk = 'P' GROUP BY diagnosa_pasien.kd_penyakit "
+                    + " ORDER BY qty DESC) AS c ON c.kd_penyakit = a.kd_penyakit) LIMIT " + jlhPenyakit.getText() + "", param);
+            this.setCursor(Cursor.getDefaultCursor());
         }
-        
-        Valid.MyReport("rpDaftar10BesarDiagnosaInap.jrxml", "report", "::[ Daftar 10 Besar Penyakit Terbanyak Per Ruangan Inap Berdasarkan Tgl. Masuk ]::",
-                " SELECT a.kd_penyakit AS KD_ICD_10, a.ciri_ciri AS Deskripsi_Diagnosa, IFNULL(b.qty, 0) LK, ifnull(c.qty, 0) PR, IFNULL(b.qty, 0) + IFNULL(c.qty, 0) Total "
-                + " FROM ((SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, count(*) AS qty "
-                + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
-                + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
-                + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
-                + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
-                + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
-                + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
-                + " WHERE diagnosa_pasien.STATUS = 'Ranap' AND bangsal.nm_bangsal LIKE '%" + ruangDicetak.getText() + "%' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
-                + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
-                + " AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS a "
-                + " LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
-                + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
-                + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
-                + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
-                + " WHERE diagnosa_pasien.STATUS = 'Ranap' AND bangsal.nm_bangsal LIKE '%" + ruangDicetak.getText() + "%' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
-                + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
-                + " AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' AND pasien.jk = 'L' GROUP BY diagnosa_pasien.kd_penyakit "
-                + " ORDER BY qty DESC) AS b ON b.kd_penyakit = a.kd_penyakit LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
-                + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
-                + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
-                + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
-                + " WHERE diagnosa_pasien.STATUS = 'Ranap' AND bangsal.nm_bangsal LIKE '%" + ruangDicetak.getText() + "%' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
-                + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
-                + " AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' AND pasien.jk = 'P' GROUP BY diagnosa_pasien.kd_penyakit "
-                + " ORDER BY qty DESC) AS c ON c.kd_penyakit = a.kd_penyakit) LIMIT 10", param);
-        this.setCursor(Cursor.getDefaultCursor());
     }
     
     public void ctkRuangRKPDzaalTglKeluar() {
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        Map<String, Object> param = new HashMap<>();
-        param.put("namars", var.getnamars());
-        param.put("alamatrs", var.getalamatrs());
-        param.put("kotars", var.getkabupatenrs());
-        param.put("propinsirs", var.getpropinsirs());
-        param.put("kontakrs", var.getkontakrs());
-        param.put("emailrs", var.getemailrs());
-        param.put("logo", Sequel.cariGambar("select logo from setting"));
-        param.put("periode", "PERIODE TGL. KELUAR " + Tgl1.getSelectedItem() + " S.D " + Tgl2.getSelectedItem());
-        if (ruangDicetak.getText().equals("AR-RAZAQ")) {
-            param.put("nama_ruangan", "RKPD");
-        } else if (ruangDicetak.getText().equals("ZAAL")) {
-            param.put("nama_ruangan", "ZAAL");
-        }
+        if (jlhPenyakit.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Silakan isi dulu jumlah besar penyakit yang akan diambil datanya...!!!");
+            jlhPenyakit.requestFocus();
+        } else {
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            Map<String, Object> param = new HashMap<>();
+            param.put("namars", var.getnamars());
+            param.put("alamatrs", var.getalamatrs());
+            param.put("kotars", var.getkabupatenrs());
+            param.put("propinsirs", var.getpropinsirs());
+            param.put("kontakrs", var.getkontakrs());
+            param.put("emailrs", var.getemailrs());
+            param.put("logo", Sequel.cariGambar("select logo from setting"));
+            param.put("periode", "PERIODE TGL. KELUAR " + Tgl1.getSelectedItem() + " S.D " + Tgl2.getSelectedItem());
+            param.put("jlhData", jlhPenyakit.getText());
+            if (ruangDicetak.getText().equals("AR-RAZAQ")) {
+                param.put("nama_ruangan", "RKPD");
+            } else if (ruangDicetak.getText().equals("ZAAL")) {
+                param.put("nama_ruangan", "ZAAL");
+            }
 
-        Valid.MyReport("rpDaftar10BesarDiagnosaInap.jrxml", "report", "::[ Daftar 10 Besar Penyakit Terbanyak Per Ruangan Inap Berdasarkan Tgl. Keluar ]::",
-                " SELECT a.kd_penyakit AS KD_ICD_10, a.ciri_ciri AS Deskripsi_Diagnosa, IFNULL(b.qty, 0) LK, ifnull(c.qty, 0) PR, IFNULL(b.qty, 0) + IFNULL(c.qty, 0) Total "
-                + " FROM ((SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, count(*) AS qty "
-                + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
-                + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
-                + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
-                + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
-                + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
-                + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
-                + " WHERE bangsal.nm_bangsal like '%" + ruangDicetak.getText() + "%' and diagnosa_pasien.STATUS = 'Ranap' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
-                + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
-                + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS a "
-                + " LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
-                + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
-                + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
-                + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
-                + " WHERE bangsal.nm_bangsal like '%" + ruangDicetak.getText() + "%' and diagnosa_pasien.STATUS = 'Ranap' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
-                + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
-                + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' AND pasien.jk = 'L' GROUP BY diagnosa_pasien.kd_penyakit "
-                + " ORDER BY qty DESC) AS b ON b.kd_penyakit = a.kd_penyakit LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
-                + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
-                + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
-                + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
-                + " WHERE bangsal.nm_bangsal like '%" + ruangDicetak.getText() + "%' and diagnosa_pasien. STATUS = 'Ranap' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
-                + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
-                + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                + " AND pasien.jk = 'P' GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS c ON c.kd_penyakit = a.kd_penyakit) LIMIT 10", param);
-        this.setCursor(Cursor.getDefaultCursor());
+            Valid.MyReport("rpDaftar10BesarDiagnosaInap.jrxml", "report", "::[ Daftar " + jlhPenyakit.getText() + " Besar Penyakit Terbanyak Per Ruangan Inap Berdasarkan Tgl. Keluar ]::",
+                    " SELECT a.kd_penyakit AS KD_ICD_10, a.ciri_ciri AS Deskripsi_Diagnosa, IFNULL(b.qty, 0) LK, ifnull(c.qty, 0) PR, IFNULL(b.qty, 0) + IFNULL(c.qty, 0) Total "
+                    + " FROM ((SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, count(*) AS qty "
+                    + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
+                    + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
+                    + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
+                    + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
+                    + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
+                    + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
+                    + " WHERE bangsal.nm_bangsal like '%" + ruangDicetak.getText() + "%' and diagnosa_pasien.STATUS = 'Ranap' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
+                    + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
+                    + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS a "
+                    + " LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
+                    + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
+                    + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
+                    + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
+                    + " WHERE bangsal.nm_bangsal like '%" + ruangDicetak.getText() + "%' and diagnosa_pasien.STATUS = 'Ranap' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
+                    + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
+                    + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' AND pasien.jk = 'L' GROUP BY diagnosa_pasien.kd_penyakit "
+                    + " ORDER BY qty DESC) AS b ON b.kd_penyakit = a.kd_penyakit LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
+                    + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
+                    + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
+                    + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
+                    + " WHERE bangsal.nm_bangsal like '%" + ruangDicetak.getText() + "%' and diagnosa_pasien. STATUS = 'Ranap' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
+                    + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
+                    + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                    + " AND pasien.jk = 'P' GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS c ON c.kd_penyakit = a.kd_penyakit) LIMIT " + jlhPenyakit.getText() + "", param);
+            this.setCursor(Cursor.getDefaultCursor());
+        }
     }
     
     public void ctkRuangRKPDzaalTglMasuk() {
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        Map<String, Object> param = new HashMap<>();
-        param.put("namars", var.getnamars());
-        param.put("alamatrs", var.getalamatrs());
-        param.put("kotars", var.getkabupatenrs());
-        param.put("propinsirs", var.getpropinsirs());
-        param.put("kontakrs", var.getkontakrs());
-        param.put("emailrs", var.getemailrs());
-        param.put("logo", Sequel.cariGambar("select logo from setting"));
-        param.put("periode", "PERIODE TGL. MASUK " + Tgl1.getSelectedItem() + " S.D " + Tgl2.getSelectedItem());
-        if (ruangDicetak.getText().equals("AR-RAZAQ")) {
-            param.put("nama_ruangan", "RKPD");
-        } else if (ruangDicetak.getText().equals("ZAAL")) {
-            param.put("nama_ruangan", "ZAAL");
+        if (jlhPenyakit.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Silakan isi dulu jumlah besar penyakit yang akan diambil datanya...!!!");
+            jlhPenyakit.requestFocus();
+        } else {
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            Map<String, Object> param = new HashMap<>();
+            param.put("namars", var.getnamars());
+            param.put("alamatrs", var.getalamatrs());
+            param.put("kotars", var.getkabupatenrs());
+            param.put("propinsirs", var.getpropinsirs());
+            param.put("kontakrs", var.getkontakrs());
+            param.put("emailrs", var.getemailrs());
+            param.put("logo", Sequel.cariGambar("select logo from setting"));
+            param.put("periode", "PERIODE TGL. MASUK " + Tgl1.getSelectedItem() + " S.D " + Tgl2.getSelectedItem());
+            param.put("jlhData", jlhPenyakit.getText());
+            if (ruangDicetak.getText().equals("AR-RAZAQ")) {
+                param.put("nama_ruangan", "RKPD");
+            } else if (ruangDicetak.getText().equals("ZAAL")) {
+                param.put("nama_ruangan", "ZAAL");
+            }
+
+            Valid.MyReport("rpDaftar10BesarDiagnosaInap.jrxml", "report", "::[ Daftar " + jlhPenyakit.getText() + " Besar Penyakit Terbanyak Per Ruangan Inap Berdasarkan Tgl. Masuk ]::",
+                    "SELECT a.kd_penyakit AS KD_ICD_10, a.ciri_ciri AS Deskripsi_Diagnosa, IFNULL(b.qty, 0) LK, ifnull(c.qty, 0) PR, IFNULL(b.qty, 0) + IFNULL(c.qty, 0) Total "
+                    + "FROM ((SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, count(*) AS qty "
+                    + "FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
+                    + "LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
+                    + "LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
+                    + "LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
+                    + "LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
+                    + "LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
+                    + "WHERE bangsal.nm_bangsal like '%" + ruangDicetak.getText() + "%' and diagnosa_pasien.STATUS = 'Ranap' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
+                    + "AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
+                    + "AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS a "
+                    + "LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
+                    + "FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
+                    + "LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
+                    + "LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
+                    + "WHERE bangsal.nm_bangsal like '%" + ruangDicetak.getText() + "%' and diagnosa_pasien.STATUS = 'Ranap' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
+                    + "AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
+                    + "AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' AND pasien.jk = 'L' GROUP BY diagnosa_pasien.kd_penyakit "
+                    + "ORDER BY qty DESC) AS b ON b.kd_penyakit = a.kd_penyakit LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
+                    + "FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
+                    + "LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
+                    + "LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
+                    + "WHERE bangsal.nm_bangsal like '%" + ruangDicetak.getText() + "%' and diagnosa_pasien.STATUS = 'Ranap' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
+                    + "AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
+                    + "AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' AND pasien.jk = 'P' GROUP BY diagnosa_pasien.kd_penyakit "
+                    + "ORDER BY qty DESC) AS c ON c.kd_penyakit = a.kd_penyakit) LIMIT " + jlhPenyakit.getText() + "", param);
+            this.setCursor(Cursor.getDefaultCursor());
         }
-        
-        Valid.MyReport("rpDaftar10BesarDiagnosaInap.jrxml", "report", "::[ Daftar 10 Besar Penyakit Terbanyak Per Ruangan Inap Berdasarkan Tgl. Masuk ]::",
-                "SELECT a.kd_penyakit AS KD_ICD_10, a.ciri_ciri AS Deskripsi_Diagnosa, IFNULL(b.qty, 0) LK, ifnull(c.qty, 0) PR, IFNULL(b.qty, 0) + IFNULL(c.qty, 0) Total "
-                + "FROM ((SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, count(*) AS qty "
-                + "FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
-                + "LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
-                + "LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
-                + "LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
-                + "LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
-                + "LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
-                + "WHERE bangsal.nm_bangsal like '%" + ruangDicetak.getText() + "%' and diagnosa_pasien.STATUS = 'Ranap' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
-                + "AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
-                + "AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS a "
-                + "LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
-                + "FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
-                + "LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
-                + "LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
-                + "WHERE bangsal.nm_bangsal like '%" + ruangDicetak.getText() + "%' and diagnosa_pasien.STATUS = 'Ranap' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
-                + "AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
-                + "AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' AND pasien.jk = 'L' GROUP BY diagnosa_pasien.kd_penyakit "
-                + "ORDER BY qty DESC) AS b ON b.kd_penyakit = a.kd_penyakit LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty "
-                + "FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
-                + "LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
-                + "LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
-                + "WHERE bangsal.nm_bangsal like '%" + ruangDicetak.getText() + "%' and diagnosa_pasien.STATUS = 'Ranap' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
-                + "AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
-                + "AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' AND pasien.jk = 'P' GROUP BY diagnosa_pasien.kd_penyakit "
-                + "ORDER BY qty DESC) AS c ON c.kd_penyakit = a.kd_penyakit) LIMIT 10", param);
-        this.setCursor(Cursor.getDefaultCursor());  
     }
     
     public void ctkPerRuangMatiTglKeluar() {
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        Map<String, Object> param = new HashMap<>();
-        param.put("namars", var.getnamars());
-        param.put("alamatrs", var.getalamatrs());
-        param.put("kotars", var.getkabupatenrs());
-        param.put("propinsirs", var.getpropinsirs());
-        param.put("kontakrs", var.getkontakrs());
-        param.put("emailrs", var.getemailrs());
-        param.put("periode", "PERIODE TGL. KELUAR " + Tgl1.getSelectedItem() + " S.D " + Tgl2.getSelectedItem());
-        param.put("logo", Sequel.cariGambar("select logo from setting"));
-        if (cmbRuangKhusus1.getSelectedItem().equals("AS-SAMI/UMUM") || (NmRuangan.getSelectedItem().equals("AS-SAMI/UMUM"))) {
-            param.put("nama_ruangan", "AS-SAMI/UMUM");
+        if (jlhPenyakit.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Silakan isi dulu jumlah besar penyakit yang akan diambil datanya...!!!");
+            jlhPenyakit.requestFocus();
         } else {
-            param.put("nama_ruangan", ruangDicetak.getText());
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            Map<String, Object> param = new HashMap<>();
+            param.put("namars", var.getnamars());
+            param.put("alamatrs", var.getalamatrs());
+            param.put("kotars", var.getkabupatenrs());
+            param.put("propinsirs", var.getpropinsirs());
+            param.put("kontakrs", var.getkontakrs());
+            param.put("emailrs", var.getemailrs());
+            param.put("periode", "PERIODE TGL. KELUAR " + Tgl1.getSelectedItem() + " S.D " + Tgl2.getSelectedItem());
+            param.put("logo", Sequel.cariGambar("select logo from setting"));
+            param.put("jlhData", jlhPenyakit.getText());
+            if (cmbRuangKhusus1.getSelectedItem().equals("AS-SAMI/UMUM") || (NmRuangan.getSelectedItem().equals("AS-SAMI/UMUM"))) {
+                param.put("nama_ruangan", "AS-SAMI/UMUM");
+            } else {
+                param.put("nama_ruangan", ruangDicetak.getText());
+            }
+
+            Valid.MyReport("rpDaftar10BesarDiagnosaInapMati.jrxml", "report", "::[ Daftar " + jlhPenyakit.getText() + " Besar Penyakit Terbanyak Penyebab Kematian Per Ruangan Inap Berdasarkan Tgl. Keluar ]::",
+                    " SELECT a.kd_penyakit AS KD_ICD_10, a.ciri_ciri AS Deskripsi_Diagnosa, IFNULL(b.qty, 0) LK, ifnull(c.qty, 0) PR, IFNULL(b.qty, 0) + IFNULL(c.qty, 0) Total "
+                    + " FROM ((SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, count(*) AS qty "
+                    + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
+                    + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
+                    + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
+                    + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
+                    + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis  "
+                    + " WHERE diagnosa_pasien. STATUS = 'Ranap' AND bangsal.nm_bangsal LIKE '%" + ruangDicetak.getText() + "%' "
+                    + " AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 "
+                    + " AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%'  "
+                    + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                    + " AND kamar_inap.stts_pulang like 'Meninggal%' GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS a "
+                    + " LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty	"
+                    + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
+                    + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
+                    + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
+                    + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
+                    + " WHERE diagnosa_pasien. STATUS = 'Ranap' AND bangsal.nm_bangsal LIKE '%" + ruangDicetak.getText() + "%' "
+                    + " AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 "
+                    + " AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%'  "
+                    + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                    + " AND kamar_inap.stts_pulang like 'Meninggal%' AND pasien.jk = 'L' GROUP BY diagnosa_pasien.kd_penyakit "
+                    + " ORDER BY qty DESC) AS b ON b.kd_penyakit = a.kd_penyakit LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, "
+                    + " count(*) AS qty FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
+                    + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
+                    + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
+                    + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis WHERE diagnosa_pasien. STATUS = 'Ranap' "
+                    + " AND bangsal.nm_bangsal LIKE '%" + ruangDicetak.getText() + "%' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
+                    + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
+                    + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                    + " AND kamar_inap.stts_pulang like 'Meninggal%' AND pasien.jk = 'P' GROUP BY diagnosa_pasien.kd_penyakit "
+                    + " ORDER BY qty DESC) AS c ON c.kd_penyakit = a.kd_penyakit) LIMIT " + jlhPenyakit.getText() + "", param);
+            this.setCursor(Cursor.getDefaultCursor());
         }
-        
-        Valid.MyReport("rpDaftar10BesarDiagnosaInapMati.jrxml", "report", "::[ Daftar 10 Besar Penyakit Terbanyak Penyebab Kematian Per Ruangan Inap Berdasarkan Tgl. Keluar ]::",
-                " SELECT a.kd_penyakit AS KD_ICD_10, a.ciri_ciri AS Deskripsi_Diagnosa, IFNULL(b.qty, 0) LK, ifnull(c.qty, 0) PR, IFNULL(b.qty, 0) + IFNULL(c.qty, 0) Total "
-                + " FROM ((SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, count(*) AS qty "
-                + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
-                + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
-                + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
-                + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
-                + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis  "
-                + " WHERE diagnosa_pasien. STATUS = 'Ranap' AND bangsal.nm_bangsal LIKE '%" + ruangDicetak.getText() + "%' "
-                + " AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 "
-                + " AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%'  "
-                + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                + " AND kamar_inap.stts_pulang like 'Meninggal%' GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS a "
-                + " LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty	"
-                + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
-                + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
-                + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
-                + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
-                + " WHERE diagnosa_pasien. STATUS = 'Ranap' AND bangsal.nm_bangsal LIKE '%" + ruangDicetak.getText() + "%' "
-                + " AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 "
-                + " AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%'  "
-                + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                + " AND kamar_inap.stts_pulang like 'Meninggal%' AND pasien.jk = 'L' GROUP BY diagnosa_pasien.kd_penyakit "
-                + " ORDER BY qty DESC) AS b ON b.kd_penyakit = a.kd_penyakit LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, "
-                + " count(*) AS qty FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
-                + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
-                + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
-                + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis WHERE diagnosa_pasien. STATUS = 'Ranap' "
-                + " AND bangsal.nm_bangsal LIKE '%" + ruangDicetak.getText() + "%' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
-                + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
-                + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                + " AND kamar_inap.stts_pulang like 'Meninggal%' AND pasien.jk = 'P' GROUP BY diagnosa_pasien.kd_penyakit "
-                + " ORDER BY qty DESC) AS c ON c.kd_penyakit = a.kd_penyakit) LIMIT 10", param);
-        this.setCursor(Cursor.getDefaultCursor());
     }
     
     public void ctkPerRuangMatiTglMasuk() {
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        Map<String, Object> param = new HashMap<>();
-        param.put("namars", var.getnamars());
-        param.put("alamatrs", var.getalamatrs());
-        param.put("kotars", var.getkabupatenrs());
-        param.put("propinsirs", var.getpropinsirs());
-        param.put("kontakrs", var.getkontakrs());
-        param.put("emailrs", var.getemailrs());
-        param.put("periode", "PERIODE TGL. MASUK " + Tgl1.getSelectedItem() + " S.D " + Tgl2.getSelectedItem());
-        param.put("logo", Sequel.cariGambar("select logo from setting"));
-        if (cmbRuangKhusus1.getSelectedItem().equals("AS-SAMI/UMUM") || (NmRuangan.getSelectedItem().equals("AS-SAMI/UMUM"))) {
-            param.put("nama_ruangan", "AS-SAMI/UMUM");
+        if (jlhPenyakit.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Silakan isi dulu jumlah besar penyakit yang akan diambil datanya...!!!");
+            jlhPenyakit.requestFocus();
         } else {
-            param.put("nama_ruangan", ruangDicetak.getText());
-        }        
-        
-        Valid.MyReport("rpDaftar10BesarDiagnosaInapMati.jrxml", "report", "::[ Daftar 10 Besar Penyakit Terbanyak Penyebab Kematian Per Ruangan Inap Berdasarkan Tgl. Masuk ]::",
-                " SELECT a.kd_penyakit AS KD_ICD_10, a.ciri_ciri AS Deskripsi_Diagnosa, IFNULL(b.qty, 0) LK, ifnull(c.qty, 0) PR, IFNULL(b.qty, 0) + IFNULL(c.qty, 0) Total "
-                + " FROM ((SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, count(*) AS qty "
-                + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
-                + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
-                + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
-                + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
-                + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis  "
-                + " WHERE diagnosa_pasien.STATUS = 'Ranap' AND bangsal.nm_bangsal LIKE '%" + ruangDicetak.getText() + "%' "
-                + " AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 "
-                + " AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
-                + " AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                + " AND kamar_inap.stts_pulang like 'Meninggal%' GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS a "
-                + " LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty	"
-                + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
-                + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
-                + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
-                + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
-                + " WHERE diagnosa_pasien.STATUS = 'Ranap' AND bangsal.nm_bangsal LIKE '%" + ruangDicetak.getText() + "%' "
-                + " AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 "
-                + " AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
-                + " AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                + " AND kamar_inap.stts_pulang like 'Meninggal%' AND pasien.jk = 'L' GROUP BY diagnosa_pasien.kd_penyakit "
-                + " ORDER BY qty DESC) AS b ON b.kd_penyakit = a.kd_penyakit LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, "
-                + " count(*) AS qty FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
-                + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
-                + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
-                + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis WHERE diagnosa_pasien.STATUS = 'Ranap' "
-                + " AND bangsal.nm_bangsal LIKE '%" + ruangDicetak.getText() + "%' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
-                + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
-                + " AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                + " AND kamar_inap.stts_pulang like 'Meninggal%' AND pasien.jk = 'P' GROUP BY diagnosa_pasien.kd_penyakit "
-                + " ORDER BY qty DESC) AS c ON c.kd_penyakit = a.kd_penyakit) LIMIT 10", param);
-        this.setCursor(Cursor.getDefaultCursor());
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            Map<String, Object> param = new HashMap<>();
+            param.put("namars", var.getnamars());
+            param.put("alamatrs", var.getalamatrs());
+            param.put("kotars", var.getkabupatenrs());
+            param.put("propinsirs", var.getpropinsirs());
+            param.put("kontakrs", var.getkontakrs());
+            param.put("emailrs", var.getemailrs());
+            param.put("periode", "PERIODE TGL. MASUK " + Tgl1.getSelectedItem() + " S.D " + Tgl2.getSelectedItem());
+            param.put("logo", Sequel.cariGambar("select logo from setting"));
+            param.put("jlhData", jlhPenyakit.getText());
+            if (cmbRuangKhusus1.getSelectedItem().equals("AS-SAMI/UMUM") || (NmRuangan.getSelectedItem().equals("AS-SAMI/UMUM"))) {
+                param.put("nama_ruangan", "AS-SAMI/UMUM");
+            } else {
+                param.put("nama_ruangan", ruangDicetak.getText());
+            }
+
+            Valid.MyReport("rpDaftar10BesarDiagnosaInapMati.jrxml", "report", "::[ Daftar " + jlhPenyakit.getText() + " Besar Penyakit Terbanyak Penyebab Kematian Per Ruangan Inap Berdasarkan Tgl. Masuk ]::",
+                    " SELECT a.kd_penyakit AS KD_ICD_10, a.ciri_ciri AS Deskripsi_Diagnosa, IFNULL(b.qty, 0) LK, ifnull(c.qty, 0) PR, IFNULL(b.qty, 0) + IFNULL(c.qty, 0) Total "
+                    + " FROM ((SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, count(*) AS qty "
+                    + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
+                    + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
+                    + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
+                    + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
+                    + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis  "
+                    + " WHERE diagnosa_pasien.STATUS = 'Ranap' AND bangsal.nm_bangsal LIKE '%" + ruangDicetak.getText() + "%' "
+                    + " AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 "
+                    + " AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
+                    + " AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                    + " AND kamar_inap.stts_pulang like 'Meninggal%' GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS a "
+                    + " LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty	"
+                    + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
+                    + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
+                    + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
+                    + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
+                    + " WHERE diagnosa_pasien.STATUS = 'Ranap' AND bangsal.nm_bangsal LIKE '%" + ruangDicetak.getText() + "%' "
+                    + " AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 "
+                    + " AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
+                    + " AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                    + " AND kamar_inap.stts_pulang like 'Meninggal%' AND pasien.jk = 'L' GROUP BY diagnosa_pasien.kd_penyakit "
+                    + " ORDER BY qty DESC) AS b ON b.kd_penyakit = a.kd_penyakit LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, "
+                    + " count(*) AS qty FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
+                    + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
+                    + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
+                    + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis WHERE diagnosa_pasien.STATUS = 'Ranap' "
+                    + " AND bangsal.nm_bangsal LIKE '%" + ruangDicetak.getText() + "%' AND bangsal.nm_bangsal NOT LIKE '%apotek%' "
+                    + " AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
+                    + " AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                    + " AND kamar_inap.stts_pulang like 'Meninggal%' AND pasien.jk = 'P' GROUP BY diagnosa_pasien.kd_penyakit "
+                    + " ORDER BY qty DESC) AS c ON c.kd_penyakit = a.kd_penyakit) LIMIT " + jlhPenyakit.getText() + "", param);
+            this.setCursor(Cursor.getDefaultCursor());
+        }
     }
     
     public void ctkRuangRKPDzaalMatiTglKeluar() {
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        Map<String, Object> param = new HashMap<>();
-        param.put("namars", var.getnamars());
-        param.put("alamatrs", var.getalamatrs());
-        param.put("kotars", var.getkabupatenrs());
-        param.put("propinsirs", var.getpropinsirs());
-        param.put("kontakrs", var.getkontakrs());
-        param.put("emailrs", var.getemailrs());
-        param.put("periode", "PERIODE TGL. KELUAR " + Tgl1.getSelectedItem() + " S.D " + Tgl2.getSelectedItem());
-        param.put("logo", Sequel.cariGambar("select logo from setting"));
-        if (ruangDicetak.getText().equals("AR-RAZAQ")) {
-            param.put("nama_ruangan", "RKPD");
-        } else if (ruangDicetak.getText().equals("ZAAL")) {
-            param.put("nama_ruangan", "ZAAL");
+        if (jlhPenyakit.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Silakan isi dulu jumlah besar penyakit yang akan diambil datanya...!!!");
+            jlhPenyakit.requestFocus();
+        } else {
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            Map<String, Object> param = new HashMap<>();
+            param.put("namars", var.getnamars());
+            param.put("alamatrs", var.getalamatrs());
+            param.put("kotars", var.getkabupatenrs());
+            param.put("propinsirs", var.getpropinsirs());
+            param.put("kontakrs", var.getkontakrs());
+            param.put("emailrs", var.getemailrs());
+            param.put("periode", "PERIODE TGL. KELUAR " + Tgl1.getSelectedItem() + " S.D " + Tgl2.getSelectedItem());
+            param.put("logo", Sequel.cariGambar("select logo from setting"));
+            param.put("jlhData", jlhPenyakit.getText());
+            if (ruangDicetak.getText().equals("AR-RAZAQ")) {
+                param.put("nama_ruangan", "RKPD");
+            } else if (ruangDicetak.getText().equals("ZAAL")) {
+                param.put("nama_ruangan", "ZAAL");
+            }
+
+            Valid.MyReport("rpDaftar10BesarDiagnosaInapMati.jrxml", "report", "::[ Daftar " + jlhPenyakit.getText() + " Besar Penyakit Terbanyak Penyebab Kematian Per Ruangan Inap Berdasarkan Tgl. Keluar ]::",
+                    " SELECT a.kd_penyakit AS KD_ICD_10, a.ciri_ciri AS Deskripsi_Diagnosa, IFNULL(b.qty, 0) LK, ifnull(c.qty, 0) PR, IFNULL(b.qty, 0) + IFNULL(c.qty, 0) Total "
+                    + " FROM ((SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, count(*) AS qty "
+                    + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
+                    + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
+                    + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
+                    + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
+                    + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis  "
+                    + " WHERE bangsal.nm_bangsal like '%" + ruangDicetak.getText() + "%' and diagnosa_pasien.STATUS = 'Ranap' "
+                    + " AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 "
+                    + " AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%'  "
+                    + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                    + " AND kamar_inap.stts_pulang like 'Meninggal%' GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS a "
+                    + " LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty	"
+                    + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
+                    + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
+                    + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
+                    + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
+                    + " WHERE bangsal.nm_bangsal like '%" + ruangDicetak.getText() + "%' and diagnosa_pasien.STATUS = 'Ranap' "
+                    + " AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 "
+                    + " AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%'  "
+                    + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                    + " AND kamar_inap.stts_pulang like 'Meninggal%' AND pasien.jk = 'L' GROUP BY diagnosa_pasien.kd_penyakit "
+                    + " ORDER BY qty DESC) AS b ON b.kd_penyakit = a.kd_penyakit LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, "
+                    + " count(*) AS qty FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
+                    + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
+                    + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
+                    + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis WHERE bangsal.nm_bangsal like like '%" + ruangDicetak.getText() + "%' and diagnosa_pasien.STATUS = 'Ranap' "
+                    + " AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
+                    + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                    + " AND kamar_inap.stts_pulang like 'Meninggal%' AND pasien.jk = 'P' GROUP BY diagnosa_pasien.kd_penyakit "
+                    + " ORDER BY qty DESC) AS c ON c.kd_penyakit = a.kd_penyakit) LIMIT " + jlhPenyakit.getText() + "", param);
+            this.setCursor(Cursor.getDefaultCursor());
         }
-        
-        Valid.MyReport("rpDaftar10BesarDiagnosaInapMati.jrxml", "report", "::[ Daftar 10 Besar Penyakit Terbanyak Penyebab Kematian Per Ruangan Inap Berdasarkan Tgl. Keluar ]::",
-                " SELECT a.kd_penyakit AS KD_ICD_10, a.ciri_ciri AS Deskripsi_Diagnosa, IFNULL(b.qty, 0) LK, ifnull(c.qty, 0) PR, IFNULL(b.qty, 0) + IFNULL(c.qty, 0) Total "
-                + " FROM ((SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, count(*) AS qty "
-                + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
-                + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
-                + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
-                + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
-                + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis  "
-                + " WHERE bangsal.nm_bangsal like '%" + ruangDicetak.getText() + "%' and diagnosa_pasien.STATUS = 'Ranap' "
-                + " AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 "
-                + " AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%'  "
-                + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                + " AND kamar_inap.stts_pulang like 'Meninggal%' GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS a "
-                + " LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty	"
-                + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
-                + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
-                + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
-                + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
-                + " WHERE bangsal.nm_bangsal like '%" + ruangDicetak.getText() + "%' and diagnosa_pasien.STATUS = 'Ranap' "
-                + " AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 "
-                + " AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%'  "
-                + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                + " AND kamar_inap.stts_pulang like 'Meninggal%' AND pasien.jk = 'L' GROUP BY diagnosa_pasien.kd_penyakit "
-                + " ORDER BY qty DESC) AS b ON b.kd_penyakit = a.kd_penyakit LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, "
-                + " count(*) AS qty FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
-                + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
-                + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
-                + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis WHERE bangsal.nm_bangsal like like '%" + ruangDicetak.getText() + "%' and diagnosa_pasien.STATUS = 'Ranap' "
-                + " AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
-                + " AND kamar_inap.tgl_keluar BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                + " AND kamar_inap.stts_pulang like 'Meninggal%' AND pasien.jk = 'P' GROUP BY diagnosa_pasien.kd_penyakit "
-                + " ORDER BY qty DESC) AS c ON c.kd_penyakit = a.kd_penyakit) LIMIT 10", param);
-        this.setCursor(Cursor.getDefaultCursor());
     }
     
     public void ctkRuangRKPDzaalMatiTglMasuk() {
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        Map<String, Object> param = new HashMap<>();
-        param.put("namars", var.getnamars());
-        param.put("alamatrs", var.getalamatrs());
-        param.put("kotars", var.getkabupatenrs());
-        param.put("propinsirs", var.getpropinsirs());
-        param.put("kontakrs", var.getkontakrs());
-        param.put("emailrs", var.getemailrs());
-        param.put("periode", "PERIODE TGL. MASUK " + Tgl1.getSelectedItem() + " S.D " + Tgl2.getSelectedItem());
-        param.put("logo", Sequel.cariGambar("select logo from setting"));
-        if (ruangDicetak.getText().equals("AR-RAZAQ")) {
-            param.put("nama_ruangan", "RKPD");
-        } else if (ruangDicetak.getText().equals("ZAAL")) {
-            param.put("nama_ruangan", "ZAAL");
+        if (jlhPenyakit.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Silakan isi dulu jumlah besar penyakit yang akan diambil datanya...!!!");
+            jlhPenyakit.requestFocus();
+        } else {
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            Map<String, Object> param = new HashMap<>();
+            param.put("namars", var.getnamars());
+            param.put("alamatrs", var.getalamatrs());
+            param.put("kotars", var.getkabupatenrs());
+            param.put("propinsirs", var.getpropinsirs());
+            param.put("kontakrs", var.getkontakrs());
+            param.put("emailrs", var.getemailrs());
+            param.put("periode", "PERIODE TGL. MASUK " + Tgl1.getSelectedItem() + " S.D " + Tgl2.getSelectedItem());
+            param.put("logo", Sequel.cariGambar("select logo from setting"));
+            param.put("jlhData", jlhPenyakit.getText());
+            if (ruangDicetak.getText().equals("AR-RAZAQ")) {
+                param.put("nama_ruangan", "RKPD");
+            } else if (ruangDicetak.getText().equals("ZAAL")) {
+                param.put("nama_ruangan", "ZAAL");
+            }
+
+            Valid.MyReport("rpDaftar10BesarDiagnosaInapMati.jrxml", "report", "::[ Daftar " + jlhPenyakit.getText() + " Besar Penyakit Terbanyak Penyebab Kematian Per Ruangan Inap Berdasarkan Tgl. Masuk ]::",
+                    " SELECT a.kd_penyakit AS KD_ICD_10, a.ciri_ciri AS Deskripsi_Diagnosa, IFNULL(b.qty, 0) LK, ifnull(c.qty, 0) PR, IFNULL(b.qty, 0) + IFNULL(c.qty, 0) Total "
+                    + " FROM ((SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, count(*) AS qty "
+                    + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
+                    + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
+                    + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
+                    + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
+                    + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis  "
+                    + " WHERE bangsal.nm_bangsal like '%" + ruangDicetak.getText() + "%' and diagnosa_pasien.STATUS = 'Ranap' "
+                    + " AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 "
+                    + " AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%'  "
+                    + " AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                    + " AND kamar_inap.stts_pulang like 'Meninggal%' GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS a "
+                    + " LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty	"
+                    + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
+                    + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
+                    + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
+                    + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
+                    + " WHERE bangsal.nm_bangsal like '%" + ruangDicetak.getText() + "%' and diagnosa_pasien.STATUS = 'Ranap' "
+                    + " AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 "
+                    + " AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%'  "
+                    + " AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                    + " AND kamar_inap.stts_pulang like 'Meninggal%' AND pasien.jk = 'L' GROUP BY diagnosa_pasien.kd_penyakit "
+                    + " ORDER BY qty DESC) AS b ON b.kd_penyakit = a.kd_penyakit LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, "
+                    + " count(*) AS qty FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
+                    + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
+                    + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
+                    + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis WHERE bangsal.nm_bangsal like '%" + ruangDicetak.getText() + "%' and diagnosa_pasien.STATUS = 'Ranap' "
+                    + " AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
+                    + " AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                    + " AND kamar_inap.stts_pulang like 'Meninggal%' AND pasien.jk = 'P' GROUP BY diagnosa_pasien.kd_penyakit "
+                    + " ORDER BY qty DESC) AS c ON c.kd_penyakit = a.kd_penyakit) LIMIT " + jlhPenyakit.getText() + "", param);
+            this.setCursor(Cursor.getDefaultCursor());
         }
-        
-        Valid.MyReport("rpDaftar10BesarDiagnosaInapMati.jrxml", "report", "::[ Daftar 10 Besar Penyakit Terbanyak Penyebab Kematian Per Ruangan Inap Berdasarkan Tgl. Masuk ]::",
-                " SELECT a.kd_penyakit AS KD_ICD_10, a.ciri_ciri AS Deskripsi_Diagnosa, IFNULL(b.qty, 0) LK, ifnull(c.qty, 0) PR, IFNULL(b.qty, 0) + IFNULL(c.qty, 0) Total "
-                + " FROM ((SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, count(*) AS qty "
-                + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
-                + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
-                + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
-                + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
-                + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis  "
-                + " WHERE bangsal.nm_bangsal like '%" + ruangDicetak.getText() + "%' and diagnosa_pasien.STATUS = 'Ranap' "
-                + " AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 "
-                + " AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%'  "
-                + " AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                + " AND kamar_inap.stts_pulang like 'Meninggal%' GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS a "
-                + " LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty	"
-                + " FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
-                + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
-                + " LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar "
-                + " LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
-                + " WHERE bangsal.nm_bangsal like '%" + ruangDicetak.getText() + "%' and diagnosa_pasien.STATUS = 'Ranap' "
-                + " AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 "
-                + " AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%'  "
-                + " AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                + " AND kamar_inap.stts_pulang like 'Meninggal%' AND pasien.jk = 'L' GROUP BY diagnosa_pasien.kd_penyakit "
-                + " ORDER BY qty DESC) AS b ON b.kd_penyakit = a.kd_penyakit LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, "
-                + " count(*) AS qty FROM diagnosa_pasien LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
-                + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat LEFT JOIN kamar_inap ON diagnosa_pasien.no_rawat = kamar_inap.no_rawat "
-                + " LEFT JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar LEFT JOIN bangsal ON kamar.kd_bangsal = bangsal.kd_bangsal "
-                + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis WHERE bangsal.nm_bangsal like '%" + ruangDicetak.getText() + "%' and diagnosa_pasien.STATUS = 'Ranap' "
-                + " AND bangsal.nm_bangsal NOT LIKE '%apotek%' AND bangsal.nm_bangsal NOT LIKE '%gudang%' AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' "
-                + " AND kamar_inap.tgl_masuk BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                + " AND kamar_inap.stts_pulang like 'Meninggal%' AND pasien.jk = 'P' GROUP BY diagnosa_pasien.kd_penyakit "
-                + " ORDER BY qty DESC) AS c ON c.kd_penyakit = a.kd_penyakit) LIMIT 10", param);
-        this.setCursor(Cursor.getDefaultCursor());
     }
     
     public void prinRincianRKPDTglMasuk() {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="515" leftMargin="40" rightMargin="40" topMargin="40" bottomMargin="20">
-	<property name="ireport.zoom" value="2.4200000000000452"/>
-	<property name="ireport.x" value="233"/>
+	<property name="ireport.zoom" value="1.818181818181852"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<property name="ireport.callouts" value="##Mon Aug 21 21:59:06 SGT 2017"/>
 	<parameter name="namars" class="java.lang.String"/>
@@ -13,6 +13,7 @@
 	<parameter name="logo" class="java.io.InputStream"/>
 	<parameter name="nama_ruangan" class="java.lang.String"/>
 	<parameter name="periode" class="java.lang.String"/>
+	<parameter name="jlhData" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT a.kd_penyakit AS KD_ICD_10, a.ciri_ciri AS Deskripsi_Diagnosa, IFNULL(b.qty, 0) LK, ifnull(c.qty, 0) PR, IFNULL(b.qty, 0) + IFNULL(c.qty, 0) Total
 FROM ((SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, count(*) AS qty
@@ -156,13 +157,6 @@ ICD 10]]></text>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA["PASIEN RAWAT INAP RUANGAN "+$P{nama_ruangan}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="0" y="60" width="514" height="15"/>
-				<textElement textAlignment="Center" lineSpacing="Single">
-					<font fontName="Arial" size="11" isBold="false"/>
-				</textElement>
-				<text><![CDATA[DAFTAR 10 BESAR PENYAKIT TERBANYAK]]></text>
-			</staticText>
 			<line>
 				<reportElement x="1" y="144" width="514" height="1"/>
 				<graphicElement>
@@ -224,6 +218,13 @@ ICD 10]]></text>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
+			<textField>
+				<reportElement x="0" y="60" width="514" height="15"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["DAFTAR "+$P{jlhData}+" BESAR PENYAKIT TERBANYAK"]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<detail>

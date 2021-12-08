@@ -268,12 +268,13 @@ public class DlgFrekuensiPenyakitRalan extends javax.swing.JDialog {
             System.out.println(e);
         }
         
+        jlhPenyakit.setDocument(new batasInput((byte) 2).getOnlyAngka(jlhPenyakit));
         emptText();     
     }
     
-    private Dimension screen=Toolkit.getDefaultToolkit().getScreenSize();
-    private DlgCariPenyakit penyakit=new DlgCariPenyakit(null,false);
-    private int i=0,a=0,b=0,c=0,d=0;
+    private Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+    private DlgCariPenyakit penyakit = new DlgCariPenyakit(null, false);
+    private int i = 0, a = 0, b = 0, c = 0, d = 0;
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -314,6 +315,9 @@ public class DlgFrekuensiPenyakitRalan extends javax.swing.JDialog {
         BtnUnit = new widget.Button();
         cekSemuaPoli = new widget.CekBox();
         panelisi1 = new widget.panelisi();
+        label20 = new widget.Label();
+        jlhPenyakit = new widget.TextBox();
+        label21 = new widget.Label();
         BtnBatal = new widget.Button();
         BtnAll = new widget.Button();
         BtnCari = new widget.Button();
@@ -404,7 +408,7 @@ public class DlgFrekuensiPenyakitRalan extends javax.swing.JDialog {
         ppDaftarTerbanyakPerPoli.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         ppDaftarTerbanyakPerPoli.setForeground(new java.awt.Color(0, 0, 0));
         ppDaftarTerbanyakPerPoli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept_page.png"))); // NOI18N
-        ppDaftarTerbanyakPerPoli.setText("Daftar 10 Penyakit Terbanyak Per Unit/Poliklinik");
+        ppDaftarTerbanyakPerPoli.setText("Daftar Penyakit Terbanyak Per Unit/Poliklinik");
         ppDaftarTerbanyakPerPoli.setName("ppDaftarTerbanyakPerPoli"); // NOI18N
         ppDaftarTerbanyakPerPoli.setPreferredSize(new java.awt.Dimension(300, 25));
         ppDaftarTerbanyakPerPoli.addActionListener(new java.awt.event.ActionListener() {
@@ -417,7 +421,7 @@ public class DlgFrekuensiPenyakitRalan extends javax.swing.JDialog {
         ppDaftarTerbanyakSemuaPoli.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         ppDaftarTerbanyakSemuaPoli.setForeground(new java.awt.Color(0, 0, 0));
         ppDaftarTerbanyakSemuaPoli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept_page.png"))); // NOI18N
-        ppDaftarTerbanyakSemuaPoli.setText("Daftar 10 Penyakit Terbanyak Semua Unit/Poliklinik");
+        ppDaftarTerbanyakSemuaPoli.setText("Daftar Penyakit Terbanyak Semua Unit/Poliklinik");
         ppDaftarTerbanyakSemuaPoli.setName("ppDaftarTerbanyakSemuaPoli"); // NOI18N
         ppDaftarTerbanyakSemuaPoli.setPreferredSize(new java.awt.Dimension(300, 25));
         ppDaftarTerbanyakSemuaPoli.addActionListener(new java.awt.event.ActionListener() {
@@ -637,6 +641,25 @@ public class DlgFrekuensiPenyakitRalan extends javax.swing.JDialog {
         panelisi1.setPreferredSize(new java.awt.Dimension(100, 56));
         panelisi1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 9));
 
+        label20.setForeground(new java.awt.Color(0, 0, 0));
+        label20.setText("Jumlah : ");
+        label20.setName("label20"); // NOI18N
+        label20.setPreferredSize(new java.awt.Dimension(60, 23));
+        panelisi1.add(label20);
+
+        jlhPenyakit.setForeground(new java.awt.Color(0, 0, 0));
+        jlhPenyakit.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jlhPenyakit.setName("jlhPenyakit"); // NOI18N
+        jlhPenyakit.setPreferredSize(new java.awt.Dimension(40, 23));
+        panelisi1.add(jlhPenyakit);
+
+        label21.setForeground(new java.awt.Color(0, 0, 0));
+        label21.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        label21.setText("Besar Penyakit.");
+        label21.setName("label21"); // NOI18N
+        label21.setPreferredSize(new java.awt.Dimension(80, 23));
+        panelisi1.add(label21);
+
         BtnBatal.setForeground(new java.awt.Color(0, 0, 0));
         BtnBatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Cancel-2-16x16.png"))); // NOI18N
         BtnBatal.setMnemonic('B');
@@ -716,7 +739,7 @@ public class DlgFrekuensiPenyakitRalan extends javax.swing.JDialog {
         label9.setForeground(new java.awt.Color(0, 0, 0));
         label9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         label9.setName("label9"); // NOI18N
-        label9.setPreferredSize(new java.awt.Dimension(450, 30));
+        label9.setPreferredSize(new java.awt.Dimension(415, 30));
         panelisi1.add(label9);
 
         internalFrame1.add(panelisi1, java.awt.BorderLayout.PAGE_END);
@@ -1686,6 +1709,9 @@ private void ppGrafikTerkecilPieActionPerformed(java.awt.event.ActionEvent evt) 
         if (kdpoli.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Silakan pilih dulu salah satu poliklinik/unitnya...!!!");
             BtnUnit.requestFocus();
+        } else if (jlhPenyakit.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Silakan isi dulu jumlah besar penyakit yang akan diambil datanya...!!!");
+            jlhPenyakit.requestFocus();
         } else {
             this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
             Map<String, Object> param = new HashMap<>();
@@ -1698,7 +1724,8 @@ private void ppGrafikTerkecilPieActionPerformed(java.awt.event.ActionEvent evt) 
             param.put("logo", Sequel.cariGambar("select logo from setting"));
             param.put("nama_poli", TPoli.getText());
             param.put("periode", Tgl1.getSelectedItem() + " s.d " + Tgl2.getSelectedItem());
-            Valid.MyReport("rpDaftar10BesarDiagnosaJalan.jrxml", "report", "::[ Daftar 10 Besar Penyakit Terbanyak Per Unit/Poliklinik ]::",
+            param.put("jlhData", jlhPenyakit.getText());
+            Valid.MyReport("rpDaftar10BesarDiagnosaJalan.jrxml", "report", "::[ Daftar " + jlhPenyakit.getText() + " Besar Penyakit Terbanyak Per Unit/Poliklinik ]::",
                     " SELECT a.kd_penyakit AS KD_ICD_10, a.ciri_ciri AS Deskripsi_Diagnosa, IFNULL(b.qty, 0) LK, ifnull(c.qty, 0) PR, IFNULL(b.qty, 0) + IFNULL(c.qty, 0) Total "
                     + " FROM ((SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, count(*) AS qty FROM diagnosa_pasien "
                     + " LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
@@ -1723,7 +1750,7 @@ private void ppGrafikTerkecilPieActionPerformed(java.awt.event.ActionEvent evt) 
                     + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
                     + " WHERE diagnosa_pasien. STATUS = 'Ralan' AND poliklinik.kd_poli NOT LIKE '%LAA%' AND poliklinik.kd_poli NOT LIKE '%LAB%' AND poliklinik.kd_poli NOT LIKE '%RAD%' "
                     + " AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' AND reg_periksa.tgl_registrasi BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + " AND poliklinik.kd_poli='" + kdpoli.getText() + "' AND pasien.jk = 'P' GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS c ON c.kd_penyakit = a.kd_penyakit) LIMIT 10", param);
+                    + " AND poliklinik.kd_poli='" + kdpoli.getText() + "' AND pasien.jk = 'P' GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS c ON c.kd_penyakit = a.kd_penyakit) LIMIT " + jlhPenyakit.getText() + "", param);
             this.setCursor(Cursor.getDefaultCursor());
             Tgl1.requestFocus();
         }
@@ -1753,50 +1780,56 @@ private void ppGrafikTerkecilPieActionPerformed(java.awt.event.ActionEvent evt) 
     private void ppDaftarTerbanyakSemuaPoliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppDaftarTerbanyakSemuaPoliActionPerformed
         if (var.getkode().equals("Admin Utama") || (var.getkode().equals("PPRM"))) {
             if (cekSemuaPoli.isSelected() == true) {
-                this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-                Map<String, Object> param = new HashMap<>();
-                param.put("namars", var.getnamars());
-                param.put("alamatrs", var.getalamatrs());
-                param.put("kotars", var.getkabupatenrs());
-                param.put("propinsirs", var.getpropinsirs());
-                param.put("kontakrs", var.getkontakrs());
-                param.put("emailrs", var.getemailrs());
-                param.put("logo", Sequel.cariGambar("select logo from setting"));
-                param.put("periode", Tgl1.getSelectedItem() + " s.d " + Tgl2.getSelectedItem());
-                Valid.MyReport("rpDaftar10BesarDiagnosaSP.jrxml", "report", "::[ Daftar 10 Besar Penyakit Terbanyak Semua Unit/Poliklinik ]::",
-                        " SELECT a.kd_penyakit AS KD_ICD_10, a.ciri_ciri AS Deskripsi_Diagnosa, IFNULL(b.qty, 0) LK, ifnull(c.qty, 0) PR, IFNULL(b.qty, 0) + IFNULL(c.qty, 0) Total "
-                        + " FROM ((SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, count(*) AS qty FROM diagnosa_pasien "
-                        + " LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
-                        + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
-                        + " LEFT JOIN poliklinik ON reg_periksa.kd_poli = poliklinik.kd_poli "
-                        + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
-                        + " WHERE diagnosa_pasien. STATUS = 'Ralan' AND poliklinik.kd_poli NOT LIKE '%LAA%' AND poliklinik.kd_poli NOT LIKE '%LAB%' AND poliklinik.kd_poli NOT LIKE '%RAD%' "
-                        + " AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' AND reg_periksa.tgl_registrasi BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                        + " GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS a "
-                        + " LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty FROM diagnosa_pasien "
-                        + " LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
-                        + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
-                        + " LEFT JOIN poliklinik ON reg_periksa.kd_poli = poliklinik.kd_poli "
-                        + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
-                        + " WHERE diagnosa_pasien. STATUS = 'Ralan' AND poliklinik.kd_poli NOT LIKE '%LAA%' AND poliklinik.kd_poli NOT LIKE '%LAB%' AND poliklinik.kd_poli NOT LIKE '%RAD%' "
-                        + " AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' AND reg_periksa.tgl_registrasi BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                        + " AND pasien.jk = 'L' GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS b ON b.kd_penyakit = a.kd_penyakit "
-                        + " LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty FROM diagnosa_pasien "
-                        + " LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
-                        + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
-                        + " LEFT JOIN poliklinik ON reg_periksa.kd_poli = poliklinik.kd_poli "
-                        + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
-                        + " WHERE diagnosa_pasien. STATUS = 'Ralan' AND poliklinik.kd_poli NOT LIKE '%LAA%' AND poliklinik.kd_poli NOT LIKE '%LAB%' AND poliklinik.kd_poli NOT LIKE '%RAD%' "
-                        + " AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' AND reg_periksa.tgl_registrasi BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                        + " AND pasien.jk = 'P' GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS c ON c.kd_penyakit = a.kd_penyakit) LIMIT 10", param);
-                this.setCursor(Cursor.getDefaultCursor());
+                if (jlhPenyakit.getText().trim().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Silakan isi dulu jumlah besar penyakit yang akan diambil datanya...!!!");
+                    jlhPenyakit.requestFocus();
+                } else {
+                    this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                    Map<String, Object> param = new HashMap<>();
+                    param.put("namars", var.getnamars());
+                    param.put("alamatrs", var.getalamatrs());
+                    param.put("kotars", var.getkabupatenrs());
+                    param.put("propinsirs", var.getpropinsirs());
+                    param.put("kontakrs", var.getkontakrs());
+                    param.put("emailrs", var.getemailrs());
+                    param.put("logo", Sequel.cariGambar("select logo from setting"));
+                    param.put("periode", Tgl1.getSelectedItem() + " s.d " + Tgl2.getSelectedItem());
+                    param.put("jlhData", jlhPenyakit.getText());
+                    Valid.MyReport("rpDaftar10BesarDiagnosaSP.jrxml", "report", "::[ Daftar " + jlhPenyakit.getText() + " Besar Penyakit Terbanyak Semua Unit/Poliklinik ]::",
+                            " SELECT a.kd_penyakit AS KD_ICD_10, a.ciri_ciri AS Deskripsi_Diagnosa, IFNULL(b.qty, 0) LK, ifnull(c.qty, 0) PR, IFNULL(b.qty, 0) + IFNULL(c.qty, 0) Total "
+                            + " FROM ((SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, count(*) AS qty FROM diagnosa_pasien "
+                            + " LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
+                            + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
+                            + " LEFT JOIN poliklinik ON reg_periksa.kd_poli = poliklinik.kd_poli "
+                            + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
+                            + " WHERE diagnosa_pasien. STATUS = 'Ralan' AND poliklinik.kd_poli NOT LIKE '%LAA%' AND poliklinik.kd_poli NOT LIKE '%LAB%' AND poliklinik.kd_poli NOT LIKE '%RAD%' "
+                            + " AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' AND reg_periksa.tgl_registrasi BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                            + " GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS a "
+                            + " LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty FROM diagnosa_pasien "
+                            + " LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
+                            + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
+                            + " LEFT JOIN poliklinik ON reg_periksa.kd_poli = poliklinik.kd_poli "
+                            + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
+                            + " WHERE diagnosa_pasien. STATUS = 'Ralan' AND poliklinik.kd_poli NOT LIKE '%LAA%' AND poliklinik.kd_poli NOT LIKE '%LAB%' AND poliklinik.kd_poli NOT LIKE '%RAD%' "
+                            + " AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' AND reg_periksa.tgl_registrasi BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                            + " AND pasien.jk = 'L' GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS b ON b.kd_penyakit = a.kd_penyakit "
+                            + " LEFT JOIN (SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, pasien.jk, count(*) AS qty FROM diagnosa_pasien "
+                            + " LEFT JOIN penyakit ON diagnosa_pasien.kd_penyakit = penyakit.kd_penyakit "
+                            + " LEFT JOIN reg_periksa ON diagnosa_pasien.no_rawat = reg_periksa.no_rawat "
+                            + " LEFT JOIN poliklinik ON reg_periksa.kd_poli = poliklinik.kd_poli "
+                            + " LEFT JOIN pasien ON pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
+                            + " WHERE diagnosa_pasien. STATUS = 'Ralan' AND poliklinik.kd_poli NOT LIKE '%LAA%' AND poliklinik.kd_poli NOT LIKE '%LAB%' AND poliklinik.kd_poli NOT LIKE '%RAD%' "
+                            + " AND diagnosa_pasien.prioritas = 1 AND diagnosa_pasien.kd_penyakit NOT LIKE 'Z%' AND reg_periksa.tgl_registrasi BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                            + " AND pasien.jk = 'P' GROUP BY diagnosa_pasien.kd_penyakit ORDER BY qty DESC) AS c ON c.kd_penyakit = a.kd_penyakit) LIMIT " + jlhPenyakit.getText() + "", param);
+                    this.setCursor(Cursor.getDefaultCursor());
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Silakan conteng dulu semua poli/unit...!!!");
                 cekSemuaPoli.requestFocus();
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "Untuk mencetak lap. 10 besar penyakit semua poli/unit, silakan koordinasi dg. Inst. Rekam Medik...!!!");
+            JOptionPane.showMessageDialog(null, "Untuk mencetak lap. penyakit terbanyak semua poli/unit, silakan koordinasi dg. Inst. Rekam Medik...!!!");
             Tgl1.requestFocus();
         }
     }//GEN-LAST:event_ppDaftarTerbanyakSemuaPoliActionPerformed
@@ -1952,12 +1985,15 @@ private void ppGrafikTerkecilPieActionPerformed(java.awt.event.ActionEvent evt) 
     private widget.InternalFrame internalFrame1;
     private widget.Label jLabel23;
     private javax.swing.JPopupMenu jPopupMenu1;
+    private widget.TextBox jlhPenyakit;
     private widget.TextBox kdpenyakit;
     private widget.TextBox kdpoli;
     private widget.Label label11;
     private widget.Label label17;
     private widget.Label label18;
     private widget.Label label19;
+    private widget.Label label20;
+    private widget.Label label21;
     private widget.Label label9;
     private widget.TextBox nmpenyakit;
     private widget.TextBox nmpnj;
@@ -2193,6 +2229,7 @@ private void ppGrafikTerkecilPieActionPerformed(java.awt.event.ActionEvent evt) 
         nmpenyakit.setText("");
         kdpnj = "";
         nmpnj.setText("");
+        jlhPenyakit.setText("10");
         UserValid();
     }
     

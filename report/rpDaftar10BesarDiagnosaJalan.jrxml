@@ -13,6 +13,7 @@
 	<parameter name="logo" class="java.io.InputStream"/>
 	<parameter name="nama_poli" class="java.lang.String"/>
 	<parameter name="periode" class="java.lang.String"/>
+	<parameter name="jlhData" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT a.kd_penyakit AS KD_ICD_10, a.ciri_ciri AS Deskripsi_Diagnosa, IFNULL(b.qty, 0) LK, ifnull(c.qty, 0) PR, IFNULL(b.qty, 0) + IFNULL(c.qty, 0) Total
 FROM ((SELECT diagnosa_pasien.kd_penyakit, penyakit.ciri_ciri, count(*) AS qty FROM diagnosa_pasien
@@ -155,13 +156,6 @@ ICD 10]]></text>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA["PASIEN RAWAT JALAN UNIT/POLIKLINIK "+$P{nama_poli}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="0" y="60" width="514" height="15"/>
-				<textElement textAlignment="Center" lineSpacing="Single">
-					<font fontName="Arial" size="11" isBold="false"/>
-				</textElement>
-				<text><![CDATA[DAFTAR 10 BESAR PENYAKIT TERBANYAK]]></text>
-			</staticText>
 			<line>
 				<reportElement x="1" y="144" width="514" height="1"/>
 				<graphicElement>
@@ -223,6 +217,13 @@ ICD 10]]></text>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
+			<textField>
+				<reportElement x="0" y="60" width="514" height="15"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["DAFTAR "+$P{jlhData}+" BESAR PENYAKIT TERBANYAK"]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<detail>
