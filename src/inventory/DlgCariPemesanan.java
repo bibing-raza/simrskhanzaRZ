@@ -45,7 +45,7 @@ public class DlgCariPemesanan extends javax.swing.JDialog {
     private ResultSet rs, rs2;
     private double tagihan = 0;
     private Jurnal jur = new Jurnal();
-    private String par;
+    private String par,dialog_simpan = "";
     private double stokbarang2;
     private Integer cek;
 
@@ -434,6 +434,7 @@ public class DlgCariPemesanan extends javax.swing.JDialog {
         ppBayar = new javax.swing.JMenuItem();
         ppUbah = new javax.swing.JMenuItem();
         ppCetakPemesanan = new javax.swing.JMenuItem();
+        ppRekapPemesananExcel = new javax.swing.JMenuItem();
         internalFrame1 = new widget.InternalFrame();
         scrollPane1 = new widget.ScrollPane();
         tbDokter = new widget.Table();
@@ -491,7 +492,7 @@ public class DlgCariPemesanan extends javax.swing.JDialog {
         ppHapus.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ppHapus.setIconTextGap(8);
         ppHapus.setName("ppHapus"); // NOI18N
-        ppHapus.setPreferredSize(new java.awt.Dimension(165, 25));
+        ppHapus.setPreferredSize(new java.awt.Dimension(220, 25));
         ppHapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ppHapusActionPerformed(evt);
@@ -507,7 +508,7 @@ public class DlgCariPemesanan extends javax.swing.JDialog {
         ppBayar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ppBayar.setIconTextGap(8);
         ppBayar.setName("ppBayar"); // NOI18N
-        ppBayar.setPreferredSize(new java.awt.Dimension(165, 25));
+        ppBayar.setPreferredSize(new java.awt.Dimension(220, 25));
         ppBayar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ppBayarActionPerformed(evt);
@@ -523,7 +524,7 @@ public class DlgCariPemesanan extends javax.swing.JDialog {
         ppUbah.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ppUbah.setIconTextGap(8);
         ppUbah.setName("ppUbah"); // NOI18N
-        ppUbah.setPreferredSize(new java.awt.Dimension(165, 25));
+        ppUbah.setPreferredSize(new java.awt.Dimension(220, 25));
         ppUbah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ppUbahActionPerformed(evt);
@@ -539,13 +540,29 @@ public class DlgCariPemesanan extends javax.swing.JDialog {
         ppCetakPemesanan.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ppCetakPemesanan.setIconTextGap(8);
         ppCetakPemesanan.setName("ppCetakPemesanan"); // NOI18N
-        ppCetakPemesanan.setPreferredSize(new java.awt.Dimension(165, 25));
+        ppCetakPemesanan.setPreferredSize(new java.awt.Dimension(220, 25));
         ppCetakPemesanan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ppCetakPemesananActionPerformed(evt);
             }
         });
         jPopupMenu1.add(ppCetakPemesanan);
+
+        ppRekapPemesananExcel.setBackground(new java.awt.Color(255, 255, 255));
+        ppRekapPemesananExcel.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        ppRekapPemesananExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/export-excel.png"))); // NOI18N
+        ppRekapPemesananExcel.setText("Kirim Rekap Pemesanan Ke Excel");
+        ppRekapPemesananExcel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        ppRekapPemesananExcel.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        ppRekapPemesananExcel.setIconTextGap(8);
+        ppRekapPemesananExcel.setName("ppRekapPemesananExcel"); // NOI18N
+        ppRekapPemesananExcel.setPreferredSize(new java.awt.Dimension(220, 25));
+        ppRekapPemesananExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppRekapPemesananExcelActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(ppRekapPemesananExcel);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -1468,6 +1485,19 @@ private void ppHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
         //        isRawat();
     }//GEN-LAST:event_chkFreeActionPerformed
 
+    private void ppRekapPemesananExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppRekapPemesananExcelActionPerformed
+        dialog_simpan = Valid.openDialog();
+        if (Valid.MyReportToExcelBoolean("select a.nama_brng 'Nama Barang',a.kode_sat 'Satuan', a.tipe_brg 'Tipe', ifnull(b.Total,0) 'QTY', a.h_beli 'Harga',ifnull(b.Total,0) * a.h_beli 'Total' "
+                + "from ( (select kode_brng,nama_brng, tipe_brg,kode_sat, h_beli from databarang where `status` = '1' ) as a left join (select g.kode_brng, g.nama_brng, sum(d.jumlah2) 'Total' "
+                + "from pemesanan p inner join detailpesan d on d.no_faktur = p.no_faktur inner join databarang g on g.kode_brng = d.kode_brng where p.tgl_pesan "
+                + "between '" + Valid.SetTgl(TglBeli1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(TglBeli2.getSelectedItem() + "") + "' group by g.kode_brng) "
+                + "as b on b.kode_brng = a.kode_brng ) order by a.nama_brng", dialog_simpan) == true) {
+            JOptionPane.showMessageDialog(null, "Data berhasil diexport menjadi file excel,..!!!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Data gagal diexport menjadi file excel,..!!!");
+        }
+    }//GEN-LAST:event_ppRekapPemesananExcelActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1533,6 +1563,7 @@ private void ppHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     private javax.swing.JMenuItem ppBayar;
     private javax.swing.JMenuItem ppCetakPemesanan;
     private javax.swing.JMenuItem ppHapus;
+    private javax.swing.JMenuItem ppRekapPemesananExcel;
     private javax.swing.JMenuItem ppUbah;
     private widget.ScrollPane scrollPane1;
     private widget.Table tbDokter;

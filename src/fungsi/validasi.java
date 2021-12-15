@@ -1232,10 +1232,10 @@ public final class validasi {
                     final float zoom = 5f;
                     String fileName = nmFile;
 
-                    OutputStream out = new FileOutputStream(folder + fileName + "." + extension);
+                    OutputStream out = new FileOutputStream(folder + fileName + "_p" + "." + extension);
                     BufferedImage image = (BufferedImage) JasperPrintManager.printPageToImage(jasperPrint, 0, zoom);
-                    ImageIO.write(image, extension, out); //write image to file
-                    JOptionPane.showMessageDialog(null, "Kode Booking (QR Code) berhasil disimpan..!!");
+                    ImageIO.write(image, extension, out); //write image to file\
+                    JOptionPane.showMessageDialog(null, "Report Berhasil Disimpan");
 
                 } catch (Exception rptexcpt) {
                     System.out.println("Report Can't view because : " + rptexcpt);
@@ -1341,10 +1341,17 @@ public final class validasi {
             }
             try {
                 ImageIO.write(image, fileType, myFile);
-                System.out.println("Sistem berhasil menggenerate QRCode resep..!!!");
+                System.out.println("QR Code sudah berhasil di generate..!!!");
             } catch (Exception e) {
-                e.printStackTrace();                
+                e.printStackTrace();
+                try {
+                    Files.createDirectories(Paths.get(folder));
+                    cetakQr(myCodeText, folder, fileName);
+                } catch (Exception f) {
+                }
+                
             }
+
         } catch (WriterException e) {
             e.printStackTrace();
         }
@@ -1507,11 +1514,13 @@ public final class validasi {
 
             FileOutputStream outputStream = new FileOutputStream(nm_filenya + ".xlsx");
             workbook.write(outputStream);
+            
         } catch (Exception e) {
             System.out.println(e);
+            
         }
-
     }
+    
 
     private void writeHeaderLine(ResultSet result, XSSFSheet sheet) throws SQLException {
         // write header line containing column names
@@ -1773,4 +1782,26 @@ public final class validasi {
 
         return cek_string;
     }
+    
+    public boolean MyReportToExcelBoolean(String qry1, String nm_filenya) {
+        try {
+            ps1 = connect.prepareStatement(qry1);
+            rs1 = ps1.executeQuery();
+
+            XSSFWorkbook workbook = new XSSFWorkbook();
+            XSSFSheet sheet = workbook.createSheet("Data");
+
+            writeHeaderLine(rs1, sheet);
+
+            writeDataLines(rs1, workbook, sheet);
+
+            FileOutputStream outputStream = new FileOutputStream(nm_filenya + ".xlsx");
+            workbook.write(outputStream);
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+    }
 }
+  
