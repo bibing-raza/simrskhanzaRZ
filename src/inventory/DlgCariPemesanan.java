@@ -45,7 +45,7 @@ public class DlgCariPemesanan extends javax.swing.JDialog {
     private ResultSet rs, rs2;
     private double tagihan = 0;
     private Jurnal jur = new Jurnal();
-    private String par,dialog_simpan = "";
+    private String par, dialog_simpan = "";
     private double stokbarang2;
     private Integer cek;
 
@@ -1486,15 +1486,23 @@ private void ppHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     }//GEN-LAST:event_chkFreeActionPerformed
 
     private void ppRekapPemesananExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppRekapPemesananExcelActionPerformed
-        dialog_simpan = Valid.openDialog();
-        if (Valid.MyReportToExcelBoolean("select a.nama_brng 'Nama Barang',a.kode_sat 'Satuan', a.tipe_brg 'Tipe', ifnull(b.Total,0) 'QTY', a.h_beli 'Harga',ifnull(b.Total,0) * a.h_beli 'Total' "
-                + "from ( (select kode_brng,nama_brng, tipe_brg,kode_sat, h_beli from databarang where `status` = '1' ) as a left join (select g.kode_brng, g.nama_brng, sum(d.jumlah2) 'Total' "
-                + "from pemesanan p inner join detailpesan d on d.no_faktur = p.no_faktur inner join databarang g on g.kode_brng = d.kode_brng where p.tgl_pesan "
-                + "between '" + Valid.SetTgl(TglBeli1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(TglBeli2.getSelectedItem() + "") + "' group by g.kode_brng) "
-                + "as b on b.kode_brng = a.kode_brng ) order by a.nama_brng", dialog_simpan) == true) {
-            JOptionPane.showMessageDialog(null, "Data berhasil diexport menjadi file excel,..!!!");
+        dialog_simpan = "";
+        if ((Sequel.cariInteger("select count(-1) jml from pemesanan p inner join detailpesan d on d.no_faktur = p.no_faktur inner join databarang g on g.kode_brng = d.kode_brng "
+                + "where p.tgl_pesan between '" + Valid.SetTgl(TglBeli1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(TglBeli2.getSelectedItem() + "") + "'")) > 0) {
+            dialog_simpan = Valid.openDialog();
+            if (!dialog_simpan.equals("the user cancelled the operation")) {
+                if (Valid.MyReportToExcelBoolean("select a.nama_brng 'Nama Barang',a.kode_sat 'Satuan', a.tipe_brg 'Tipe', ifnull(b.Total,0) 'QTY', a.h_beli 'Harga',ifnull(b.Total,0) * a.h_beli 'Total' "
+                        + "from ( (select kode_brng,nama_brng, tipe_brg,kode_sat, h_beli from databarang where `status` = '1' ) as a left join (select g.kode_brng, g.nama_brng, sum(d.jumlah2) 'Total' "
+                        + "from pemesanan p inner join detailpesan d on d.no_faktur = p.no_faktur inner join databarang g on g.kode_brng = d.kode_brng where p.tgl_pesan "
+                        + "between '" + Valid.SetTgl(TglBeli1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(TglBeli2.getSelectedItem() + "") + "' group by g.kode_brng) "
+                        + "as b on b.kode_brng = a.kode_brng ) order by a.nama_brng", dialog_simpan) == true) {
+                    JOptionPane.showMessageDialog(null, "Data berhasil diexport menjadi file excel,..!!!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Data gagal diexport menjadi file excel,..!!!");
+                }
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "Data gagal diexport menjadi file excel,..!!!");
+            JOptionPane.showMessageDialog(null, "Data Tidak Ditemukan");
         }
     }//GEN-LAST:event_ppRekapPemesananExcelActionPerformed
 
