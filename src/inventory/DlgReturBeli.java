@@ -42,6 +42,7 @@ public class DlgReturBeli extends javax.swing.JDialog {
     private PreparedStatement ps, psFaktur;
     private ResultSet rs,rsFaktur;
     private double ttlretur = 0, jumlahretur = 0;
+    private int stok=0;
 
     /**
      * Creates new form DlgProgramStudi
@@ -1016,6 +1017,7 @@ public class DlgReturBeli extends javax.swing.JDialog {
 }//GEN-LAST:event_tbDokterKeyPressed
 
     private void BtnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTambahActionPerformed
+        stok = Sequel.cariInteger("select stok from gudangbarang where kode_brng = '" + Kdbar.getText() + "' and kd_bangsal = '" + kdgudang.getText() + "'");
         if (nmbar.getText().trim().equals("")) {
             Valid.textKosong(Kdbar, "barang");
         } else if (Jmlretur.getText().trim().equals("")) {
@@ -1024,22 +1026,21 @@ public class DlgReturBeli extends javax.swing.JDialog {
             Valid.textKosong(Jmlretur, "jumlah retur");
         } else if (Hargaretur.getText().trim().equals("")) {
             Valid.textKosong(Hargaretur, "harga retur");
-        }else if (Integer.parseInt(Jmlretur.getText().trim()) > Integer.parseInt(jmlPesan.getText().trim())  ){
-            JOptionPane.showMessageDialog(null, "Jumlah Retur Lebih dari Jumlah yang Dipesan");
+        } else if (Integer.parseInt(Jmlretur.getText().trim()) > Integer.parseInt(jmlPesan.getText().trim()) || Integer.parseInt(Jmlretur.getText().trim()) > stok) {
+            JOptionPane.showMessageDialog(null, "Jumlah Retur Lebih dari Jumlah yang Dipesan / Lebih Besar dari Stok sekarang");
         } else {
             try {
                 Sequel.menyimpan("tampreturbeli", "'" + NoFaktur.getText() + "','" + Kdbar.getText() + "','" + nmbar.getText() + "','" + Satuanbar.getText()
-                    + "','0','0','" + Hargaretur.getText() + "','" + Jmlretur.getText() + "','" + Subtotal.getText() + "','" + NoBatch.getText() + "','" + jumlahretur + "'",
-                    "nama_brng='" + nmbar.getText() + "',satuan='" + Satuanbar.getText() + "',h_beli='0',jml_beli='0',h_retur='"
-                    + Hargaretur.getText() + "',jml_retur='" + Jmlretur.getText() + "',total='" + Subtotal.getText() + "',no_batch='" + NoBatch.getText() + "',jml_retur2='" + jumlahretur + "'",
-                    "kode_brng='" + Kdbar.getText() + "' and no_faktur='" + NoFaktur.getText() + "'");
-            emptTeks();
-            tampil();
-                
+                        + "','0','0','" + Hargaretur.getText() + "','" + Jmlretur.getText() + "','" + Subtotal.getText() + "','" + NoBatch.getText() + "','" + jumlahretur + "'",
+                        "nama_brng='" + nmbar.getText() + "',satuan='" + Satuanbar.getText() + "',h_beli='0',jml_beli='0',h_retur='"
+                        + Hargaretur.getText() + "',jml_retur='" + Jmlretur.getText() + "',total='" + Subtotal.getText() + "',no_batch='" + NoBatch.getText() + "',jml_retur2='" + jumlahretur + "'",
+                        "kode_brng='" + Kdbar.getText() + "' and no_faktur='" + NoFaktur.getText() + "'");
+                emptTeks();
+                tampil();
+
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "ERROR,Data Tidak Tersimpan");
             }
-            
         }
 }//GEN-LAST:event_BtnTambahActionPerformed
 

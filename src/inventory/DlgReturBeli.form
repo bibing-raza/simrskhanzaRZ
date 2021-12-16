@@ -874,9 +874,6 @@
             <Component class="widget.Tanggal" name="TglRetur">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="0" red="0" type="rgb"/>
-                </Property>
                 <Property name="displayFormat" type="java.lang.String" value="dd-MM-yyyy"/>
                 <Property name="name" type="java.lang.String" value="TglRetur" noResource="true"/>
               </Properties>
