@@ -49,7 +49,7 @@ public final class DlgCariDiet extends javax.swing.JDialog {
         this.setLocation(10,2);
         setSize(656,250);
 
-        Object[] row = {"Kode Diet", "Nama Diet", "Kategori"};
+        Object[] row = {"Kode Diet", "Nama Diet", "Jns. Makanan"};
         
         tabMode=new DefaultTableModel(null,row){
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
@@ -63,9 +63,9 @@ public final class DlgCariDiet extends javax.swing.JDialog {
             if (i == 0) {
                 column.setPreferredWidth(110);
             } else if (i == 1) {
-                column.setPreferredWidth(400);
+                column.setPreferredWidth(200);
             } else if (i == 2) {
-                column.setPreferredWidth(90);
+                column.setPreferredWidth(150);
             }
         }
         tbDiet.setDefaultRenderer(Object.class, new WarnaTable());
@@ -84,15 +84,15 @@ public final class DlgCariDiet extends javax.swing.JDialog {
         } 
         
         try {
-            ps = koneksi.prepareStatement("select kd_diet, nama_diet, kategori from diet where "
+            ps = koneksi.prepareStatement("select kd_diet, nama_diet, jns_makanan from diet_master where "
                     + "flag='1' and kd_diet like ? or "
                     + "flag='1' and nama_diet like ? or "
-                    + "flag='1' and kategori like ? order by kategori");
+                    + "flag='1' and jns_makanan like ? order by kd_diet");
         } catch (SQLException e) {
             System.out.println(e);
         }
     }
-    private DlgDiet diet=new DlgDiet(null,false);
+    private DlgDiet diet = new DlgDiet(null, false);
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -256,13 +256,13 @@ public final class DlgCariDiet extends javax.swing.JDialog {
 
 
     private void TCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TCariKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             BtnCariActionPerformed(null);
-        }else if(evt.getKeyCode()==KeyEvent.VK_PAGE_DOWN){
+        } else if (evt.getKeyCode() == KeyEvent.VK_PAGE_DOWN) {
             BtnCari.requestFocus();
-        }else if(evt.getKeyCode()==KeyEvent.VK_PAGE_UP){
+        } else if (evt.getKeyCode() == KeyEvent.VK_PAGE_UP) {
             BtnKeluar.requestFocus();
-        }else if(evt.getKeyCode()==KeyEvent.VK_UP){
+        } else if (evt.getKeyCode() == KeyEvent.VK_UP) {
             tbDiet.requestFocus();
         }
 }//GEN-LAST:event_TCariKeyPressed
@@ -301,7 +301,7 @@ public final class DlgCariDiet extends javax.swing.JDialog {
         //diet.setModal(true);
         diet.emptTeks();
         diet.isCek();
-        diet.setSize(738, 486);
+        diet.setSize(831, 486);
         diet.setLocationRelativeTo(internalFrame1);
         diet.setAlwaysOnTop(false);
         diet.setVisible(true);
@@ -359,7 +359,7 @@ public final class DlgCariDiet extends javax.swing.JDialog {
     private widget.Table tbDiet;
     // End of variables declaration//GEN-END:variables
 
-    private void tampil() {
+    public void tampil() {
         Valid.tabelKosong(tabMode);
         try {
             ps.setString(1, "%" + TCari.getText().trim() + "%");

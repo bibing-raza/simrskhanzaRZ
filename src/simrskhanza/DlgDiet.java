@@ -54,7 +54,7 @@ public class DlgDiet extends javax.swing.JDialog {
         this.setLocation(10,10);
         setSize(459,539);
 
-        Object[] row={"Kode Diet", "Nama Diet","Kategori Diet"};
+        Object[] row={"Kode Diet", "Nama Diet","Jns. Makanan"};
         tabMode=new DefaultTableModel(null,row){
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
         };
@@ -68,9 +68,9 @@ public class DlgDiet extends javax.swing.JDialog {
             if (i == 0) {
                 column.setPreferredWidth(110);
             } else if (i == 1) {
-                column.setPreferredWidth(370);
+                column.setPreferredWidth(200);
             } else if (i == 2) {
-                column.setPreferredWidth(90);
+                column.setPreferredWidth(130);
             }
         }
         tbDiet.setDefaultRenderer(Object.class, new WarnaTable());
@@ -99,10 +99,10 @@ public class DlgDiet extends javax.swing.JDialog {
         }
 
         try {
-            ps = koneksi.prepareStatement("select kd_diet, nama_diet, kategori from diet where "
+            ps = koneksi.prepareStatement("select kd_diet, nama_diet, jns_makanan from diet_master where "
                     + "flag='1' and kd_diet like ? or "
                     + "flag='1' and nama_diet like ? or "
-                    + "flag='1' and kategori like ? order by kd_diet");
+                    + "flag='1' and jns_makanan like ? order by kd_diet");
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -140,7 +140,7 @@ public class DlgDiet extends javax.swing.JDialog {
         jLabel4 = new widget.Label();
         TNm = new widget.TextBox();
         jLabel5 = new widget.Label();
-        cmbKategori = new widget.ComboBox();
+        cmbJenis = new widget.ComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -368,6 +368,7 @@ public class DlgDiet extends javax.swing.JDialog {
         jLabel3.setPreferredSize(new java.awt.Dimension(80, 23));
         panelGlass7.add(jLabel3);
 
+        TKd.setEditable(false);
         TKd.setForeground(new java.awt.Color(0, 0, 0));
         TKd.setName("TKd"); // NOI18N
         TKd.setPreferredSize(new java.awt.Dimension(90, 23));
@@ -395,21 +396,21 @@ public class DlgDiet extends javax.swing.JDialog {
         panelGlass7.add(TNm);
 
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("Kategori : ");
+        jLabel5.setText("Jns. Makanan :");
         jLabel5.setName("jLabel5"); // NOI18N
-        jLabel5.setPreferredSize(new java.awt.Dimension(70, 23));
+        jLabel5.setPreferredSize(new java.awt.Dimension(90, 23));
         panelGlass7.add(jLabel5);
 
-        cmbKategori.setForeground(new java.awt.Color(0, 0, 0));
-        cmbKategori.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Umum", "Asuhan Gizi" }));
-        cmbKategori.setName("cmbKategori"); // NOI18N
-        cmbKategori.setPreferredSize(new java.awt.Dimension(105, 23));
-        cmbKategori.addKeyListener(new java.awt.event.KeyAdapter() {
+        cmbJenis.setForeground(new java.awt.Color(0, 0, 0));
+        cmbJenis.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-" }));
+        cmbJenis.setName("cmbJenis"); // NOI18N
+        cmbJenis.setPreferredSize(new java.awt.Dimension(170, 23));
+        cmbJenis.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                cmbKategoriKeyPressed(evt);
+                cmbJenisKeyPressed(evt);
             }
         });
-        panelGlass7.add(cmbKategori);
+        panelGlass7.add(cmbJenis);
 
         internalFrame1.add(panelGlass7, java.awt.BorderLayout.PAGE_START);
 
@@ -431,21 +432,21 @@ public class DlgDiet extends javax.swing.JDialog {
             Valid.textKosong(TKd, "kode diet");
         } else if (TNm.getText().trim().equals("")) {
             Valid.textKosong(TNm, "nama diet");
-        } else if (cmbKategori.getSelectedItem().equals(" ")) {
-            JOptionPane.showMessageDialog(null, "Pilih salah satu kategori dietnya dengan benar,...!!");
-            cmbKategori.requestFocus();
-        } else {
-            Sequel.menyimpan("diet", "'" + TKd.getText() + "','" + TNm.getText() + "','"+cmbKategori.getSelectedItem()+"','1'", "Data diet pasien");
+        } else if (cmbJenis.getSelectedItem().equals("-")) {
+            JOptionPane.showMessageDialog(null, "Pilih salah satu jenis makanannya dengan benar,...!!");
+            cmbJenis.requestFocus();
+        } else {            
+            Sequel.simpanReplaceInto("diet_master", "'" + TKd.getText() + "','" + TNm.getText() + "','" + cmbJenis.getSelectedItem() + "','1'", "Diet Master");            
             tampil();
             emptTeks();
         }
 }//GEN-LAST:event_BtnSimpanActionPerformed
 
     private void BtnSimpanKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnSimpanKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_SPACE){
+        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
             BtnSimpanActionPerformed(null);
-        }else{
-            Valid.pindah(evt,TNm,BtnBatal);
+        } else {
+            Valid.pindah(evt, TNm, BtnBatal);
         }
 }//GEN-LAST:event_BtnSimpanKeyPressed
 
@@ -462,7 +463,7 @@ public class DlgDiet extends javax.swing.JDialog {
     private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHapusActionPerformed
 //        Valid.hapusTable(tabMode, TKd, "diet", "kd_diet");
 
-        Sequel.mengedit("diet", "kd_diet='" + kdLama + "'", "flag='0'");        
+        Sequel.mengedit("diet_master", "kd_diet='" + kdLama + "'", "flag='0'");        
         tampil();
         emptTeks();
 }//GEN-LAST:event_BtnHapusActionPerformed
@@ -480,14 +481,14 @@ public class DlgDiet extends javax.swing.JDialog {
             Valid.textKosong(TKd, "kode diet");
         } else if (TNm.getText().trim().equals("")) {
             Valid.textKosong(TNm, "nama diet");
-        } else if (cmbKategori.getSelectedItem().equals(" ")) {
-            JOptionPane.showMessageDialog(rootPane, "Pilih salah satu kategori dietnya dengan benar,...!!");
-            cmbKategori.requestFocus();
+        } else if (cmbJenis.getSelectedItem().equals(" ")) {
+            JOptionPane.showMessageDialog(rootPane, "Pilih salah satu pilihan jenis makanannya dengan benar,...!!");
+            cmbJenis.requestFocus();
         } else {
-            Sequel.mengedit("diet", "kd_diet='" + kdLama + "'",
+            Sequel.mengedit("diet_master", "kd_diet='" + kdLama + "'",
                     "kd_diet='" + TKd.getText() + "', "
                     + "nama_diet='" + TNm.getText() + "', "
-                    + "kategori='" + cmbKategori.getSelectedItem() + "'");
+                    + "jns_makanan='" + cmbJenis.getSelectedItem() + "'");
           
             if (tabMode.getRowCount() != 0) {
                 tampil();
@@ -574,13 +575,14 @@ public class DlgDiet extends javax.swing.JDialog {
 }//GEN-LAST:event_tbDietKeyPressed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        Sequel.cariIsiComboDB("SELECT jns_makanan FROM diet_master GROUP BY jns_makanan", cmbJenis);
         emptTeks();
         tampil();
     }//GEN-LAST:event_formWindowOpened
 
-    private void cmbKategoriKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmbKategoriKeyPressed
+    private void cmbJenisKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmbJenisKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbKategoriKeyPressed
+    }//GEN-LAST:event_cmbJenisKeyPressed
 
     /**
     * @param args the command line arguments
@@ -611,7 +613,7 @@ public class DlgDiet extends javax.swing.JDialog {
     public widget.TextBox TCari;
     private widget.TextBox TKd;
     private widget.TextBox TNm;
-    private widget.ComboBox cmbKategori;
+    private widget.ComboBox cmbJenis;
     private widget.InternalFrame internalFrame1;
     private widget.Label jLabel3;
     private widget.Label jLabel4;
@@ -649,10 +651,10 @@ public class DlgDiet extends javax.swing.JDialog {
         kdLama = "";
         TKd.setText("");
         TNm.setText("");
-        cmbKategori.setSelectedIndex(0);
+        cmbJenis.setSelectedIndex(0);
         TCari.setText("");
         TNm.requestFocus();
-        Valid.autoNomer("diet","DG",4,TKd);
+        Valid.autoNomer("diet_master","DM",4,TKd);        
         TKd.requestFocus();
     }
 
@@ -662,7 +664,7 @@ public class DlgDiet extends javax.swing.JDialog {
             kdLama = tbDiet.getValueAt(tbDiet.getSelectedRow(),0).toString();
             TKd.setText(tbDiet.getValueAt(tbDiet.getSelectedRow(),0).toString());
             TNm.setText(tbDiet.getValueAt(tbDiet.getSelectedRow(),1).toString());
-            cmbKategori.setSelectedItem(tbDiet.getValueAt(tbDiet.getSelectedRow(),2).toString());
+            cmbJenis.setSelectedItem(tbDiet.getValueAt(tbDiet.getSelectedRow(),2).toString());
         }
     }
     
@@ -678,5 +680,9 @@ public class DlgDiet extends javax.swing.JDialog {
         BtnSimpan.setEnabled(var.getdiet_pasien());
         BtnHapus.setEnabled(var.getdiet_pasien());
         BtnEdit.setEnabled(var.getdiet_pasien());
+    }
+    
+    public JTable getTable(){
+        return tbDiet;
     }
 }

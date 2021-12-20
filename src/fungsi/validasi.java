@@ -139,7 +139,7 @@ public final class validasi {
             try {
                 rs = ps.executeQuery();
                 rs.last();
-                s = Integer.toString(rs.getRow() + 2);
+                s = Integer.toString(rs.getRow() + 1);
                 j = s.length();
                 s1 = "";
                 for (i = 1; i <= pnj - j; i++) {
@@ -355,7 +355,7 @@ public final class validasi {
             System.out.println("Notifikasi : " + e);
         }
     }
-
+    
     public String autoNomer(String tabel, String strAwal, Integer pnj) {
         try {
             auto = "";
