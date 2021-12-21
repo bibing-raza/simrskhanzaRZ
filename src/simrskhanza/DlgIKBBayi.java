@@ -937,7 +937,7 @@ public class DlgIKBBayi extends javax.swing.JDialog {
         panelGlass8.add(jLabel15);
 
         tgl1.setEditable(false);
-        tgl1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-08-2021" }));
+        tgl1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "25-08-2021" }));
         tgl1.setDisplayFormat("dd-MM-yyyy");
         tgl1.setName("tgl1"); // NOI18N
         tgl1.setOpaque(false);
@@ -957,7 +957,7 @@ public class DlgIKBBayi extends javax.swing.JDialog {
         panelGlass8.add(jLabel17);
 
         tgl2.setEditable(false);
-        tgl2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-08-2021" }));
+        tgl2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "25-08-2021" }));
         tgl2.setDisplayFormat("dd-MM-yyyy");
         tgl2.setName("tgl2"); // NOI18N
         tgl2.setOpaque(false);
@@ -4316,11 +4316,12 @@ private void MnKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                     + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
                     + "INNER JOIN reg_periksa rp on rp.no_rawat=ki.no_rawat INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis where "
                     + "rp.tgl_registrasi BETWEEN ? and ? and (b.nm_bangsal LIKE '%obg%' or b.nm_bangsal LIKE '%intan%' or "
-                    + "b.nm_bangsal LIKE '%iccu%' or b.nm_bangsal LIKE '%covid%') and p.jk='P' and rp.sttsumur='Th' and rp.no_rawat like ? or "
+                    + "b.nm_bangsal LIKE '%iccu%' or b.nm_bangsal LIKE '%covid%' or b.nm_bangsal LIKE 'iso%') and p.jk='P' and rp.sttsumur='Th' and rp.no_rawat like ? or "
                     + "rp.tgl_registrasi BETWEEN ? and ? and (b.nm_bangsal LIKE '%obg%' or b.nm_bangsal LIKE '%intan%' or "
-                    + "b.nm_bangsal LIKE '%iccu%' or b.nm_bangsal LIKE '%covid%') and p.jk='P' and rp.sttsumur='Th' and p.no_rkm_medis like ? or "
+                    + "b.nm_bangsal LIKE '%iccu%' or b.nm_bangsal LIKE '%covid%' or b.nm_bangsal LIKE 'iso%') and p.jk='P' and rp.sttsumur='Th' and p.no_rkm_medis like ? or "
                     + "rp.tgl_registrasi BETWEEN ? and ? and (b.nm_bangsal LIKE '%obg%' or b.nm_bangsal LIKE '%intan%' or "
-                    + "b.nm_bangsal LIKE '%iccu%' or b.nm_bangsal LIKE '%covid%') and p.jk='P' and rp.sttsumur='Th' and p.nm_pasien like ? order by p.nm_pasien");
+                    + "b.nm_bangsal LIKE '%iccu%' or b.nm_bangsal LIKE '%covid%' or b.nm_bangsal LIKE 'iso%') and p.jk='P' and rp.sttsumur='Th' and p.nm_pasien like ? "
+                    + "order by p.nm_pasien");
             try {
                 ps.setString(1, Valid.SetTgl(tgl1.getSelectedItem() + ""));
                 ps.setString(2, Valid.SetTgl(tgl2.getSelectedItem() + ""));
