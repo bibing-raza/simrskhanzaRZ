@@ -184,7 +184,7 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
                 column.setPreferredWidth(105);
             }
         }
-        tbPoli.setDefaultRenderer(Object.class, new WarnaTable());
+        tbDiet.setDefaultRenderer(Object.class, new WarnaTable());
 
         TNoRw.setDocument(new batasInput((byte) 17).getKata(TNoRw));
         TCari.setDocument(new batasInput((byte) 100).getKata(TCari));
@@ -2008,17 +2008,19 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 JOptionPane.showMessageDialog(null, "Silakan pilih salah satu waktu dietnya...!!!!");
             } else if (cekDietSiang.isSelected() == true && (cekDietSore.isSelected() == true)) {
                 JOptionPane.showMessageDialog(null, "Silakan pilih salah satu waktu dietnya...!!!!");
+            } else if (waktuAwal.equals("Pagi") && !cekDietPagi.isSelected() == true) {
+                JOptionPane.showMessageDialog(null, "Untuk merubah wkt. diet pagi mnjdi. wkt. diet yg. lain, hapus dulu datanya..!!");
+            } else if (waktuAwal.equals("Siang") && !cekDietSiang.isSelected() == true) {
+                JOptionPane.showMessageDialog(null, "Untuk merubah wkt. diet siang mnjdi. wkt. diet yg. lain, hapus dulu datanya..!!");
+            } else if (waktuAwal.equals("Sore") && !cekDietSore.isSelected() == true) {
+                JOptionPane.showMessageDialog(null, "Untuk merubah wkt. diet sore mnjdi. wkt. diet yg. lain, hapus dulu datanya..!!");
             } else if (!TPasien.getText().trim().equals("")) {
                 dietOK();
                 if (cekDietPagi.isSelected() == true) {
+                    hapusRincianDietRanap();
                     Sequel.mengedit("detail_beri_diet", "no_rawat='" + TNoRw.getText() + "' and tanggal='" + tglDietAwal + "' and waktu='" + waktuAwal + "'",
                             "tanggal='" + Valid.SetTgl(DTPTgl.getSelectedItem() + "") + "',"
                             + "waktu='Pagi',kd_diet='" + TKd.getText() + "'");
-                    
-                    Sequel.queryu("delete from diet_ranap_daftar_rincian "
-                            + "where no_rawat='" + TNoRw.getText() + "' "
-                            + "and tanggal='" + tglDietAwal + "' "
-                            + "and waktu='Pagi'");
 
                     for (i = 0; i < tbDiet.getRowCount(); i++) {
                         Sequel.menyimpan("diet_ranap_daftar_rincian", "'" + TNoRw.getText() + "','" + kdUnit + "','"
@@ -2027,14 +2029,10 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     }
                 }
                 if (cekDietSiang.isSelected() == true) {
+                    hapusRincianDietRanap();
                     Sequel.mengedit("detail_beri_diet", "no_rawat='" + TNoRw.getText() + "' and tanggal='" + tglDietAwal + "' and waktu='" + waktuAwal + "'",
                             "tanggal='" + Valid.SetTgl(DTPTgl.getSelectedItem() + "") + "',"
                             + "waktu='Siang',kd_diet='" + TKd.getText() + "'");
-                    
-                    Sequel.queryu("delete from diet_ranap_daftar_rincian "
-                            + "where no_rawat='" + TNoRw.getText() + "' "
-                            + "and tanggal='" + tglDietAwal + "' "
-                            + "and waktu='Siang'");
 
                     for (i = 0; i < tbDiet.getRowCount(); i++) {
                         Sequel.menyimpan("diet_ranap_daftar_rincian", "'" + TNoRw.getText() + "','" + kdUnit + "','"
@@ -2043,14 +2041,10 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     }
                 }
                 if (cekDietSore.isSelected() == true) {
+                    hapusRincianDietRanap();
                     Sequel.mengedit("detail_beri_diet", "no_rawat='" + TNoRw.getText() + "' and tanggal='" + tglDietAwal + "' and waktu='" + waktuAwal + "'",
                             "tanggal='" + Valid.SetTgl(DTPTgl.getSelectedItem() + "") + "',"
                             + "waktu='Sore',kd_diet='" + TKd.getText() + "'");
-                    
-                    Sequel.queryu("delete from diet_ranap_daftar_rincian "
-                            + "where no_rawat='" + TNoRw.getText() + "' "
-                            + "and tanggal='" + tglDietAwal + "' "
-                            + "and waktu='Sore'");
                     
                     for (i = 0; i < tbDiet.getRowCount(); i++) {
                         Sequel.menyimpan("diet_ranap_daftar_rincian", "'" + TNoRw.getText() + "','" + kdUnit + "','"
@@ -2084,17 +2078,19 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 JOptionPane.showMessageDialog(null, "Silakan pilih salah satu waktu dietnya...!!!!");
             } else if (cekDietSiang.isSelected() == true && (cekDietSore.isSelected() == true)) {
                 JOptionPane.showMessageDialog(null, "Silakan pilih salah satu waktu dietnya...!!!!");
+            } else if (waktuAwal.equals("Pagi") && !cekDietPagi.isSelected() == true) {
+                JOptionPane.showMessageDialog(null, "Untuk merubah wkt. diet pagi mnjdi. wkt. diet yg. lain, hapus dulu datanya..!!");
+            } else if (waktuAwal.equals("Siang") && !cekDietSiang.isSelected() == true) {
+                JOptionPane.showMessageDialog(null, "Untuk merubah wkt. diet siang mnjdi. wkt. diet yg. lain, hapus dulu datanya..!!");
+            } else if (waktuAwal.equals("Sore") && !cekDietSore.isSelected() == true) {
+                JOptionPane.showMessageDialog(null, "Untuk merubah wkt. diet sore mnjdi. wkt. diet yg. lain, hapus dulu datanya..!!");
             } else if (!TPasien.getText().trim().equals("")) {
                 dietOK();
                 if (cekDietPagi.isSelected() == true) {
+                    hapusRincianDietRalan();
                     Sequel.mengedit("detail_beri_diet_ralan", "no_rawat='" + TNoRw.getText() + "' and tanggal='" + tglDietAwal + "' and waktu='" + waktuAwal + "'",
                             "tanggal='" + Valid.SetTgl(DTPTgl.getSelectedItem() + "") + "',"
                             + "waktu='Pagi',kd_diet='" + TKd.getText() + "'");
-                    
-                    Sequel.queryu("delete from diet_ralan_daftar_rincian "
-                            + "where no_rawat='" + TNoRw.getText() + "' "
-                            + "and tanggal='" + tglDietAwal + "' "
-                            + "and waktu='Pagi'");
 
                     for (i = 0; i < tbDiet.getRowCount(); i++) {
                         Sequel.menyimpan("diet_ralan_daftar_rincian", "'" + TNoRw.getText() + "','" + kdUnit + "','"
@@ -2103,14 +2099,10 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     }
                 } 
                 if (cekDietSiang.isSelected() == true) {
+                    hapusRincianDietRalan();
                     Sequel.mengedit("detail_beri_diet_ralan", "no_rawat='" + TNoRw.getText() + "' and tanggal='" + tglDietAwal + "' and waktu='" + waktuAwal + "'",
                             "tanggal='" + Valid.SetTgl(DTPTgl.getSelectedItem() + "") + "',"
                             + "waktu='Siang',kd_diet='" + TKd.getText() + "'");
-                    
-                    Sequel.queryu("delete from diet_ralan_daftar_rincian "
-                            + "where no_rawat='" + TNoRw.getText() + "' "
-                            + "and tanggal='" + tglDietAwal + "' "
-                            + "and waktu='Siang'");
 
                     for (i = 0; i < tbDiet.getRowCount(); i++) {
                         Sequel.menyimpan("diet_ralan_daftar_rincian", "'" + TNoRw.getText() + "','" + kdUnit + "','"
@@ -2119,14 +2111,10 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     }
                 } 
                 if (cekDietSore.isSelected() == true) {
+                    hapusRincianDietRalan();
                     Sequel.mengedit("detail_beri_diet_ralan", "no_rawat='" + TNoRw.getText() + "' and tanggal='" + tglDietAwal + "' and waktu='" + waktuAwal + "'",
                             "tanggal='" + Valid.SetTgl(DTPTgl.getSelectedItem() + "") + "',"
                             + "waktu='Sore',kd_diet='" + TKd.getText() + "'");
-                    
-                    Sequel.queryu("delete from diet_ralan_daftar_rincian "
-                            + "where no_rawat='" + TNoRw.getText() + "' "
-                            + "and tanggal='" + tglDietAwal + "' "
-                            + "and waktu='Sore'");
 
                     for (i = 0; i < tbDiet.getRowCount(); i++) {
                         Sequel.menyimpan("diet_ralan_daftar_rincian", "'" + TNoRw.getText() + "','" + kdUnit + "','"
@@ -3234,6 +3222,44 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             }
         } catch (Exception e) {
             System.out.println("Notifikasi : " + e);
+        }
+    }
+    
+    private void hapusRincianDietRanap() {
+        if (waktuAwal.equals("Pagi")) {
+            Sequel.queryu("delete from diet_ranap_daftar_rincian "
+                    + "where no_rawat='" + TNoRw.getText() + "' "
+                    + "and tanggal='" + tglDietAwal + "' "
+                    + "and waktu='Pagi'");
+        } else if (waktuAwal.equals("Siang")) {
+            Sequel.queryu("delete from diet_ranap_daftar_rincian "
+                    + "where no_rawat='" + TNoRw.getText() + "' "
+                    + "and tanggal='" + tglDietAwal + "' "
+                    + "and waktu='Siang'");
+        } else if (waktuAwal.equals("Sore")) {
+            Sequel.queryu("delete from diet_ranap_daftar_rincian "
+                    + "where no_rawat='" + TNoRw.getText() + "' "
+                    + "and tanggal='" + tglDietAwal + "' "
+                    + "and waktu='Sore'");
+        }
+    }
+    
+    private void hapusRincianDietRalan() {
+        if (waktuAwal.equals("Pagi")) {
+            Sequel.queryu("delete from diet_ralan_daftar_rincian "
+                    + "where no_rawat='" + TNoRw.getText() + "' "
+                    + "and tanggal='" + tglDietAwal + "' "
+                    + "and waktu='Pagi'");
+        } else if (waktuAwal.equals("Siang")) {
+            Sequel.queryu("delete from diet_ralan_daftar_rincian "
+                    + "where no_rawat='" + TNoRw.getText() + "' "
+                    + "and tanggal='" + tglDietAwal + "' "
+                    + "and waktu='Siang'");
+        } else if (waktuAwal.equals("Sore")) {
+            Sequel.queryu("delete from diet_ralan_daftar_rincian "
+                    + "where no_rawat='" + TNoRw.getText() + "' "
+                    + "and tanggal='" + tglDietAwal + "' "
+                    + "and waktu='Sore'");
         }
     }
 }

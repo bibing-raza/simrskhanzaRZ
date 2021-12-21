@@ -28,19 +28,21 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import simrskhanza.DlgCariDiet;
+import simrskhanza.DlgCariJumlahPemberianDiet;
 
 public class DlgAssesmenGiziHarian extends javax.swing.JDialog {
-    private final DefaultTableModel tabMode, tabMode1, tabMode2;
+    private final DefaultTableModel tabMode, tabMode1, tabMode2, tabMode3;
     private Connection koneksi=koneksiDB.condb();
     private sekuel Sequel=new sekuel();
     private validasi Valid=new validasi();
     private Properties prop = new Properties();
-    private PreparedStatement ps, ps1, ps2;
-    private ResultSet rs, rs1, rs2;
+    private PreparedStatement ps, ps1, ps2, ps3;
+    private ResultSet rs, rs1, rs2, rs3;
     private DlgCariDiet diet = new DlgCariDiet(null, false);
+    private DlgCariJumlahPemberianDiet jlhberi = new DlgCariJumlahPemberianDiet(null, false);
     private int i = 0, j = 0, cekdiagGZ = 0;
     private double angkaTB = 0, nilaiTB = 0, nilaiIMT = 0;
-    private String mual = "", diare = "", odeme = "", anorex = "", nyeri = "", sulit = "", kddiet = "", 
+    private String mual = "", diare = "", odeme = "", anorex = "", nyeri = "", sulit = "", dataDiet = "",
             konsti = "", ganggu = "", alergi = "", kdkamarnya = "", jam = "", tgl = "", norwdiag = "", tglDiag = "";
 
     /** Creates new form DlgPemberianInfus
@@ -241,6 +243,46 @@ public class DlgAssesmenGiziHarian extends javax.swing.JDialog {
             }
         }
         tbdiagnosaGZ.setDefaultRenderer(Object.class, new WarnaTable());
+        
+        tabMode3 = new DefaultTableModel(null, new Object[]{"kd_diet","#", "Nama Diet", "Jns. Makanan","Jlh. Pemberian"}) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                boolean a = false;
+                if (colIndex == 1) {
+                    a = true;
+                }
+                return a;
+            }
+            Class[] types = new Class[]{
+                java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class,
+                java.lang.Object.class, java.lang.Object.class
+            };
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+             }
+        };
+        
+        tbDiet.setModel(tabMode3);
+        tbDiet.setPreferredScrollableViewportSize(new Dimension(500, 500));
+        tbDiet.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        for (int i = 0; i < 5; i++) {
+            TableColumn column = tbDiet.getColumnModel().getColumn(i);
+            if (i == 0) {
+                column.setMinWidth(0);
+                column.setMaxWidth(0);
+            } else if (i == 1) {
+                column.setPreferredWidth(30);
+            } else if (i == 2) {
+                column.setPreferredWidth(150);
+            } else if (i == 3) {
+                column.setPreferredWidth(140);
+            } else if (i == 4) {
+                column.setPreferredWidth(105);
+            }
+        }
+        tbDiet.setDefaultRenderer(Object.class, new WarnaTable());
 
         TCari.setDocument(new batasInput((byte)100).getKata(TCari));
         TCari1.setDocument(new batasInput((byte)100).getKata(TCari1));
@@ -259,7 +301,7 @@ public class DlgAssesmenGiziHarian extends javax.swing.JDialog {
             });
         }
         
-        diet.addWindowListener(new WindowListener() {
+        jlhberi.addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent e) {
             }
@@ -271,10 +313,10 @@ public class DlgAssesmenGiziHarian extends javax.swing.JDialog {
             @Override
             public void windowClosed(WindowEvent e) {
                 if (var.getform().equals("DlgAssesmenGiziHarian")) {
-                    if (diet.getTable().getSelectedRow() != -1) {
-                        kddiet = diet.getTable().getValueAt(diet.getTable().getSelectedRow(), 0).toString();
-                        jns_diet.setText(diet.getTable().getValueAt(diet.getTable().getSelectedRow(), 1).toString());
-                        ket_jenisDiet.requestFocus();
+                    if (jlhberi.getTable().getSelectedRow() != -1) {
+                        kdberi.setText(jlhberi.getTable().getValueAt(jlhberi.getTable().getSelectedRow(), 0).toString());
+                        jumlahBeri.setText(jlhberi.getTable().getValueAt(jlhberi.getTable().getSelectedRow(), 1).toString());
+                        cmbSatuan.setSelectedItem(jlhberi.getTable().getValueAt(jlhberi.getTable().getSelectedRow(), 2).toString());
                     }
                 }
             }
@@ -293,6 +335,93 @@ public class DlgAssesmenGiziHarian extends javax.swing.JDialog {
 
             @Override
             public void windowDeactivated(WindowEvent e) {
+            }
+        });
+        
+        jlhberi.getTable().addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (var.getform().equals("DlgAssesmenGiziHarian")) {
+                    if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                        jlhberi.dispose();
+                    }
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+            }
+        });
+        
+        diet.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                if (var.getform().equals("DlgAssesmenGiziHarian")) {
+                    if (diet.getTable().getSelectedRow() != -1) {
+                        kddiet.setText(diet.getTable().getValueAt(diet.getTable().getSelectedRow(), 0).toString());
+                        nmdiet.setText(diet.getTable().getValueAt(diet.getTable().getSelectedRow(), 1).toString());
+                        jnsMakanan.setText(diet.getTable().getValueAt(diet.getTable().getSelectedRow(), 2).toString());
+                        
+                        if (nmdiet.getText().equals("F75") || nmdiet.getText().equals("F100") || nmdiet.getText().equals("F135")) {
+                            kdberi.setText("-");
+                            jumlahBeri.setText("");
+                            jumlahBeri.setEditable(true);
+                            cmbSatuan.setEnabled(true);
+                            jumlahBeri.requestFocus();
+                        } else {
+                            jumlahBeri.setEditable(false);
+                            cmbSatuan.setEnabled(false);
+                            btnJumlahBeri.requestFocus();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+            }
+        });
+        
+        diet.getTable().addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (var.getform().equals("DlgAssesmenGiziHarian")) {
+                    if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                        diet.dispose();
+                    }
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
             }
         });
     }
@@ -328,6 +457,22 @@ public class DlgAssesmenGiziHarian extends javax.swing.JDialog {
         BtnKeluar1 = new widget.Button();
         Scroll1 = new widget.ScrollPane();
         tbKatalogGZ = new widget.Table();
+        WindowDataDiet = new javax.swing.JDialog();
+        internalFrame9 = new widget.InternalFrame();
+        BtnCloseIn3 = new widget.Button();
+        nmdiet = new widget.TextBox();
+        kddiet = new widget.TextBox();
+        jLabel46 = new widget.Label();
+        jnsMakanan = new widget.TextBox();
+        BtnSimpan2 = new widget.Button();
+        jLabel47 = new widget.Label();
+        kdberi = new widget.TextBox();
+        jumlahBeri = new widget.TextBox();
+        cmbSatuan = new widget.ComboBox();
+        btnDiet = new widget.Button();
+        btnJumlahBeri = new widget.Button();
+        jLabel48 = new widget.Label();
+        TKd = new widget.TextBox();
         internalFrame1 = new widget.InternalFrame();
         Scroll = new widget.ScrollPane();
         tbAsesmenGZ = new widget.Table();
@@ -411,9 +556,11 @@ public class DlgAssesmenGiziHarian extends javax.swing.JDialog {
         Scroll4 = new widget.ScrollPane();
         tbdiagnosaGZ = new widget.Table();
         BtnHapus1 = new widget.Button();
-        jns_diet = new widget.TextBox();
         BtnDiet = new widget.Button();
         jLabel30 = new widget.Label();
+        Scroll5 = new widget.ScrollPane();
+        tbDiet = new widget.Table();
+        BtnSeek3 = new widget.Button();
 
         WindowDiagnosaGizi.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         WindowDiagnosaGizi.setName("WindowDiagnosaGizi"); // NOI18N
@@ -647,6 +794,132 @@ public class DlgAssesmenGiziHarian extends javax.swing.JDialog {
 
         WindowDiagnosaGizi.getContentPane().add(internalFrame5, java.awt.BorderLayout.CENTER);
 
+        WindowDataDiet.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        WindowDataDiet.setName("WindowDataDiet"); // NOI18N
+        WindowDataDiet.setUndecorated(true);
+        WindowDataDiet.setResizable(false);
+
+        internalFrame9.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255), 3), "::[ Pilihan Diet ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
+        internalFrame9.setName("internalFrame9"); // NOI18N
+        internalFrame9.setWarnaBawah(new java.awt.Color(245, 250, 240));
+        internalFrame9.setLayout(null);
+
+        BtnCloseIn3.setForeground(new java.awt.Color(0, 0, 0));
+        BtnCloseIn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/cross.png"))); // NOI18N
+        BtnCloseIn3.setMnemonic('U');
+        BtnCloseIn3.setText("Tutup");
+        BtnCloseIn3.setToolTipText("Alt+U");
+        BtnCloseIn3.setName("BtnCloseIn3"); // NOI18N
+        BtnCloseIn3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCloseIn3ActionPerformed(evt);
+            }
+        });
+        internalFrame9.add(BtnCloseIn3);
+        BtnCloseIn3.setBounds(350, 110, 80, 30);
+
+        nmdiet.setEditable(false);
+        nmdiet.setForeground(new java.awt.Color(0, 0, 0));
+        nmdiet.setName("nmdiet"); // NOI18N
+        internalFrame9.add(nmdiet);
+        nmdiet.setBounds(207, 20, 200, 23);
+
+        kddiet.setEditable(false);
+        kddiet.setForeground(new java.awt.Color(0, 0, 0));
+        kddiet.setName("kddiet"); // NOI18N
+        internalFrame9.add(kddiet);
+        kddiet.setBounds(124, 20, 80, 23);
+
+        jLabel46.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel46.setText("Jenis Makanan :");
+        jLabel46.setName("jLabel46"); // NOI18N
+        internalFrame9.add(jLabel46);
+        jLabel46.setBounds(10, 47, 110, 23);
+
+        jnsMakanan.setEditable(false);
+        jnsMakanan.setForeground(new java.awt.Color(0, 0, 0));
+        jnsMakanan.setName("jnsMakanan"); // NOI18N
+        internalFrame9.add(jnsMakanan);
+        jnsMakanan.setBounds(124, 47, 283, 23);
+
+        BtnSimpan2.setForeground(new java.awt.Color(0, 0, 0));
+        BtnSimpan2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/save-16x16.png"))); // NOI18N
+        BtnSimpan2.setMnemonic('S');
+        BtnSimpan2.setText("Simpan");
+        BtnSimpan2.setToolTipText("Alt+S");
+        BtnSimpan2.setName("BtnSimpan2"); // NOI18N
+        BtnSimpan2.setPreferredSize(new java.awt.Dimension(100, 30));
+        BtnSimpan2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSimpan2ActionPerformed(evt);
+            }
+        });
+        internalFrame9.add(BtnSimpan2);
+        BtnSimpan2.setBounds(250, 110, 90, 30);
+
+        jLabel47.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel47.setText("Jumlah Pemberian :");
+        jLabel47.setName("jLabel47"); // NOI18N
+        internalFrame9.add(jLabel47);
+        jLabel47.setBounds(10, 74, 110, 23);
+
+        kdberi.setEditable(false);
+        kdberi.setForeground(new java.awt.Color(0, 0, 0));
+        kdberi.setName("kdberi"); // NOI18N
+        internalFrame9.add(kdberi);
+        kdberi.setBounds(124, 74, 80, 23);
+
+        jumlahBeri.setEditable(false);
+        jumlahBeri.setForeground(new java.awt.Color(0, 0, 0));
+        jumlahBeri.setName("jumlahBeri"); // NOI18N
+        internalFrame9.add(jumlahBeri);
+        jumlahBeri.setBounds(207, 74, 130, 23);
+
+        cmbSatuan.setForeground(new java.awt.Color(0, 0, 0));
+        cmbSatuan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-" }));
+        cmbSatuan.setName("cmbSatuan"); // NOI18N
+        cmbSatuan.setPreferredSize(new java.awt.Dimension(105, 23));
+        internalFrame9.add(cmbSatuan);
+        cmbSatuan.setBounds(342, 74, 65, 23);
+
+        btnDiet.setForeground(new java.awt.Color(0, 0, 0));
+        btnDiet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/190.png"))); // NOI18N
+        btnDiet.setMnemonic('X');
+        btnDiet.setToolTipText("Alt+X");
+        btnDiet.setName("btnDiet"); // NOI18N
+        btnDiet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDietActionPerformed(evt);
+            }
+        });
+        internalFrame9.add(btnDiet);
+        btnDiet.setBounds(410, 20, 28, 23);
+
+        btnJumlahBeri.setForeground(new java.awt.Color(0, 0, 0));
+        btnJumlahBeri.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/190.png"))); // NOI18N
+        btnJumlahBeri.setMnemonic('X');
+        btnJumlahBeri.setToolTipText("Alt+X");
+        btnJumlahBeri.setName("btnJumlahBeri"); // NOI18N
+        btnJumlahBeri.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnJumlahBeriActionPerformed(evt);
+            }
+        });
+        internalFrame9.add(btnJumlahBeri);
+        btnJumlahBeri.setBounds(410, 74, 28, 23);
+
+        jLabel48.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel48.setText("Nama Diet : ");
+        jLabel48.setName("jLabel48"); // NOI18N
+        internalFrame9.add(jLabel48);
+        jLabel48.setBounds(10, 20, 110, 23);
+
+        WindowDataDiet.getContentPane().add(internalFrame9, java.awt.BorderLayout.CENTER);
+
+        TKd.setEditable(false);
+        TKd.setForeground(new java.awt.Color(0, 0, 0));
+        TKd.setName("TKd"); // NOI18N
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
@@ -824,7 +1097,7 @@ public class DlgAssesmenGiziHarian extends javax.swing.JDialog {
         panelGlass10.add(jLabel28);
 
         tgl1.setEditable(false);
-        tgl1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "05-04-2021" }));
+        tgl1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-12-2021" }));
         tgl1.setDisplayFormat("dd-MM-yyyy");
         tgl1.setName("tgl1"); // NOI18N
         tgl1.setOpaque(false);
@@ -844,7 +1117,7 @@ public class DlgAssesmenGiziHarian extends javax.swing.JDialog {
         panelGlass10.add(jLabel29);
 
         tgl2.setEditable(false);
-        tgl2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "05-04-2021" }));
+        tgl2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-12-2021" }));
         tgl2.setDisplayFormat("dd-MM-yyyy");
         tgl2.setName("tgl2"); // NOI18N
         tgl2.setOpaque(false);
@@ -909,7 +1182,7 @@ public class DlgAssesmenGiziHarian extends javax.swing.JDialog {
 
         PanelInput.setName("PanelInput"); // NOI18N
         PanelInput.setOpaque(false);
-        PanelInput.setPreferredSize(new java.awt.Dimension(192, 350));
+        PanelInput.setPreferredSize(new java.awt.Dimension(192, 460));
         PanelInput.setLayout(new java.awt.BorderLayout(1, 1));
 
         ChkInput.setForeground(new java.awt.Color(0, 0, 0));
@@ -1341,7 +1614,7 @@ public class DlgAssesmenGiziHarian extends javax.swing.JDialog {
             }
         });
         FormInput.add(ket_jenisDiet);
-        ket_jenisDiet.setBounds(730, 300, 330, 23);
+        ket_jenisDiet.setBounds(730, 404, 330, 23);
 
         jLabel21.setForeground(new java.awt.Color(0, 0, 0));
         jLabel21.setText("Kalori : ");
@@ -1518,7 +1791,7 @@ public class DlgAssesmenGiziHarian extends javax.swing.JDialog {
         jLabel27.setBounds(150, 66, 90, 23);
 
         tglAsses.setEditable(false);
-        tglAsses.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "05-04-2021" }));
+        tglAsses.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-12-2021" }));
         tglAsses.setDisplayFormat("dd-MM-yyyy");
         tglAsses.setName("tglAsses"); // NOI18N
         tglAsses.setOpaque(false);
@@ -1614,18 +1887,6 @@ public class DlgAssesmenGiziHarian extends javax.swing.JDialog {
         FormInput.add(BtnHapus1);
         BtnHapus1.setBounds(1240, 95, 28, 23);
 
-        jns_diet.setEditable(false);
-        jns_diet.setForeground(new java.awt.Color(0, 0, 0));
-        jns_diet.setHighlighter(null);
-        jns_diet.setName("jns_diet"); // NOI18N
-        jns_diet.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jns_dietKeyPressed(evt);
-            }
-        });
-        FormInput.add(jns_diet);
-        jns_diet.setBounds(730, 273, 330, 23);
-
         BtnDiet.setForeground(new java.awt.Color(0, 0, 0));
         BtnDiet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/190.png"))); // NOI18N
         BtnDiet.setToolTipText("");
@@ -1641,13 +1902,42 @@ public class DlgAssesmenGiziHarian extends javax.swing.JDialog {
             }
         });
         FormInput.add(BtnDiet);
-        BtnDiet.setBounds(1060, 273, 28, 23);
+        BtnDiet.setBounds(1180, 273, 28, 23);
 
         jLabel30.setForeground(new java.awt.Color(0, 0, 0));
         jLabel30.setText("Keterangan Diet : ");
         jLabel30.setName("jLabel30"); // NOI18N
         FormInput.add(jLabel30);
-        jLabel30.setBounds(630, 300, 100, 23);
+        jLabel30.setBounds(630, 404, 100, 23);
+
+        Scroll5.setName("Scroll5"); // NOI18N
+        Scroll5.setOpaque(true);
+
+        tbDiet.setAutoCreateRowSorter(true);
+        tbDiet.setToolTipText("Silahkan klik untuk memilih data yang mau diedit ataupun dihapus");
+        tbDiet.setName("tbDiet"); // NOI18N
+        Scroll5.setViewportView(tbDiet);
+
+        FormInput.add(Scroll5);
+        Scroll5.setBounds(733, 273, 440, 125);
+
+        BtnSeek3.setForeground(new java.awt.Color(0, 0, 0));
+        BtnSeek3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/stop_f2.png"))); // NOI18N
+        BtnSeek3.setMnemonic('X');
+        BtnSeek3.setToolTipText("Alt+X");
+        BtnSeek3.setName("BtnSeek3"); // NOI18N
+        BtnSeek3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSeek3ActionPerformed(evt);
+            }
+        });
+        BtnSeek3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                BtnSeek3KeyPressed(evt);
+            }
+        });
+        FormInput.add(BtnSeek3);
+        BtnSeek3.setBounds(1180, 302, 28, 23);
 
         PanelInput.add(FormInput, java.awt.BorderLayout.CENTER);
 
@@ -1696,8 +1986,8 @@ public class DlgAssesmenGiziHarian extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Pilih salah satu bentuk makan dengan benar,...!!");
         } else if (cmbKalori.getSelectedItem().equals(" ")) {
             JOptionPane.showMessageDialog(null, "Pilih salah satu Kalori dengan benar,...!!");
-        } else if (jns_diet.getText().trim().equals("")) {
-            Valid.textKosong(jns_diet, "Jenis Diet");
+        } else if (tabMode3.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Jenis diet belum terisi...!!");
         } else if (cmbProtein.getSelectedItem().equals(" ")) {
             JOptionPane.showMessageDialog(null, "Pilih salah satu Protein dengan benar,...!!");
         } else if (cmbLemak.getSelectedItem().equals(" ")) {
@@ -1705,16 +1995,23 @@ public class DlgAssesmenGiziHarian extends javax.swing.JDialog {
         } else if (cmbKarbo.getSelectedItem().equals(" ")) {
             JOptionPane.showMessageDialog(null, "Pilih salah satu Karbohidrat dengan benar,...!!");
         } else {
+            dietOK();
             NilaiTrueFalse();
             if (Sequel.menyimpantf2("assesmen_gizi", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "Assesment Gizi (Asuhan Gizi)", 31,
                     new String[]{norawat.getText(), Valid.SetTgl(tglAsses.getSelectedItem() + ""), bb.getText(), tb.getText(),
                         imt.getText(), lla.getText(), cmbstatusGZ.getSelectedItem().toString(), bio_domain.getText(), mual, diare, odeme, anorex, nyeri, sulit, konsti, ganggu,
                         cmbRiwMakan1.getSelectedItem().toString(), cmbRiwMakan2.getSelectedItem().toString(), alergi, riw_penyakitPersonal.getText(),
-                        cmbBentukMakan.getSelectedItem().toString(), kddiet, cmbKalori.getSelectedItem().toString(), cmbProtein.getSelectedItem().toString(),
+                        cmbBentukMakan.getSelectedItem().toString(), TKd.getText(), cmbKalori.getSelectedItem().toString(), cmbProtein.getSelectedItem().toString(),
                         cmbLemak.getSelectedItem().toString(), cmbKarbo.getSelectedItem().toString(), kdkamarnya, Sequel.cariIsi("SELECT TIME(NOW())"),
                         ket_jenisDiet.getText(), ket_alergi.getText(), diag_medis.getText()}) == true) {
                 SimpanDiagnosaGZ();
                 Sequel.mengedit("status_gizi_inap", "no_rawat='" + norawat.getText() + "'", "status_gizi='" + cmbstatusGZ.getSelectedItem() + "' ");
+
+                for (i = 0; i < tbDiet.getRowCount(); i++) {
+                    Sequel.menyimpan("diet_ranap_daftar_rincian", "'" + norawat.getText() + "','" + kdkamarnya + "','"
+                            + Valid.SetTgl(tglAsses.getSelectedItem() + "") + "','Assesmen','"
+                            + tbDiet.getValueAt(i, 0).toString() + "','" + tbDiet.getValueAt(i, 4).toString() + "'", "diet assesmen");
+                }
             }
             emptTeks();
             tampil();
@@ -1768,8 +2065,8 @@ public class DlgAssesmenGiziHarian extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Pilih salah satu bentuk makan dengan benar,...!!");
         } else if (cmbKalori.getSelectedItem().equals(" ")) {
             JOptionPane.showMessageDialog(null, "Pilih salah satu Kalori dengan benar,...!!");
-        } else if (jns_diet.getText().trim().equals("")) {
-            Valid.textKosong(jns_diet, "Jenis Diet");
+        } else if (tabMode3.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Jenis diet belum terisi...!!");
         } else if (cmbProtein.getSelectedItem().equals(" ")) {
             JOptionPane.showMessageDialog(null, "Pilih salah satu Protein dengan benar,...!!");
         } else if (cmbLemak.getSelectedItem().equals(" ")) {
@@ -1777,7 +2074,12 @@ public class DlgAssesmenGiziHarian extends javax.swing.JDialog {
         } else if (cmbKarbo.getSelectedItem().equals(" ")) {
             JOptionPane.showMessageDialog(null, "Pilih salah satu Karbohidrat dengan benar,...!!");
         } else {
+            dietOK();
             NilaiTrueFalse();
+            Sequel.queryu("delete from diet_ranap_daftar_rincian "
+                    + "where no_rawat='" + norawat.getText() + "' "
+                    + "and tanggal='" + tgl + "' and waktu='Assesmen'");
+            
             Sequel.mengedit("assesmen_gizi", "no_rawat='" + norawat.getText() + "' and tgl_assesmen='" + tgl + "' and jam='" + jam + "'",
                     "tgl_assesmen='" + Valid.SetTgl(tglAsses.getSelectedItem() + "") + "',"
                     + "BB='" + bb.getText() + "',"
@@ -1799,7 +2101,7 @@ public class DlgAssesmenGiziHarian extends javax.swing.JDialog {
                     + "alergi_makanan='" + alergi + "',"
                     + "riwayat_penyakit_personal='" + riw_penyakitPersonal.getText() + "',"
                     + "bentuk_makan='" + cmbBentukMakan.getSelectedItem() + "',"
-                    + "kd_diet='" + kddiet + "',"
+                    + "kd_diet='" + TKd.getText() + "',"
                     + "kalori='" + cmbKalori.getSelectedItem() + "',"
                     + "protein='" + cmbProtein.getSelectedItem() + "',"
                     + "lemak='" + cmbLemak.getSelectedItem() + "',"
@@ -1811,6 +2113,13 @@ public class DlgAssesmenGiziHarian extends javax.swing.JDialog {
                     + "diagnosa_medis='" + diag_medis.getText() + "'");
             
             Sequel.mengedit("status_gizi_inap", "no_rawat='" + norawat.getText() + "'", "status_gizi='" + cmbstatusGZ.getSelectedItem() + "' ");
+
+            for (i = 0; i < tbDiet.getRowCount(); i++) {
+                Sequel.menyimpan("diet_ranap_daftar_rincian", "'" + norawat.getText() + "','" + kdkamarnya + "','"
+                        + Valid.SetTgl(tglAsses.getSelectedItem() + "") + "','Assesmen','"
+                        + tbDiet.getValueAt(i, 0).toString() + "','" + tbDiet.getValueAt(i, 4).toString() + "'", "diet assesmen");
+            }
+            
             emptTeks();
             tampil();
         }
@@ -1897,6 +2206,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 }//GEN-LAST:event_ChkInputActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        Sequel.cariIsiComboDB("select satuan from diet_master_pemberian group by satuan", cmbSatuan);
         tampil();
     }//GEN-LAST:event_formWindowOpened
 
@@ -2119,6 +2429,11 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         } else {
             Sequel.queryu("delete from assesmen_gizi where no_rawat='" + norawat.getText() + "' and tgl_assesmen='" + tgl + "' and jam='" + jam + "'");
             Sequel.queryu("delete from diagnosa_gizi_pasien where no_rawat='" + norawat.getText() + "' and tgl_input='" + tgl + "'");
+            Sequel.queryu("delete from diet_ranap_daftar_rincian "
+                            + "where no_rawat='" + norawat.getText() + "' "
+                            + "and kd_kamar='" + kdkamarnya + "' "
+                            + "and tanggal='" + tgl + "' "
+                            + "and waktu='Assesmen'");
             tampil();
             emptTeks();
         }
@@ -2317,23 +2632,89 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         // TODO add your handling code here:
     }//GEN-LAST:event_BtnHapus1KeyPressed
 
-    private void jns_dietKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jns_dietKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jns_dietKeyPressed
-
     private void BtnDietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDietActionPerformed
-        var.setform("DlgAssesmenGiziHarian");
-        diet.emptTeks();
-        diet.isCek();
-        diet.TCari.requestFocus();
-        diet.setSize(670, 497);
-        diet.setLocationRelativeTo(internalFrame1);
-        diet.setVisible(true);
+        kddiet.setText("");
+        nmdiet.setText("");
+        jnsMakanan.setText("");
+        kdberi.setText("");
+        jumlahBeri.setText("");
+        cmbSatuan.setSelectedIndex(0);
+        jumlahBeri.setEditable(false);
+        cmbSatuan.setEnabled(false);
+
+        WindowDataDiet.setSize(458, 157);
+        WindowDataDiet.setLocationRelativeTo(internalFrame1);
+        WindowDataDiet.setVisible(true);
+        WindowDataDiet.requestFocus();
     }//GEN-LAST:event_BtnDietActionPerformed
 
     private void BtnDietKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnDietKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_BtnDietKeyPressed
+
+    private void BtnSeek3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSeek3ActionPerformed
+        for (i = 0; i < tbDiet.getRowCount(); i++) {
+            if (tbDiet.getValueAt(i, 1).toString().equals("true")) {
+                tabMode3.removeRow(i);
+            }
+        }
+        BtnSeek3.requestFocus();
+    }//GEN-LAST:event_BtnSeek3ActionPerformed
+
+    private void BtnSeek3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnSeek3KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnSeek3KeyPressed
+
+    private void BtnCloseIn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCloseIn3ActionPerformed
+        WindowDataDiet.dispose();
+    }//GEN-LAST:event_BtnCloseIn3ActionPerformed
+
+    private void BtnSimpan2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSimpan2ActionPerformed
+        if (kddiet.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Silahkan pilih dulu salah satu jenis dietnya...!!!!");
+        } else if (kdberi.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Silahkan pilih dulu salah satu jenis jlh. pemberian dietnya...!!!!");
+        } else {
+            if (nmdiet.getText().equals("F75") || nmdiet.getText().equals("F100") || nmdiet.getText().equals("F135")) {
+                if (jumlahBeri.getText().trim().equals("-") || jumlahBeri.getText().trim().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Jlh. pemberian diet harus diisi dg. benar...!!!!");
+                } else if (cmbSatuan.getSelectedIndex() == 0) {
+                    JOptionPane.showMessageDialog(null, "Pilih salah satu satuan jlh. pemberian dietnya dg. benar...!!!!");
+                } else {
+                    if (Sequel.cariInteger("select count(-1) from diet_master_pemberian where nm_pemberian='" + jumlahBeri.getText() + "' and satuan='" + cmbSatuan.getSelectedItem().toString() + "'") == 0) {
+                        kdberi.setText("");
+                        Valid.autoNomer("diet_master_pemberian", "DP", 4, kdberi);
+                        Sequel.menyimpan("diet_master_pemberian", "'" + kdberi.getText() + "','" + jumlahBeri.getText() + "','" + cmbSatuan.getSelectedItem() + "','1'", "Jumlah Pemberian Diet");
+                        tabMode3.addRow(new Object[]{kddiet.getText(), false, nmdiet.getText(), jnsMakanan.getText(), jumlahBeri.getText() + " " + cmbSatuan.getSelectedItem()});
+                        WindowDataDiet.dispose();
+                    } else {
+                        tabMode3.addRow(new Object[]{kddiet.getText(), false, nmdiet.getText(), jnsMakanan.getText(), jumlahBeri.getText() + " " + cmbSatuan.getSelectedItem()});
+                        WindowDataDiet.dispose();
+                    }
+                }
+            } else {
+                tabMode3.addRow(new Object[]{kddiet.getText(), false, nmdiet.getText(), jnsMakanan.getText(), jumlahBeri.getText() + " " + cmbSatuan.getSelectedItem()});
+                WindowDataDiet.dispose();
+            }
+        }
+    }//GEN-LAST:event_BtnSimpan2ActionPerformed
+
+    private void btnDietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDietActionPerformed
+        var.setform("DlgAssesmenGiziHarian");
+        diet.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
+        diet.setLocationRelativeTo(internalFrame1);
+        diet.setVisible(true);
+        diet.TCari.requestFocus();
+    }//GEN-LAST:event_btnDietActionPerformed
+
+    private void btnJumlahBeriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJumlahBeriActionPerformed
+        var.setform("DlgAssesmenGiziHarian");
+        jlhberi.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
+        jlhberi.setLocationRelativeTo(internalFrame1);
+        jlhberi.tampil();
+        jlhberi.setVisible(true);
+        jlhberi.TCari.requestFocus();
+    }//GEN-LAST:event_btnJumlahBeriActionPerformed
 
     /**
     * @param args the command line arguments
@@ -2358,6 +2739,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.Button BtnBatal1;
     private widget.Button BtnCari;
     private widget.Button BtnCari1;
+    private widget.Button BtnCloseIn3;
     private widget.Button BtnDiagnosa;
     private widget.Button BtnDiet;
     private widget.Button BtnEdit;
@@ -2366,8 +2748,10 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.Button BtnHapus1;
     private widget.Button BtnKeluar;
     private widget.Button BtnKeluar1;
+    private widget.Button BtnSeek3;
     private widget.Button BtnSimpan;
     private widget.Button BtnSimpan1;
+    private widget.Button BtnSimpan2;
     private widget.CekBox ChkAlergiMakan;
     private widget.CekBox ChkAnorexia;
     private widget.CekBox ChkDiare;
@@ -2385,12 +2769,17 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.ScrollPane Scroll;
     private widget.ScrollPane Scroll1;
     private widget.ScrollPane Scroll4;
+    private widget.ScrollPane Scroll5;
     private widget.ScrollPane Scroll7;
     public widget.TextBox TCari;
     private widget.TextBox TCari1;
+    private widget.TextBox TKd;
+    private javax.swing.JDialog WindowDataDiet;
     private javax.swing.JDialog WindowDiagnosaGizi;
     private widget.TextBox bb;
     private widget.TextArea bio_domain;
+    private widget.Button btnDiet;
+    private widget.Button btnJumlahBeri;
     private widget.ComboBox cmbBentukMakan;
     private widget.ComboBox cmbKalori;
     private widget.ComboBox cmbKarbo;
@@ -2398,12 +2787,14 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.ComboBox cmbProtein;
     private widget.ComboBox cmbRiwMakan1;
     private widget.ComboBox cmbRiwMakan2;
+    private widget.ComboBox cmbSatuan;
     public widget.ComboBox cmbstatusGZ;
     private widget.TextBox deskripsiGZ;
     private widget.TextBox diag_medis;
     private widget.TextBox imt;
     private widget.InternalFrame internalFrame1;
     private widget.InternalFrame internalFrame5;
+    private widget.InternalFrame internalFrame9;
     private widget.Label jLabel10;
     private widget.Label jLabel11;
     private widget.Label jLabel12;
@@ -2431,6 +2822,9 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.Label jLabel34;
     private widget.Label jLabel36;
     private widget.Label jLabel4;
+    private widget.Label jLabel46;
+    private widget.Label jLabel47;
+    private widget.Label jLabel48;
     private widget.Label jLabel5;
     private widget.Label jLabel6;
     private widget.Label jLabel7;
@@ -2438,11 +2832,15 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.Label jLabel9;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private widget.TextBox jns_diet;
+    private widget.TextBox jnsMakanan;
+    private widget.TextBox jumlahBeri;
+    private widget.TextBox kdberi;
+    private widget.TextBox kddiet;
     private widget.TextBox ket_alergi;
     private widget.TextBox ket_jenisDiet;
     private widget.TextBox kode;
     private widget.TextBox lla;
+    private widget.TextBox nmdiet;
     private widget.TextBox nmpasien;
     private widget.TextBox nmruangan;
     private widget.TextBox norawat;
@@ -2455,6 +2853,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.TextBox riw_penyakitPersonal;
     private widget.TextBox tb;
     private widget.Table tbAsesmenGZ;
+    private widget.Table tbDiet;
     private widget.Table tbKatalogGZ;
     private widget.Table tbdiagnosaGZ;
     private widget.Tanggal tgl1;
@@ -2635,10 +3034,10 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         ket_alergi.setText("");
         riw_penyakitPersonal.setText("");
         Valid.tabelKosong(tabMode2);
+        Valid.tabelKosong(tabMode3);
         cmbBentukMakan.setSelectedIndex(0);
         cmbKalori.setSelectedIndex(0);
-        kddiet = "";
-        jns_diet.setText("");
+        TKd.setText("");
         ket_jenisDiet.setText("");
         cmbProtein.setSelectedIndex(0);
         cmbLemak.setSelectedIndex(0);
@@ -2649,7 +3048,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         tgl = "";
         jam = "";
         kdkamarnya = "";
-        kddiet = "";
+        TKd.setText("");
         mual = ""; 
         diare = "";
         odeme = "";
@@ -2690,13 +3089,15 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             riw_penyakitPersonal.setText(tbAsesmenGZ.getValueAt(tbAsesmenGZ.getSelectedRow(), 23).toString());
             diag_medis.setText(tbAsesmenGZ.getValueAt(tbAsesmenGZ.getSelectedRow(), 24).toString());
             cmbBentukMakan.setSelectedItem(tbAsesmenGZ.getValueAt(tbAsesmenGZ.getSelectedRow(), 25).toString());
-            jns_diet.setText(tbAsesmenGZ.getValueAt(tbAsesmenGZ.getSelectedRow(), 26).toString());
+//            nama_diet.setText(tbAsesmenGZ.getValueAt(tbAsesmenGZ.getSelectedRow(), 26).toString());
             ket_jenisDiet.setText(tbAsesmenGZ.getValueAt(tbAsesmenGZ.getSelectedRow(), 27).toString());
             cmbKalori.setSelectedItem(tbAsesmenGZ.getValueAt(tbAsesmenGZ.getSelectedRow(), 28).toString());
             cmbProtein.setSelectedItem(tbAsesmenGZ.getValueAt(tbAsesmenGZ.getSelectedRow(), 29).toString());
             cmbLemak.setSelectedItem(tbAsesmenGZ.getValueAt(tbAsesmenGZ.getSelectedRow(), 30).toString());
             cmbKarbo.setSelectedItem(tbAsesmenGZ.getValueAt(tbAsesmenGZ.getSelectedRow(), 31).toString());
-            kddiet = tbAsesmenGZ.getValueAt(tbAsesmenGZ.getSelectedRow(), 33).toString();
+            TKd.setText(tbAsesmenGZ.getValueAt(tbAsesmenGZ.getSelectedRow(), 33).toString());
+            
+            tampilDiet();
             NilaiBalik();
             tampilDiagnosanya(norawat.getText(), tgl);
         }
@@ -2712,7 +3113,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     public void isForm(){
         if (ChkInput.isSelected() == true) {
             ChkInput.setVisible(false);
-            PanelInput.setPreferredSize(new Dimension(WIDTH, 350));
+            PanelInput.setPreferredSize(new Dimension(WIDTH, 460));
             FormInput.setVisible(true);
             ChkInput.setVisible(true);
         } else if (ChkInput.isSelected() == false) {
@@ -2993,6 +3394,59 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 Sequel.menyimpan("diagnosa_gizi_pasien", "'" + norawat.getText() + "','" + tbdiagnosaGZ.getValueAt(i, 1).toString() + "', "
                         + "'" + Sequel.cariIsi("SELECT DATE(NOW())") + "','" + Sequel.cariIsi("SELECT TIME(NOW())") + "'", "Diagnosa Gizi");
             }
+        }
+    }
+    
+    private void dietOK() {
+        dataDiet = "";
+        TKd.setText("");
+        
+        for (i = 0; i < tbDiet.getRowCount(); i++) {
+            if (dataDiet.equals("")) {
+                dataDiet = tbDiet.getValueAt(i, 2).toString() + " " + tbDiet.getValueAt(i, 4).toString();
+            } else {
+                dataDiet = dataDiet + " + " + tbDiet.getValueAt(i, 2).toString() + " " + tbDiet.getValueAt(i, 4).toString();
+            }
+        }
+        
+        if (Sequel.cariInteger("select count(-1) from diet where nama_diet='" + dataDiet + "'") == 0) {
+            Valid.autoNomer("diet", "DB", 4, TKd);
+            Sequel.menyimpan("diet", "'" + TKd.getText() + "','" + dataDiet + "','UMUM','1'", "Data diet pasien");
+        } else {
+            TKd.setText(Sequel.cariIsi("select kd_diet from diet where nama_diet='" + dataDiet + "'"));
+        }
+    }
+    
+    private void tampilDiet() {
+        Valid.tabelKosong(tabMode3);
+        try {
+            ps3 = koneksi.prepareStatement("select d.kd_diet, dm.nama_diet, dm.jns_makanan, d.jlh_pemberian from diet_ranap_daftar_rincian d "
+                    + "inner join diet_master dm on dm.kd_diet=d.kd_diet where d.no_rawat='" + norawat.getText() + "' "
+                    + "and kd_kamar='" + kdkamarnya + "' and tanggal='" + tgl + "' and waktu='Assesmen'");
+
+            try {
+                rs3 = ps3.executeQuery();
+                while (rs3.next()) {
+                    tabMode3.addRow(new Object[]{
+                        rs3.getString("kd_diet"),
+                        false,
+                        rs3.getString("nama_diet"),
+                        rs3.getString("jns_makanan"),
+                        rs3.getString("jlh_pemberian")
+                    });
+                }
+            } catch (Exception e) {
+                System.out.println("Notifikasi : " + e);
+            } finally {
+                if (rs3 != null) {
+                    rs3.close();
+                }
+                if (ps3 != null) {
+                    ps3.close();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Notifikasi : " + e);
         }
     }
 }
