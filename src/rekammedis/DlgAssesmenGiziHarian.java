@@ -1182,7 +1182,7 @@ public class DlgAssesmenGiziHarian extends javax.swing.JDialog {
 
         PanelInput.setName("PanelInput"); // NOI18N
         PanelInput.setOpaque(false);
-        PanelInput.setPreferredSize(new java.awt.Dimension(192, 460));
+        PanelInput.setPreferredSize(new java.awt.Dimension(192, 445));
         PanelInput.setLayout(new java.awt.BorderLayout(1, 1));
 
         ChkInput.setForeground(new java.awt.Color(0, 0, 0));
@@ -1614,7 +1614,7 @@ public class DlgAssesmenGiziHarian extends javax.swing.JDialog {
             }
         });
         FormInput.add(ket_jenisDiet);
-        ket_jenisDiet.setBounds(730, 404, 330, 23);
+        ket_jenisDiet.setBounds(730, 388, 330, 23);
 
         jLabel21.setForeground(new java.awt.Color(0, 0, 0));
         jLabel21.setText("Kalori : ");
@@ -1908,7 +1908,7 @@ public class DlgAssesmenGiziHarian extends javax.swing.JDialog {
         jLabel30.setText("Keterangan Diet : ");
         jLabel30.setName("jLabel30"); // NOI18N
         FormInput.add(jLabel30);
-        jLabel30.setBounds(630, 404, 100, 23);
+        jLabel30.setBounds(630, 388, 100, 23);
 
         Scroll5.setName("Scroll5"); // NOI18N
         Scroll5.setOpaque(true);
@@ -1919,7 +1919,7 @@ public class DlgAssesmenGiziHarian extends javax.swing.JDialog {
         Scroll5.setViewportView(tbDiet);
 
         FormInput.add(Scroll5);
-        Scroll5.setBounds(733, 273, 440, 125);
+        Scroll5.setBounds(733, 273, 440, 110);
 
         BtnSeek3.setForeground(new java.awt.Color(0, 0, 0));
         BtnSeek3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/stop_f2.png"))); // NOI18N
@@ -3113,7 +3113,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     public void isForm(){
         if (ChkInput.isSelected() == true) {
             ChkInput.setVisible(false);
-            PanelInput.setPreferredSize(new Dimension(WIDTH, 460));
+            PanelInput.setPreferredSize(new Dimension(WIDTH, 445));
             FormInput.setVisible(true);
             ChkInput.setVisible(true);
         } else if (ChkInput.isSelected() == false) {

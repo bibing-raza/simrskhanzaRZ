@@ -40,7 +40,7 @@ left JOIN
 LEFT JOIN detail_beri_diet_ralan dd ON dd.no_rawat = rp.no_rawat AND dd.tanggal='2021-08-13' 
 and (dd.waktu = 'sore' OR ifnull(dd.waktu, '-') = '-') LEFT JOIN diet d ON d.kd_diet = dd.kd_diet 
 WHERE rp.status_lanjut='Ralan' and rp.kd_poli = 'igdk') as d on a.no_rkm_medis = d.no_rkm_medis) 
-ORDER BY nama_diet_pagi DESC, nama_diet_siang DESC, nama_diet_sore DESC, nm_pasien ]]>
+ORDER BY nama_diet_pagi DESC, nama_diet_siang DESC, nama_diet_sore DESC, nm_pasien]]>
 	</queryString>
 	<field name="nm_pasien" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -103,7 +103,7 @@ ORDER BY nama_diet_pagi DESC, nama_diet_siang DESC, nama_diet_sore DESC, nm_pasi
 				<text><![CDATA[TTL]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="5" y="71" width="30" height="11"/>
+				<reportElement x="5" y="62" width="30" height="11"/>
 				<textElement verticalAlignment="Top" lineSpacing="Single">
 					<font fontName="Tahoma" size="8"/>
 				</textElement>
@@ -116,8 +116,8 @@ ORDER BY nama_diet_pagi DESC, nama_diet_siang DESC, nama_diet_sore DESC, nm_pasi
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[": "+$F{no_rkm_medis}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="35" y="51" width="118" height="20"/>
+			<textField>
+				<reportElement x="35" y="51" width="118" height="11"/>
 				<textElement lineSpacing="Single">
 					<font fontName="Tahoma" size="8"/>
 				</textElement>
@@ -162,7 +162,7 @@ ORDER BY nama_diet_pagi DESC, nama_diet_siang DESC, nama_diet_sore DESC, nm_pasi
 				<text><![CDATA[TTL]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="175" y="71" width="30" height="11"/>
+				<reportElement x="175" y="62" width="30" height="11"/>
 				<textElement verticalAlignment="Top" lineSpacing="Single">
 					<font fontName="Tahoma" size="8"/>
 				</textElement>
@@ -175,8 +175,8 @@ ORDER BY nama_diet_pagi DESC, nama_diet_siang DESC, nama_diet_sore DESC, nm_pasi
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[": "+$F{no_rkm_medis}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="205" y="51" width="118" height="20"/>
+			<textField>
+				<reportElement x="205" y="51" width="118" height="11"/>
 				<textElement lineSpacing="Single">
 					<font fontName="Tahoma" size="8"/>
 				</textElement>
@@ -221,7 +221,7 @@ ORDER BY nama_diet_pagi DESC, nama_diet_siang DESC, nama_diet_sore DESC, nm_pasi
 				<text><![CDATA[TTL]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="345" y="71" width="30" height="11"/>
+				<reportElement x="345" y="62" width="30" height="11"/>
 				<textElement verticalAlignment="Top" lineSpacing="Single">
 					<font fontName="Tahoma" size="8"/>
 				</textElement>
@@ -234,8 +234,8 @@ ORDER BY nama_diet_pagi DESC, nama_diet_siang DESC, nama_diet_sore DESC, nm_pasi
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[": "+$F{no_rkm_medis}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="375" y="51" width="118" height="20"/>
+			<textField>
+				<reportElement x="375" y="51" width="118" height="11"/>
 				<textElement lineSpacing="Single">
 					<font fontName="Tahoma" size="8"/>
 				</textElement>
@@ -277,21 +277,21 @@ ORDER BY nama_diet_pagi DESC, nama_diet_siang DESC, nama_diet_sore DESC, nm_pasi
 				<textFieldExpression class="java.lang.String"><![CDATA["----------- Jadwal diet : "+$F{waktu_sore}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="35" y="71" width="118" height="20"/>
+				<reportElement x="35" y="62" width="118" height="29"/>
 				<textElement lineSpacing="Single">
 					<font fontName="Tahoma" size="8"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[": "+$F{nama_diet_pagi}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="205" y="71" width="118" height="20"/>
+				<reportElement x="205" y="62" width="118" height="29"/>
 				<textElement lineSpacing="Single">
 					<font fontName="Tahoma" size="8"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[": "+$F{nama_diet_siang}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="375" y="71" width="118" height="20"/>
+				<reportElement x="375" y="62" width="118" height="29"/>
 				<textElement lineSpacing="Single">
 					<font fontName="Tahoma" size="8"/>
 				</textElement>

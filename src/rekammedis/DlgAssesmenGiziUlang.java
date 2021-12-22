@@ -407,7 +407,7 @@ public class DlgAssesmenGiziUlang extends javax.swing.JDialog {
         panelGlass10.add(jLabel28);
 
         tgl1.setEditable(false);
-        tgl1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-04-2021" }));
+        tgl1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-09-2021" }));
         tgl1.setDisplayFormat("dd-MM-yyyy");
         tgl1.setName("tgl1"); // NOI18N
         tgl1.setOpaque(false);
@@ -427,7 +427,7 @@ public class DlgAssesmenGiziUlang extends javax.swing.JDialog {
         panelGlass10.add(jLabel29);
 
         tgl2.setEditable(false);
-        tgl2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-04-2021" }));
+        tgl2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-09-2021" }));
         tgl2.setDisplayFormat("dd-MM-yyyy");
         tgl2.setName("tgl2"); // NOI18N
         tgl2.setOpaque(false);
@@ -917,7 +917,7 @@ public class DlgAssesmenGiziUlang extends javax.swing.JDialog {
         jLabel27.setBounds(150, 66, 90, 23);
 
         tglAsses.setEditable(false);
-        tglAsses.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-04-2021" }));
+        tglAsses.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-09-2021" }));
         tglAsses.setDisplayFormat("dd-MM-yyyy");
         tglAsses.setName("tglAsses"); // NOI18N
         tglAsses.setOpaque(false);

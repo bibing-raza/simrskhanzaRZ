@@ -3,10 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/oye/Documents/DEVELOP_SIMRS/simrskhanzaRZ/src/laporan/DlgFrekuensiPenyakitRanap.java</file>
-            <file>file:/home/oye/Documents/DEVELOP_SIMRS/simrskhanzaRZ/src/simrskhanza/DlgKamarInap.java</file>
+            <file>file:/home/oye/Documents/DEVELOP_SIMRS/simrskhanzaRZ/src/rekammedis/DlgAssesmenGiziUlang.java</file>
+            <file>file:/home/oye/Documents/DEVELOP_SIMRS/simrskhanzaRZ/report/rptlabeldietRanap.jrxml</file>
             <file>file:/home/oye/Documents/DEVELOP_SIMRS/simrskhanzaRZ/src/simrskhanza/DlgRawatJalan.java</file>
-            <file>file:/home/oye/Documents/DEVELOP_SIMRS/simrskhanzaRZ/src/laporan/DlgFrekuensiPenyakitRalan.java</file>
+            <file>file:/home/oye/Documents/DEVELOP_SIMRS/simrskhanzaRZ/src/simrskhanza/DlgKamarInap.java</file>
+            <file>file:/home/oye/Documents/DEVELOP_SIMRS/simrskhanzaRZ/src/simrskhanza/DlgPemberianDiet.java</file>
+            <file>file:/home/oye/Documents/DEVELOP_SIMRS/simrskhanzaRZ/report/rptlabeldietRalan.jrxml</file>
+            <file>file:/home/oye/Documents/DEVELOP_SIMRS/simrskhanzaRZ/src/rekammedis/DlgAssesmenGiziHarian.java</file>
         </group>
     </open-files>
 </project-private>
