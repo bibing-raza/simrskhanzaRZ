@@ -8652,44 +8652,6 @@ private void MnDietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
         TCari.requestFocus();
     } else if (norawatCopy.getText().equals("")) {
         JOptionPane.showMessageDialog(null, "Pilih salah satu pasiennya dulu pada tabel..!!!!");
-    } else if (TPasien.getText().trim().equals("")) {
-        try {
-            psanak = koneksi.prepareStatement(
-                    "select pasien.no_rkm_medis,pasien.nm_pasien,ranap_gabung.no_rawat2,concat(reg_periksa.umurdaftar,' ',reg_periksa.sttsumur)as umur,pasien.no_peserta, "
-                    + "concat(pasien.alamatpj,', ',pasien.kelurahanpj,', ',pasien.kecamatanpj,', ',pasien.kabupatenpj) as alamat "
-                    + "from reg_periksa inner join pasien inner join ranap_gabung on "
-                    + "pasien.no_rkm_medis=reg_periksa.no_rkm_medis and ranap_gabung.no_rawat2=reg_periksa.no_rawat where ranap_gabung.no_rawat=?");
-            try {
-                psanak.setString(1, tbKamIn.getValueAt(tbKamIn.getSelectedRow(), 0).toString());
-                rs2 = psanak.executeQuery();
-                if (rs2.next()) {
-                    DlgPemberianDiet rawatinap = new DlgPemberianDiet(null, false);
-                    rawatinap.setSize(internalFrame1.getWidth(), internalFrame1.getHeight());
-                    rawatinap.setLocationRelativeTo(internalFrame1);
-                    rawatinap.emptTeks();
-                    rawatinap.cekWaktu.setSelected(true);
-                    rawatinap.TCari.setText("");
-                    rawatinap.isCek();                    
-                    rawatinap.setNoRm(rs2.getString("no_rawat2"), DTPCari1.getDate(), DTPCari2.getDate());
-                    rawatinap.tabDietKlik();
-                    rawatinap.setVisible(true);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Maaf, Silahkan anda pilih dulu pasien...!!!");
-                    tbKamIn.requestFocus();
-                }
-            } catch (Exception ex) {
-                System.out.println("Notifikasi : " + ex);
-            } finally {
-                if (rs2 != null) {
-                    rs2.close();
-                }
-                if (psanak != null) {
-                    psanak.close();
-                }
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
     } else {
         DlgPemberianDiet rawatinap = new DlgPemberianDiet(null, false);
         rawatinap.setSize(internalFrame1.getWidth(), internalFrame1.getHeight());
@@ -8697,9 +8659,8 @@ private void MnDietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
         rawatinap.emptTeks();
         rawatinap.cekWaktu.setSelected(true);
         rawatinap.TCari.setText("");
-        rawatinap.isCek();        
+        rawatinap.isCek();
         rawatinap.setNoRm(norawat.getText(), DTPCari1.getDate(), DTPCari2.getDate());
-        rawatinap.tabDietKlik();
         rawatinap.setVisible(true);
     }
 }//GEN-LAST:event_MnDietActionPerformed

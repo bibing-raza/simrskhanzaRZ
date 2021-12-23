@@ -4509,7 +4509,6 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
                 dietralan.emptTeks();
                 dietralan.isCek();                
                 dietralan.setNoRm(TNoRw.getText(), DTPCari1.getDate(), DTPCari2.getDate());
-                dietralan.tabDietKlik();
                 dietralan.setVisible(true);                
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Hanya untuk pasien Hemodialisa & IGD saja...!!!!");
