@@ -58,6 +58,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import keuangan.DlgBilingRanap;
 import keuangan.DlgLhtPiutang;
+import laporan.DlgDataDietRanap;
 import laporan.DlgKaruRanap;
 import rekammedis.DlgAssesmenGiziHarian;
 import rekammedis.DlgAssesmenGiziUlang;
@@ -71,7 +72,7 @@ import simrskhanza.DlgRingkasanPulangRanap;
  */
 public class DlgKamarInap extends javax.swing.JDialog {
 
-    private final DefaultTableModel tabMode, tabMode2, tabMode3, tabMode4, tabMode5, tabMode6;
+    private final DefaultTableModel tabMode, tabMode2, tabMode3, tabMode5, tabMode6;
     private Connection koneksi = koneksiDB.condb();
     private sekuel Sequel = new sekuel();
     private validasi Valid = new validasi();
@@ -94,15 +95,14 @@ public class DlgKamarInap extends javax.swing.JDialog {
             hariawal = Sequel.cariIsi("select hariawal from set_jam_minimal"), pilihancetak = "",
             nonota = "", kdDiag = "", tgm = "", key3 = "", host = "";
     private PreparedStatement ps, pscaripiutang, psdiagnosa, psibu, psanak, pstarif, psdpjp, psDok, psPet, psDP,
-            pscariumur, pspersalinan, pspersalinan1, psstatusGZ, psGZburuk, pssep, psbangsalGZ, psAPS, psFar, psRad, psLab, psKos;
-    private ResultSet rs, rs2, rs3, rs4, rs5, rs6, rssep, rsbangsalGZ, rsAPS, rsFar, rsRad, rsLab, rsKos, rsDok, rsPet, rsDP;
+            pscariumur, pspersalinan, pspersalinan1, psstatusGZ, psGZburuk, pssep, psAPS, psFar, psRad, psLab, psKos;
+    private ResultSet rs, rs2, rs3, rs4, rs5, rs6, rssep, rsAPS, rsFar, rsRad, rsLab, rsKos, rsDok, rsPet, rsDP;
     private int i, x, sudah = 0, cekAda = 0, row = 0, cekDb = 0, cekKamar = 0, cekOperasi = 0, cekUsia = 0, cekRuang = 0,
             cekPr = 0, cekDr = 0, cekDrPr = 0, cekTinPers = 0, cekKamar2 = 0, cekOperasi2 = 0, diagnosa_cek = 0,
-            g = 0, gb = 0, cekBonGZ = 0, cekDataKetepatanDiet = 0, cekjampersal = 0, cekjamkesda = 0, cekPXbpjs = 0;
+            g = 0, gb = 0, cekBonGZ = 0, cekjampersal = 0, cekjamkesda = 0, cekPXbpjs = 0;
     private double lama = Sequel.cariIsiAngka("select lamajam from set_jam_minimal"), persenbayi = Sequel.cariInteger("select bayi from set_jam_minimal");
     private String dokterranap = "", bangsal = "", diagnosa_akhir = Sequel.cariIsi("select diagnosaakhir from set_jam_minimal"), cekKelamin = "",
-            namakamar = "", umur = "0", sttsumur = "Th", gedungGZ = "", mencari = "", cari1 = "", cari2 = "", cekAPS = "", norawatAPS = "", cekdokter = "",
-            cari3 = "", cari4 = "", nmHari = "", nmDay = "", nmHari1 = "", nmDay1 = "", tgl_sekarang = "", kdAPS = "", diagnosa_ok = "",
+            namakamar = "", umur = "0", sttsumur = "Th", cekAPS = "", norawatAPS = "", cekdokter = "", kdAPS = "", diagnosa_ok = "",
             cekDataPersalinan = "", cekRMbayi = "", kamarCovid = "", cekHR = "", nmgedung = "";
 
     /**
@@ -279,33 +279,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
             }
         }
         tbGiziBuruk.setDefaultRenderer(Object.class, new WarnaTable());
-
-        tabMode4 = new DefaultTableModel(null, new Object[]{"Kelas", "Ruangan Inap", "Inisial Ruang", "Nama Gedung"}) {
-            @Override
-            public boolean isCellEditable(int rowIndex, int colIndex) {
-                return false;
-            }
-        };
-        tbbangsal.setModel(tabMode4);
-
-        //tbObat.setDefaultRenderer(Object.class, new WarnaTable(panelJudul.getBackground(),tbObat.getBackground()));
-        tbbangsal.setPreferredScrollableViewportSize(new Dimension(500, 500));
-        tbbangsal.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-
-        for (int i = 0; i < 4; i++) {
-            TableColumn column = tbbangsal.getColumnModel().getColumn(i);
-            if (i == 0) {
-                column.setPreferredWidth(85);
-            } else if (i == 1) {
-                column.setPreferredWidth(300);
-            } else if (i == 2) {
-                column.setPreferredWidth(75);
-            } else if (i == 3) {
-                column.setPreferredWidth(115);
-            }
-        }
-        tbbangsal.setDefaultRenderer(Object.class, new WarnaTable());
-
+        
         tabMode5 = new DefaultTableModel(null, new Object[]{"Kode Alasan", "Jenis Alasan APS"}) {
             @Override
             public boolean isCellEditable(int rowIndex, int colIndex) {
@@ -1282,29 +1256,6 @@ public class DlgKamarInap extends javax.swing.JDialog {
         BtnSimpan8 = new widget.Button();
         jLabel93 = new widget.Label();
         cmbSttsPlg = new widget.ComboBox();
-        WindowLabelGizi = new javax.swing.JDialog();
-        internalFrame15 = new widget.InternalFrame();
-        panelGlass13 = new widget.panelisi();
-        jLabel97 = new widget.Label();
-        inisial = new widget.TextBox();
-        cekKelas = new widget.CekBox();
-        kelas = new widget.TextBox();
-        jLabel99 = new widget.Label();
-        tglDiet = new widget.Tanggal();
-        internalFrame4 = new widget.InternalFrame();
-        Scroll4 = new widget.ScrollPane();
-        tbbangsal = new widget.Table();
-        panelGlass14 = new widget.panelisi();
-        jLabel102 = new widget.Label();
-        TCaribangsal = new widget.TextBox();
-        BtnCari4 = new widget.Button();
-        BtnAll4 = new widget.Button();
-        panelGlass15 = new widget.panelisi();
-        jLabel103 = new widget.Label();
-        cmbPrin = new widget.ComboBox();
-        BtnLabelGZ = new widget.Button();
-        BtnBatal1 = new widget.Button();
-        BtnCloseIn10 = new widget.Button();
         WindowPulangAPS = new javax.swing.JDialog();
         internalFrame16 = new widget.InternalFrame();
         BtnCloseIn11 = new widget.Button();
@@ -1887,7 +1838,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
 
         TglMati.setEditable(false);
         TglMati.setForeground(new java.awt.Color(0, 51, 204));
-        TglMati.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-12-2021" }));
+        TglMati.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-12-2021" }));
         TglMati.setDisplayFormat("dd-MM-yyyy");
         TglMati.setName("TglMati"); // NOI18N
         TglMati.setOpaque(false);
@@ -4211,7 +4162,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         jLabel37.setBounds(0, 20, 110, 23);
 
         Tglsurat.setEditable(false);
-        Tglsurat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-12-2021" }));
+        Tglsurat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-12-2021" }));
         Tglsurat.setDisplayFormat("dd-MM-yyyy");
         Tglsurat.setName("Tglsurat"); // NOI18N
         Tglsurat.setOpaque(false);
@@ -4340,7 +4291,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         jLabel105.setBounds(0, 20, 110, 23);
 
         Tglsurat1.setEditable(false);
-        Tglsurat1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-12-2021" }));
+        Tglsurat1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-12-2021" }));
         Tglsurat1.setDisplayFormat("dd-MM-yyyy");
         Tglsurat1.setName("Tglsurat1"); // NOI18N
         Tglsurat1.setOpaque(false);
@@ -4444,7 +4395,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         jLabel43.setBounds(10, 20, 120, 23);
 
         TglMati1.setEditable(false);
-        TglMati1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-12-2021" }));
+        TglMati1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-12-2021" }));
         TglMati1.setDisplayFormat("dd-MM-yyyy");
         TglMati1.setName("TglMati1"); // NOI18N
         TglMati1.setOpaque(false);
@@ -5219,7 +5170,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         panelGlass18.add(jLabel67);
 
         DTPCari7.setEditable(false);
-        DTPCari7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-12-2021" }));
+        DTPCari7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-12-2021" }));
         DTPCari7.setDisplayFormat("dd-MM-yyyy");
         DTPCari7.setName("DTPCari7"); // NOI18N
         DTPCari7.setOpaque(false);
@@ -5238,7 +5189,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         panelGlass18.add(jLabel68);
 
         DTPCari8.setEditable(false);
-        DTPCari8.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-12-2021" }));
+        DTPCari8.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-12-2021" }));
         DTPCari8.setDisplayFormat("dd-MM-yyyy");
         DTPCari8.setName("DTPCari8"); // NOI18N
         DTPCari8.setOpaque(false);
@@ -5360,7 +5311,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         panelGlass9.add(jLabel91);
 
         DTPCari9.setEditable(false);
-        DTPCari9.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-12-2021" }));
+        DTPCari9.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-12-2021" }));
         DTPCari9.setDisplayFormat("dd-MM-yyyy");
         DTPCari9.setName("DTPCari9"); // NOI18N
         DTPCari9.setOpaque(false);
@@ -5379,7 +5330,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         panelGlass9.add(jLabel92);
 
         DTPCari10.setEditable(false);
-        DTPCari10.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-12-2021" }));
+        DTPCari10.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-12-2021" }));
         DTPCari10.setDisplayFormat("dd-MM-yyyy");
         DTPCari10.setName("DTPCari10"); // NOI18N
         DTPCari10.setOpaque(false);
@@ -5954,244 +5905,6 @@ public class DlgKamarInap extends javax.swing.JDialog {
 
         WindowStatusPulang.getContentPane().add(internalFrame14, java.awt.BorderLayout.CENTER);
 
-        WindowLabelGizi.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        WindowLabelGizi.setName("WindowLabelGizi"); // NOI18N
-        WindowLabelGizi.setUndecorated(true);
-        WindowLabelGizi.setResizable(false);
-
-        internalFrame15.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255), 3), "::[ Cetak Data Diet Makanan Pasien ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
-        internalFrame15.setName("internalFrame15"); // NOI18N
-        internalFrame15.setWarnaBawah(new java.awt.Color(245, 250, 240));
-        internalFrame15.setLayout(null);
-
-        panelGlass13.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
-        panelGlass13.setName("panelGlass13"); // NOI18N
-        panelGlass13.setPreferredSize(new java.awt.Dimension(44, 44));
-        panelGlass13.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
-
-        jLabel97.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel97.setText("Inisial Ruangan :");
-        jLabel97.setName("jLabel97"); // NOI18N
-        jLabel97.setPreferredSize(new java.awt.Dimension(83, 20));
-        panelGlass13.add(jLabel97);
-
-        inisial.setEditable(false);
-        inisial.setForeground(new java.awt.Color(0, 0, 0));
-        inisial.setHighlighter(null);
-        inisial.setName("inisial"); // NOI18N
-        inisial.setPreferredSize(new java.awt.Dimension(50, 24));
-        panelGlass13.add(inisial);
-
-        cekKelas.setBorder(null);
-        cekKelas.setForeground(new java.awt.Color(0, 0, 0));
-        cekKelas.setText("Per Kelas :");
-        cekKelas.setBorderPainted(true);
-        cekKelas.setBorderPaintedFlat(true);
-        cekKelas.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        cekKelas.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        cekKelas.setName("cekKelas"); // NOI18N
-        cekKelas.setOpaque(false);
-        cekKelas.setPreferredSize(new java.awt.Dimension(100, 23));
-        cekKelas.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cekKelasItemStateChanged(evt);
-            }
-        });
-        cekKelas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cekKelasMouseClicked(evt);
-            }
-        });
-        cekKelas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cekKelasActionPerformed(evt);
-            }
-        });
-        panelGlass13.add(cekKelas);
-
-        kelas.setEditable(false);
-        kelas.setForeground(new java.awt.Color(0, 0, 0));
-        kelas.setHighlighter(null);
-        kelas.setName("kelas"); // NOI18N
-        kelas.setPreferredSize(new java.awt.Dimension(110, 24));
-        panelGlass13.add(kelas);
-
-        jLabel99.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel99.setText("Tgl. Beri Diet :");
-        jLabel99.setName("jLabel99"); // NOI18N
-        jLabel99.setPreferredSize(new java.awt.Dimension(80, 20));
-        panelGlass13.add(jLabel99);
-
-        tglDiet.setEditable(false);
-        tglDiet.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-12-2021" }));
-        tglDiet.setDisplayFormat("dd-MM-yyyy");
-        tglDiet.setName("tglDiet"); // NOI18N
-        tglDiet.setOpaque(false);
-        tglDiet.setPreferredSize(new java.awt.Dimension(95, 23));
-        panelGlass13.add(tglDiet);
-
-        internalFrame15.add(panelGlass13);
-        panelGlass13.setBounds(7, 250, 640, 36);
-
-        internalFrame4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, ".: Ruang Perawatan :.", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
-        internalFrame4.setName("internalFrame4"); // NOI18N
-        internalFrame4.setLayout(new java.awt.BorderLayout());
-
-        Scroll4.setName("Scroll4"); // NOI18N
-        Scroll4.setOpaque(true);
-        Scroll4.setPreferredSize(new java.awt.Dimension(462, 210));
-
-        tbbangsal.setAutoCreateRowSorter(true);
-        tbbangsal.setToolTipText("Silahkan klik untuk memilih data yang mau diedit ataupun dihapus");
-        tbbangsal.setName("tbbangsal"); // NOI18N
-        tbbangsal.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbbangsalMouseClicked(evt);
-            }
-        });
-        tbbangsal.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                tbbangsalKeyPressed(evt);
-            }
-        });
-        Scroll4.setViewportView(tbbangsal);
-
-        internalFrame4.add(Scroll4, java.awt.BorderLayout.CENTER);
-
-        internalFrame15.add(internalFrame4);
-        internalFrame4.setBounds(5, 20, 644, 232);
-
-        panelGlass14.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
-        panelGlass14.setName("panelGlass14"); // NOI18N
-        panelGlass14.setPreferredSize(new java.awt.Dimension(44, 44));
-        panelGlass14.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
-
-        jLabel102.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel102.setText("Key Word :");
-        jLabel102.setName("jLabel102"); // NOI18N
-        jLabel102.setPreferredSize(new java.awt.Dimension(60, 20));
-        panelGlass14.add(jLabel102);
-
-        TCaribangsal.setForeground(new java.awt.Color(0, 0, 0));
-        TCaribangsal.setHighlighter(null);
-        TCaribangsal.setName("TCaribangsal"); // NOI18N
-        TCaribangsal.setPreferredSize(new java.awt.Dimension(250, 24));
-        TCaribangsal.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                TCaribangsalKeyPressed(evt);
-            }
-        });
-        panelGlass14.add(TCaribangsal);
-
-        BtnCari4.setBorder(null);
-        BtnCari4.setForeground(new java.awt.Color(0, 0, 0));
-        BtnCari4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept.png"))); // NOI18N
-        BtnCari4.setMnemonic('2');
-        BtnCari4.setText("Tampilkan Data");
-        BtnCari4.setName("BtnCari4"); // NOI18N
-        BtnCari4.setPreferredSize(new java.awt.Dimension(130, 23));
-        BtnCari4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnCari4ActionPerformed(evt);
-            }
-        });
-        BtnCari4.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                BtnCari4KeyPressed(evt);
-            }
-        });
-        panelGlass14.add(BtnCari4);
-
-        BtnAll4.setForeground(new java.awt.Color(0, 0, 0));
-        BtnAll4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Search-16x16.png"))); // NOI18N
-        BtnAll4.setMnemonic('M');
-        BtnAll4.setText("Semua Data");
-        BtnAll4.setToolTipText("Alt+M");
-        BtnAll4.setName("BtnAll4"); // NOI18N
-        BtnAll4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnAll4ActionPerformed(evt);
-            }
-        });
-        panelGlass14.add(BtnAll4);
-
-        internalFrame15.add(panelGlass14);
-        panelGlass14.setBounds(7, 286, 640, 36);
-
-        panelGlass15.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
-        panelGlass15.setName("panelGlass15"); // NOI18N
-        panelGlass15.setPreferredSize(new java.awt.Dimension(44, 44));
-        panelGlass15.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
-
-        jLabel103.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel103.setText("Yang Akan Diprint :");
-        jLabel103.setName("jLabel103"); // NOI18N
-        jLabel103.setPreferredSize(new java.awt.Dimension(105, 20));
-        panelGlass15.add(jLabel103);
-
-        cmbPrin.setForeground(new java.awt.Color(0, 0, 0));
-        cmbPrin.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Bon Diet", "Form Ketepatan", "Label Diet" }));
-        cmbPrin.setName("cmbPrin"); // NOI18N
-        cmbPrin.setOpaque(false);
-        cmbPrin.setPreferredSize(new java.awt.Dimension(120, 23));
-        cmbPrin.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cmbPrinMouseClicked(evt);
-            }
-        });
-        cmbPrin.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cmbPrinKeyPressed(evt);
-            }
-        });
-        panelGlass15.add(cmbPrin);
-
-        BtnLabelGZ.setForeground(new java.awt.Color(0, 0, 0));
-        BtnLabelGZ.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/b_print.png"))); // NOI18N
-        BtnLabelGZ.setMnemonic('C');
-        BtnLabelGZ.setText("Cetak");
-        BtnLabelGZ.setToolTipText("Alt+C");
-        BtnLabelGZ.setName("BtnLabelGZ"); // NOI18N
-        BtnLabelGZ.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnLabelGZActionPerformed(evt);
-            }
-        });
-        panelGlass15.add(BtnLabelGZ);
-
-        BtnBatal1.setBorder(null);
-        BtnBatal1.setForeground(new java.awt.Color(0, 0, 0));
-        BtnBatal1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Cancel-2-16x16.png"))); // NOI18N
-        BtnBatal1.setMnemonic('B');
-        BtnBatal1.setText("Baru");
-        BtnBatal1.setToolTipText("Alt+B");
-        BtnBatal1.setName("BtnBatal1"); // NOI18N
-        BtnBatal1.setPreferredSize(new java.awt.Dimension(65, 26));
-        BtnBatal1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnBatal1ActionPerformed(evt);
-            }
-        });
-        panelGlass15.add(BtnBatal1);
-
-        BtnCloseIn10.setForeground(new java.awt.Color(0, 0, 0));
-        BtnCloseIn10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/cross.png"))); // NOI18N
-        BtnCloseIn10.setMnemonic('U');
-        BtnCloseIn10.setText("Keluar");
-        BtnCloseIn10.setToolTipText("Alt+U");
-        BtnCloseIn10.setName("BtnCloseIn10"); // NOI18N
-        BtnCloseIn10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnCloseIn10ActionPerformed(evt);
-            }
-        });
-        panelGlass15.add(BtnCloseIn10);
-
-        internalFrame15.add(panelGlass15);
-        panelGlass15.setBounds(7, 322, 640, 40);
-
-        WindowLabelGizi.getContentPane().add(internalFrame15, java.awt.BorderLayout.CENTER);
-
         WindowPulangAPS.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         WindowPulangAPS.setName("WindowPulangAPS"); // NOI18N
         WindowPulangAPS.setUndecorated(true);
@@ -6487,7 +6200,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         jLabel51.setBounds(0, 25, 130, 23);
 
         TglRegRalan.setEditable(false);
-        TglRegRalan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-12-2021" }));
+        TglRegRalan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-12-2021" }));
         TglRegRalan.setDisplayFormat("dd-MM-yyyy");
         TglRegRalan.setName("TglRegRalan"); // NOI18N
         TglRegRalan.setOpaque(false);
@@ -6841,7 +6554,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         statusSEP.setPreferredSize(new java.awt.Dimension(207, 23));
 
         tglMasukInap.setEditable(false);
-        tglMasukInap.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-12-2021" }));
+        tglMasukInap.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-12-2021" }));
         tglMasukInap.setDisplayFormat("dd-MM-yyyy");
         tglMasukInap.setName("tglMasukInap"); // NOI18N
         tglMasukInap.setOpaque(false);
@@ -7202,7 +6915,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         panelCari.add(R2);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-12-2021" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-12-2021" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -7227,7 +6940,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         panelCari.add(jLabel22);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-12-2021" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-12-2021" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -7255,7 +6968,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         panelCari.add(R3);
 
         DTPCari3.setEditable(false);
-        DTPCari3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-12-2021" }));
+        DTPCari3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-12-2021" }));
         DTPCari3.setDisplayFormat("dd-MM-yyyy");
         DTPCari3.setName("DTPCari3"); // NOI18N
         DTPCari3.setOpaque(false);
@@ -7280,7 +6993,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         panelCari.add(jLabel25);
 
         DTPCari4.setEditable(false);
-        DTPCari4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-12-2021" }));
+        DTPCari4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-12-2021" }));
         DTPCari4.setDisplayFormat("dd-MM-yyyy");
         DTPCari4.setName("DTPCari4"); // NOI18N
         DTPCari4.setOpaque(false);
@@ -8658,9 +8371,10 @@ private void MnDietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
         rawatinap.setLocationRelativeTo(internalFrame1);
         rawatinap.emptTeks();
         rawatinap.cekWaktu.setSelected(true);
-        rawatinap.TCari.setText("");
-        rawatinap.isCek();
+        rawatinap.TCari.setText("");        
         rawatinap.setNoRm(norawat.getText(), DTPCari1.getDate(), DTPCari2.getDate());
+        rawatinap.isCek();
+        rawatinap.tabDataKlik();
         rawatinap.setVisible(true);
     }
 }//GEN-LAST:event_MnDietActionPerformed
@@ -12927,149 +12641,14 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         if (R1.isSelected() == false) {
             JOptionPane.showMessageDialog(null, "Data diet makanan hanya bisa dicetak utk. pasien yg. masih dirawat inap...!!");
         } else {
-            WindowLabelGizi.setSize(657, 370);
-            WindowLabelGizi.setLocationRelativeTo(internalFrame1);
-            WindowLabelGizi.setVisible(true);
-            emptLabelGZ();
-            tampilBangsalGZ();
+            DlgDataDietRanap dietRanap = new DlgDataDietRanap(null, false);
+            dietRanap.setSize(657, 370);
+            dietRanap.setLocationRelativeTo(internalFrame1);
+            dietRanap.emptTeks();
+            dietRanap.tampil();
+            dietRanap.setVisible(true);
         }
     }//GEN-LAST:event_MnDietMakananActionPerformed
-
-    private void BtnCloseIn10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCloseIn10ActionPerformed
-        WindowLabelGizi.dispose();
-    }//GEN-LAST:event_BtnCloseIn10ActionPerformed
-
-    private void BtnLabelGZActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLabelGZActionPerformed
-        if (inisial.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Inisial ruangan harus terisi..!!!");
-        } else {
-            if (cmbPrin.getSelectedItem().toString().equals(" ")) {
-                JOptionPane.showMessageDialog(null, "Pilih dulu salah satu yang akan diprint..!!!");
-                cmbPrin.requestFocus();
-            } else if (cmbPrin.getSelectedItem().toString().equals("Label Diet")) {
-                PrinLabelDiet();
-            } else if (cmbPrin.getSelectedItem().toString().equals("Bon Diet")) {
-                cekBonGZ = 0;
-                cekBonGZ = Sequel.cariInteger("SELECT COUNT(1) cek FROM kamar_inap ki INNER JOIN kamar k ON k.kd_kamar = ki.kd_kamar "
-                        + "INNER JOIN bangsal b ON b.kd_bangsal = k.kd_bangsal INNER JOIN reg_periksa rp ON rp.no_rawat = ki.no_rawat "
-                        + "INNER JOIN pasien p ON p.no_rkm_medis = rp.no_rkm_medis LEFT JOIN detail_beri_diet dd ON dd.no_rawat = ki.no_rawat "
-                        + "AND dd.tanggal = '" + Valid.SetTgl(tglDiet.getSelectedItem() + "") + "' AND (dd.waktu = 'SIANG' OR ifnull(dd.waktu, '-') = '-') "
-                        + "LEFT JOIN diet d ON d.kd_diet = dd.kd_diet WHERE ki.stts_pulang = '-' AND b.nm_gedung = '" + gedungGZ + "'");
-
-                if (cekBonGZ == 0) {
-                    JOptionPane.showMessageDialog(null, "Data tidak ditemukan..!!!");
-                } else {
-                    PrinBonDiet();
-                }
-
-            } else if (cmbPrin.getSelectedItem().toString().equals("Form Ketepatan")) {
-                cekDataTepatGZ();
-                if (cekDataKetepatanDiet == 0) {
-                    JOptionPane.showMessageDialog(null, "Data tidak ditemukan..!!!");
-                } else {
-                    PrinKetepatanDiet();
-                }
-            }
-        }
-    }//GEN-LAST:event_BtnLabelGZActionPerformed
-
-    private void tbbangsalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbbangsalMouseClicked
-        if (tabMode4.getRowCount() != 0) {
-            try {
-                getDataLabelGZ();
-            } catch (java.lang.NullPointerException e) {
-            }
-        }
-    }//GEN-LAST:event_tbbangsalMouseClicked
-
-    private void tbbangsalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbbangsalKeyPressed
-        if (tabMode4.getRowCount() != 0) {
-            if ((evt.getKeyCode() == KeyEvent.VK_ENTER) || (evt.getKeyCode() == KeyEvent.VK_UP) || (evt.getKeyCode() == KeyEvent.VK_DOWN)) {
-                try {
-                    getDataLabelGZ();
-                } catch (java.lang.NullPointerException e) {
-                }
-            }
-        }
-    }//GEN-LAST:event_tbbangsalKeyPressed
-
-    private void BtnCari4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCari4ActionPerformed
-        tampilBangsalGZ();
-    }//GEN-LAST:event_BtnCari4ActionPerformed
-
-    private void BtnCari4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnCari4KeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
-            BtnCariActionPerformed(null);
-        } else {
-            Valid.pindah(evt, TCari, BtnAll);
-        }
-    }//GEN-LAST:event_BtnCari4KeyPressed
-
-    private void TCaribangsalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TCaribangsalKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            BtnCari4ActionPerformed(null);
-            inisial.setText("");
-            cekKelas.setSelected(true);
-            kelas.setText("");
-        } else if (evt.getKeyCode() == KeyEvent.VK_PAGE_DOWN) {
-            BtnCari4.requestFocus();
-        } else if (evt.getKeyCode() == KeyEvent.VK_PAGE_UP) {
-            BtnCloseIn10.requestFocus();
-        }
-    }//GEN-LAST:event_TCaribangsalKeyPressed
-
-    private void BtnBatal1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBatal1ActionPerformed
-        emptLabelGZ();
-    }//GEN-LAST:event_BtnBatal1ActionPerformed
-
-    private void BtnAll4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAll4ActionPerformed
-        TCaribangsal.setText("");
-        tampilBangsalGZ();
-    }//GEN-LAST:event_BtnAll4ActionPerformed
-
-    private void cmbPrinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbPrinMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbPrinMouseClicked
-
-    private void cmbPrinKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmbPrinKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbPrinKeyPressed
-
-    private void cekKelasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cekKelasItemStateChanged
-        if (cekKelas.isSelected() == true) {
-            cekKelas.setText("Semua Kelas :");
-            kelas.setText("");
-        } else if (cekKelas.isSelected() == false) {
-            cekKelas.setText("Per Kelas :");
-            if (kelas.getText().equals("")) {
-                cekKelas.setSelected(false);
-            }
-        }
-    }//GEN-LAST:event_cekKelasItemStateChanged
-
-    private void cekKelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cekKelasActionPerformed
-        if (cekKelas.isSelected() == true) {
-            cekKelas.setText("Semua Kelas :");
-            kelas.setText("");
-        } else if (cekKelas.isSelected() == false) {
-            cekKelas.setText("Per Kelas :");
-            if (kelas.getText().equals("")) {
-                cekKelas.setSelected(false);
-            }
-        }
-    }//GEN-LAST:event_cekKelasActionPerformed
-
-    private void cekKelasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cekKelasMouseClicked
-        if (cekKelas.isSelected() == true) {
-            cekKelas.setText("Semua Kelas :");
-            kelas.setText("");
-        } else if (cekKelas.isSelected() == false) {
-            cekKelas.setText("Per Kelas :");
-            if (kelas.getText().equals("")) {
-                cekKelas.setSelected(false);
-            }
-        }
-    }//GEN-LAST:event_cekKelasMouseClicked
 
     private void BtnCloseIn11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCloseIn11ActionPerformed
         if (status_pulang.getText().equals("-") || (status_pulang.getText().equals("Pindah Kamar"))) {
@@ -14439,14 +14018,11 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private widget.Button BtnAll;
     private widget.Button BtnAll2;
     private widget.Button BtnAll3;
-    private widget.Button BtnAll4;
     private widget.Button BtnBatal;
-    private widget.Button BtnBatal1;
     private widget.Button BtnBatal2;
     private widget.Button BtnCari;
     private widget.Button BtnCari2;
     private widget.Button BtnCari3;
-    private widget.Button BtnCari4;
     private widget.Button BtnCari5;
     private widget.Button BtnCekTran;
     public widget.Button BtnCetakGB;
@@ -14454,7 +14030,6 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private widget.Button BtnCloseGabung;
     private widget.Button BtnCloseIn;
     private widget.Button BtnCloseIn1;
-    private widget.Button BtnCloseIn10;
     private widget.Button BtnCloseIn11;
     private widget.Button BtnCloseIn12;
     private widget.Button BtnCloseIn13;
@@ -14483,7 +14058,6 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private widget.Button BtnHapusMati;
     private widget.Button BtnIn;
     private widget.Button BtnKeluar;
-    private widget.Button BtnLabelGZ;
     private widget.Button BtnOut;
     private widget.Button BtnPrint1;
     private widget.Button BtnPrint2;
@@ -14650,7 +14224,6 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private widget.ScrollPane Scroll;
     private widget.ScrollPane Scroll2;
     private widget.ScrollPane Scroll3;
-    private widget.ScrollPane Scroll4;
     private widget.ScrollPane Scroll5;
     private widget.ScrollPane Scroll6;
     private widget.TextBox StatusDaftar;
@@ -14660,7 +14233,6 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private widget.TextBox TCari2;
     public widget.TextBox TCari3;
     private widget.TextBox TCari4;
-    private widget.TextBox TCaribangsal;
     private widget.TextBox TDiagnosaAwal;
     private widget.TextBox TIn;
     private widget.TextBox TJmlHari;
@@ -14687,7 +14259,6 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private javax.swing.JDialog WindowDiagnosaAwal;
     public javax.swing.JDialog WindowGiziBuruk;
     private javax.swing.JDialog WindowInputKamar;
-    public javax.swing.JDialog WindowLabelGizi;
     private javax.swing.JDialog WindowPindahKamar;
     private javax.swing.JDialog WindowPindahkanTransaksi;
     private javax.swing.JDialog WindowPulangAPS;
@@ -14717,7 +14288,6 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private javax.swing.ButtonGroup buttonGroup2;
     private widget.TextBox catatanIGD;
     private widget.TextBox cekDataAnak;
-    private widget.CekBox cekKelas;
     private widget.ComboBox cmbDtk;
     private widget.ComboBox cmbDtk1;
     private widget.ComboBox cmbDtk2;
@@ -14732,7 +14302,6 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private widget.ComboBox cmbMnt1;
     private widget.ComboBox cmbMnt2;
     private widget.ComboBox cmbMntpindah;
-    private widget.ComboBox cmbPrin;
     private widget.ComboBox cmbRuangKhusus1;
     private widget.ComboBox cmbRuangKhusus2;
     private widget.ComboBox cmbRuangKhusus3;
@@ -14754,21 +14323,18 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private widget.TextBox hakkelas;
     private widget.TextBox hasilLM;
     private widget.TextBox hb;
-    private widget.TextBox inisial;
     private widget.InternalFrame internalFrame1;
     private widget.InternalFrame internalFrame10;
     private widget.InternalFrame internalFrame11;
     private widget.InternalFrame internalFrame12;
     public widget.InternalFrame internalFrame13;
     private widget.InternalFrame internalFrame14;
-    private widget.InternalFrame internalFrame15;
     private widget.InternalFrame internalFrame16;
     private widget.InternalFrame internalFrame17;
     private widget.InternalFrame internalFrame18;
     private widget.InternalFrame internalFrame19;
     private widget.InternalFrame internalFrame2;
     private widget.InternalFrame internalFrame3;
-    private widget.InternalFrame internalFrame4;
     private widget.InternalFrame internalFrame5;
     private widget.InternalFrame internalFrame6;
     private widget.InternalFrame internalFrame7;
@@ -14777,8 +14343,6 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private widget.Label jLabel10;
     private widget.Label jLabel100;
     private widget.Label jLabel101;
-    private widget.Label jLabel102;
-    private widget.Label jLabel103;
     private widget.Label jLabel104;
     private widget.Label jLabel105;
     private widget.Label jLabel106;
@@ -14880,9 +14444,7 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private widget.Label jLabel94;
     private widget.Label jLabel95;
     private widget.Label jLabel96;
-    private widget.Label jLabel97;
     private widget.Label jLabel98;
-    private widget.Label jLabel99;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPopupMenu jPopupMenu1;
@@ -14894,7 +14456,6 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private widget.TextBox kdkamar;
     private widget.TextBox kdkamarpindah;
     private widget.TextBox kdpenjab;
-    private widget.TextBox kelas;
     private widget.TextBox ket;
     private widget.TextBox ket1;
     private widget.TextBox ketAPS;
@@ -14926,9 +14487,6 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private widget.panelisi panelGlass10;
     private widget.panelisi panelGlass11;
     private widget.panelisi panelGlass12;
-    private widget.panelisi panelGlass13;
-    private widget.panelisi panelGlass14;
-    private widget.panelisi panelGlass15;
     private widget.panelisi panelGlass16;
     private widget.panelisi panelGlass17;
     private widget.panelisi panelGlass18;
@@ -14965,9 +14523,7 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private widget.Table tbGiziBuruk;
     private widget.Table tbKamIn;
     private widget.Table tbStatusGZ;
-    private widget.Table tbbangsal;
     private widget.TextBox tglDari;
-    private widget.Tanggal tglDiet;
     private widget.TextBox tglInap;
     private widget.Tanggal tglMasukInap;
     private widget.TextBox tglsep;
@@ -16329,398 +15885,6 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         norwGZ.setText(no_rw);
         normGZ.setText(no_rm);
         nmpxGZ.setText(nm_pas);
-    }
-
-    public void tampilBangsalGZ() {
-        mencari = "";
-        cari1 = "b.inisial_label_gizi<>'-' and b.nm_bangsal like '%" + TCaribangsal.getText() + "%'";
-        cari2 = "b.inisial_label_gizi<>'-' and k.kelas like '%" + TCaribangsal.getText() + "%'";
-        cari3 = "b.inisial_label_gizi<>'-' and b.inisial_label_gizi like '%" + TCaribangsal.getText() + "%'";
-        cari4 = "b.inisial_label_gizi<>'-' and b.nm_gedung like '%" + TCaribangsal.getText() + "%'";
-
-        Valid.tabelKosong(tabMode4);
-        try {
-            mencari = cari1 + " or " + cari2 + " or " + cari3 + " or " + cari4;
-            psbangsalGZ = koneksi.prepareStatement("SELECT DISTINCT k.kelas, b.nm_bangsal, b.inisial_label_gizi, b.nm_gedung FROM bangsal b "
-                    + "INNER JOIN kamar k on k.kd_bangsal=b.kd_bangsal WHERE " + mencari + " ORDER BY k.kelas, b.nm_bangsal");
-
-            try {
-                rsbangsalGZ = psbangsalGZ.executeQuery();
-                while (rsbangsalGZ.next()) {
-                    tabMode4.addRow(new Object[]{
-                        rsbangsalGZ.getString(1),
-                        rsbangsalGZ.getString(2),
-                        rsbangsalGZ.getString(3),
-                        rsbangsalGZ.getString(4)
-                    });
-                }
-            } catch (Exception e) {
-                System.out.println("simrskhanza.DlgKamarInap.tampil() : " + e);
-            } finally {
-                if (rsbangsalGZ != null) {
-                    rsbangsalGZ.close();
-                }
-                if (psbangsalGZ != null) {
-                    psbangsalGZ.close();
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("Notifikasi : " + e);
-        }
-    }
-
-    private void getDataLabelGZ() {
-        gedungGZ = "";
-
-        if (tbbangsal.getSelectedRow() != -1) {
-            kelas.setText(tbbangsal.getValueAt(tbbangsal.getSelectedRow(), 0).toString());
-            inisial.setText(tbbangsal.getValueAt(tbbangsal.getSelectedRow(), 2).toString());
-            gedungGZ = tbbangsal.getValueAt(tbbangsal.getSelectedRow(), 3).toString();
-
-            cekKelas.setSelected(false);
-            if (kelas.getText().equals("Kelas VVIP")) {
-                kelas.setText("Kelas VIP");
-            } else {
-                kelas.setText(tbbangsal.getValueAt(tbbangsal.getSelectedRow(), 0).toString());
-            }
-        }
-    }
-
-    public void emptLabelGZ() {
-        inisial.setText("");
-        kelas.setText("");
-        TCaribangsal.setText("");
-        cekKelas.setSelected(true);
-        cmbPrin.setSelectedIndex(0);
-        TCaribangsal.requestFocus();
-    }
-
-    private void PrinLabelDiet() {
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        Map<String, Object> param = new HashMap<>();
-        param.put("namars", var.getnamars());
-        param.put("alamatrs", var.getalamatrs());
-        param.put("kotars", var.getkabupatenrs());
-        param.put("propinsirs", var.getpropinsirs());
-        param.put("kontakrs", var.getkontakrs());
-        param.put("emailrs", var.getemailrs());
-        param.put("logo", Sequel.cariGambar("select logo from setting"));
-        param.put("inisial_ruang", inisial.getText());
-
-        if (cekKelas.isSelected() == true) {
-            param.put("ruangan", "Ruang Perawatan : " + gedungGZ + ", Semua Kelas Rawat" + ", Tgl. Pemberian Diet : " + tglDiet.getSelectedItem());
-            Valid.MyReport("rptlabeldietRanap.jrxml", "report", "::[ Label Diet Gizi Pasien ]::",
-                    " select a.nm_pasien,a.no_rkm_medis,a.ttl , a.kelas, a.inisial_kls,a.inisial_label_gizi, "
-                    + "ifnull(b.nama_diet,'.........................................') nama_diet_pagi, "
-                    + "ifnull(b.waktu,'Pagi') waktu_pagi, ifnull(b.inisial_wkt,'PA') inisial_wkt_pagi, "
-                    + "ifnull(c.nama_diet,'.........................................') nama_diet_siang, "
-                    + "ifnull(c.waktu,'Siang') waktu_siang, ifnull(c.inisial_wkt,'SI') inisial_wkt_siang, "
-                    + "ifnull(d.nama_diet,'.........................................') nama_diet_sore, "
-                    + "ifnull(d.waktu,'Sore') waktu_sore, ifnull(d.inisial_wkt,'SO') inisial_wkt_sore "
-                    + "from ((select rp.no_rkm_medis, p.nm_pasien,CONCAT(p.tmp_lahir,', ',DATE_FORMAT(p.tgl_lahir, '%d-%m-%Y')) ttl, "
-                    + "k.kelas,SUBSTRING(k.kelas, 7, 1) inisial_kls, b.inisial_label_gizi from kamar_inap ki "
-                    + "INNER JOIN reg_periksa rp ON rp.no_rawat = ki.no_rawat "
-                    + "INNER JOIN kamar k ON k.kd_kamar = ki.kd_kamar "
-                    + "INNER JOIN bangsal b ON b.kd_bangsal = k.kd_bangsal "
-                    + "INNER JOIN pasien p ON p.no_rkm_medis = rp.no_rkm_medis "
-                    + "where ki.stts_pulang = '-' AND b.inisial_label_gizi = '" + inisial.getText() + "') as a  "
-                    + "left join "
-                    + "(SELECT p.nm_pasien, p.no_rkm_medis, CONCAT(p.tmp_lahir,', ',DATE_FORMAT(p.tgl_lahir, '%d-%m-%Y')) ttl, "
-                    + "d.nama_diet, dd.waktu, LEFT (UPPER(dd.waktu), 2) inisial_wkt, b.inisial_label_gizi, k.kelas, SUBSTRING(k.kelas, 7, 1) inisial_kls "
-                    + "FROM kamar_inap ki "
-                    + "INNER JOIN kamar k ON k.kd_kamar = ki.kd_kamar "
-                    + "INNER JOIN bangsal b ON b.kd_bangsal = k.kd_bangsal "
-                    + "INNER JOIN reg_periksa rp ON rp.no_rawat = ki.no_rawat "
-                    + "INNER JOIN pasien p ON p.no_rkm_medis = rp.no_rkm_medis "
-                    + "LEFT JOIN detail_beri_diet dd ON dd.no_rawat = ki.no_rawat AND dd.tanggal='" + Valid.SetTgl(tglDiet.getSelectedItem() + "") + "' "
-                    + "and (dd.waktu = 'pagi' OR ifnull(dd.waktu, '-') = '-') LEFT JOIN diet d ON d.kd_diet = dd.kd_diet "
-                    + "WHERE ki.stts_pulang = '-' AND b.inisial_label_gizi = '" + inisial.getText() + "') as b on b.no_rkm_medis = a.no_rkm_medis "
-                    + "left JOIN "
-                    + "(SELECT p.nm_pasien, p.no_rkm_medis, CONCAT(p.tmp_lahir,', ',DATE_FORMAT(p.tgl_lahir, '%d-%m-%Y')) ttl, "
-                    + "d.nama_diet, dd.waktu, LEFT (UPPER(dd.waktu), 2) inisial_wkt, b.inisial_label_gizi, k.kelas, SUBSTRING(k.kelas, 7, 1) inisial_kls "
-                    + "FROM kamar_inap ki "
-                    + "INNER JOIN kamar k ON k.kd_kamar = ki.kd_kamar "
-                    + "INNER JOIN bangsal b ON b.kd_bangsal = k.kd_bangsal "
-                    + "INNER JOIN reg_periksa rp ON rp.no_rawat = ki.no_rawat "
-                    + "INNER JOIN pasien p ON p.no_rkm_medis = rp.no_rkm_medis "
-                    + "LEFT JOIN detail_beri_diet dd ON dd.no_rawat = ki.no_rawat AND dd.tanggal='" + Valid.SetTgl(tglDiet.getSelectedItem() + "") + "' "
-                    + "and (dd.waktu = 'siang' OR ifnull(dd.waktu, '-') = '-') LEFT JOIN diet d ON d.kd_diet = dd.kd_diet "
-                    + "WHERE ki.stts_pulang = '-' AND b.inisial_label_gizi = '" + inisial.getText() + "') as c on a.no_rkm_medis = c.no_rkm_medis "
-                    + "left JOIN "
-                    + "(SELECT p.nm_pasien, p.no_rkm_medis, CONCAT(p.tmp_lahir,', ',DATE_FORMAT(p.tgl_lahir, '%d-%m-%Y')) ttl, "
-                    + "d.nama_diet, dd.waktu, LEFT (UPPER(dd.waktu), 2) inisial_wkt, b.inisial_label_gizi, k.kelas, SUBSTRING(k.kelas, 7, 1) inisial_kls "
-                    + "FROM kamar_inap ki "
-                    + "INNER JOIN kamar k ON k.kd_kamar = ki.kd_kamar "
-                    + "INNER JOIN bangsal b ON b.kd_bangsal = k.kd_bangsal "
-                    + "INNER JOIN reg_periksa rp ON rp.no_rawat = ki.no_rawat "
-                    + "INNER JOIN pasien p ON p.no_rkm_medis = rp.no_rkm_medis "
-                    + "LEFT JOIN detail_beri_diet dd ON dd.no_rawat = ki.no_rawat AND dd.tanggal='" + Valid.SetTgl(tglDiet.getSelectedItem() + "") + "' "
-                    + "and (dd.waktu = 'sore' OR ifnull(dd.waktu, '-') = '-') LEFT JOIN diet d ON d.kd_diet = dd.kd_diet "
-                    + "WHERE ki.stts_pulang = '-' AND b.inisial_label_gizi = '" + inisial.getText() + "') as d on a.no_rkm_medis = d.no_rkm_medis) "
-                    + "ORDER BY nama_diet_pagi DESC, nama_diet_siang DESC, nama_diet_sore DESC, nm_pasien", param);
-
-        } else if (cekKelas.isSelected() == false) {
-            param.put("ruangan", "Ruang Perawatan : " + gedungGZ + ", " + kelas.getText() + ", Tgl. Pemberian Diet : " + tglDiet.getSelectedItem());
-            Valid.MyReport("rptlabeldietRanap.jrxml", "report", "::[ Label Diet Gizi Pasien ]::",
-                    "select a.nm_pasien,a.no_rkm_medis,a.ttl , a.kelas, a.inisial_kls,a.inisial_label_gizi, "
-                    + "ifnull(b.nama_diet,'.........................................') nama_diet_pagi, "
-                    + "ifnull(b.waktu,'Pagi') waktu_pagi, ifnull(b.inisial_wkt,'PA') inisial_wkt_pagi, "
-                    + "ifnull(c.nama_diet,'.........................................') nama_diet_siang, "
-                    + "ifnull(c.waktu,'Siang') waktu_siang, ifnull(c.inisial_wkt,'SI') inisial_wkt_siang, "
-                    + "ifnull(d.nama_diet,'.........................................') nama_diet_sore, "
-                    + "ifnull(d.waktu,'Sore') waktu_sore, ifnull(d.inisial_wkt,'SO') inisial_wkt_sore "
-                    + "from ((select rp.no_rkm_medis, p.nm_pasien,CONCAT(p.tmp_lahir,', ',DATE_FORMAT(p.tgl_lahir, '%d-%m-%Y')) ttl, "
-                    + "k.kelas,SUBSTRING(k.kelas, 7, 1) inisial_kls, b.inisial_label_gizi from kamar_inap ki "
-                    + "INNER JOIN reg_periksa rp ON rp.no_rawat = ki.no_rawat "
-                    + "INNER JOIN kamar k ON k.kd_kamar = ki.kd_kamar "
-                    + "INNER JOIN bangsal b ON b.kd_bangsal = k.kd_bangsal "
-                    + "INNER JOIN pasien p ON p.no_rkm_medis = rp.no_rkm_medis "
-                    + "where ki.stts_pulang = '-' AND b.inisial_label_gizi = '" + inisial.getText() + "' AND k.kelas = '" + kelas.getText() + "') as a  "
-                    + "left join "
-                    + "(SELECT p.nm_pasien, p.no_rkm_medis, CONCAT(p.tmp_lahir,', ',DATE_FORMAT(p.tgl_lahir, '%d-%m-%Y')) ttl, "
-                    + "d.nama_diet, dd.waktu, LEFT (UPPER(dd.waktu), 2) inisial_wkt, b.inisial_label_gizi, k.kelas, SUBSTRING(k.kelas, 7, 1) inisial_kls "
-                    + "FROM kamar_inap ki "
-                    + "INNER JOIN kamar k ON k.kd_kamar = ki.kd_kamar "
-                    + "INNER JOIN bangsal b ON b.kd_bangsal = k.kd_bangsal "
-                    + "INNER JOIN reg_periksa rp ON rp.no_rawat = ki.no_rawat "
-                    + "INNER JOIN pasien p ON p.no_rkm_medis = rp.no_rkm_medis "
-                    + "LEFT JOIN detail_beri_diet dd ON dd.no_rawat = ki.no_rawat AND dd.tanggal='" + Valid.SetTgl(tglDiet.getSelectedItem() + "") + "' "
-                    + "and (dd.waktu = 'pagi' OR ifnull(dd.waktu, '-') = '-') LEFT JOIN diet d ON d.kd_diet = dd.kd_diet "
-                    + "WHERE ki.stts_pulang = '-' AND b.inisial_label_gizi = '" + inisial.getText() + "' AND k.kelas = '" + kelas.getText() + "') as b on b.no_rkm_medis = a.no_rkm_medis "
-                    + "left JOIN "
-                    + "(SELECT p.nm_pasien, p.no_rkm_medis, CONCAT(p.tmp_lahir,', ',DATE_FORMAT(p.tgl_lahir, '%d-%m-%Y')) ttl, "
-                    + "d.nama_diet, dd.waktu, LEFT (UPPER(dd.waktu), 2) inisial_wkt, b.inisial_label_gizi, k.kelas, SUBSTRING(k.kelas, 7, 1) inisial_kls "
-                    + "FROM kamar_inap ki "
-                    + "INNER JOIN kamar k ON k.kd_kamar = ki.kd_kamar "
-                    + "INNER JOIN bangsal b ON b.kd_bangsal = k.kd_bangsal "
-                    + "INNER JOIN reg_periksa rp ON rp.no_rawat = ki.no_rawat "
-                    + "INNER JOIN pasien p ON p.no_rkm_medis = rp.no_rkm_medis "
-                    + "LEFT JOIN detail_beri_diet dd ON dd.no_rawat = ki.no_rawat AND dd.tanggal='" + Valid.SetTgl(tglDiet.getSelectedItem() + "") + "' "
-                    + "and (dd.waktu = 'siang' OR ifnull(dd.waktu, '-') = '-') LEFT JOIN diet d ON d.kd_diet = dd.kd_diet "
-                    + "WHERE ki.stts_pulang = '-' AND b.inisial_label_gizi = '" + inisial.getText() + "' AND k.kelas = '" + kelas.getText() + "') as c on a.no_rkm_medis = c.no_rkm_medis "
-                    + "left JOIN "
-                    + "(SELECT p.nm_pasien, p.no_rkm_medis, CONCAT(p.tmp_lahir,', ',DATE_FORMAT(p.tgl_lahir, '%d-%m-%Y')) ttl, "
-                    + "d.nama_diet, dd.waktu, LEFT (UPPER(dd.waktu), 2) inisial_wkt, b.inisial_label_gizi, k.kelas, SUBSTRING(k.kelas, 7, 1) inisial_kls "
-                    + "FROM kamar_inap ki "
-                    + "INNER JOIN kamar k ON k.kd_kamar = ki.kd_kamar "
-                    + "INNER JOIN bangsal b ON b.kd_bangsal = k.kd_bangsal "
-                    + "INNER JOIN reg_periksa rp ON rp.no_rawat = ki.no_rawat "
-                    + "INNER JOIN pasien p ON p.no_rkm_medis = rp.no_rkm_medis "
-                    + "LEFT JOIN detail_beri_diet dd ON dd.no_rawat = ki.no_rawat AND dd.tanggal='" + Valid.SetTgl(tglDiet.getSelectedItem() + "") + "' "
-                    + "and (dd.waktu = 'sore' OR ifnull(dd.waktu, '-') = '-') LEFT JOIN diet d ON d.kd_diet = dd.kd_diet "
-                    + "WHERE ki.stts_pulang = '-' AND b.inisial_label_gizi = '" + inisial.getText() + "' AND k.kelas = '" + kelas.getText() + "') as d on a.no_rkm_medis = d.no_rkm_medis) "
-                    + "ORDER BY nama_diet_pagi DESC, nama_diet_siang DESC, nama_diet_sore DESC, nm_pasien", param);
-        }
-
-        this.setCursor(Cursor.getDefaultCursor());
-        tampilBangsalGZ();
-    }
-
-    private void PrinBonDiet() {
-        nmHari = "";
-        nmHari1 = "";
-        tgl_sekarang = "";
-        nmDay = "";
-        nmDay1 = "";
-
-        nmDay = Sequel.cariIsi("SELECT DATE_FORMAT('" + Valid.SetTgl(tglDiet.getSelectedItem() + "") + "','%W') hari");
-        nmDay1 = Sequel.cariIsi("SELECT DATE_FORMAT(now(),'%W') hari");
-        tgl_sekarang = Sequel.cariIsi("SELECT DATE_FORMAT(NOW(),'%d-%m-%Y') hari_ini");
-
-        if (nmDay.equals("Monday")) {
-            nmHari = "Senin";
-        } else if (nmDay.equals("Tuesday")) {
-            nmHari = "Selasa";
-        } else if (nmDay.equals("Wednesday")) {
-            nmHari = "Rabu";
-        } else if (nmDay.equals("Thursday")) {
-            nmHari = "Kamis";
-        } else if (nmDay.equals("Friday")) {
-            nmHari = "Jum'at";
-        } else if (nmDay.equals("Saturday")) {
-            nmHari = "Sabtu";
-        } else if (nmDay.equals("Sunday")) {
-            nmHari = "Minggu";
-        }
-
-        if (nmDay1.equals("Monday")) {
-            nmHari1 = "Senin";
-        } else if (nmDay1.equals("Tuesday")) {
-            nmHari1 = "Selasa";
-        } else if (nmDay1.equals("Wednesday")) {
-            nmHari1 = "Rabu";
-        } else if (nmDay1.equals("Thursday")) {
-            nmHari1 = "Kamis";
-        } else if (nmDay1.equals("Friday")) {
-            nmHari1 = "Jum'at";
-        } else if (nmDay1.equals("Saturday")) {
-            nmHari1 = "Sabtu";
-        } else if (nmDay1.equals("Sunday")) {
-            nmHari1 = "Minggu";
-        }
-
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        Map<String, Object> param = new HashMap<>();
-        param.put("namars", var.getnamars());
-        param.put("alamatrs", var.getalamatrs());
-        param.put("kotars", var.getkabupatenrs());
-        param.put("propinsirs", var.getpropinsirs());
-        param.put("kontakrs", var.getkontakrs());
-        param.put("emailrs", var.getemailrs());
-        param.put("logo", Sequel.cariGambar("select logo from setting"));
-        param.put("tgl_beri_diet", nmHari + ", " + tglDiet.getSelectedItem());
-        param.put("tgl_sekarang", nmHari1 + ", " + tgl_sekarang);
-        param.put("ruangan", "BON DIET MAKANAN PASIEN RUANG PERAWATAN " + gedungGZ);
-        Valid.MyReport("rptbondietRanap.jrxml", "report", "::[ Bon Diet Makanan Pasien ]::",
-                "SELECT CONCAT(p.no_rkm_medis,' - ',p.nm_pasien) pasien, DATE_FORMAT(p.tgl_lahir, '%d-%m-%Y') tgl_lhr, "
-                + "b.nm_bangsal, lower(IFNULL(ki.diagnosa_awal, '-')) diag_awal, IFNULL(d.nama_diet, '') nm_diet FROM kamar_inap ki "
-                + "INNER JOIN kamar k ON k.kd_kamar = ki.kd_kamar INNER JOIN bangsal b ON b.kd_bangsal = k.kd_bangsal "
-                + "INNER JOIN reg_periksa rp ON rp.no_rawat = ki.no_rawat INNER JOIN pasien p ON p.no_rkm_medis = rp.no_rkm_medis "
-                + "LEFT JOIN detail_beri_diet dd ON dd.no_rawat = ki.no_rawat AND dd.tanggal = '" + Valid.SetTgl(tglDiet.getSelectedItem() + "") + "' "
-                + "AND (dd.waktu = 'SIANG' OR ifnull(dd.waktu, '-') = '-') LEFT JOIN diet d ON d.kd_diet = dd.kd_diet WHERE "
-                + "ki.stts_pulang = '-' AND b.nm_gedung = '" + gedungGZ + "' ORDER BY b.nm_bangsal, k.kelas, pasien", param);
-        this.setCursor(Cursor.getDefaultCursor());
-        tampilBangsalGZ();
-    }
-
-    private void PrinKetepatanDiet() {
-        nmHari = "";
-        nmHari1 = "";
-        tgl_sekarang = "";
-        nmDay = "";
-        nmDay1 = "";
-
-        nmDay = Sequel.cariIsi("SELECT DATE_FORMAT('" + Valid.SetTgl(tglDiet.getSelectedItem() + "") + "','%W') hari");
-        nmDay1 = Sequel.cariIsi("SELECT DATE_FORMAT(now(),'%W') hari");
-        tgl_sekarang = Sequel.cariIsi("SELECT DATE_FORMAT(NOW(),'%d-%m-%Y') hari_ini");
-
-        if (nmDay.equals("Monday")) {
-            nmHari = "Senin";
-        } else if (nmDay.equals("Tuesday")) {
-            nmHari = "Selasa";
-        } else if (nmDay.equals("Wednesday")) {
-            nmHari = "Rabu";
-        } else if (nmDay.equals("Thursday")) {
-            nmHari = "Kamis";
-        } else if (nmDay.equals("Friday")) {
-            nmHari = "Jum'at";
-        } else if (nmDay.equals("Saturday")) {
-            nmHari = "Sabtu";
-        } else if (nmDay.equals("Sunday")) {
-            nmHari = "Minggu";
-        }
-
-        if (nmDay1.equals("Monday")) {
-            nmHari1 = "Senin";
-        } else if (nmDay1.equals("Tuesday")) {
-            nmHari1 = "Selasa";
-        } else if (nmDay1.equals("Wednesday")) {
-            nmHari1 = "Rabu";
-        } else if (nmDay1.equals("Thursday")) {
-            nmHari1 = "Kamis";
-        } else if (nmDay1.equals("Friday")) {
-            nmHari1 = "Jum'at";
-        } else if (nmDay1.equals("Saturday")) {
-            nmHari1 = "Sabtu";
-        } else if (nmDay1.equals("Sunday")) {
-            nmHari1 = "Minggu";
-        }
-
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        Map<String, Object> param = new HashMap<>();
-        param.put("namars", var.getnamars());
-        param.put("alamatrs", var.getalamatrs());
-        param.put("kotars", var.getkabupatenrs());
-        param.put("propinsirs", var.getpropinsirs());
-        param.put("kontakrs", var.getkontakrs());
-        param.put("emailrs", var.getemailrs());
-        param.put("logo", Sequel.cariGambar("select logo from setting"));
-        param.put("tgl_beri_diet", nmHari + ", " + tglDiet.getSelectedItem());
-        param.put("tgl_sekarang", nmHari1 + ", " + tgl_sekarang);
-        param.put("ruangan", "FORM KETEPATAN DIET RUANG PERAWATAN " + gedungGZ);
-        Valid.MyReport("rptKetepatandietRanap.jrxml", "report", "::[ Form Ketepatan Diet Pasien ]::",
-                "select concat(a.no_rkm_medis,' - ',a.nm_pasien) pasien, a.tgl_lahir, a.nm_bangsal, ifnull(b.nama_diet,'') diet_pagi, ifnull(b.waktu,'Pagi') waktu_pagi, "
-                + "ifnull(c.nama_diet,'') diet_siang, ifnull(c.waktu,'Siang') waktu_siang, ifnull(d.nama_diet,'') diet_sore, ifnull(d.waktu,'Sore') waktu_sore, a.kelas "
-                + "from ((select rp.no_rkm_medis, p.nm_pasien, DATE_FORMAT(p.tgl_lahir, '%d-%m-%Y') tgl_lahir, b.nm_bangsal, k.kelas from kamar_inap ki "
-                + "INNER JOIN reg_periksa rp ON rp.no_rawat = ki.no_rawat "
-                + "INNER JOIN kamar k ON k.kd_kamar = ki.kd_kamar "
-                + "INNER JOIN bangsal b ON b.kd_bangsal = k.kd_bangsal "
-                + "INNER JOIN pasien p ON p.no_rkm_medis = rp.no_rkm_medis "
-                + "where ki.stts_pulang = '-' AND b.nm_gedung = '" + gedungGZ + "') as a "
-                + "left join "
-                + "(SELECT p.no_rkm_medis, p.nm_pasien, DATE_FORMAT(p.tgl_lahir, '%d-%m-%Y') tgl_lahir, d.nama_diet, dd.waktu "
-                + "FROM kamar_inap ki "
-                + "INNER JOIN kamar k ON k.kd_kamar = ki.kd_kamar "
-                + "INNER JOIN bangsal b ON b.kd_bangsal = k.kd_bangsal "
-                + "INNER JOIN reg_periksa rp ON rp.no_rawat = ki.no_rawat "
-                + "INNER JOIN pasien p ON p.no_rkm_medis = rp.no_rkm_medis "
-                + "LEFT JOIN detail_beri_diet dd ON dd.no_rawat = ki.no_rawat AND dd.tanggal='" + Valid.SetTgl(tglDiet.getSelectedItem() + "") + "' "
-                + "and dd.waktu = 'pagi' LEFT JOIN diet d ON d.kd_diet = dd.kd_diet "
-                + "WHERE ki.stts_pulang = '-' AND b.nm_gedung = '" + gedungGZ + "') as b on b.no_rkm_medis = a.no_rkm_medis "
-                + "left JOIN "
-                + "(SELECT p.no_rkm_medis, p.nm_pasien, DATE_FORMAT(p.tgl_lahir, '%d-%m-%Y') tgl_lahir, d.nama_diet, dd.waktu "
-                + "FROM kamar_inap ki "
-                + "INNER JOIN kamar k ON k.kd_kamar = ki.kd_kamar "
-                + "INNER JOIN bangsal b ON b.kd_bangsal = k.kd_bangsal "
-                + "INNER JOIN reg_periksa rp ON rp.no_rawat = ki.no_rawat "
-                + "INNER JOIN pasien p ON p.no_rkm_medis = rp.no_rkm_medis "
-                + "LEFT JOIN detail_beri_diet dd ON dd.no_rawat = ki.no_rawat AND dd.tanggal='" + Valid.SetTgl(tglDiet.getSelectedItem() + "") + "' "
-                + "and dd.waktu = 'siang' LEFT JOIN diet d ON d.kd_diet = dd.kd_diet "
-                + "WHERE ki.stts_pulang = '-' AND b.nm_gedung = '" + gedungGZ + "') as c on a.no_rkm_medis = c.no_rkm_medis "
-                + "left JOIN "
-                + "(SELECT p.no_rkm_medis, p.nm_pasien, DATE_FORMAT(p.tgl_lahir, '%d-%m-%Y') tgl_lahir, d.nama_diet, dd.waktu "
-                + "FROM kamar_inap ki "
-                + "INNER JOIN kamar k ON k.kd_kamar = ki.kd_kamar "
-                + "INNER JOIN bangsal b ON b.kd_bangsal = k.kd_bangsal "
-                + "INNER JOIN reg_periksa rp ON rp.no_rawat = ki.no_rawat "
-                + "INNER JOIN pasien p ON p.no_rkm_medis = rp.no_rkm_medis "
-                + "LEFT JOIN detail_beri_diet dd ON dd.no_rawat = ki.no_rawat AND dd.tanggal='" + Valid.SetTgl(tglDiet.getSelectedItem() + "") + "' "
-                + "and dd.waktu = 'sore' LEFT JOIN diet d ON d.kd_diet = dd.kd_diet "
-                + "WHERE ki.stts_pulang = '-' AND b.nm_gedung = '" + gedungGZ + "') as d on a.no_rkm_medis = d.no_rkm_medis) "
-                + "ORDER BY nm_bangsal, kelas, pasien", param);
-        this.setCursor(Cursor.getDefaultCursor());
-        tampilBangsalGZ();
-    }
-
-    private void cekDataTepatGZ() {
-        cekDataKetepatanDiet = 0;
-        cekDataKetepatanDiet = Sequel.cariInteger("select COUNT(1) cek from ((select rp.no_rkm_medis, p.nm_pasien, "
-                + "DATE_FORMAT(p.tgl_lahir, '%d-%m-%Y') tgl_lahir, b.nm_bangsal, k.kelas from kamar_inap ki "
-                + "INNER JOIN reg_periksa rp ON rp.no_rawat = ki.no_rawat "
-                + "INNER JOIN kamar k ON k.kd_kamar = ki.kd_kamar "
-                + "INNER JOIN bangsal b ON b.kd_bangsal = k.kd_bangsal "
-                + "INNER JOIN pasien p ON p.no_rkm_medis = rp.no_rkm_medis "
-                + "where ki.stts_pulang = '-' AND b.nm_gedung = '" + gedungGZ + "') as a "
-                + "left join "
-                + "(SELECT p.no_rkm_medis, p.nm_pasien, DATE_FORMAT(p.tgl_lahir, '%d-%m-%Y') tgl_lahir, d.nama_diet, dd.waktu "
-                + "FROM kamar_inap ki "
-                + "INNER JOIN kamar k ON k.kd_kamar = ki.kd_kamar "
-                + "INNER JOIN bangsal b ON b.kd_bangsal = k.kd_bangsal "
-                + "INNER JOIN reg_periksa rp ON rp.no_rawat = ki.no_rawat "
-                + "INNER JOIN pasien p ON p.no_rkm_medis = rp.no_rkm_medis "
-                + "LEFT JOIN detail_beri_diet dd ON dd.no_rawat = ki.no_rawat AND dd.tanggal='" + Valid.SetTgl(tglDiet.getSelectedItem() + "") + "' "
-                + "and dd.waktu = 'pagi' LEFT JOIN diet d ON d.kd_diet = dd.kd_diet "
-                + "WHERE ki.stts_pulang = '-' AND b.nm_gedung = '" + gedungGZ + "') as b on b.no_rkm_medis = a.no_rkm_medis "
-                + "left JOIN "
-                + "(SELECT p.no_rkm_medis, p.nm_pasien, DATE_FORMAT(p.tgl_lahir, '%d-%m-%Y') tgl_lahir, d.nama_diet, dd.waktu "
-                + "FROM kamar_inap ki "
-                + "INNER JOIN kamar k ON k.kd_kamar = ki.kd_kamar "
-                + "INNER JOIN bangsal b ON b.kd_bangsal = k.kd_bangsal "
-                + "INNER JOIN reg_periksa rp ON rp.no_rawat = ki.no_rawat "
-                + "INNER JOIN pasien p ON p.no_rkm_medis = rp.no_rkm_medis "
-                + "LEFT JOIN detail_beri_diet dd ON dd.no_rawat = ki.no_rawat AND dd.tanggal='" + Valid.SetTgl(tglDiet.getSelectedItem() + "") + "' "
-                + "and dd.waktu = 'siang' LEFT JOIN diet d ON d.kd_diet = dd.kd_diet "
-                + "WHERE ki.stts_pulang = '-' AND b.nm_gedung = '" + gedungGZ + "') as c on a.no_rkm_medis = c.no_rkm_medis "
-                + "left JOIN "
-                + "(SELECT p.no_rkm_medis, p.nm_pasien, DATE_FORMAT(p.tgl_lahir, '%d-%m-%Y') tgl_lahir, d.nama_diet, dd.waktu "
-                + "FROM kamar_inap ki "
-                + "INNER JOIN kamar k ON k.kd_kamar = ki.kd_kamar "
-                + "INNER JOIN bangsal b ON b.kd_bangsal = k.kd_bangsal "
-                + "INNER JOIN reg_periksa rp ON rp.no_rawat = ki.no_rawat "
-                + "INNER JOIN pasien p ON p.no_rkm_medis = rp.no_rkm_medis "
-                + "LEFT JOIN detail_beri_diet dd ON dd.no_rawat = ki.no_rawat AND dd.tanggal='" + Valid.SetTgl(tglDiet.getSelectedItem() + "") + "' "
-                + "and dd.waktu = 'sore' LEFT JOIN diet d ON d.kd_diet = dd.kd_diet "
-                + "WHERE ki.stts_pulang = '-' AND b.nm_gedung = '" + gedungGZ + "') as d on a.no_rkm_medis = d.no_rkm_medis)");
     }
 
     private void tampilDPJP() {

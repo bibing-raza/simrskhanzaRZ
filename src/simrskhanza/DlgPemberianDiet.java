@@ -24,20 +24,19 @@ import javax.swing.JTable;
 import javax.swing.event.DocumentEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import laporan.DlgDataDietRanap;
 
 /**
  *
  * @author dosen
  */
 public class DlgPemberianDiet extends javax.swing.JDialog {
-
     private final DefaultTableModel tabMode, tabMode1, tabMode2, tabMode3 ;
     private Connection koneksi = koneksiDB.condb();
     private sekuel Sequel = new sekuel();
     private validasi Valid = new validasi();
     private PreparedStatement ps, ps2, ps3, ps4, pspasien, psPoli, psRDI, psRDJ;
     private ResultSet rs, rs1, rspasien, rsPoli, rsRDI, rsRDJ;
-    public DlgKamarInap rawatInap = new DlgKamarInap(null, false);
     public DlgCariPoli poli = new DlgCariPoli(null, false);
     private DlgCariDiet diet = new DlgCariDiet(null, false);
     private DlgCariJumlahPemberianDiet jlhberi = new DlgCariJumlahPemberianDiet(null, false);
@@ -186,7 +185,6 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
         }
         tbDiet.setDefaultRenderer(Object.class, new WarnaTable());
 
-        TNoRw.setDocument(new batasInput((byte) 17).getKata(TNoRw));
         TCari.setDocument(new batasInput((byte) 100).getKata(TCari));
         TCariPoli.setDocument(new batasInput((byte) 100).getKata(TCariPoli));
         if (koneksiDB.cariCepat().equals("aktif")) {
@@ -207,9 +205,6 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
                 }
             });
         }
-
-        ChkInput.setSelected(false);
-        isForm();
         
         diet.addWindowListener(new WindowListener() {
             @Override
@@ -381,7 +376,7 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
 
             @Override
             public void windowClosed(WindowEvent e) {
-                if (var.getform().equals("DlgPemberianObat")) {
+                if (var.getform().equals("DlgPemberianDiet")) {
                     if (bangsal.getTable().getSelectedRow() != -1) {
                         NmUnitCari.setText(bangsal.getTable().getValueAt(bangsal.getTable().getSelectedRow(), 1).toString());
                     }
@@ -454,6 +449,9 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
         } catch (Exception e) {
             System.out.println("Notifikasi : " + e);
         }
+        
+        ChkInput.setSelected(false);
+        isForm();
     }
 
     /**
@@ -514,7 +512,6 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
         BtnBatal = new widget.Button();
         BtnHapus = new widget.Button();
         BtnEdit = new widget.Button();
-        BtnPrint = new widget.Button();
         BtnAll = new widget.Button();
         jLabel7 = new widget.Label();
         LCount = new widget.Label();
@@ -536,7 +533,6 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
         PanelInput = new javax.swing.JPanel();
         ChkInput = new widget.CekBox();
         FormInput = new widget.PanelBiasa();
-        jLabel4 = new widget.Label();
         TNoRw = new widget.TextBox();
         jLabel9 = new widget.Label();
         TPasien = new widget.TextBox();
@@ -628,7 +624,7 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
         panelGlass13.add(jLabel100);
 
         tglKun.setEditable(false);
-        tglKun.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-12-2021" }));
+        tglKun.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "24-12-2021" }));
         tglKun.setDisplayFormat("dd-MM-yyyy");
         tglKun.setName("tglKun"); // NOI18N
         tglKun.setOpaque(false);
@@ -642,7 +638,7 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
         panelGlass13.add(jLabel99);
 
         tglDiet.setEditable(false);
-        tglDiet.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-12-2021" }));
+        tglDiet.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "24-12-2021" }));
         tglDiet.setDisplayFormat("dd-MM-yyyy");
         tglDiet.setName("tglDiet"); // NOI18N
         tglDiet.setOpaque(false);
@@ -1026,26 +1022,6 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
         });
         panelGlass8.add(BtnEdit);
 
-        BtnPrint.setForeground(new java.awt.Color(0, 0, 0));
-        BtnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/b_print.png"))); // NOI18N
-        BtnPrint.setMnemonic('T');
-        BtnPrint.setText("Cetak");
-        BtnPrint.setToolTipText("Alt+T");
-        BtnPrint.setEnabled(false);
-        BtnPrint.setName("BtnPrint"); // NOI18N
-        BtnPrint.setPreferredSize(new java.awt.Dimension(100, 30));
-        BtnPrint.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnPrintActionPerformed(evt);
-            }
-        });
-        BtnPrint.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                BtnPrintKeyPressed(evt);
-            }
-        });
-        panelGlass8.add(BtnPrint);
-
         BtnAll.setForeground(new java.awt.Color(0, 0, 0));
         BtnAll.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Search-16x16.png"))); // NOI18N
         BtnAll.setMnemonic('M');
@@ -1056,11 +1032,6 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
         BtnAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnAllActionPerformed(evt);
-            }
-        });
-        BtnAll.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                BtnAllKeyPressed(evt);
             }
         });
         panelGlass8.add(BtnAll);
@@ -1169,7 +1140,7 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
         panelGlass10.add(jLabel19);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-12-2021" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "24-12-2021" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -1189,7 +1160,7 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
         panelGlass10.add(jLabel21);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-12-2021" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "24-12-2021" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -1242,7 +1213,7 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
 
         PanelInput.setName("PanelInput"); // NOI18N
         PanelInput.setOpaque(false);
-        PanelInput.setPreferredSize(new java.awt.Dimension(192, 230));
+        PanelInput.setPreferredSize(new java.awt.Dimension(192, 245));
         PanelInput.setLayout(new java.awt.BorderLayout(1, 1));
 
         ChkInput.setForeground(new java.awt.Color(0, 0, 0));
@@ -1270,20 +1241,9 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
         FormInput.setPreferredSize(new java.awt.Dimension(160, 77));
         FormInput.setLayout(null);
 
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText("Nama Pasien : ");
-        jLabel4.setName("jLabel4"); // NOI18N
-        FormInput.add(jLabel4);
-        jLabel4.setBounds(150, 42, 80, 23);
-
         TNoRw.setEditable(false);
         TNoRw.setForeground(new java.awt.Color(0, 0, 0));
         TNoRw.setName("TNoRw"); // NOI18N
-        TNoRw.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                TNoRwKeyPressed(evt);
-            }
-        });
         FormInput.add(TNoRw);
         TNoRw.setBounds(78, 12, 125, 23);
 
@@ -1297,10 +1257,10 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
         TPasien.setForeground(new java.awt.Color(0, 0, 0));
         TPasien.setName("TPasien"); // NOI18N
         FormInput.add(TPasien);
-        TPasien.setBounds(233, 42, 310, 23);
+        TPasien.setBounds(155, 42, 310, 23);
 
         DTPTgl.setEditable(false);
-        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-12-2021" }));
+        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "24-12-2021" }));
         DTPTgl.setDisplayFormat("dd-MM-yyyy");
         DTPTgl.setName("DTPTgl"); // NOI18N
         DTPTgl.setOpaque(false);
@@ -1329,13 +1289,13 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
             }
         });
         FormInput.add(BtnSeek1);
-        BtnSeek1.setBounds(640, 72, 28, 23);
+        BtnSeek1.setBounds(655, 72, 28, 23);
 
         nmUnit.setEditable(false);
         nmUnit.setForeground(new java.awt.Color(0, 0, 0));
         nmUnit.setName("nmUnit"); // NOI18N
         FormInput.add(nmUnit);
-        nmUnit.setBounds(348, 12, 285, 23);
+        nmUnit.setBounds(345, 12, 300, 23);
 
         norm.setEditable(false);
         norm.setForeground(new java.awt.Color(0, 0, 0));
@@ -1350,7 +1310,7 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
         jLabel5.setBounds(0, 12, 75, 23);
 
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel8.setText("No. RM : ");
+        jLabel8.setText("Pasien : ");
         jLabel8.setName("jLabel8"); // NOI18N
         FormInput.add(jLabel8);
         jLabel8.setBounds(0, 42, 75, 23);
@@ -1365,13 +1325,13 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
         jLabel14.setText("Tgl. Lahir : ");
         jLabel14.setName("jLabel14"); // NOI18N
         FormInput.add(jLabel14);
-        jLabel14.setBounds(545, 42, 60, 23);
+        jLabel14.setBounds(470, 42, 70, 23);
 
         TtglLahir.setEditable(false);
         TtglLahir.setForeground(new java.awt.Color(0, 0, 0));
         TtglLahir.setName("TtglLahir"); // NOI18N
         FormInput.add(TtglLahir);
-        TtglLahir.setBounds(605, 42, 100, 23);
+        TtglLahir.setBounds(544, 42, 100, 23);
 
         cekWaktu.setBorder(null);
         cekWaktu.setForeground(new java.awt.Color(0, 0, 0));
@@ -1399,7 +1359,7 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
             }
         });
         FormInput.add(cekWaktu);
-        cekWaktu.setBounds(680, 72, 155, 23);
+        cekWaktu.setBounds(78, 102, 125, 23);
 
         cekDietPagi.setBorder(null);
         cekDietPagi.setForeground(new java.awt.Color(0, 0, 0));
@@ -1412,7 +1372,7 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
         cekDietPagi.setOpaque(false);
         cekDietPagi.setPreferredSize(new java.awt.Dimension(100, 23));
         FormInput.add(cekDietPagi);
-        cekDietPagi.setBounds(680, 100, 70, 23);
+        cekDietPagi.setBounds(78, 132, 70, 23);
 
         cekDietSiang.setBorder(null);
         cekDietSiang.setForeground(new java.awt.Color(0, 0, 0));
@@ -1425,7 +1385,7 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
         cekDietSiang.setOpaque(false);
         cekDietSiang.setPreferredSize(new java.awt.Dimension(100, 23));
         FormInput.add(cekDietSiang);
-        cekDietSiang.setBounds(760, 100, 70, 23);
+        cekDietSiang.setBounds(78, 162, 70, 23);
 
         cekDietSore.setBorder(null);
         cekDietSore.setForeground(new java.awt.Color(0, 0, 0));
@@ -1438,7 +1398,7 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
         cekDietSore.setOpaque(false);
         cekDietSore.setPreferredSize(new java.awt.Dimension(100, 23));
         FormInput.add(cekDietSore);
-        cekDietSore.setBounds(840, 100, 70, 23);
+        cekDietSore.setBounds(78, 192, 70, 23);
 
         Scroll5.setName("Scroll5"); // NOI18N
         Scroll5.setOpaque(true);
@@ -1449,7 +1409,7 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
         Scroll5.setViewportView(tbDiet);
 
         FormInput.add(Scroll5);
-        Scroll5.setBounds(210, 72, 425, 125);
+        Scroll5.setBounds(210, 72, 440, 125);
 
         BtnSeek3.setForeground(new java.awt.Color(0, 0, 0));
         BtnSeek3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/stop_f2.png"))); // NOI18N
@@ -1467,7 +1427,7 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
             }
         });
         FormInput.add(BtnSeek3);
-        BtnSeek3.setBounds(640, 100, 28, 23);
+        BtnSeek3.setBounds(655, 100, 28, 23);
 
         PanelInput.add(FormInput, java.awt.BorderLayout.CENTER);
 
@@ -1547,12 +1507,6 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TNoRwKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TNoRwKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_PAGE_DOWN) {
-            isRawat();
-        }
-}//GEN-LAST:event_TNoRwKeyPressed
-
     private void DTPTglKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DTPTglKeyPressed
         Valid.pindah(evt, TCari, DTPTgl);
 }//GEN-LAST:event_DTPTglKeyPressed
@@ -1567,13 +1521,7 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
                 simpanDietINAP();
             } else if (jnsRawat.equals("Ralan")) {
                 simpanDietJALAN();
-            }
-            TabDietMouseClicked(null);
-            emptTeks();
-            cekWaktu.setSelected(false);
-            cekDietPagi.setSelected(false);
-            cekDietSiang.setSelected(false);
-            cekDietSore.setSelected(false);
+            }            
         }
 }//GEN-LAST:event_BtnSimpanActionPerformed
 
@@ -1716,8 +1664,6 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
     private void BtnHapusKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnHapusKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
             BtnHapusActionPerformed(null);
-        } else {
-            Valid.pindah(evt, BtnBatal, BtnPrint);
         }
 }//GEN-LAST:event_BtnHapusKeyPressed
 
@@ -1728,58 +1674,11 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
     private void BtnKeluarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnKeluarKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
             dispose();
-        } else {
-            Valid.pindah(evt, BtnPrint, TCari);
         }
 }//GEN-LAST:event_BtnKeluarKeyPressed
 
-    private void BtnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPrintActionPerformed
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        if (!TCari.getText().trim().equals("")) {
-            BtnCariActionPerformed(evt);
-        }
-        if (tabMode.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(null, "Maaf, data sudah habis. Tidak ada data yang bisa anda print...!!!!");
-            BtnBatal.requestFocus();
-        } else if (tabMode.getRowCount() != 0) {
-            Map<String, Object> param = new HashMap<>();
-            param.put("namars", var.getnamars());
-            param.put("alamatrs", var.getalamatrs());
-            param.put("kotars", var.getkabupatenrs());
-            param.put("propinsirs", var.getpropinsirs());
-            param.put("kontakrs", var.getkontakrs());
-            param.put("emailrs", var.getemailrs());
-            param.put("logo", Sequel.cariGambar("select logo from setting"));
-            Valid.MyReport("rptBrDiet.jrxml", "report", "::[ Data Pemberian Diet ]::", "select detail_beri_diet.no_rawat,reg_periksa.no_rkm_medis,pasien.nm_pasien, "
-                    + "concat(detail_beri_diet.kd_kamar,', ',bangsal.nm_bangsal) as kd_kamar,detail_beri_diet.tanggal,detail_beri_diet.waktu,diet.nama_diet "
-                    + "from detail_beri_diet inner join reg_periksa inner join pasien inner join diet inner join kamar inner join bangsal "
-                    + "on detail_beri_diet.no_rawat=reg_periksa.no_rawat "
-                    + "and detail_beri_diet.kd_kamar=kamar.kd_kamar "
-                    + "and kamar.kd_bangsal=bangsal.kd_bangsal "
-                    + "and reg_periksa.no_rkm_medis=pasien.no_rkm_medis "
-                    + "and detail_beri_diet.kd_diet=diet.kd_diet "
-                    + "where detail_beri_diet.tanggal between '" + Valid.SetTgl(DTPCari1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(DTPCari2.getSelectedItem() + "") + "' and detail_beri_diet.waktu like '" + cmbJamCari.getSelectedItem().toString().replaceAll("Semua", "").trim() + "%' and bangsal.nm_bangsal like '%" + NmUnitCari.getText().trim() + "%' and detail_beri_diet.no_rawat like '%" + TCari.getText().trim() + "%' or "
-                    + "detail_beri_diet.tanggal between '" + Valid.SetTgl(DTPCari1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(DTPCari2.getSelectedItem() + "") + "' and detail_beri_diet.waktu like '" + cmbJamCari.getSelectedItem().toString().replaceAll("Semua", "").trim() + "%' and bangsal.nm_bangsal like '%" + NmUnitCari.getText().trim() + "%' and reg_periksa.no_rkm_medis like '%" + TCari.getText().trim() + "%' or "
-                    + "detail_beri_diet.tanggal between '" + Valid.SetTgl(DTPCari1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(DTPCari2.getSelectedItem() + "") + "' and detail_beri_diet.waktu like '" + cmbJamCari.getSelectedItem().toString().replaceAll("Semua", "").trim() + "%' and bangsal.nm_bangsal like '%" + NmUnitCari.getText().trim() + "%' and pasien.nm_pasien like '%" + TCari.getText().trim() + "%' "
-                    + "order by bangsal.nm_bangsal,diet.nama_diet", param);
-        }
-        this.setCursor(Cursor.getDefaultCursor());
-}//GEN-LAST:event_BtnPrintActionPerformed
-
-    private void BtnPrintKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnPrintKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
-            BtnPrintActionPerformed(null);
-        } else {
-            Valid.pindah(evt, BtnHapus, BtnKeluar);
-        }
-}//GEN-LAST:event_BtnPrintKeyPressed
-
     private void BtnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCariActionPerformed
-        if (TabDiet.getSelectedIndex() == 0) {
-            tampil();
-        } else if (TabDiet.getSelectedIndex() == 1) {
-            tampilRalan();
-        }
+        tabDataKlik();
 }//GEN-LAST:event_BtnCariActionPerformed
 
     private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnCariKeyPressed
@@ -1799,15 +1698,6 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
             tampilRalan();
         }
 }//GEN-LAST:event_BtnAllActionPerformed
-
-    private void BtnAllKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnAllKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
-            tampil();
-            TCari.setText("");
-        } else {
-            Valid.pindah(evt, BtnCari, TPasien);
-        }
-}//GEN-LAST:event_BtnAllKeyPressed
 
     private void tbRanapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbRanapMouseClicked
         if (tabMode.getRowCount() != 0) {
@@ -1876,35 +1766,12 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     }//GEN-LAST:event_BtnSeek2KeyPressed
 
     private void MnDataDietRanapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnDataDietRanapActionPerformed
-        rawatInap.WindowLabelGizi.setSize(657, 370);
-        rawatInap.WindowLabelGizi.setLocationRelativeTo(internalFrame1);
-        rawatInap.WindowLabelGizi.setVisible(true);
-        rawatInap.emptLabelGZ();
-        rawatInap.tampilBangsalGZ();
-
-//        if(TPasien.getText().trim().equals("")){
-//            JOptionPane.showMessageDialog(null,"Maaf, Silahkan anda pilih dulu pasien...!!!");
-//        }else{
-//            Map<String, Object> param = new HashMap<>();
-//            param.put("namars",var.getnamars());
-//            param.put("alamatrs",var.getalamatrs());
-//            param.put("kotars",var.getkabupatenrs());
-//            param.put("propinsirs",var.getpropinsirs());
-//            param.put("kontakrs",var.getkontakrs());
-//            param.put("emailrs",var.getemailrs());
-//            param.put("logo",Sequel.cariGambar("select logo from setting"));
-//            Valid.MyReport("rptLabelDiet.jrxml","report","::[ Label Diet ]::",
-//                "select detail_beri_diet.no_rawat,reg_periksa.no_rkm_medis,pasien.nm_pasien, " +
-//                "concat(detail_beri_diet.kd_kamar,', ',bangsal.nm_bangsal),detail_beri_diet.tanggal,detail_beri_diet.waktu,diet.nama_diet " +
-//                "from detail_beri_diet inner join reg_periksa inner join pasien inner join diet inner join kamar inner join bangsal " +
-//                "on detail_beri_diet.no_rawat=reg_periksa.no_rawat " +
-//                "and detail_beri_diet.kd_kamar=kamar.kd_kamar "+
-//                "and kamar.kd_bangsal=bangsal.kd_bangsal "+
-//                "and reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
-//                "and detail_beri_diet.kd_diet=diet.kd_diet " +
-//                "where detail_beri_diet.tanggal='"+Valid.SetTgl(DTPTgl.getSelectedItem()+"")+"' and detail_beri_diet.waktu='"+cmbJam.getSelectedItem()+"' "+
-//                "and detail_beri_diet.no_rawat='"+TNoRw.getText()+"' and diet.nama_diet='"+NmDiet.getText()+"'",param);
-//        }
+        DlgDataDietRanap dietRanap = new DlgDataDietRanap(null, false);
+        dietRanap.setSize(657, 370);
+        dietRanap.setLocationRelativeTo(internalFrame1);
+        dietRanap.emptTeks();
+        dietRanap.tampil();
+        dietRanap.setVisible(true);
     }//GEN-LAST:event_MnDataDietRanapActionPerformed
 
     private void cmbJamCariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbJamCariMouseClicked
@@ -2346,7 +2213,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.Button BtnAll4;
     private widget.Button BtnBatal;
     private widget.Button BtnBatal1;
-    private widget.Button BtnCari;
+    public widget.Button BtnCari;
     private widget.Button BtnCari4;
     private widget.Button BtnCloseIn10;
     private widget.Button BtnCloseIn3;
@@ -2354,7 +2221,6 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.Button BtnHapus;
     private widget.Button BtnKeluar;
     private widget.Button BtnLabelGZ;
-    private widget.Button BtnPrint;
     private widget.Button BtnSeek1;
     private widget.Button BtnSeek2;
     private widget.Button BtnSeek3;
@@ -2408,7 +2274,6 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.Label jLabel14;
     private widget.Label jLabel19;
     private widget.Label jLabel21;
-    private widget.Label jLabel4;
     private widget.Label jLabel46;
     private widget.Label jLabel47;
     private widget.Label jLabel48;
@@ -2603,15 +2468,17 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
       
         if (jnsRawat.equals("Ralan")) {
             TabDiet.setSelectedIndex(1);
+            labelUnit.setText("Poliklinik/Instalasi : ");
         } else {
             TabDiet.setSelectedIndex(0);
+            labelUnit.setText("Ruangan Inap/Bangsal : ");
         }
     }
 
     public void isForm() {
         if (ChkInput.isSelected() == true) {
             ChkInput.setVisible(false);
-            PanelInput.setPreferredSize(new Dimension(WIDTH, 230));
+            PanelInput.setPreferredSize(new Dimension(WIDTH, 245));
             FormInput.setVisible(true);
             ChkInput.setVisible(true);
         } else if (ChkInput.isSelected() == false) {
@@ -2625,13 +2492,6 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     public void isCek() {
         BtnSimpan.setEnabled(var.getdiet_pasien());
         BtnHapus.setEnabled(var.getdiet_pasien());
-//        BtnPrint.setEnabled(var.getdiet_pasien());
-
-        if (TabDiet.getSelectedIndex() == 0) {
-            labelUnit.setText("Ruangan Inap/Bangsal : ");
-        } else if (TabDiet.getSelectedIndex() == 1) {
-            labelUnit.setText("Poliklinik/Instalasi : ");
-        }
     }
 
     public void tampilRalan() {
@@ -2764,6 +2624,13 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                             + tbDiet.getValueAt(i, 0).toString() + "','" + tbDiet.getValueAt(i, 4).toString() + "'", "diet sore");
                 }
             }
+            
+            TabDietMouseClicked(null);
+            emptTeks();
+            cekWaktu.setSelected(false);
+            cekDietPagi.setSelected(false);
+            cekDietSiang.setSelected(false);
+            cekDietSore.setSelected(false);
         }     
     }
 
@@ -2805,6 +2672,13 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                             + tbDiet.getValueAt(i, 0).toString() + "','" + tbDiet.getValueAt(i, 4).toString() + "'", "diet sore");
                 }
             }
+            
+            TabDietMouseClicked(null);
+            emptTeks();
+            cekWaktu.setSelected(false);
+            cekDietPagi.setSelected(false);
+            cekDietSiang.setSelected(false);
+            cekDietSore.setSelected(false);
         }
     }
     
@@ -3252,6 +3126,14 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     + "where no_rawat='" + TNoRw.getText() + "' "
                     + "and tanggal='" + tglDietAwal + "' "
                     + "and waktu='Sore'");
+        }
+    }
+    
+    public void tabDataKlik() {
+        if (TabDiet.getSelectedIndex() == 0) {
+            tampil();
+        } else if (TabDiet.getSelectedIndex() == 1) {
+            tampilRalan();
         }
     }
 }
