@@ -586,7 +586,6 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         ppPasienCorona = new javax.swing.JMenuItem();
         ppSuratKontrol = new javax.swing.JMenuItem();
         MnDiet = new javax.swing.JMenuItem();
-        MnStatusGizi = new javax.swing.JMenuItem();
         MnDataHAIs = new javax.swing.JMenuItem();
         MnSensusParu = new javax.swing.JMenuItem();
         MnRekamMedis = new javax.swing.JMenu();
@@ -1532,22 +1531,6 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         });
         MnInputData.add(MnDiet);
 
-        MnStatusGizi.setBackground(new java.awt.Color(255, 255, 255));
-        MnStatusGizi.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        MnStatusGizi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
-        MnStatusGizi.setText("Status Gizi Pasien");
-        MnStatusGizi.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        MnStatusGizi.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        MnStatusGizi.setIconTextGap(5);
-        MnStatusGizi.setName("MnStatusGizi"); // NOI18N
-        MnStatusGizi.setPreferredSize(new java.awt.Dimension(190, 26));
-        MnStatusGizi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MnStatusGiziActionPerformed(evt);
-            }
-        });
-        MnInputData.add(MnStatusGizi);
-
         MnDataHAIs.setBackground(new java.awt.Color(255, 255, 255));
         MnDataHAIs.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         MnDataHAIs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
@@ -2243,7 +2226,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         norwBoking.setBounds(298, 110, 177, 23);
 
         tglPeriksa.setEditable(false);
-        tglPeriksa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "27-09-2021" }));
+        tglPeriksa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-12-2021" }));
         tglPeriksa.setDisplayFormat("dd-MM-yyyy");
         tglPeriksa.setName("tglPeriksa"); // NOI18N
         tglPeriksa.setOpaque(false);
@@ -2957,7 +2940,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         });
 
         TglKunRwt.setEditable(false);
-        TglKunRwt.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "27-09-2021" }));
+        TglKunRwt.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-12-2021" }));
         TglKunRwt.setDisplayFormat("dd-MM-yyyy");
         TglKunRwt.setName("TglKunRwt"); // NOI18N
         TglKunRwt.setOpaque(false);
@@ -3182,7 +3165,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         panelGlass8.add(jLabel15);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "27-09-2021" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-12-2021" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -3202,7 +3185,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         panelGlass8.add(jLabel17);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "27-09-2021" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-12-2021" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -4517,51 +4500,6 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
         }
     }//GEN-LAST:event_MnDietActionPerformed
 
-    private void MnStatusGiziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnStatusGiziActionPerformed
-        if (tabModekasir.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(null, "Maaf, tabel masih kosong...!!!!");
-            TCari.requestFocus();
-        } else if (TNoRw.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Silakan klik salah satu nama pasien atau no. rekam medisnya dulu...!!!!");
-            tbKasirRalan.requestFocus();
-        } else {
-            Sequel.cariIsi("SELECT no_rawat FROM status_gizi_inap where no_rawat=? ", dataGZ, TNoRw.getText());
-
-            if (!dataGZ.getText().equals("")) {
-                x = JOptionPane.showConfirmDialog(null, "Data status gizi utk. pasien yg bernama " + nmPasien.getText() + " sudah tersimpan, apakah mau diperbaiki...?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
-                if (x == JOptionPane.YES_OPTION) {
-                    var.setform("DlgKasirRalan");
-                    statusgizi.WindowStatusGizi.setSize(672, 345);
-                    statusgizi.WindowStatusGizi.setLocationRelativeTo(internalFrame1);
-                    statusgizi.pasienGZ(TNoRw.getText(), NoRM.getText(), Sequel.cariIsi("select nm_pasien from pasien where no_rkm_medis='" + NoRM.getText() + "'"));
-                    statusgizi.WindowStatusGizi.setVisible(true);
-
-                    statusgizi.tampilstatusGZ();
-                    statusgizi.cekdataStatusGZ(TNoRw.getText());
-                    statusgizi.BtnSimpan5.setEnabled(false);
-                    statusgizi.BtnEdit1.setEnabled(true);
-                } else {
-                    statusgizi.WindowStatusGizi.dispose();
-                    statusgizi.emptStatusGZ();
-                    statusgizi.emptTeks();
-                }
-            } else if (dataGZ.getText().equals("")) {
-                statusgizi.WindowStatusGizi.setSize(672, 345);
-                statusgizi.WindowStatusGizi.setLocationRelativeTo(internalFrame1);
-                statusgizi.pasienGZ(TNoRw.getText(), NoRM.getText(), Sequel.cariIsi("select nm_pasien from pasien where no_rkm_medis='" + NoRM.getText() + "'"));
-                statusgizi.WindowStatusGizi.setVisible(true);
-
-                statusgizi.tampilstatusGZ();
-                statusgizi.cekdataStatusGZ(TNoRw.getText());
-                statusgizi.cmbrgPasienGZ.setSelectedIndex(0);
-                statusgizi.cmbstatusGZ.setSelectedIndex(0);
-                statusgizi.cmbstatusGZ.requestFocus();
-                statusgizi.BtnSimpan5.setEnabled(true);
-                statusgizi.BtnEdit1.setEnabled(false);
-            }
-        }
-    }//GEN-LAST:event_MnStatusGiziActionPerformed
-
     private void dataGZKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dataGZKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_dataGZKeyPressed
@@ -5699,7 +5637,6 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
     private javax.swing.JMenuItem MnSKDPBPJS;
     private javax.swing.JMenuItem MnSensusParu;
     private javax.swing.JMenu MnStatus;
-    private javax.swing.JMenuItem MnStatusGizi;
     private javax.swing.JMenuItem MnStatusPasienAllKunjungan;
     private javax.swing.JMenuItem MnSudah;
     private javax.swing.JMenuItem MnSuratTindakanDokter;
@@ -6022,7 +5959,6 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
         MnRujuk.setEnabled(var.getrujukan_keluar());
         MnPoliInternal.setEnabled(var.getrujukan_poli_internal());
         MnDiet.setEnabled(var.getdiet_pasien());
-        MnStatusGizi.setEnabled(var.getstatusgizi());
         BtnPxBooking.setEnabled(var.getreg_boking_kasir());
         MnDataHAIs.setEnabled(var.getdata_HAIs());
         MnPeniliaianAwalKeperawatanRalan.setEnabled(var.getpenilaian_awal_keperawatan_ralan());
