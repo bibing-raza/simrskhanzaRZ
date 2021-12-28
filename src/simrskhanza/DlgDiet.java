@@ -439,6 +439,7 @@ public class DlgDiet extends javax.swing.JDialog {
             Sequel.simpanReplaceInto("diet_master", "'" + TKd.getText() + "','" + TNm.getText() + "','" + cmbJenis.getSelectedItem() + "','1'", "Diet Master");            
             tampil();
             emptTeks();
+            BtnKeluarActionPerformed(null);
         }
 }//GEN-LAST:event_BtnSimpanActionPerformed
 

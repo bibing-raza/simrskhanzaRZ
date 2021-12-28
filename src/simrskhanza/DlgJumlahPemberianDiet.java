@@ -439,6 +439,7 @@ public class DlgJumlahPemberianDiet extends javax.swing.JDialog {
             Sequel.simpanReplaceInto("diet_master_pemberian", "'" + TKd.getText() + "','" + TNm.getText() + "','" + cmbSatuan.getSelectedItem() + "','1'", "Jumlah Pemberian Diet");            
             tampil();
             emptTeks();
+            BtnKeluarActionPerformed(null);
         }
 }//GEN-LAST:event_BtnSimpanActionPerformed
 
