@@ -770,7 +770,7 @@ public final class DlgStatusGizi extends javax.swing.JDialog {
                         + "left join status_gizi_inap sgi on sgi.no_rawat=ki.no_rawat left join detail_beri_diet bd on bd.no_rawat=ki.no_rawat "
                         + "left join diet d on d.kd_diet=bd.kd_diet where "
                         + "rp.tgl_registrasi between '" + Valid.SetTgl(tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(tgl2.getSelectedItem() + "") + "' "
-                        + "and bd.waktu='Siang' AND b.nm_gedung='" + cmbGedung.getSelectedItem() + "' order by rp.no_rkm_medis, bd.tanggal");
+                        + "and (bd.waktu='Siang' or ifnull(bd.waktu,'') = '') AND b.nm_gedung='" + cmbGedung.getSelectedItem() + "' order by rp.no_rkm_medis, bd.tanggal");
                 rs1 = ps1.executeQuery();
                 while (rs1.next()) {
                     ps2 = koneksi.prepareStatement("select p.no_rkm_medis, p.nm_pasien, concat(ifnull(p.tmp_lahir,'-'),', ',date_format(p.tgl_lahir,'%d-%m-%Y')) ttl, "
@@ -780,8 +780,8 @@ public final class DlgStatusGizi extends javax.swing.JDialog {
                             + "left join status_gizi_inap sgi on sgi.no_rawat=ki.no_rawat left join detail_beri_diet bd on bd.no_rawat=ki.no_rawat "
                             + "left join diet d on d.kd_diet=bd.kd_diet where "
                             + "rp.tgl_registrasi between '" + Valid.SetTgl(tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(tgl2.getSelectedItem() + "") + "' "
-                            + "and bd.waktu='Siang' and p.no_rkm_medis = '" + rs1.getString("no_rkm_medis") + "' AND b.nm_gedung='" + cmbGedung.getSelectedItem() + "' "
-                            + "order by rp.no_rkm_medis, bd.tanggal");
+                            + "and (bd.waktu='Siang' or ifnull(bd.waktu,'') = '') and p.no_rkm_medis = '" + rs1.getString("no_rkm_medis") + "' "
+                            + "AND b.nm_gedung='" + cmbGedung.getSelectedItem() + "' order by rp.no_rkm_medis, bd.tanggal");
                     rs2 = ps2.executeQuery();
                     z = 0;
                     while (rs2.next()) {
