@@ -78,11 +78,11 @@ public class DlgHasilLIS extends javax.swing.JDialog {
                 column.setMinWidth(0);
                 column.setMaxWidth(0);
             } else if (i == 5) {
-                column.setPreferredWidth(75);
+                column.setPreferredWidth(70);
             } else if (i == 6) {
-                column.setPreferredWidth(75);
+                column.setPreferredWidth(70);
             } else if (i == 7) {
-                column.setPreferredWidth(250);
+                column.setPreferredWidth(220);
             }
         }
         tbLIS.setDefaultRenderer(Object.class, new WarnaTable());
@@ -120,19 +120,20 @@ public class DlgHasilLIS extends javax.swing.JDialog {
         
         try {
             ps1 = koneksi.prepareStatement("SELECT lhp.kategori_pemeriksaan_nama FROM lis_reg lr LEFT JOIN lis_hasil_periksa_lab lhp on lhp.no_lab=lr.no_lab "
-                    + "LEFT JOIN lis_hasil_data_pasien lhdp on lhdp.no_lab=lr.no_lab WHERE lr.no_lab=? and DATE(lhdp.waktu_reg_lab)=? and TIME(lhdp.waktu_reg_lab)=? "
+                    + "LEFT JOIN lis_hasil_data_pasien lhdp on lhdp.no_lab=lr.no_lab WHERE lr.no_lab=? "
                     + "GROUP BY lhp.kategori_pemeriksaan_nama ORDER BY lhp.kategori_pemeriksaan_no_urut, lhp.sub_kategori_pemeriksaan_no_urut,lhp.pemeriksaan_no_urut");
             
             ps2 = koneksi.prepareStatement("SELECT lhp.sub_kategori_pemeriksaan_nama FROM lis_reg lr LEFT JOIN lis_hasil_periksa_lab lhp on lhp.no_lab=lr.no_lab "
-                    + "LEFT JOIN lis_hasil_data_pasien lhdp on lhdp.no_lab=lr.no_lab WHERE lr.no_lab=? and DATE(lhdp.waktu_reg_lab)=? and TIME(lhdp.waktu_reg_lab)=? "
+                    + "LEFT JOIN lis_hasil_data_pasien lhdp on lhdp.no_lab=lr.no_lab WHERE lr.no_lab=? "
                     + "and lhp.kategori_pemeriksaan_nama=? GROUP BY lhp.sub_kategori_pemeriksaan_nama "
                     + "ORDER BY lhp.kategori_pemeriksaan_no_urut, lhp.sub_kategori_pemeriksaan_no_urut,lhp.pemeriksaan_no_urut");
             
             ps3 = koneksi.prepareStatement("SELECT lhp.pemeriksaan_nama, lhp.nilai_hasil, lhp.satuan, lhp.flag_kode, "
                     + "lhp.nilai_rujukan, DATE_FORMAT(lhdp.waktu_insert,'%d/%m/%Y - %h:%i') wkt_selesai, lhp.metode "
-                    + "FROM lis_reg lr LEFT JOIN lis_hasil_periksa_lab lhp ON lhp.no_lab = lr.no_lab LEFT JOIN lis_hasil_data_pasien lhdp ON lhdp.no_lab=lr.no_lab "
-                    + "WHERE lr.no_lab=? and DATE(lhdp.waktu_reg_lab)=? and TIME(lhdp.waktu_reg_lab)=? and lhp.sub_kategori_pemeriksaan_nama=? "
-                    + "GROUP BY lhp.pemeriksaan_nama ORDER BY lhp.kategori_pemeriksaan_no_urut, lhp.sub_kategori_pemeriksaan_no_urut,lhp.pemeriksaan_no_urut");
+                    + "FROM lis_reg lr LEFT JOIN lis_hasil_periksa_lab lhp ON lhp.no_lab = lr.no_lab "
+                    + "LEFT JOIN lis_hasil_data_pasien lhdp ON lhdp.no_lab=lr.no_lab WHERE lr.no_lab=? "
+                    + "and lhp.sub_kategori_pemeriksaan_nama=? GROUP BY lhp.pemeriksaan_nama "
+                    + "ORDER BY lhp.kategori_pemeriksaan_no_urut, lhp.sub_kategori_pemeriksaan_no_urut,lhp.pemeriksaan_no_urut");
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -221,7 +222,7 @@ public class DlgHasilLIS extends javax.swing.JDialog {
 
         PanelInput.setName("PanelInput"); // NOI18N
         PanelInput.setOpaque(false);
-        PanelInput.setPreferredSize(new java.awt.Dimension(192, 130));
+        PanelInput.setPreferredSize(new java.awt.Dimension(192, 160));
         PanelInput.setLayout(new java.awt.BorderLayout(1, 1));
 
         FormInput.setName("FormInput"); // NOI18N
@@ -360,8 +361,8 @@ public class DlgHasilLIS extends javax.swing.JDialog {
         try {
             ps = koneksi.prepareStatement("SELECT CONCAT(p.no_rkm_medis,' - ',p.nm_pasien) pasien, lr.no_lab nolis, "
                     + "IF(lh.no_lab IS NULL,'Petugas Lab. belum mengirim hasil','Hasil Lab. bisa dicetak') hasil_lab, "
-                    + "IFNULL(lh.no_lab,'') cekOK, pl.no_rawat, IFNULL(DATE_FORMAT(lh.waktu_insert,'%d-%m-%Y'),DATE_FORMAT(pl.tgl_periksa,'%d-%m-%Y')) tgl, "
-                    + "IFNULL(DATE_FORMAT(lh.waktu_insert,'%H:%i:%s'),DATE_FORMAT(pl.jam,'%H:%i:%s')) jam, "
+                    + "IFNULL(lh.no_lab,'') cekOK, pl.no_rawat, IFNULL(DATE_FORMAT(lh.waktu_reg_lab,'%d-%m-%Y'),DATE_FORMAT(pl.tgl_periksa,'%d-%m-%Y')) tgl, "
+                    + "IFNULL(DATE_FORMAT(lh.waktu_reg_lab,'%H:%i:%s'),DATE_FORMAT(pl.jam,'%H:%i:%s')) jam, "
                     + "IFNULL(lh.dokter_pengirim,'') dokter_pengirim FROM lis_reg lr LEFT JOIN reg_periksa rp ON rp.no_rawat=lr.no_rawat "
                     + "LEFT JOIN pasien p ON p.no_rkm_medis=rp.no_rkm_medis LEFT JOIN periksa_lab pl ON pl.no_rawat=lr.no_rawat "
                     + "LEFT JOIN lis_hasil_data_pasien lh ON lh.no_lab=lr.no_lab WHERE lr.no_rawat='" + norawat + "' "
@@ -432,8 +433,6 @@ public class DlgHasilLIS extends javax.swing.JDialog {
             Sequel.queryu("delete from temporary_lis");
             Valid.tabelKosong(tabMode1);
             ps1.setString(1, noLIS);
-            ps1.setString(2, tglPeriksaLIS);
-            ps1.setString(3, jamPeriksaLIS);
             rs1 = ps1.executeQuery();
             while (rs1.next()) {    
                 Sequel.menyimpan("temporary_lis", "'" + rs1.getString("kategori_pemeriksaan_nama") + "','','','',"
@@ -441,9 +440,7 @@ public class DlgHasilLIS extends javax.swing.JDialog {
                 tabMode1.addRow(new Object[]{rs1.getString("kategori_pemeriksaan_nama")});
 
                 ps2.setString(1, noLIS);
-                ps2.setString(2, tglPeriksaLIS);
-                ps2.setString(3, jamPeriksaLIS);
-                ps2.setString(4, rs1.getString("kategori_pemeriksaan_nama"));
+                ps2.setString(2, rs1.getString("kategori_pemeriksaan_nama"));
                 rs2 = ps2.executeQuery();
                 while (rs2.next()) {
                     Sequel.menyimpan("temporary_lis", "'   " + rs2.getString("sub_kategori_pemeriksaan_nama") + "','','','',"
@@ -451,9 +448,7 @@ public class DlgHasilLIS extends javax.swing.JDialog {
                     tabMode1.addRow(new Object[]{"   "+rs2.getString("sub_kategori_pemeriksaan_nama")});
                     
                     ps3.setString(1, noLIS);
-                    ps3.setString(2, tglPeriksaLIS);
-                    ps3.setString(3, jamPeriksaLIS);
-                    ps3.setString(4, rs2.getString("sub_kategori_pemeriksaan_nama"));
+                    ps3.setString(2, rs2.getString("sub_kategori_pemeriksaan_nama"));
                     rs3 = ps3.executeQuery();
                     while (rs3.next()) {
                         Sequel.menyimpan("temporary_lis", "'     " + Valid.mysql_real_escape_string(rs3.getString("pemeriksaan_nama")) + "',"

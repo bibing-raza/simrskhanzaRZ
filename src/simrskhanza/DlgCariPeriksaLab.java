@@ -55,7 +55,7 @@ public class DlgCariPeriksaLab extends javax.swing.JDialog {
             Utang_Jasa_Medik_Petugas_Laborat_Ranap = "", Beban_Kso_Laborat_Ranap = "", Utang_Kso_Laborat_Ranap = "",
             HPP_Persediaan_Laborat_Rawat_inap = "", Persediaan_BHP_Laborat_Rawat_Inap = "", status = "", cekDataLab = "",
             nolab = "", tglPeriksa = "", jamPeriksa = "", diagnosa_ok = "", kddokter = "", kdunit = "", kdpenjab = "",
-            status_rawat = "", cekbayar = "", drLab = "", noLIS = "", tglLIS = "", jamLIS = "";
+            status_rawat = "", cekbayar = "", drLab = "", noLIS = "";
 
     /** Creates new form DlgProgramStudi
      * @param parent
@@ -376,19 +376,20 @@ public class DlgCariPeriksaLab extends javax.swing.JDialog {
      
         try {
             psLIS1 = koneksi.prepareStatement("SELECT lhp.kategori_pemeriksaan_nama FROM lis_reg lr LEFT JOIN lis_hasil_periksa_lab lhp on lhp.no_lab=lr.no_lab "
-                    + "LEFT JOIN lis_hasil_data_pasien lhdp on lhdp.no_lab=lr.no_lab WHERE lr.no_lab=? and DATE(lhdp.waktu_reg_lab)=? and TIME(lhdp.waktu_reg_lab)=? "
+                    + "LEFT JOIN lis_hasil_data_pasien lhdp on lhdp.no_lab=lr.no_lab WHERE lr.no_lab=? "
                     + "GROUP BY lhp.kategori_pemeriksaan_nama ORDER BY lhp.kategori_pemeriksaan_no_urut, lhp.sub_kategori_pemeriksaan_no_urut,lhp.pemeriksaan_no_urut");
             
             psLIS2 = koneksi.prepareStatement("SELECT lhp.sub_kategori_pemeriksaan_nama FROM lis_reg lr LEFT JOIN lis_hasil_periksa_lab lhp on lhp.no_lab=lr.no_lab "
-                    + "LEFT JOIN lis_hasil_data_pasien lhdp on lhdp.no_lab=lr.no_lab WHERE lr.no_lab=? and DATE(lhdp.waktu_reg_lab)=? and TIME(lhdp.waktu_reg_lab)=? "
+                    + "LEFT JOIN lis_hasil_data_pasien lhdp on lhdp.no_lab=lr.no_lab WHERE lr.no_lab=? "
                     + "and lhp.kategori_pemeriksaan_nama=? GROUP BY lhp.sub_kategori_pemeriksaan_nama "
                     + "ORDER BY lhp.kategori_pemeriksaan_no_urut, lhp.sub_kategori_pemeriksaan_no_urut,lhp.pemeriksaan_no_urut");
             
             psLIS3 = koneksi.prepareStatement("SELECT lhp.pemeriksaan_nama, lhp.nilai_hasil, lhp.satuan, lhp.flag_kode, "
                     + "lhp.nilai_rujukan, DATE_FORMAT(lhdp.waktu_insert,'%d/%m/%Y - %h:%i') wkt_selesai, lhp.metode "
-                    + "FROM lis_reg lr LEFT JOIN lis_hasil_periksa_lab lhp ON lhp.no_lab = lr.no_lab LEFT JOIN lis_hasil_data_pasien lhdp ON lhdp.no_lab=lr.no_lab "
-                    + "WHERE lr.no_lab=? and DATE(lhdp.waktu_reg_lab)=? and TIME(lhdp.waktu_reg_lab)=? and lhp.sub_kategori_pemeriksaan_nama=? "
-                    + "GROUP BY lhp.pemeriksaan_nama ORDER BY lhp.kategori_pemeriksaan_no_urut, lhp.sub_kategori_pemeriksaan_no_urut,lhp.pemeriksaan_no_urut");
+                    + "FROM lis_reg lr LEFT JOIN lis_hasil_periksa_lab lhp ON lhp.no_lab = lr.no_lab "
+                    + "LEFT JOIN lis_hasil_data_pasien lhdp ON lhdp.no_lab=lr.no_lab WHERE lr.no_lab=? "
+                    + "and lhp.sub_kategori_pemeriksaan_nama=? GROUP BY lhp.pemeriksaan_nama "
+                    + "ORDER BY lhp.kategori_pemeriksaan_no_urut, lhp.sub_kategori_pemeriksaan_no_urut,lhp.pemeriksaan_no_urut");
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -3756,7 +3757,6 @@ private void tbLabKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbL
 
     private void BtnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPrintActionPerformed
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-//        JOptionPane.showMessageDialog(null, "Print out hasil pemeriksaan Lab. belum dibikinkan, formatnya belum tau kaya apa...!!");
         if (tabMode1.getRowCount() == 0) {
             JOptionPane.showMessageDialog(null, "Maaf, data sudah habis. Tidak ada data yang bisa anda print...!!!!");
             BtnCloseIn4.requestFocus();
@@ -3779,7 +3779,7 @@ private void tbLabKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbL
                     + "INNER JOIN pasien p ON p.no_rkm_medis = rp.no_rkm_medis INNER JOIN penjab pj ON pj.kd_pj=rp.kd_pj WHERE rp.no_rawat = '" + NoRawat.getText() + "'"));
             param.put("tglLhr_umur", Sequel.cariIsi("SELECT concat(DATE_FORMAT(p.tgl_lahir,'%d-%m-%Y'),' / ',rp.umurdaftar,' ',rp.sttsumur,'.') "
                     + "FROM reg_periksa rp INNER JOIN pasien p ON p.no_rkm_medis = rp.no_rkm_medis WHERE rp.no_rawat = '" + NoRawat.getText() + "'"));
-            param.put("tglPeriksa", Valid.SetTglINDONESIA(tglLIS) + " - " + jamLIS);
+            param.put("tglPeriksa", Valid.SetTglINDONESIA(tglPeriksa) + " - " + jamPeriksa);
             param.put("drPengirim", tbLab.getValueAt(tbLab.getSelectedRow(), 6).toString());
             param.put("drLAB", tbLab.getValueAt(tbLab.getSelectedRow(), 7).toString());
             param.put("tglSurat", "Martapura, " + Valid.SetTglINDONESIA(Sequel.cariIsi("SELECT DATE(waktu_insert) FROM lis_hasil_data_pasien WHERE no_lab='" + nolab + "'")));
@@ -4138,18 +4138,12 @@ private void tbLabKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbL
     
     private void tampilLIS() {
         noLIS = "";
-        tglLIS = "";
-        jamLIS = "";
         noLIS = Sequel.cariIsi("select no_lab from lis_reg where no_rawat='" + Kd2.getText() + "' and tgl_periksa='" + tglPeriksa + "' and jam_periksa='" + jamPeriksa + "'");
-        tglLIS = Sequel.cariIsi("SELECT DATE(waktu_reg_lab) FROM lis_hasil_data_pasien WHERE no_lab='" + noLIS + "'");
-        jamLIS = Sequel.cariIsi("SELECT TIME(waktu_reg_lab) FROM lis_hasil_data_pasien WHERE no_lab='" + noLIS + "'");
         
         try {
             Sequel.queryu("delete from temporary_lis");
             Valid.tabelKosong(tabMode1);
             psLIS1.setString(1, noLIS);
-            psLIS1.setString(2, tglLIS);
-            psLIS1.setString(3, jamLIS);
             rsLIS1 = psLIS1.executeQuery();
             while (rsLIS1.next()) {    
                 Sequel.menyimpan("temporary_lis", "'" + rsLIS1.getString("kategori_pemeriksaan_nama") + "','','','',"
@@ -4157,9 +4151,7 @@ private void tbLabKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbL
                 tabMode1.addRow(new Object[]{rsLIS1.getString("kategori_pemeriksaan_nama")});
 
                 psLIS2.setString(1, noLIS);
-                psLIS2.setString(2, tglLIS);
-                psLIS2.setString(3, jamLIS);
-                psLIS2.setString(4, rsLIS1.getString("kategori_pemeriksaan_nama"));
+                psLIS2.setString(2, rsLIS1.getString("kategori_pemeriksaan_nama"));
                 rsLIS2 = psLIS2.executeQuery();
                 while (rsLIS2.next()) {
                     Sequel.menyimpan("temporary_lis", "'   " + rsLIS2.getString("sub_kategori_pemeriksaan_nama") + "','','','',"
@@ -4167,9 +4159,7 @@ private void tbLabKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbL
                     tabMode1.addRow(new Object[]{"   "+rsLIS2.getString("sub_kategori_pemeriksaan_nama")});
                     
                     psLIS3.setString(1, noLIS);
-                    psLIS3.setString(2, tglLIS);
-                    psLIS3.setString(3, jamLIS);
-                    psLIS3.setString(4, rsLIS2.getString("sub_kategori_pemeriksaan_nama"));
+                    psLIS3.setString(2, rsLIS2.getString("sub_kategori_pemeriksaan_nama"));
                     rsLIS3 = psLIS3.executeQuery();
                     while (rsLIS3.next()) {
                         Sequel.menyimpan("temporary_lis", "'     " + Valid.mysql_real_escape_string(rsLIS3.getString("pemeriksaan_nama")) + "',"

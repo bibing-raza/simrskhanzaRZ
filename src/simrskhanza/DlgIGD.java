@@ -99,7 +99,7 @@ public final class DlgIGD extends javax.swing.JDialog {
     private PreparedStatement ps, ps2, ps3, pscaripiutang, psAPS, psK;
     private ResultSet rs, rsAPS, rsK;
     private int pilihan = 0, i = 0, cekRujuk = 0, x, cekjampersal = 0, cekjamkesda = 0, cekinap = 0, 
-            cekNRWSurat = 0, diagnosa_cek = 0, cekUmur = 0, cekKeLIS = 0;
+            cekNRWSurat = 0, diagnosa_cek = 0, cekUmur = 0;
     private Date cal = new Date();
     private Properties prop = new Properties();
     private SimpleDateFormat dateformat = new SimpleDateFormat("yyyy/MM/dd");
@@ -914,7 +914,7 @@ public final class DlgIGD extends javax.swing.JDialog {
         MnBarcodeRM2 = new javax.swing.JMenuItem();
         MnLabelRM1 = new javax.swing.JMenuItem();
         MnLabelRM2 = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
+        MnLaporan = new javax.swing.JMenu();
         MnHasilPemeriksaanLab = new javax.swing.JMenuItem();
         MnLaporanKunjunganIGD = new javax.swing.JMenuItem();
         MnLaporanStatistikIGD = new javax.swing.JMenuItem();
@@ -1485,17 +1485,17 @@ public final class DlgIGD extends javax.swing.JDialog {
 
         jPopupMenu1.add(MnKelengkapanInap);
 
-        jMenu1.setBackground(new java.awt.Color(255, 255, 255));
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
-        jMenu1.setText("Laporan");
-        jMenu1.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        jMenu1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jMenu1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jMenu1.setIconTextGap(5);
-        jMenu1.setName("jMenu1"); // NOI18N
-        jMenu1.setOpaque(true);
-        jMenu1.setPreferredSize(new java.awt.Dimension(240, 26));
-        jMenu1.setRequestFocusEnabled(false);
+        MnLaporan.setBackground(new java.awt.Color(255, 255, 255));
+        MnLaporan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnLaporan.setText("Laporan");
+        MnLaporan.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnLaporan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnLaporan.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnLaporan.setIconTextGap(5);
+        MnLaporan.setName("MnLaporan"); // NOI18N
+        MnLaporan.setOpaque(true);
+        MnLaporan.setPreferredSize(new java.awt.Dimension(240, 26));
+        MnLaporan.setRequestFocusEnabled(false);
 
         MnHasilPemeriksaanLab.setBackground(new java.awt.Color(255, 255, 255));
         MnHasilPemeriksaanLab.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -1511,7 +1511,7 @@ public final class DlgIGD extends javax.swing.JDialog {
                 MnHasilPemeriksaanLabActionPerformed(evt);
             }
         });
-        jMenu1.add(MnHasilPemeriksaanLab);
+        MnLaporan.add(MnHasilPemeriksaanLab);
 
         MnLaporanKunjunganIGD.setBackground(new java.awt.Color(255, 255, 255));
         MnLaporanKunjunganIGD.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -1527,7 +1527,7 @@ public final class DlgIGD extends javax.swing.JDialog {
                 MnLaporanKunjunganIGDActionPerformed(evt);
             }
         });
-        jMenu1.add(MnLaporanKunjunganIGD);
+        MnLaporan.add(MnLaporanKunjunganIGD);
 
         MnLaporanStatistikIGD.setBackground(new java.awt.Color(255, 255, 255));
         MnLaporanStatistikIGD.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -1543,7 +1543,7 @@ public final class DlgIGD extends javax.swing.JDialog {
                 MnLaporanStatistikIGDActionPerformed(evt);
             }
         });
-        jMenu1.add(MnLaporanStatistikIGD);
+        MnLaporan.add(MnLaporanStatistikIGD);
 
         MnLaporanRekapKunjunganPoli.setBackground(new java.awt.Color(255, 255, 255));
         MnLaporanRekapKunjunganPoli.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -1559,7 +1559,7 @@ public final class DlgIGD extends javax.swing.JDialog {
                 MnLaporanRekapKunjunganPoliActionPerformed(evt);
             }
         });
-        jMenu1.add(MnLaporanRekapKunjunganPoli);
+        MnLaporan.add(MnLaporanRekapKunjunganPoli);
 
         MnLaporanRekapKunjunganDokter.setBackground(new java.awt.Color(255, 255, 255));
         MnLaporanRekapKunjunganDokter.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -1575,7 +1575,7 @@ public final class DlgIGD extends javax.swing.JDialog {
                 MnLaporanRekapKunjunganDokterActionPerformed(evt);
             }
         });
-        jMenu1.add(MnLaporanRekapKunjunganDokter);
+        MnLaporan.add(MnLaporanRekapKunjunganDokter);
 
         MnLaporanRekapJenisBayar.setBackground(new java.awt.Color(255, 255, 255));
         MnLaporanRekapJenisBayar.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -1591,7 +1591,7 @@ public final class DlgIGD extends javax.swing.JDialog {
                 MnLaporanRekapJenisBayarActionPerformed(evt);
             }
         });
-        jMenu1.add(MnLaporanRekapJenisBayar);
+        MnLaporan.add(MnLaporanRekapJenisBayar);
 
         MnLaporanRekapRawatDarurat.setBackground(new java.awt.Color(255, 255, 255));
         MnLaporanRekapRawatDarurat.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -1607,7 +1607,7 @@ public final class DlgIGD extends javax.swing.JDialog {
                 MnLaporanRekapRawatDaruratActionPerformed(evt);
             }
         });
-        jMenu1.add(MnLaporanRekapRawatDarurat);
+        MnLaporan.add(MnLaporanRekapRawatDarurat);
 
         MnLaporanRekapKunjunganBulanan.setBackground(new java.awt.Color(255, 255, 255));
         MnLaporanRekapKunjunganBulanan.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -1623,7 +1623,7 @@ public final class DlgIGD extends javax.swing.JDialog {
                 MnLaporanRekapKunjunganBulananActionPerformed(evt);
             }
         });
-        jMenu1.add(MnLaporanRekapKunjunganBulanan);
+        MnLaporan.add(MnLaporanRekapKunjunganBulanan);
 
         MnLaporanRekapKunjunganBulananPoli.setBackground(new java.awt.Color(255, 255, 255));
         MnLaporanRekapKunjunganBulananPoli.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -1639,7 +1639,7 @@ public final class DlgIGD extends javax.swing.JDialog {
                 MnLaporanRekapKunjunganBulananPoliActionPerformed(evt);
             }
         });
-        jMenu1.add(MnLaporanRekapKunjunganBulananPoli);
+        MnLaporan.add(MnLaporanRekapKunjunganBulananPoli);
 
         MnLaporanRekapPenyakitRalan.setBackground(new java.awt.Color(255, 255, 255));
         MnLaporanRekapPenyakitRalan.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -1655,9 +1655,9 @@ public final class DlgIGD extends javax.swing.JDialog {
                 MnLaporanRekapPenyakitRalanActionPerformed(evt);
             }
         });
-        jMenu1.add(MnLaporanRekapPenyakitRalan);
+        MnLaporan.add(MnLaporanRekapPenyakitRalan);
 
-        jPopupMenu1.add(jMenu1);
+        jPopupMenu1.add(MnLaporan);
 
         jMenu2.setBackground(new java.awt.Color(255, 255, 255));
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
@@ -2633,7 +2633,7 @@ public final class DlgIGD extends javax.swing.JDialog {
         panelBiasa2.setLayout(null);
 
         TglSakit1.setEditable(false);
-        TglSakit1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-11-2021" }));
+        TglSakit1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "31-12-2021" }));
         TglSakit1.setDisplayFormat("dd-MM-yyyy");
         TglSakit1.setName("TglSakit1"); // NOI18N
         TglSakit1.setOpaque(false);
@@ -2684,7 +2684,7 @@ public final class DlgIGD extends javax.swing.JDialog {
         jLabel32.setBounds(176, 10, 20, 23);
 
         TglSakit2.setEditable(false);
-        TglSakit2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-11-2021" }));
+        TglSakit2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "31-12-2021" }));
         TglSakit2.setDisplayFormat("dd-MM-yyyy");
         TglSakit2.setName("TglSakit2"); // NOI18N
         TglSakit2.setOpaque(false);
@@ -3006,7 +3006,7 @@ public final class DlgIGD extends javax.swing.JDialog {
         jLabel41.setBounds(10, 20, 120, 23);
 
         TglMati.setEditable(false);
-        TglMati.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-11-2021" }));
+        TglMati.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "31-12-2021" }));
         TglMati.setDisplayFormat("dd-MM-yyyy");
         TglMati.setName("TglMati"); // NOI18N
         TglMati.setOpaque(false);
@@ -3235,7 +3235,7 @@ public final class DlgIGD extends javax.swing.JDialog {
         jLabel28.setBounds(0, 20, 110, 23);
 
         TglSurat.setEditable(false);
-        TglSurat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-11-2021" }));
+        TglSurat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "31-12-2021" }));
         TglSurat.setDisplayFormat("dd-MM-yyyy");
         TglSurat.setName("TglSurat"); // NOI18N
         TglSurat.setOpaque(false);
@@ -3364,7 +3364,7 @@ public final class DlgIGD extends javax.swing.JDialog {
         jLabel45.setBounds(0, 20, 110, 23);
 
         TglSurat1.setEditable(false);
-        TglSurat1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-11-2021" }));
+        TglSurat1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "31-12-2021" }));
         TglSurat1.setDisplayFormat("dd-MM-yyyy");
         TglSurat1.setName("TglSurat1"); // NOI18N
         TglSurat1.setOpaque(false);
@@ -3558,7 +3558,7 @@ public final class DlgIGD extends javax.swing.JDialog {
         jLabel46.setBounds(0, 20, 150, 23);
 
         TglSuratTindakan.setEditable(false);
-        TglSuratTindakan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-11-2021" }));
+        TglSuratTindakan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "31-12-2021" }));
         TglSuratTindakan.setDisplayFormat("dd-MM-yyyy");
         TglSuratTindakan.setName("TglSuratTindakan"); // NOI18N
         TglSuratTindakan.setOpaque(false);
@@ -4259,7 +4259,7 @@ public final class DlgIGD extends javax.swing.JDialog {
         panelGlass7.add(jLabel15);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-11-2021" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "31-12-2021" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -4274,7 +4274,7 @@ public final class DlgIGD extends javax.swing.JDialog {
         panelGlass7.add(jLabel17);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-11-2021" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "31-12-2021" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -8300,12 +8300,7 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
     }//GEN-LAST:event_MnPrinterLama1ActionPerformed
 
     private void MnHasilPemeriksaanLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnHasilPemeriksaanLabActionPerformed
-        cekKeLIS = 0;
-        cekKeLIS = Sequel.cariInteger("select count(1) cek from lis_reg where no_rawat='" + TNoRw.getText() + "' "
-            + "and tgl_periksa='" + Sequel.cariIsi("SELECT tgl_periksa FROM periksa_lab WHERE no_rawat='" + TNoRw.getText() + "'") + "' "
-            + "and jam_periksa='" + Sequel.cariIsi("SELECT jam FROM periksa_lab WHERE no_rawat='" + TNoRw.getText() + "'") + "'");
-
-        if (cekKeLIS == 0) {
+        if (Sequel.cariInteger("select count(1) cek from lis_reg where no_rawat='" + TNoRw.getText() + "'") == 0) {
             JOptionPane.showMessageDialog(null, "Hasil pemeriksaan laboratorium (LIS) tidak ditemukan ...!!!!");
             tbregistrasiIGD.requestFocus();
         } else {
@@ -8439,6 +8434,7 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
     private javax.swing.JMenu MnKelengkapanInap;
     private javax.swing.JMenuItem MnLabelRM1;
     private javax.swing.JMenuItem MnLabelRM2;
+    private javax.swing.JMenu MnLaporan;
     private javax.swing.JMenuItem MnLaporanKunjunganIGD;
     private javax.swing.JMenuItem MnLaporanRekapJenisBayar;
     private javax.swing.JMenuItem MnLaporanRekapKunjunganBulanan;
@@ -8581,7 +8577,6 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
     private widget.Label jLabel7;
     private widget.Label jLabel8;
     private widget.Label jLabel98;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
