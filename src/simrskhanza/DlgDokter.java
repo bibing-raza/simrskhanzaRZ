@@ -1864,7 +1864,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         TnoKTP.setText("");
         DTPLahir.setDate(new Date());
         TKd.requestFocus();
-        Valid.autoNomer(" dokter ","D",7,TKd);
+        Valid.autoNomerDokter(" dokter ","D",7,TKd);
         CmbSttsKerja.setSelectedIndex(0);
         Turl.setText("-");
     }

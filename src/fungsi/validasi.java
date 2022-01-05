@@ -132,6 +132,35 @@ public final class validasi {
         }
         teks.setText(strAwal + s1 + s);
     }
+    
+    public void autoNomerDokter(String tabel, String strAwal, Integer pnj, javax.swing.JTextField teks) {
+        try {
+            ps = connect.prepareStatement("select * from " + tabel);
+            try {
+                rs = ps.executeQuery();
+                rs.last();
+                s = Integer.toString(rs.getRow() + 2);
+                j = s.length();
+                s1 = "";
+                for (i = 1; i <= pnj - j; i++) {
+                    s1 = s1 + "0";
+                }
+                teks.setText(strAwal + s1 + s);
+            } catch (Exception e) {
+                System.out.println("Notifikasi : " + e);
+            } finally {
+                if (rs != null) {
+                    rs.close();
+                }
+
+                if (ps != null) {
+                    ps.close();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Notifikasi : " + e);
+        }
+    }
 
     public void autoNomer(String tabel, String strAwal, Integer pnj, javax.swing.JTextField teks) {
         try {
@@ -1802,6 +1831,16 @@ public final class validasi {
             System.out.println(e);
             return false;
         }
+    }
+    
+    public String SetTgl4(String original){
+        original=original.replaceAll("'","");
+        s = "";
+        try {
+            s=original.substring(6,10)+original.substring(3,5)+original.substring(0,2);
+        }catch (Exception e) {
+        }   
+        return s;
     }
 }
   

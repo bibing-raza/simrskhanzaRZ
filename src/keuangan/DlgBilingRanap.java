@@ -6232,7 +6232,7 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         }
 
                         if (rsoperasi.getDouble("biayasarpras") > 0) {
-                            tabModeRwJlDr.addRow(new Object[]{true, "                           ", "  Sarpras", ":", rsoperasi.getDouble("biayasarpras"), 1, 0, rsoperasi.getDouble("biayasarpras"), "Operasi"});
+                            tabModeRwJlDr.addRow(new Object[]{true, "                           ", "  Biaya Operasional RS", ":", rsoperasi.getDouble("biayasarpras"), 1, 0, rsoperasi.getDouble("biayasarpras"), "Operasi"});
                         }
 
                         if (rsoperasi.getDouble("biaya_dokter_pjanak") > 0) {
