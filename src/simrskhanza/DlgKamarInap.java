@@ -103,7 +103,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
     private double lama = Sequel.cariIsiAngka("select lamajam from set_jam_minimal"), persenbayi = Sequel.cariInteger("select bayi from set_jam_minimal");
     private String dokterranap = "", bangsal = "", diagnosa_akhir = Sequel.cariIsi("select diagnosaakhir from set_jam_minimal"), cekKelamin = "",
             namakamar = "", umur = "0", sttsumur = "Th", cekAPS = "", norawatAPS = "", cekdokter = "", kdAPS = "", diagnosa_ok = "",
-            cekDataPersalinan = "", cekRMbayi = "", kamarCovid = "", cekHR = "", nmgedung = "";
+            cekDataPersalinan = "", cekRMbayi = "", kamarCovid = "", cekHR = "", nmgedung = "", noRwNew = "";
 
     /**
      * Creates new form DlgKamarInap
@@ -12762,17 +12762,20 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         if (cmbJamReg.isSelected() == true) {
             Sequel.mengedit("reg_periksa", "no_rawat='" + norawat.getText() + "'",
                     "tgl_registrasi='" + TIn.getText() + "',jam_reg='" + JamMasuk.getText() + "'");
-            WindowWaktuRegRalan.dispose();
-            tampil();
-            emptTeks();
+            isNumber((TIn.getText().replace("-", "/")));
         } else {
             Sequel.mengedit("reg_periksa", "no_rawat='" + norawat.getText() + "'",
                     "tgl_registrasi='" + Valid.SetTgl(TglRegRalan.getSelectedItem() + "") + "',"
-                    + "jam_reg='" + Jreg.getSelectedItem() + ":" + Mreg.getSelectedItem() + ":" + Dreg.getSelectedItem() + "'");
-            WindowWaktuRegRalan.dispose();
-            tampil();
-            emptTeks();
+                    + "jam_reg='" + Jreg.getSelectedItem() + ":" + Mreg.getSelectedItem() + ":" + Dreg.getSelectedItem() + "'");            
+            isNumber(Valid.SetTglMiring(TglRegRalan.getSelectedItem() + ""));
         }
+        
+        Sequel.mengedit("reg_periksa", "no_rawat='" + norawat.getText() + "'",
+                "no_rawat='" + noRwNew + "'");
+
+        WindowWaktuRegRalan.dispose();
+        tampil();
+        emptTeks();
     }//GEN-LAST:event_BtnGantiTglActionPerformed
 
     private void BtnGantiTglKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnGantiTglKeyPressed
@@ -16109,5 +16112,10 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
             JOptionPane.showMessageDialog(rootPane, "Menentukan tgl. transaksi & jamnya tidak Valid...!!");
             ChkTglTran.requestFocus();
         }
+    }
+    
+    private void isNumber(String tgl) {
+        noRwNew = "";
+        noRwNew = Valid.autoNomer3("select ifnull(MAX(CONVERT(RIGHT(no_rawat,6),signed)),0) from reg_periksa where tgl_registrasi='" + tgl + "' ", tgl + "/", 6);
     }
 }

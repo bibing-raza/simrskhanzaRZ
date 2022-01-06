@@ -435,6 +435,7 @@ public class DlgCariPemesanan extends javax.swing.JDialog {
         ppUbah = new javax.swing.JMenuItem();
         ppCetakPemesanan = new javax.swing.JMenuItem();
         ppRekapPemesananExcel = new javax.swing.JMenuItem();
+        ppRingkasanRekapPemesananExcel = new javax.swing.JMenuItem();
         internalFrame1 = new widget.InternalFrame();
         scrollPane1 = new widget.ScrollPane();
         tbDokter = new widget.Table();
@@ -492,7 +493,7 @@ public class DlgCariPemesanan extends javax.swing.JDialog {
         ppHapus.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ppHapus.setIconTextGap(8);
         ppHapus.setName("ppHapus"); // NOI18N
-        ppHapus.setPreferredSize(new java.awt.Dimension(220, 25));
+        ppHapus.setPreferredSize(new java.awt.Dimension(260, 25));
         ppHapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ppHapusActionPerformed(evt);
@@ -508,7 +509,7 @@ public class DlgCariPemesanan extends javax.swing.JDialog {
         ppBayar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ppBayar.setIconTextGap(8);
         ppBayar.setName("ppBayar"); // NOI18N
-        ppBayar.setPreferredSize(new java.awt.Dimension(220, 25));
+        ppBayar.setPreferredSize(new java.awt.Dimension(260, 25));
         ppBayar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ppBayarActionPerformed(evt);
@@ -524,7 +525,7 @@ public class DlgCariPemesanan extends javax.swing.JDialog {
         ppUbah.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ppUbah.setIconTextGap(8);
         ppUbah.setName("ppUbah"); // NOI18N
-        ppUbah.setPreferredSize(new java.awt.Dimension(220, 25));
+        ppUbah.setPreferredSize(new java.awt.Dimension(260, 25));
         ppUbah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ppUbahActionPerformed(evt);
@@ -540,7 +541,7 @@ public class DlgCariPemesanan extends javax.swing.JDialog {
         ppCetakPemesanan.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ppCetakPemesanan.setIconTextGap(8);
         ppCetakPemesanan.setName("ppCetakPemesanan"); // NOI18N
-        ppCetakPemesanan.setPreferredSize(new java.awt.Dimension(220, 25));
+        ppCetakPemesanan.setPreferredSize(new java.awt.Dimension(260, 25));
         ppCetakPemesanan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ppCetakPemesananActionPerformed(evt);
@@ -556,13 +557,29 @@ public class DlgCariPemesanan extends javax.swing.JDialog {
         ppRekapPemesananExcel.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ppRekapPemesananExcel.setIconTextGap(8);
         ppRekapPemesananExcel.setName("ppRekapPemesananExcel"); // NOI18N
-        ppRekapPemesananExcel.setPreferredSize(new java.awt.Dimension(220, 25));
+        ppRekapPemesananExcel.setPreferredSize(new java.awt.Dimension(260, 25));
         ppRekapPemesananExcel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ppRekapPemesananExcelActionPerformed(evt);
             }
         });
         jPopupMenu1.add(ppRekapPemesananExcel);
+
+        ppRingkasanRekapPemesananExcel.setBackground(new java.awt.Color(255, 255, 255));
+        ppRingkasanRekapPemesananExcel.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        ppRingkasanRekapPemesananExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/export-excel.png"))); // NOI18N
+        ppRingkasanRekapPemesananExcel.setText("Kirim Ringkasan Rekap Pemesanan Ke Excel");
+        ppRingkasanRekapPemesananExcel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        ppRingkasanRekapPemesananExcel.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        ppRingkasanRekapPemesananExcel.setIconTextGap(8);
+        ppRingkasanRekapPemesananExcel.setName("ppRingkasanRekapPemesananExcel"); // NOI18N
+        ppRingkasanRekapPemesananExcel.setPreferredSize(new java.awt.Dimension(260, 25));
+        ppRingkasanRekapPemesananExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppRingkasanRekapPemesananExcelActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(ppRingkasanRekapPemesananExcel);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -1506,6 +1523,47 @@ private void ppHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
         }
     }//GEN-LAST:event_ppRekapPemesananExcelActionPerformed
 
+    private void ppRingkasanRekapPemesananExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppRingkasanRekapPemesananExcelActionPerformed
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        BtnCariActionPerformed(evt);
+        if (tabMode.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Maaf, data sudah habis. Tidak ada data yang bisa anda print...!!!!");
+            TCari.requestFocus();
+        } else if (tabMode.getRowCount() != 0) {
+            Sequel.AutoComitFalse();
+            Sequel.queryu("delete from temporary");
+            int row = tabMode.getRowCount();
+            for (int i = 0; i < row; i++) {
+                Sequel.menyimpan("temporary", "'0','"
+                        + tabMode.getValueAt(i, 0).toString() + "','"
+                        + tabMode.getValueAt(i, 1).toString() + "','"
+                        + tabMode.getValueAt(i, 2).toString() + "','"
+                        + tabMode.getValueAt(i, 3).toString() + "','"
+                        + tabMode.getValueAt(i, 4).toString() + "','"
+                        + tabMode.getValueAt(i, 5).toString() + "','"
+                        + tabMode.getValueAt(i, 6).toString() + "','"
+                        + tabMode.getValueAt(i, 9).toString() + "','"
+                        + tabMode.getValueAt(i, 11).toString() + "','" + tabMode.getValueAt(i, 7).toString() + "','','','','','','','','','','','','','','','','','','','','','','','','','','',''", "Transaksi Pemesanan");
+            }
+            Sequel.menyimpan("temporary", "'0','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''", "Transaksi Pemesanan");
+            Sequel.menyimpan("temporary", "'0','Jml.Total :','','','','','','','','" + LTotal.getText() + "','','','','','','','','','','','','','','','','','','','','','','','','','','','',''", "Transaksi Pemesanan");
+            Sequel.AutoComitFalse();
+
+            dialog_simpan = "";
+            dialog_simpan = Valid.openDialog();
+            if (!dialog_simpan.equals("the user cancelled the operation")) {
+                if (Valid.MyReportToExcelBoolean("select temp1 'Nama Supplier', temp2 'No.Faktur', temp3 'Tgl.Faktur',temp4 'Petugas RS',"
+                        + "temp5 'Nama Barang/Obat/Alkes', temp6 'Satuan', CAST(REPLACE(temp10,',','') as FLOAT) 'Hrg. Beli (Rp.)',"
+                        + "temp7 'Jml Beli', temp8 'Diskon', CAST(REPLACE(temp9,',','') as FLOAT) 'Total (Rp)' from `temporary`", dialog_simpan) == true) {
+                    JOptionPane.showMessageDialog(null, "Data berhasil diexport menjadi file excel,..!!!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Data gagal diexport menjadi file excel,..!!!");
+                }
+            }
+        }
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_ppRingkasanRekapPemesananExcelActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1572,6 +1630,7 @@ private void ppHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     private javax.swing.JMenuItem ppCetakPemesanan;
     private javax.swing.JMenuItem ppHapus;
     private javax.swing.JMenuItem ppRekapPemesananExcel;
+    private javax.swing.JMenuItem ppRingkasanRekapPemesananExcel;
     private javax.swing.JMenuItem ppUbah;
     private widget.ScrollPane scrollPane1;
     private widget.Table tbDokter;
