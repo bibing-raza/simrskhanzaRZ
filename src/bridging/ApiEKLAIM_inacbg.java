@@ -199,7 +199,7 @@ public class ApiEKLAIM_inacbg {
             String dj, String mj,String dmj, String covidStatus, String noKT, String episod, String ccInd, String rsDarurat, String coInside, String labAL,
             String labPro, String labCRP, String labKul, String labDim, String labPT, String labAPTT, String labWP, String labAnti, String labAnaGas, String labAlbu, 
             String radTho, String tarifPE, String nmDokter, String payorI, String payorC, String cob, String codNik, String konvalesen, String naat, String isoman,
-            String bayi_baru_lhr) {
+            String bayi_baru_lhr, String prosedur_inadrg) {
         try {
             headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
@@ -230,6 +230,8 @@ public class ApiEKLAIM_inacbg {
                                         + "\"discharge_status\": \"" + dischargeStts + "\","
                                         + "\"diagnosa\": \"" + diagnosa + "\","
                                         + "\"procedure\": \"" + prosedur + "\","
+                    + "\"diagnosa_inagrouper\": \"" + diagnosa + "\","
+                    + "\"procedure_inagrouper\": \"" + prosedur_inadrg + "\","
                                     + "\"tarif_rs\": {"
                                         + "\"prosedur_non_bedah\": \"" + pnb + "\","
                                         + "\"prosedur_bedah\": \"" + pb + "\","
