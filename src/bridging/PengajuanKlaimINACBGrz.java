@@ -5201,6 +5201,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         nmJaminan.setText(jnsKlaim);
         ibunya = nmIbu;
         tglREG = "";
+        tglSEP.setText("");
 
         try {
             //kalau kode payor 3 adalah JKN
@@ -5229,7 +5230,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
                         noPeserta.setText(rs.getString("no_kartu"));
                         jpel = rs.getString("jnspelayanan");
                         tglREG = Sequel.cariIsi("select tgl_registrasi from reg_periksa where no_rawat='" + norw + "'");
-                        tglSEP.setText(rs5.getString("tglsep"));
+                        tglSEP.setText(rs.getString("tglsep"));
                       
                         if (jpel.equals("2")) {
                             kls = "3";
@@ -6364,6 +6365,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         kodePayor = payor;
         nmJaminan.setText(jnsKlaim);
         tglREG = "";
+        tglSEP.setText("");
 
         try {
             if (kodePayor.equals("3")) {
