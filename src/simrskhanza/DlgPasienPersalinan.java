@@ -122,6 +122,7 @@ public class DlgPasienPersalinan extends javax.swing.JDialog {
         MnPrinDataPersalinan = new javax.swing.JMenuItem();
         MnPrinRekapTotal = new javax.swing.JMenuItem();
         buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         FixPersalinan = new widget.TextBox();
         FixRujukan = new widget.TextBox();
         internalFrame1 = new widget.InternalFrame();
@@ -221,35 +222,14 @@ public class DlgPasienPersalinan extends javax.swing.JDialog {
         FixPersalinan.setForeground(new java.awt.Color(0, 0, 0));
         FixPersalinan.setHighlighter(null);
         FixPersalinan.setName("FixPersalinan"); // NOI18N
-        FixPersalinan.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                FixPersalinanKeyTyped(evt);
-            }
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                FixPersalinanKeyPressed(evt);
-            }
-        });
 
         FixRujukan.setForeground(new java.awt.Color(0, 0, 0));
         FixRujukan.setHighlighter(null);
         FixRujukan.setName("FixRujukan"); // NOI18N
-        FixRujukan.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                FixRujukanKeyTyped(evt);
-            }
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                FixRujukanKeyPressed(evt);
-            }
-        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
-            }
-        });
 
         internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255), 3), "::[ Data Persalinan Pasien ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
         internalFrame1.setName("internalFrame1"); // NOI18N
@@ -431,16 +411,11 @@ public class DlgPasienPersalinan extends javax.swing.JDialog {
         panelGlass10.add(jLabel63);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-09-2020" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "14-01-2022" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
         DTPCari1.setPreferredSize(new java.awt.Dimension(95, 23));
-        DTPCari1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                DTPCari1MouseClicked(evt);
-            }
-        });
         panelGlass10.add(DTPCari1);
 
         jLabel64.setForeground(new java.awt.Color(0, 0, 0));
@@ -450,16 +425,11 @@ public class DlgPasienPersalinan extends javax.swing.JDialog {
         panelGlass10.add(jLabel64);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-09-2020" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "14-01-2022" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
         DTPCari2.setPreferredSize(new java.awt.Dimension(95, 23));
-        DTPCari2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                DTPCari2MouseClicked(evt);
-            }
-        });
         panelGlass10.add(DTPCari2);
 
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
@@ -473,11 +443,6 @@ public class DlgPasienPersalinan extends javax.swing.JDialog {
         cmbLimit.setName("cmbLimit"); // NOI18N
         cmbLimit.setOpaque(false);
         cmbLimit.setPreferredSize(new java.awt.Dimension(80, 23));
-        cmbLimit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cmbLimitMouseClicked(evt);
-            }
-        });
         panelGlass10.add(cmbLimit);
 
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
@@ -576,23 +541,15 @@ public class DlgPasienPersalinan extends javax.swing.JDialog {
         jPanel4.setPreferredSize(new java.awt.Dimension(300, 102));
         jPanel4.setLayout(null);
 
+        buttonGroup1.add(rPersalinanNormal);
         rPersalinanNormal.setText("Persalinan Normal");
         rPersalinanNormal.setName("rPersalinanNormal"); // NOI18N
-        rPersalinanNormal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rPersalinanNormalActionPerformed(evt);
-            }
-        });
         jPanel4.add(rPersalinanNormal);
         rPersalinanNormal.setBounds(10, 20, 135, 20);
 
+        buttonGroup1.add(rSC);
         rSC.setText("Sectio Caesarean (SC)");
         rSC.setName("rSC"); // NOI18N
-        rSC.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSCActionPerformed(evt);
-            }
-        });
         jPanel4.add(rSC);
         rSC.setBounds(10, 145, 135, 20);
 
@@ -603,103 +560,63 @@ public class DlgPasienPersalinan extends javax.swing.JDialog {
         jPanel4.add(jLabel48);
         jLabel48.setBounds(170, 20, 180, 20);
 
+        buttonGroup1.add(rPerdarahanSebelum);
         rPerdarahanSebelum.setText("Perdarahan Sebelum Persalinan");
         rPerdarahanSebelum.setName("rPerdarahanSebelum"); // NOI18N
-        rPerdarahanSebelum.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rPerdarahanSebelumActionPerformed(evt);
-            }
-        });
         jPanel4.add(rPerdarahanSebelum);
         rPerdarahanSebelum.setBounds(170, 45, 180, 20);
 
+        buttonGroup1.add(rPerdarahanSesudah);
         rPerdarahanSesudah.setText("Perdarahan Sesudah Persalinan");
         rPerdarahanSesudah.setName("rPerdarahanSesudah"); // NOI18N
-        rPerdarahanSesudah.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rPerdarahanSesudahActionPerformed(evt);
-            }
-        });
         jPanel4.add(rPerdarahanSesudah);
         rPerdarahanSesudah.setBounds(170, 70, 180, 20);
 
+        buttonGroup1.add(rPreEklamsi);
         rPreEklamsi.setText("Pre Eclampsi");
         rPreEklamsi.setName("rPreEklamsi"); // NOI18N
-        rPreEklamsi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rPreEklamsiActionPerformed(evt);
-            }
-        });
         jPanel4.add(rPreEklamsi);
         rPreEklamsi.setBounds(170, 95, 180, 20);
 
+        buttonGroup1.add(rEklamsi);
         rEklamsi.setText("Eclampsi");
         rEklamsi.setName("rEklamsi"); // NOI18N
-        rEklamsi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rEklamsiActionPerformed(evt);
-            }
-        });
         jPanel4.add(rEklamsi);
         rEklamsi.setBounds(170, 120, 180, 20);
 
+        buttonGroup1.add(rInfeksi);
         rInfeksi.setText("Infeksi");
         rInfeksi.setName("rInfeksi"); // NOI18N
-        rInfeksi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rInfeksiActionPerformed(evt);
-            }
-        });
         jPanel4.add(rInfeksi);
         rInfeksi.setBounds(170, 145, 180, 20);
 
+        buttonGroup1.add(rLainlain);
         rLainlain.setText("Lain-lain");
         rLainlain.setName("rLainlain"); // NOI18N
-        rLainlain.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rLainlainActionPerformed(evt);
-            }
-        });
         jPanel4.add(rLainlain);
         rLainlain.setBounds(170, 170, 180, 20);
 
+        buttonGroup1.add(rAmniotomy);
         rAmniotomy.setText("Amniotomy");
         rAmniotomy.setName("rAmniotomy"); // NOI18N
-        rAmniotomy.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rAmniotomyActionPerformed(evt);
-            }
-        });
         jPanel4.add(rAmniotomy);
         rAmniotomy.setBounds(10, 45, 135, 20);
 
+        buttonGroup1.add(rPartusPenyulit);
         rPartusPenyulit.setText("Partus Penyulit");
         rPartusPenyulit.setName("rPartusPenyulit"); // NOI18N
-        rPartusPenyulit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rPartusPenyulitActionPerformed(evt);
-            }
-        });
         jPanel4.add(rPartusPenyulit);
         rPartusPenyulit.setBounds(10, 70, 135, 20);
 
+        buttonGroup1.add(rVacumExtraksi);
         rVacumExtraksi.setText("Vacum Extraksi");
         rVacumExtraksi.setName("rVacumExtraksi"); // NOI18N
-        rVacumExtraksi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rVacumExtraksiActionPerformed(evt);
-            }
-        });
         jPanel4.add(rVacumExtraksi);
         rVacumExtraksi.setBounds(10, 95, 135, 20);
 
+        buttonGroup1.add(rSCMOW);
         rSCMOW.setText("SC + MOW");
         rSCMOW.setName("rSCMOW"); // NOI18N
-        rSCMOW.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSCMOWActionPerformed(evt);
-            }
-        });
         jPanel4.add(rSCMOW);
         rSCMOW.setBounds(10, 120, 135, 20);
 
@@ -712,53 +629,33 @@ public class DlgPasienPersalinan extends javax.swing.JDialog {
         jPanel2.setPreferredSize(new java.awt.Dimension(350, 102));
         jPanel2.setLayout(null);
 
+        buttonGroup1.add(rAbortus);
         rAbortus.setText("Abortus");
         rAbortus.setName("rAbortus"); // NOI18N
-        rAbortus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rAbortusActionPerformed(evt);
-            }
-        });
         jPanel2.add(rAbortus);
         rAbortus.setBounds(10, 20, 110, 20);
 
+        buttonGroup1.add(rImunisasi1);
         rImunisasi1.setText("Imunisasi-TT1");
         rImunisasi1.setName("rImunisasi1"); // NOI18N
-        rImunisasi1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rImunisasi1ActionPerformed(evt);
-            }
-        });
         jPanel2.add(rImunisasi1);
         rImunisasi1.setBounds(10, 45, 110, 20);
 
+        buttonGroup1.add(rImunisasi2);
         rImunisasi2.setText("Imunisasi-TT2");
         rImunisasi2.setName("rImunisasi2"); // NOI18N
-        rImunisasi2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rImunisasi2ActionPerformed(evt);
-            }
-        });
         jPanel2.add(rImunisasi2);
         rImunisasi2.setBounds(10, 70, 110, 20);
 
+        buttonGroup1.add(rOPLaparatomi);
         rOPLaparatomi.setText("OP Laparatomi");
         rOPLaparatomi.setName("rOPLaparatomi"); // NOI18N
-        rOPLaparatomi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rOPLaparatomiActionPerformed(evt);
-            }
-        });
         jPanel2.add(rOPLaparatomi);
         rOPLaparatomi.setBounds(10, 95, 110, 20);
 
+        buttonGroup1.add(rPerawatanKonservatif);
         rPerawatanKonservatif.setText("Perawatan / Konservatif");
         rPerawatanKonservatif.setName("rPerawatanKonservatif"); // NOI18N
-        rPerawatanKonservatif.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rPerawatanKonservatifActionPerformed(evt);
-            }
-        });
         jPanel2.add(rPerawatanKonservatif);
         rPerawatanKonservatif.setBounds(10, 120, 140, 20);
 
@@ -771,63 +668,39 @@ public class DlgPasienPersalinan extends javax.swing.JDialog {
         jPanel5.setPreferredSize(new java.awt.Dimension(350, 102));
         jPanel5.setLayout(null);
 
+        buttonGroup2.add(rRS);
         rRS.setText("Rumah Sakit");
         rRS.setName("rRS"); // NOI18N
-        rRS.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rRSActionPerformed(evt);
-            }
-        });
         jPanel5.add(rRS);
         rRS.setBounds(10, 20, 100, 20);
 
+        buttonGroup2.add(rBidan);
         rBidan.setText("Bidan");
         rBidan.setName("rBidan"); // NOI18N
-        rBidan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rBidanActionPerformed(evt);
-            }
-        });
         jPanel5.add(rBidan);
         rBidan.setBounds(10, 45, 100, 20);
 
+        buttonGroup2.add(rPuskes);
         rPuskes.setText("Puskesmas");
         rPuskes.setName("rPuskes"); // NOI18N
-        rPuskes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rPuskesActionPerformed(evt);
-            }
-        });
         jPanel5.add(rPuskes);
         rPuskes.setBounds(10, 70, 100, 20);
 
+        buttonGroup2.add(rFaskes);
         rFaskes.setText("Faskes Lainnya");
         rFaskes.setName("rFaskes"); // NOI18N
-        rFaskes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rFaskesActionPerformed(evt);
-            }
-        });
         jPanel5.add(rFaskes);
         rFaskes.setBounds(10, 95, 100, 20);
 
+        buttonGroup2.add(rNonMedis);
         rNonMedis.setText("Non Medis");
         rNonMedis.setName("rNonMedis"); // NOI18N
-        rNonMedis.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rNonMedisActionPerformed(evt);
-            }
-        });
         jPanel5.add(rNonMedis);
         rNonMedis.setBounds(10, 120, 100, 20);
 
+        buttonGroup2.add(rTanpaRujukan);
         rTanpaRujukan.setText("Tanpa Rujukan");
         rTanpaRujukan.setName("rTanpaRujukan"); // NOI18N
-        rTanpaRujukan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rTanpaRujukanActionPerformed(evt);
-            }
-        });
         jPanel5.add(rTanpaRujukan);
         rTanpaRujukan.setBounds(10, 145, 100, 20);
 
@@ -846,13 +719,8 @@ public class DlgPasienPersalinan extends javax.swing.JDialog {
     private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSimpanActionPerformed
         if (norawat.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Belum ada data pasien yang dipilih...!!!!");
-        } else if (FixPersalinan.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Jenis persalinan atau non persalinan harus dipilih salah satu dulu...!!!!");
-            rPersalinanNormal.requestFocus();
-        } else if (FixRujukan.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Rujukan persalinan harus dipilih salah satu dulu...!!!!");
-            rFaskes.requestFocus();
         } else {
+            DataFix();
             Sequel.menyimpan("data_persalinan", "'" + norawat.getText() + "','" + norm.getText() + "',"
                     + "'" + FixPersalinan.getText() + "','" + FixRujukan.getText() + "' ", "Data Persalinan");
 
@@ -888,21 +756,14 @@ public class DlgPasienPersalinan extends javax.swing.JDialog {
 
     private void BtnGantiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGantiActionPerformed
         if (norawat.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Belum ada data pasien yang dipilih...!!!!");
-        } else if (norawat.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Klik salah satu dulu nama pasien pada tabel persalinan...!!!!");
             tbPersalinan.requestFocus();
-        } else if (FixPersalinan.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Jenis persalinan atau non persalinan harus dipilih salah satu dulu...!!!!");
-            rPersalinanNormal.requestFocus();
-        } else if (FixRujukan.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Rujukan persalinan harus dipilih salah satu dulu...!!!!");
-            rFaskes.requestFocus();
         } else {
+            DataFix();
             Sequel.mengedit("data_persalinan", "no_rawat='" + norawat.getText() + "'", "jns_persalinan='" + FixPersalinan.getText() + "',rujukan='" + FixRujukan.getText() + "'");
             
             tampil();
-            emptForm();            
+            emptForm();
         }
 }//GEN-LAST:event_BtnGantiActionPerformed
 
@@ -999,346 +860,6 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     isForm();
     rPersalinanNormal.requestFocus();
 }//GEN-LAST:event_ChkInputActionPerformed
-
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        
-    }//GEN-LAST:event_formWindowOpened
-
-    private void rPersalinanNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rPersalinanNormalActionPerformed
-        if (rPersalinanNormal.isSelected() == true) {
-            FixPersalinan.setText(rPersalinanNormal.getText());
-            rSC.setSelected(false);
-            rPerdarahanSebelum.setSelected(false);
-            rPerdarahanSesudah.setSelected(false);
-            rPreEklamsi.setSelected(false);
-            rEklamsi.setSelected(false);
-            rInfeksi.setSelected(false);
-            rLainlain.setSelected(false);
-            rAbortus.setSelected(false);
-            rImunisasi1.setSelected(false);
-            rImunisasi2.setSelected(false);
-            rAmniotomy.setSelected(false);
-            rPartusPenyulit.setSelected(false);
-            rVacumExtraksi.setSelected(false);
-            rSCMOW.setSelected(false);
-            rOPLaparatomi.setSelected(false);
-            rPerawatanKonservatif.setSelected(false);
-        }
-    }//GEN-LAST:event_rPersalinanNormalActionPerformed
-
-    private void rSCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSCActionPerformed
-        if (rSC.isSelected() == true) {
-            FixPersalinan.setText(rSC.getText());
-            rPersalinanNormal.setSelected(false);
-            rPerdarahanSebelum.setSelected(false);
-            rPerdarahanSesudah.setSelected(false);
-            rPreEklamsi.setSelected(false);
-            rEklamsi.setSelected(false);
-            rInfeksi.setSelected(false);
-            rLainlain.setSelected(false);
-            rAbortus.setSelected(false);
-            rImunisasi1.setSelected(false);
-            rImunisasi2.setSelected(false);
-            rAmniotomy.setSelected(false);
-            rPartusPenyulit.setSelected(false);
-            rVacumExtraksi.setSelected(false);
-            rSCMOW.setSelected(false);
-            rOPLaparatomi.setSelected(false);
-            rPerawatanKonservatif.setSelected(false);
-        }
-    }//GEN-LAST:event_rSCActionPerformed
-
-    private void rPerdarahanSebelumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rPerdarahanSebelumActionPerformed
-        if (rPerdarahanSebelum.isSelected() == true) {
-            FixPersalinan.setText(rPerdarahanSebelum.getText());
-            rSC.setSelected(false);
-            rPersalinanNormal.setSelected(false);
-            rPerdarahanSesudah.setSelected(false);
-            rPreEklamsi.setSelected(false);
-            rEklamsi.setSelected(false);
-            rInfeksi.setSelected(false);
-            rLainlain.setSelected(false);
-            rAbortus.setSelected(false);
-            rImunisasi1.setSelected(false);
-            rImunisasi2.setSelected(false);
-            rAmniotomy.setSelected(false);
-            rPartusPenyulit.setSelected(false);
-            rVacumExtraksi.setSelected(false);
-            rSCMOW.setSelected(false);
-            rOPLaparatomi.setSelected(false);
-            rPerawatanKonservatif.setSelected(false);
-        }
-    }//GEN-LAST:event_rPerdarahanSebelumActionPerformed
-
-    private void rPerdarahanSesudahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rPerdarahanSesudahActionPerformed
-        if (rPerdarahanSesudah.isSelected() == true) {
-            FixPersalinan.setText(rPerdarahanSesudah.getText());
-            rSC.setSelected(false);
-            rPerdarahanSebelum.setSelected(false);
-            rPersalinanNormal.setSelected(false);
-            rPreEklamsi.setSelected(false);
-            rEklamsi.setSelected(false);
-            rInfeksi.setSelected(false);
-            rLainlain.setSelected(false);
-            rAbortus.setSelected(false);
-            rImunisasi1.setSelected(false);
-            rImunisasi2.setSelected(false);
-            rAmniotomy.setSelected(false);
-            rPartusPenyulit.setSelected(false);
-            rVacumExtraksi.setSelected(false);
-            rSCMOW.setSelected(false);
-            rOPLaparatomi.setSelected(false);
-            rPerawatanKonservatif.setSelected(false);
-        }
-    }//GEN-LAST:event_rPerdarahanSesudahActionPerformed
-
-    private void rPreEklamsiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rPreEklamsiActionPerformed
-        if (rPreEklamsi.isSelected() == true) {
-            FixPersalinan.setText(rPreEklamsi.getText());
-            rSC.setSelected(false);
-            rPerdarahanSebelum.setSelected(false);
-            rPerdarahanSesudah.setSelected(false);
-            rPersalinanNormal.setSelected(false);
-            rEklamsi.setSelected(false);
-            rInfeksi.setSelected(false);
-            rLainlain.setSelected(false);
-            rAbortus.setSelected(false);
-            rImunisasi1.setSelected(false);
-            rImunisasi2.setSelected(false);
-            rAmniotomy.setSelected(false);
-            rPartusPenyulit.setSelected(false);
-            rVacumExtraksi.setSelected(false);
-            rSCMOW.setSelected(false);
-            rOPLaparatomi.setSelected(false);
-            rPerawatanKonservatif.setSelected(false);
-        }
-    }//GEN-LAST:event_rPreEklamsiActionPerformed
-
-    private void rEklamsiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rEklamsiActionPerformed
-        if (rEklamsi.isSelected() == true) {
-            FixPersalinan.setText(rEklamsi.getText());
-            rSC.setSelected(false);
-            rPerdarahanSebelum.setSelected(false);
-            rPerdarahanSesudah.setSelected(false);
-            rPreEklamsi.setSelected(false);
-            rPersalinanNormal.setSelected(false);
-            rInfeksi.setSelected(false);
-            rLainlain.setSelected(false);
-            rAbortus.setSelected(false);
-            rImunisasi1.setSelected(false);
-            rImunisasi2.setSelected(false);
-            rAmniotomy.setSelected(false);
-            rPartusPenyulit.setSelected(false);
-            rVacumExtraksi.setSelected(false);
-            rSCMOW.setSelected(false);
-            rOPLaparatomi.setSelected(false);
-            rPerawatanKonservatif.setSelected(false);
-        }
-    }//GEN-LAST:event_rEklamsiActionPerformed
-
-    private void rInfeksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rInfeksiActionPerformed
-        if (rInfeksi.isSelected() == true) {
-            FixPersalinan.setText(rInfeksi.getText());
-            rSC.setSelected(false);
-            rPerdarahanSebelum.setSelected(false);
-            rPerdarahanSesudah.setSelected(false);
-            rPreEklamsi.setSelected(false);
-            rEklamsi.setSelected(false);
-            rPersalinanNormal.setSelected(false);
-            rLainlain.setSelected(false);
-            rAbortus.setSelected(false);
-            rImunisasi1.setSelected(false);
-            rImunisasi2.setSelected(false);
-            rAmniotomy.setSelected(false);
-            rPartusPenyulit.setSelected(false);
-            rVacumExtraksi.setSelected(false);
-            rSCMOW.setSelected(false);
-            rOPLaparatomi.setSelected(false);
-            rPerawatanKonservatif.setSelected(false);
-        }
-    }//GEN-LAST:event_rInfeksiActionPerformed
-
-    private void rLainlainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rLainlainActionPerformed
-        if (rLainlain.isSelected() == true) {
-            FixPersalinan.setText(rLainlain.getText());
-            rSC.setSelected(false);
-            rPerdarahanSebelum.setSelected(false);
-            rPerdarahanSesudah.setSelected(false);
-            rPreEklamsi.setSelected(false);
-            rEklamsi.setSelected(false);
-            rInfeksi.setSelected(false);
-            rPersalinanNormal.setSelected(false);
-            rAbortus.setSelected(false);
-            rImunisasi1.setSelected(false);
-            rImunisasi2.setSelected(false);
-            rAmniotomy.setSelected(false);
-            rPartusPenyulit.setSelected(false);
-            rVacumExtraksi.setSelected(false);
-            rSCMOW.setSelected(false);
-            rOPLaparatomi.setSelected(false);
-            rPerawatanKonservatif.setSelected(false);
-        }
-    }//GEN-LAST:event_rLainlainActionPerformed
-
-    private void rAbortusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rAbortusActionPerformed
-        if (rAbortus.isSelected() == true) {
-            FixPersalinan.setText(rAbortus.getText());
-            rSC.setSelected(false);
-            rPerdarahanSebelum.setSelected(false);
-            rPerdarahanSesudah.setSelected(false);
-            rPreEklamsi.setSelected(false);
-            rEklamsi.setSelected(false);
-            rInfeksi.setSelected(false);
-            rLainlain.setSelected(false);
-            rPersalinanNormal.setSelected(false);
-            rImunisasi1.setSelected(false);
-            rImunisasi2.setSelected(false);
-            rAmniotomy.setSelected(false);
-            rPartusPenyulit.setSelected(false);
-            rVacumExtraksi.setSelected(false);
-            rSCMOW.setSelected(false);
-            rOPLaparatomi.setSelected(false);
-            rPerawatanKonservatif.setSelected(false);
-        }
-    }//GEN-LAST:event_rAbortusActionPerformed
-
-    private void rImunisasi1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rImunisasi1ActionPerformed
-        if (rImunisasi1.isSelected() == true) {
-            FixPersalinan.setText(rImunisasi1.getText());
-            rSC.setSelected(false);
-            rPerdarahanSebelum.setSelected(false);
-            rPerdarahanSesudah.setSelected(false);
-            rPreEklamsi.setSelected(false);
-            rEklamsi.setSelected(false);
-            rInfeksi.setSelected(false);
-            rLainlain.setSelected(false);
-            rAbortus.setSelected(false);
-            rPersalinanNormal.setSelected(false);
-            rImunisasi2.setSelected(false);
-            rAmniotomy.setSelected(false);
-            rPartusPenyulit.setSelected(false);
-            rVacumExtraksi.setSelected(false);
-            rSCMOW.setSelected(false);
-            rOPLaparatomi.setSelected(false);
-            rPerawatanKonservatif.setSelected(false);
-        }
-    }//GEN-LAST:event_rImunisasi1ActionPerformed
-
-    private void rImunisasi2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rImunisasi2ActionPerformed
-        if (rImunisasi2.isSelected() == true) {
-            FixPersalinan.setText(rImunisasi2.getText());
-            rSC.setSelected(false);
-            rPerdarahanSebelum.setSelected(false);
-            rPerdarahanSesudah.setSelected(false);
-            rPreEklamsi.setSelected(false);
-            rEklamsi.setSelected(false);
-            rInfeksi.setSelected(false);
-            rLainlain.setSelected(false);
-            rAbortus.setSelected(false);
-            rImunisasi1.setSelected(false);
-            rPersalinanNormal.setSelected(false);
-            rAmniotomy.setSelected(false);
-            rPartusPenyulit.setSelected(false);
-            rVacumExtraksi.setSelected(false);
-            rSCMOW.setSelected(false);
-            rOPLaparatomi.setSelected(false);
-            rPerawatanKonservatif.setSelected(false);
-        }
-    }//GEN-LAST:event_rImunisasi2ActionPerformed
-
-    private void rRSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rRSActionPerformed
-        if (rRS.isSelected() == true) {
-            FixRujukan.setText(rRS.getText());
-            rBidan.setSelected(false);
-            rPuskes.setSelected(false);
-            rFaskes.setSelected(false);
-            rNonMedis.setSelected(false);
-            rTanpaRujukan.setSelected(false);
-        }
-    }//GEN-LAST:event_rRSActionPerformed
-
-    private void rBidanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rBidanActionPerformed
-        if (rBidan.isSelected() == true) {
-            FixRujukan.setText(rBidan.getText());
-            rRS.setSelected(false);
-            rPuskes.setSelected(false);
-            rFaskes.setSelected(false);
-            rNonMedis.setSelected(false);
-            rTanpaRujukan.setSelected(false);
-        }
-    }//GEN-LAST:event_rBidanActionPerformed
-
-    private void rPuskesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rPuskesActionPerformed
-        if (rPuskes.isSelected() == true) {
-            FixRujukan.setText(rPuskes.getText());
-            rBidan.setSelected(false);
-            rRS.setSelected(false);
-            rFaskes.setSelected(false);
-            rNonMedis.setSelected(false);
-            rTanpaRujukan.setSelected(false);
-        }
-    }//GEN-LAST:event_rPuskesActionPerformed
-
-    private void rFaskesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rFaskesActionPerformed
-        if (rFaskes.isSelected() == true) {
-            FixRujukan.setText(rFaskes.getText());
-            rBidan.setSelected(false);
-            rPuskes.setSelected(false);
-            rRS.setSelected(false);
-            rNonMedis.setSelected(false);
-            rTanpaRujukan.setSelected(false);
-        }
-    }//GEN-LAST:event_rFaskesActionPerformed
-
-    private void rNonMedisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rNonMedisActionPerformed
-        if (rNonMedis.isSelected() == true) {
-            FixRujukan.setText(rNonMedis.getText());
-            rBidan.setSelected(false);
-            rPuskes.setSelected(false);
-            rFaskes.setSelected(false);
-            rRS.setSelected(false);
-            rTanpaRujukan.setSelected(false);
-        }
-    }//GEN-LAST:event_rNonMedisActionPerformed
-
-    private void rTanpaRujukanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rTanpaRujukanActionPerformed
-        if (rTanpaRujukan.isSelected() == true) {
-            FixRujukan.setText(rTanpaRujukan.getText());
-            rBidan.setSelected(false);
-            rPuskes.setSelected(false);
-            rFaskes.setSelected(false);
-            rNonMedis.setSelected(false);
-            rRS.setSelected(false);
-        }
-    }//GEN-LAST:event_rTanpaRujukanActionPerformed
-
-    private void FixPersalinanKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_FixPersalinanKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FixPersalinanKeyTyped
-
-    private void FixPersalinanKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_FixPersalinanKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FixPersalinanKeyPressed
-
-    private void DTPCari1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DTPCari1MouseClicked
-        
-    }//GEN-LAST:event_DTPCari1MouseClicked
-
-    private void DTPCari2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DTPCari2MouseClicked
-        
-    }//GEN-LAST:event_DTPCari2MouseClicked
-
-    private void FixRujukanKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_FixRujukanKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FixRujukanKeyTyped
-
-    private void FixRujukanKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_FixRujukanKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FixRujukanKeyPressed
-
-    private void cmbLimitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbLimitMouseClicked
-        
-    }//GEN-LAST:event_cmbLimitMouseClicked
 
     private void MnPrinDataPersalinanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnPrinDataPersalinanActionPerformed
         cekData = 0;
@@ -1447,138 +968,6 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         }
     }//GEN-LAST:event_MnPrinRekapTotalActionPerformed
 
-    private void rAmniotomyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rAmniotomyActionPerformed
-        if (rAmniotomy.isSelected() == true) {
-            FixPersalinan.setText(rAmniotomy.getText());
-            rSC.setSelected(false);
-            rPerdarahanSebelum.setSelected(false);
-            rPerdarahanSesudah.setSelected(false);
-            rPreEklamsi.setSelected(false);
-            rEklamsi.setSelected(false);
-            rInfeksi.setSelected(false);
-            rLainlain.setSelected(false);
-            rAbortus.setSelected(false);
-            rImunisasi1.setSelected(false);
-            rImunisasi2.setSelected(false);
-            rPersalinanNormal.setSelected(false);
-            rPartusPenyulit.setSelected(false);
-            rVacumExtraksi.setSelected(false);
-            rSCMOW.setSelected(false);
-            rOPLaparatomi.setSelected(false);
-            rPerawatanKonservatif.setSelected(false);
-        }
-    }//GEN-LAST:event_rAmniotomyActionPerformed
-
-    private void rPartusPenyulitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rPartusPenyulitActionPerformed
-        if (rPartusPenyulit.isSelected() == true) {
-            FixPersalinan.setText(rPartusPenyulit.getText());
-            rSC.setSelected(false);
-            rPerdarahanSebelum.setSelected(false);
-            rPerdarahanSesudah.setSelected(false);
-            rPreEklamsi.setSelected(false);
-            rEklamsi.setSelected(false);
-            rInfeksi.setSelected(false);
-            rLainlain.setSelected(false);
-            rAbortus.setSelected(false);
-            rImunisasi1.setSelected(false);
-            rImunisasi2.setSelected(false);
-            rPersalinanNormal.setSelected(false);
-            rAmniotomy.setSelected(false);
-            rVacumExtraksi.setSelected(false);
-            rSCMOW.setSelected(false);
-            rOPLaparatomi.setSelected(false);
-            rPerawatanKonservatif.setSelected(false);
-        }
-    }//GEN-LAST:event_rPartusPenyulitActionPerformed
-
-    private void rVacumExtraksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rVacumExtraksiActionPerformed
-        if (rVacumExtraksi.isSelected() == true) {
-            FixPersalinan.setText(rVacumExtraksi.getText());
-            rSC.setSelected(false);
-            rPerdarahanSebelum.setSelected(false);
-            rPerdarahanSesudah.setSelected(false);
-            rPreEklamsi.setSelected(false);
-            rEklamsi.setSelected(false);
-            rInfeksi.setSelected(false);
-            rLainlain.setSelected(false);
-            rAbortus.setSelected(false);
-            rImunisasi1.setSelected(false);
-            rImunisasi2.setSelected(false);
-            rPersalinanNormal.setSelected(false);
-            rPartusPenyulit.setSelected(false);
-            rAmniotomy.setSelected(false);
-            rSCMOW.setSelected(false);
-            rOPLaparatomi.setSelected(false);
-            rPerawatanKonservatif.setSelected(false);
-        }
-    }//GEN-LAST:event_rVacumExtraksiActionPerformed
-
-    private void rSCMOWActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSCMOWActionPerformed
-        if (rSCMOW.isSelected() == true) {
-            FixPersalinan.setText(rSCMOW.getText());
-            rSC.setSelected(false);
-            rPerdarahanSebelum.setSelected(false);
-            rPerdarahanSesudah.setSelected(false);
-            rPreEklamsi.setSelected(false);
-            rEklamsi.setSelected(false);
-            rInfeksi.setSelected(false);
-            rLainlain.setSelected(false);
-            rAbortus.setSelected(false);
-            rImunisasi1.setSelected(false);
-            rImunisasi2.setSelected(false);
-            rPersalinanNormal.setSelected(false);
-            rPartusPenyulit.setSelected(false);
-            rVacumExtraksi.setSelected(false);
-            rAmniotomy.setSelected(false);
-            rOPLaparatomi.setSelected(false);
-            rPerawatanKonservatif.setSelected(false);
-        }
-    }//GEN-LAST:event_rSCMOWActionPerformed
-
-    private void rOPLaparatomiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rOPLaparatomiActionPerformed
-        if (rOPLaparatomi.isSelected() == true) {
-            FixPersalinan.setText(rOPLaparatomi.getText());
-            rSC.setSelected(false);
-            rPerdarahanSebelum.setSelected(false);
-            rPerdarahanSesudah.setSelected(false);
-            rPreEklamsi.setSelected(false);
-            rEklamsi.setSelected(false);
-            rInfeksi.setSelected(false);
-            rLainlain.setSelected(false);
-            rAbortus.setSelected(false);
-            rImunisasi1.setSelected(false);
-            rImunisasi2.setSelected(false);
-            rPersalinanNormal.setSelected(false);
-            rAmniotomy.setSelected(false);
-            rPartusPenyulit.setSelected(false);
-            rVacumExtraksi.setSelected(false);
-            rSCMOW.setSelected(false);
-            rPerawatanKonservatif.setSelected(false);
-        }
-    }//GEN-LAST:event_rOPLaparatomiActionPerformed
-
-    private void rPerawatanKonservatifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rPerawatanKonservatifActionPerformed
-        if (rPerawatanKonservatif.isSelected() == true) {
-            FixPersalinan.setText(rPerawatanKonservatif.getText());
-            rSC.setSelected(false);
-            rPerdarahanSebelum.setSelected(false);
-            rPerdarahanSesudah.setSelected(false);
-            rPreEklamsi.setSelected(false);
-            rEklamsi.setSelected(false);
-            rInfeksi.setSelected(false);
-            rLainlain.setSelected(false);
-            rAbortus.setSelected(false);
-            rImunisasi1.setSelected(false);
-            rImunisasi2.setSelected(false);
-            rPersalinanNormal.setSelected(false);
-            rAmniotomy.setSelected(false);
-            rOPLaparatomi.setSelected(false);
-            rPartusPenyulit.setSelected(false);
-            rVacumExtraksi.setSelected(false);
-            rSCMOW.setSelected(false);
-        }
-    }//GEN-LAST:event_rPerawatanKonservatifActionPerformed
-
     /**
     * @param args the command line arguments
     */
@@ -1616,6 +1005,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.ScrollPane Scroll;
     public widget.TextBox TCari;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private widget.ComboBox cmbLimit;
     private widget.InternalFrame internalFrame1;
     private widget.Label jLabel48;
@@ -1673,354 +1063,52 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             BtnGanti.setEnabled(true);
 
             if (FixPersalinan.getText().equals("Persalinan Normal")) {
-                rPersalinanNormal.setSelected(true);
-                rSC.setSelected(false);
-                rPerdarahanSebelum.setSelected(false);
-                rPerdarahanSesudah.setSelected(false);
-                rPreEklamsi.setSelected(false);
-                rEklamsi.setSelected(false);
-                rInfeksi.setSelected(false);
-                rLainlain.setSelected(false);
-                rAbortus.setSelected(false);
-                rImunisasi1.setSelected(false);
-                rImunisasi2.setSelected(false);
-                rAmniotomy.setSelected(false);
-                rPartusPenyulit.setSelected(false);
-                rVacumExtraksi.setSelected(false);
-                rSCMOW.setSelected(false);
-                rOPLaparatomi.setSelected(false);
-                rPerawatanKonservatif.setSelected(false);
+                rPersalinanNormal.setSelected(true);                
             } else if (FixPersalinan.getText().equals("Amniotomy")) {
-                rPersalinanNormal.setSelected(false);
-                rSC.setSelected(false);
-                rPerdarahanSebelum.setSelected(false);
-                rPerdarahanSesudah.setSelected(false);
-                rPreEklamsi.setSelected(false);
-                rEklamsi.setSelected(false);
-                rInfeksi.setSelected(false);
-                rLainlain.setSelected(false);
-                rAbortus.setSelected(false);
-                rImunisasi1.setSelected(false);
-                rImunisasi2.setSelected(false);
-                rAmniotomy.setSelected(true);
-                rPartusPenyulit.setSelected(false);
-                rVacumExtraksi.setSelected(false);
-                rSCMOW.setSelected(false);
-                rOPLaparatomi.setSelected(false);
-                rPerawatanKonservatif.setSelected(false);
+                rAmniotomy.setSelected(true);                
             } else if (FixPersalinan.getText().equals("Partus Penyulit")) {
-                rPersalinanNormal.setSelected(false);
-                rSC.setSelected(false);
-                rPerdarahanSebelum.setSelected(false);
-                rPerdarahanSesudah.setSelected(false);
-                rPreEklamsi.setSelected(false);
-                rEklamsi.setSelected(false);
-                rInfeksi.setSelected(false);
-                rLainlain.setSelected(false);
-                rAbortus.setSelected(false);
-                rImunisasi1.setSelected(false);
-                rImunisasi2.setSelected(false);
-                rAmniotomy.setSelected(false);
-                rPartusPenyulit.setSelected(true);
-                rVacumExtraksi.setSelected(false);
-                rSCMOW.setSelected(false);
-                rOPLaparatomi.setSelected(false);
-                rPerawatanKonservatif.setSelected(false);
+                rPartusPenyulit.setSelected(true);                
             } else if (FixPersalinan.getText().equals("Vacum Extraksi")) {
-                rPersalinanNormal.setSelected(false);
-                rSC.setSelected(false);
-                rPerdarahanSebelum.setSelected(false);
-                rPerdarahanSesudah.setSelected(false);
-                rPreEklamsi.setSelected(false);
-                rEklamsi.setSelected(false);
-                rInfeksi.setSelected(false);
-                rLainlain.setSelected(false);
-                rAbortus.setSelected(false);
-                rImunisasi1.setSelected(false);
-                rImunisasi2.setSelected(false);
-                rAmniotomy.setSelected(false);
-                rPartusPenyulit.setSelected(false);
-                rVacumExtraksi.setSelected(true);
-                rSCMOW.setSelected(false);
-                rOPLaparatomi.setSelected(false);
-                rPerawatanKonservatif.setSelected(false);
+                rVacumExtraksi.setSelected(true);                
             } else if (FixPersalinan.getText().equals("SC + MOW")) {
-                rPersalinanNormal.setSelected(false);
-                rSC.setSelected(false);
-                rPerdarahanSebelum.setSelected(false);
-                rPerdarahanSesudah.setSelected(false);
-                rPreEklamsi.setSelected(false);
-                rEklamsi.setSelected(false);
-                rInfeksi.setSelected(false);
-                rLainlain.setSelected(false);
-                rAbortus.setSelected(false);
-                rImunisasi1.setSelected(false);
-                rImunisasi2.setSelected(false);
-                rAmniotomy.setSelected(false);
-                rPartusPenyulit.setSelected(false);
-                rVacumExtraksi.setSelected(false);
-                rSCMOW.setSelected(true);
-                rOPLaparatomi.setSelected(false);
-                rPerawatanKonservatif.setSelected(false);
+                rSCMOW.setSelected(true);                
             } else if (FixPersalinan.getText().equals("Sectio Caesarean (SC)")) {
-                rPersalinanNormal.setSelected(false);
-                rSC.setSelected(true);
-                rPerdarahanSebelum.setSelected(false);
-                rPerdarahanSesudah.setSelected(false);
-                rPreEklamsi.setSelected(false);
-                rEklamsi.setSelected(false);
-                rInfeksi.setSelected(false);
-                rLainlain.setSelected(false);
-                rAbortus.setSelected(false);
-                rImunisasi1.setSelected(false);
-                rImunisasi2.setSelected(false);
-                rAmniotomy.setSelected(false);
-                rPartusPenyulit.setSelected(false);
-                rVacumExtraksi.setSelected(false);
-                rSCMOW.setSelected(false);
-                rOPLaparatomi.setSelected(false);
-                rPerawatanKonservatif.setSelected(false);
+                rSC.setSelected(true);                
             } else if (FixPersalinan.getText().equals("Perdarahan Sebelum Persalinan")) {
-                rPersalinanNormal.setSelected(false);
-                rSC.setSelected(false);
-                rPerdarahanSebelum.setSelected(true);
-                rPerdarahanSesudah.setSelected(false);
-                rPreEklamsi.setSelected(false);
-                rEklamsi.setSelected(false);
-                rInfeksi.setSelected(false);
-                rLainlain.setSelected(false);
-                rAbortus.setSelected(false);
-                rImunisasi1.setSelected(false);
-                rImunisasi2.setSelected(false);
-                rAmniotomy.setSelected(false);
-                rPartusPenyulit.setSelected(false);
-                rVacumExtraksi.setSelected(false);
-                rSCMOW.setSelected(false);
-                rOPLaparatomi.setSelected(false);
-                rPerawatanKonservatif.setSelected(false);
+                rPerdarahanSebelum.setSelected(true);                
             } else if (FixPersalinan.getText().equals("Perdarahan Sesudah Persalinan")) {
-                rPersalinanNormal.setSelected(false);
-                rSC.setSelected(false);
-                rPerdarahanSebelum.setSelected(false);
-                rPerdarahanSesudah.setSelected(true);
-                rPreEklamsi.setSelected(false);
-                rEklamsi.setSelected(false);
-                rInfeksi.setSelected(false);
-                rLainlain.setSelected(false);
-                rAbortus.setSelected(false);
-                rImunisasi1.setSelected(false);
-                rImunisasi2.setSelected(false);
-                rAmniotomy.setSelected(false);
-                rPartusPenyulit.setSelected(false);
-                rVacumExtraksi.setSelected(false);
-                rSCMOW.setSelected(false);
-                rOPLaparatomi.setSelected(false);
-                rPerawatanKonservatif.setSelected(false);
+                rPerdarahanSesudah.setSelected(true);                
             } else if (FixPersalinan.getText().equals("Pre Eclampsi")) {
-                rPersalinanNormal.setSelected(false);
-                rSC.setSelected(false);
-                rPerdarahanSebelum.setSelected(false);
-                rPerdarahanSesudah.setSelected(false);
-                rPreEklamsi.setSelected(true);
-                rEklamsi.setSelected(false);
-                rInfeksi.setSelected(false);
-                rLainlain.setSelected(false);
-                rAbortus.setSelected(false);
-                rImunisasi1.setSelected(false);
-                rImunisasi2.setSelected(false);
-                rAmniotomy.setSelected(false);
-                rPartusPenyulit.setSelected(false);
-                rVacumExtraksi.setSelected(false);
-                rSCMOW.setSelected(false);
-                rOPLaparatomi.setSelected(false);
-                rPerawatanKonservatif.setSelected(false);
+                rPreEklamsi.setSelected(true);                
             } else if (FixPersalinan.getText().equals("Eclampsi")) {
-                rPersalinanNormal.setSelected(false);
-                rSC.setSelected(false);
-                rPerdarahanSebelum.setSelected(false);
-                rPerdarahanSesudah.setSelected(false);
-                rPreEklamsi.setSelected(false);
-                rEklamsi.setSelected(true);
-                rInfeksi.setSelected(false);
-                rLainlain.setSelected(false);
-                rAbortus.setSelected(false);
-                rImunisasi1.setSelected(false);
-                rImunisasi2.setSelected(false);
-                rAmniotomy.setSelected(false);
-                rPartusPenyulit.setSelected(false);
-                rVacumExtraksi.setSelected(false);
-                rSCMOW.setSelected(false);
-                rOPLaparatomi.setSelected(false);
-                rPerawatanKonservatif.setSelected(false);
+                rEklamsi.setSelected(true);                
             } else if (FixPersalinan.getText().equals("Infeksi")) {
-                rPersalinanNormal.setSelected(false);
-                rSC.setSelected(false);
-                rPerdarahanSebelum.setSelected(false);
-                rPerdarahanSesudah.setSelected(false);
-                rPreEklamsi.setSelected(false);
-                rEklamsi.setSelected(false);
-                rInfeksi.setSelected(true);
-                rLainlain.setSelected(false);
-                rAbortus.setSelected(false);
-                rImunisasi1.setSelected(false);
-                rImunisasi2.setSelected(false);
-                rAmniotomy.setSelected(false);
-                rPartusPenyulit.setSelected(false);
-                rVacumExtraksi.setSelected(false);
-                rSCMOW.setSelected(false);
-                rOPLaparatomi.setSelected(false);
-                rPerawatanKonservatif.setSelected(false);
+                rInfeksi.setSelected(true);                
             } else if (FixPersalinan.getText().equals("Lain-lain")) {
-                rPersalinanNormal.setSelected(false);
-                rSC.setSelected(false);
-                rPerdarahanSebelum.setSelected(false);
-                rPerdarahanSesudah.setSelected(false);
-                rPreEklamsi.setSelected(false);
-                rEklamsi.setSelected(false);
-                rInfeksi.setSelected(false);
-                rLainlain.setSelected(true);
-                rAbortus.setSelected(false);
-                rImunisasi1.setSelected(false);
-                rImunisasi2.setSelected(false);
-                rAmniotomy.setSelected(false);
-                rPartusPenyulit.setSelected(false);
-                rVacumExtraksi.setSelected(false);
-                rSCMOW.setSelected(false);
-                rOPLaparatomi.setSelected(false);
-                rPerawatanKonservatif.setSelected(false);
+                rLainlain.setSelected(true);                
             } else if (FixPersalinan.getText().equals("Abortus")) {
-                rPersalinanNormal.setSelected(false);
-                rSC.setSelected(false);
-                rPerdarahanSebelum.setSelected(false);
-                rPerdarahanSesudah.setSelected(false);
-                rPreEklamsi.setSelected(false);
-                rEklamsi.setSelected(false);
-                rInfeksi.setSelected(false);
-                rLainlain.setSelected(false);
-                rAbortus.setSelected(true);
-                rImunisasi1.setSelected(false);
-                rImunisasi2.setSelected(false);
-                rAmniotomy.setSelected(false);
-                rPartusPenyulit.setSelected(false);
-                rVacumExtraksi.setSelected(false);
-                rSCMOW.setSelected(false);
-                rOPLaparatomi.setSelected(false);
-                rPerawatanKonservatif.setSelected(false);
+                rAbortus.setSelected(true);                
             } else if (FixPersalinan.getText().equals("Imunisasi-TT1")) {
-                rPersalinanNormal.setSelected(false);
-                rSC.setSelected(false);
-                rPerdarahanSebelum.setSelected(false);
-                rPerdarahanSesudah.setSelected(false);
-                rPreEklamsi.setSelected(false);
-                rEklamsi.setSelected(false);
-                rInfeksi.setSelected(false);
-                rLainlain.setSelected(false);
-                rAbortus.setSelected(false);
-                rImunisasi1.setSelected(true);
-                rImunisasi2.setSelected(false);
-                rAmniotomy.setSelected(false);
-                rPartusPenyulit.setSelected(false);
-                rVacumExtraksi.setSelected(false);
-                rSCMOW.setSelected(false);
-                rOPLaparatomi.setSelected(false);
-                rPerawatanKonservatif.setSelected(false);
+                rImunisasi1.setSelected(true);                
             } else if (FixPersalinan.getText().equals("Imunisasi-TT2")) {
-                rPersalinanNormal.setSelected(false);
-                rSC.setSelected(false);
-                rPerdarahanSebelum.setSelected(false);
-                rPerdarahanSesudah.setSelected(false);
-                rPreEklamsi.setSelected(false);
-                rEklamsi.setSelected(false);
-                rInfeksi.setSelected(false);
-                rLainlain.setSelected(false);
-                rAbortus.setSelected(false);
-                rImunisasi1.setSelected(false);
-                rImunisasi2.setSelected(true);
-                rAmniotomy.setSelected(false);
-                rPartusPenyulit.setSelected(false);
-                rVacumExtraksi.setSelected(false);
-                rSCMOW.setSelected(false);
-                rOPLaparatomi.setSelected(false);
-                rPerawatanKonservatif.setSelected(false);
+                rImunisasi2.setSelected(true);                
             } else if (FixPersalinan.getText().equals("OP Laparatomi")) {
-                rPersalinanNormal.setSelected(false);
-                rSC.setSelected(false);
-                rPerdarahanSebelum.setSelected(false);
-                rPerdarahanSesudah.setSelected(false);
-                rPreEklamsi.setSelected(false);
-                rEklamsi.setSelected(false);
-                rInfeksi.setSelected(false);
-                rLainlain.setSelected(false);
-                rAbortus.setSelected(false);
-                rImunisasi1.setSelected(false);
-                rImunisasi2.setSelected(false);
-                rAmniotomy.setSelected(false);
-                rPartusPenyulit.setSelected(false);
-                rVacumExtraksi.setSelected(false);
-                rSCMOW.setSelected(false);
-                rOPLaparatomi.setSelected(true);
-                rPerawatanKonservatif.setSelected(false);
+                rOPLaparatomi.setSelected(true);                
             } else if (FixPersalinan.getText().equals("Perawatan / Konservatif")) {
-                rPersalinanNormal.setSelected(false);
-                rSC.setSelected(false);
-                rPerdarahanSebelum.setSelected(false);
-                rPerdarahanSesudah.setSelected(false);
-                rPreEklamsi.setSelected(false);
-                rEklamsi.setSelected(false);
-                rInfeksi.setSelected(false);
-                rLainlain.setSelected(false);
-                rAbortus.setSelected(false);
-                rImunisasi1.setSelected(false);
-                rImunisasi2.setSelected(false);
-                rAmniotomy.setSelected(false);
-                rPartusPenyulit.setSelected(false);
-                rVacumExtraksi.setSelected(false);
-                rSCMOW.setSelected(false);
-                rOPLaparatomi.setSelected(false);
                 rPerawatanKonservatif.setSelected(true);
             }
 
             if (FixRujukan.getText().equals("Rumah Sakit")) {
-                rRS.setSelected(true);
-                rBidan.setSelected(false);
-                rPuskes.setSelected(false);
-                rFaskes.setSelected(false);
-                rNonMedis.setSelected(false);
-                rTanpaRujukan.setSelected(false);
+                rRS.setSelected(true);                
             } else if (FixRujukan.getText().equals("Bidan")) {
-                rRS.setSelected(false);
-                rBidan.setSelected(true);
-                rPuskes.setSelected(false);
-                rFaskes.setSelected(false);
-                rNonMedis.setSelected(false);
-                rTanpaRujukan.setSelected(false);
+                rBidan.setSelected(true);                
             } else if (FixRujukan.getText().equals("Puskesmas")) {
-                rRS.setSelected(false);
-                rBidan.setSelected(false);
-                rPuskes.setSelected(true);
-                rFaskes.setSelected(false);
-                rNonMedis.setSelected(false);
-                rTanpaRujukan.setSelected(false);
+                rPuskes.setSelected(true);                
             } else if (FixRujukan.getText().equals("Faskes Lainnya")) {
-                rRS.setSelected(false);
-                rBidan.setSelected(false);
-                rPuskes.setSelected(false);
-                rFaskes.setSelected(true);
-                rNonMedis.setSelected(false);
-                rTanpaRujukan.setSelected(false);
+                rFaskes.setSelected(true);                
             } else if (FixRujukan.getText().equals("Non Medis")) {
-                rRS.setSelected(false);
-                rBidan.setSelected(false);
-                rPuskes.setSelected(false);
-                rFaskes.setSelected(false);
                 rNonMedis.setSelected(true);
-                rTanpaRujukan.setSelected(false);
             } else if (FixRujukan.getText().equals("Tanpa Rujukan")) {
-                rRS.setSelected(false);
-                rBidan.setSelected(false);
-                rPuskes.setSelected(false);
-                rFaskes.setSelected(false);
-                rNonMedis.setSelected(false);
                 rTanpaRujukan.setSelected(true);
             }
         }
@@ -2301,6 +1389,61 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         Valid.SetTgl(DTPCari1, tglMsk);
         stsPulang = statusPlg;
         namapasien.setText(Sequel.cariIsi("select nm_pasien from pasien where no_rkm_medis='" + noRM + "'"));
+    }
+     
+    private void DataFix() {
+        FixPersalinan.setText("");
+        FixRujukan.setText("");
+        
+        if (rPersalinanNormal.isSelected() == true) {
+            FixPersalinan.setText(rPersalinanNormal.getText());
+        } else if (rAmniotomy.isSelected() == true) {
+            FixPersalinan.setText(rAmniotomy.getText());            
+        } else if (rPartusPenyulit.isSelected() == true) {
+            FixPersalinan.setText(rPartusPenyulit.getText());            
+        } else if (rVacumExtraksi.isSelected() == true) {
+            FixPersalinan.setText(rVacumExtraksi.getText());            
+        } else if (rSCMOW.isSelected() == true) {
+            FixPersalinan.setText(rSCMOW.getText());            
+        } else if (rSC.isSelected() == true) {
+            FixPersalinan.setText(rSC.getText());            
+        } else if (rPerdarahanSebelum.isSelected() == true) {
+            FixPersalinan.setText(rPerdarahanSebelum.getText());            
+        } else if (rPerdarahanSesudah.isSelected() == true) {
+            FixPersalinan.setText(rPerdarahanSesudah.getText());            
+        } else if (rPreEklamsi.isSelected() == true) {
+            FixPersalinan.setText(rPreEklamsi.getText());            
+        } else if (rEklamsi.isSelected() == true) {
+            FixPersalinan.setText(rEklamsi.getText());            
+        } else if (rInfeksi.isSelected() == true) {
+            FixPersalinan.setText(rInfeksi.getText());            
+        } else if (rLainlain.isSelected() == true) {
+            FixPersalinan.setText(rLainlain.getText());            
+        } else if (rAbortus.isSelected() == true) {
+            FixPersalinan.setText(rAbortus.getText());            
+        } else if (rImunisasi1.isSelected() == true) {
+            FixPersalinan.setText(rImunisasi1.getText());            
+        } else if (rImunisasi2.isSelected() == true) {
+            FixPersalinan.setText(rImunisasi2.getText());            
+        } else if (rOPLaparatomi.isSelected() == true) {
+            FixPersalinan.setText(rOPLaparatomi.getText());            
+        } else if (rPerawatanKonservatif.isSelected() == true) {
+            FixPersalinan.setText(rPerawatanKonservatif.getText());            
+        }
+        
+        if (rRS.isSelected() == true) {
+            FixRujukan.setText(rRS.getText());            
+        } else if (rBidan.isSelected() == true) {
+            FixRujukan.setText(rBidan.getText());            
+        } else if (rPuskes.isSelected() == true) {
+            FixRujukan.setText(rPuskes.getText());            
+        } else if (rFaskes.isSelected() == true) {
+            FixRujukan.setText(rFaskes.getText());            
+        } else if (rNonMedis.isSelected() == true) {
+            FixRujukan.setText(rNonMedis.getText());            
+        } else if (rTanpaRujukan.isSelected() == true) {
+            FixRujukan.setText(rTanpaRujukan.getText());            
+        }        
     }
 
 }
