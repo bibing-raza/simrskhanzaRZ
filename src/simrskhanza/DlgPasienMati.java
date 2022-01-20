@@ -58,8 +58,7 @@ public class DlgPasienMati extends javax.swing.JDialog {
     private String sql = " pasien_mati.no_rkm_medis=pasien.no_rkm_medis  ", umur = "0",
             sttsumur = "Th", a, b, noSurat = "", regBulan = "", thmati = "", blmati = "";
     private String now = dateformat.format(date), timeIn = timeFormat.format(date);
-    private double cek = 0;
-    private int cekMatiIgd = 0;
+    private double cek = 0, pasienIGD = 0;
     private Date date2 = new Date(), timeOut, dateIn, dateOut, timeIn2;
     private Calendar date3 = Calendar.getInstance();
 
@@ -1295,9 +1294,20 @@ public class DlgPasienMati extends javax.swing.JDialog {
             tampil();
             emptTeks();
         } else {
-            Valid.hapusTable(tabMode, TNoRM, "pasien_mati", "pasien_mati.no_rkm_medis");
-            tampil();
-            emptTeks();
+            if (pasienIGD > 0) {                
+                Sequel.mengedit("data_igd", "(SELECT di.tindakan_lanjut FROM data_igd di "
+                        + "INNER JOIN reg_periksa rp ON rp.no_rawat=di.no_rawat "
+                        + "WHERE rp.tgl_registrasi='" + Valid.SetTgl(DTPTgl.getSelectedItem() + "") + "' AND rp.no_rkm_medis = '" + TNoRM.getText() + "' "
+                        + "AND rp.kd_poli = 'IGDK' and date_format(rp.jam_reg,'%H:%i')='" + Sequel.cariIsi("select date_format(jam,'%H:%i') from pasien_mati where no_rkm_medis='" + TNoRM.getText() + "'") + "') IN ('MENINGGAL DI IGD','D.O.A')",
+                        "tindakan_lanjut='-' ");
+                Valid.hapusTable(tabMode, TNoRM, "pasien_mati", "pasien_mati.no_rkm_medis");
+                tampil();
+                emptTeks();
+            } else {
+                Valid.hapusTable(tabMode, TNoRM, "pasien_mati", "pasien_mati.no_rkm_medis");
+                tampil();
+                emptTeks();
+            }
         }
 }//GEN-LAST:event_BtnHapusActionPerformed
 
@@ -2061,7 +2071,12 @@ private void MnCetakSuratMatiActionPerformed(java.awt.event.ActionEvent evt) {//
     }
 
     private void cekDaftar() {
-        cek = Sequel.cekIGD("select count(1) from reg_periksa where tgl_registrasi = ? and kd_dokter = ? and no_rkm_medis = ? and kd_poli = ?", Valid.SetTgl(DTPTgl.getSelectedItem() + ""), "-", TNoRM.getText(), "KJH");
+        cek = Sequel.cekIGD("select count(1) from reg_periksa where tgl_registrasi = ? and kd_dokter = ? and no_rkm_medis = ? "
+                + "and kd_poli = ? and jam_reg = ?", Valid.SetTgl(DTPTgl.getSelectedItem() + ""), "-", TNoRM.getText(), "KJH",
+                Sequel.cariIsi("select jam from pasien_mati where no_rkm_medis='" + TNoRM.getText() + "'"));
+        pasienIGD = Sequel.cekIGD("select count(1) from reg_periksa where tgl_registrasi = ? and kd_dokter like ? and "
+                + "no_rkm_medis = ? and kd_poli = ? and date_format(jam_reg,'%H:%i') = ?", Valid.SetTgl(DTPTgl.getSelectedItem() + ""), "%%", TNoRM.getText(), "IGDK",
+                Sequel.cariIsi("select date_format(jam,'%H:%i') from pasien_mati where no_rkm_medis='" + TNoRM.getText() + "'"));
     }
 
     public void ctkSemua() {

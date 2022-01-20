@@ -9166,7 +9166,8 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
     }
 
     private void cekDaftar() {
-        cek = Sequel.cekIGD("select count(1) from reg_periksa where tgl_registrasi = ? and kd_dokter = ? and no_rkm_medis = ? and kd_poli = ?", tglDaftar, kddokter.getText(), TNoID.getText(), "IGDK");
+        cek = Sequel.cekIGD("select count(1) from reg_periksa where tgl_registrasi = ? and kd_dokter = ? and no_rkm_medis = ? "
+                + "and kd_poli = ? and jam_reg like ?", tglDaftar, kddokter.getText(), TNoID.getText(), "IGDK", "%%");
     }
 
     private Object executeQuery() {
@@ -9221,7 +9222,7 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
             Sequel.mengedit("pasien_mati", "no_rkm_medis='" + TNoRM.getText() + "'", "keterangan='" + cmbTindakan.getSelectedItem() + "', unit_asal='IGD' ");
 
         } else if ((rmMati.getText().equals("")) && ((cmbTindakan.getSelectedItem().equals("MENINGGAL DI IGD")) || (cmbTindakan.getSelectedItem().equals("D.O.A")))) {
-            Sequel.menyimpan("pasien_mati", "'" + tglDaftar + "','" + Sequel.cariIsi("SELECT TIME(NOW()) jam") + "','"
+            Sequel.menyimpan("pasien_mati", "'" + tglDaftar + "','" + tbregistrasiIGD.getValueAt(tbregistrasiIGD.getSelectedRow(), 4).toString() + "','"
                     + TNoRM.getText() + "','" + cmbTindakan.getSelectedItem() + "','Rumah Sakit','-','-','-','-','IGD','-','',''", "pasien");
         }
     }

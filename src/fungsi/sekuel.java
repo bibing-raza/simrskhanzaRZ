@@ -1769,7 +1769,7 @@ public void menyimpan3(String table,String value,int i,String[] a,String acuan_f
         }
     }
     
-    public double cekIGD(String sql, String kunci, String kunci2, String kunci3, String kunci4) {
+    public double cekIGD(String sql, String kunci, String kunci2, String kunci3, String kunci4, String kunci5) {
         angka2 = 0;
         try {
             ps = connect.prepareStatement(sql);
@@ -1778,6 +1778,7 @@ public void menyimpan3(String table,String value,int i,String[] a,String acuan_f
                 ps.setString(2, kunci2);
                 ps.setString(3, kunci3);
                 ps.setString(4, kunci4);
+                ps.setString(5, kunci5);
                 rs = ps.executeQuery();
                 if (rs.next()) {
                     angka2 = rs.getDouble(1);
