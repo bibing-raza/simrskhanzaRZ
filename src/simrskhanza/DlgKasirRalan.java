@@ -5971,7 +5971,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
 //        MnCariPermintaanRad.setEnabled(var.getperiksa_radiologi());
         ppPasienCorona.setEnabled(var.getpasien_corona());
         ppPerawatanCorona.setEnabled(var.getpasien_corona());
-        ppSuratKontrol.setEnabled(var.getbpjs_surat_kontrol()); 
+        ppSuratKontrol.setEnabled(var.getRencanaKontrolJKN()); 
         MnEklaimINACBG.setEnabled(var.getinacbg_klaim_raza()); 
         MnSEPBPJS.setEnabled(var.getinacbg_klaim_raza());
         ChkAutoRefres.setEnabled(var.getrujukan_poli_internal());

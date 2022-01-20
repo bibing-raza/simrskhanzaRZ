@@ -5189,9 +5189,9 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         ppSEP.setEnabled(var.getbpjs_sep());
         ppUpdateSEPdariVclaim.setEnabled(var.getbpjs_sep());
         ppRujukan.setEnabled(var.getbpjs_sep());
-        ppSuratKontrol.setEnabled(var.getbpjs_surat_kontrol());
+        ppSuratKontrol.setEnabled(var.getRencanaKontrolJKN());
       
-        if (var.getkode().equals("Admin Utama")) {
+        if (var.getkode().equals("Admin Utama") || var.getHapusSEP() == true) {
             BtnHapus.setEnabled(true);
         } else {
             BtnHapus.setEnabled(false);

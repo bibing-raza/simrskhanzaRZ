@@ -1620,10 +1620,10 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     }
     
     public void isCek(){
-        BtnSimpan.setEnabled(var.getbpjs_surat_kontrol());
-        BtnHapus.setEnabled(var.getbpjs_surat_kontrol());
-        BtnPrint.setEnabled(var.getbpjs_surat_kontrol());
-        BtnEdit.setEnabled(var.getbpjs_surat_kontrol());
+        BtnSimpan.setEnabled(var.getRencanaKontrolJKN());
+        BtnHapus.setEnabled(var.getRencanaKontrolJKN());
+        BtnPrint.setEnabled(var.getRencanaKontrolJKN());
+        BtnEdit.setEnabled(var.getRencanaKontrolJKN());
     }
 
     public JTable getTable(){

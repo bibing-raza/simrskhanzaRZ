@@ -12911,7 +12911,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
                 jmlmenu++;
             }
             
-            if (var.getbpjs_surat_kontrol()== true) {
+            if (var.getRencanaKontrolJKN()== true) {
                 Panelmenu.add(btnRencanaKontrolBPJS);
                 jmlmenu++;
             }
@@ -13585,7 +13585,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
             jmlmenu++;
         }
         
-        if (var.getbpjs_surat_kontrol() == true) {
+        if (var.getRencanaKontrolJKN() == true) {
             Panelmenu.add(btnRencanaKontrolBPJS);
             jmlmenu++;
         }
@@ -15264,7 +15264,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
             }
         }
         
-        if (var.getbpjs_surat_kontrol() == true) {
+        if (var.getRencanaKontrolJKN() == true) {
             if (btnRencanaKontrolBPJS.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())) {
                 Panelmenu.add(btnRencanaKontrolBPJS);
                 jmlmenu++;

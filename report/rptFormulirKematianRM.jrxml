@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="550" leftMargin="25" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.3660269107301566"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="326"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="namars" class="java.lang.String"/>
 	<parameter name="alamatrs" class="java.lang.String"/>
 	<parameter name="kotars" class="java.lang.String"/>
@@ -34,7 +34,9 @@ pasien.agama,
 pasien_mati.keterangan,
 kelurahan.nm_kel,
 kecamatan.nm_kec,
-kabupaten.nm_kab
+kabupaten.nm_kab,
+ifnull(pasien_mati.no_surat,'.....') nosurat,
+ifnull(pasien_mati.reg_bulan,'.....') noregbulan
 FROM
 pasien_mati ,
 pasien
@@ -100,6 +102,8 @@ ORDER BY
 	<field name="nm_kab" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="nosurat" class="java.lang.String"/>
+	<field name="noregbulan" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -146,12 +150,6 @@ ORDER BY
 				</textElement>
 				<textFieldExpression class="java.util.Date"><![CDATA[$F{tanggal}]]></textFieldExpression>
 			</textField>
-			<line direction="BottomUp">
-				<reportElement x="73" y="124" width="127" height="1"/>
-				<graphicElement>
-					<pen lineWidth="1.0" lineStyle="Dotted"/>
-				</graphicElement>
-			</line>
 			<image scaleImage="FillFrame" onErrorType="Blank">
 				<reportElement x="18" y="23" width="45" height="63"/>
 				<imageExpression class="java.io.InputStream"><![CDATA[$P{logo}]]></imageExpression>
@@ -238,21 +236,12 @@ ORDER BY
 				<text><![CDATA[No. Rekam Medis :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="9" y="139" width="175" height="13"/>
+				<reportElement x="9" y="139" width="180" height="13"/>
 				<textElement lineSpacing="Single">
 					<font fontName="Calibri" size="10"/>
 				</textElement>
 				<text><![CDATA[No. Urut Pencatatan Kematian Tiap Bulan :]]></text>
 			</staticText>
-			<rectangle>
-				<reportElement mode="Transparent" x="195" y="142" width="10" height="10" forecolor="#000000" backcolor="#999999"/>
-			</rectangle>
-			<rectangle>
-				<reportElement mode="Transparent" x="185" y="142" width="10" height="10" forecolor="#000000" backcolor="#999999"/>
-			</rectangle>
-			<rectangle>
-				<reportElement mode="Transparent" x="205" y="142" width="10" height="10" forecolor="#000000" backcolor="#999999"/>
-			</rectangle>
 			<staticText>
 				<reportElement x="9" y="154" width="101" height="16"/>
 				<textElement lineSpacing="Single">
@@ -878,6 +867,20 @@ petugas kode]]></text>
 					<font fontName="Calibri"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{kotars}+", "+$P{tgl_surat}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="72" y="113" width="333" height="13"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Calibri" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["474.3/"+$F{nosurat}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="190" y="139" width="68" height="13"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Calibri" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{noregbulan}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

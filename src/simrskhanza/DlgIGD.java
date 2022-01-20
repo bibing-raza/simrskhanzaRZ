@@ -4967,7 +4967,7 @@ public final class DlgIGD extends javax.swing.JDialog {
 
                     if ((cmbTindakan.getSelectedItem().equals("MENINGGAL DI IGD")) || (cmbTindakan.getSelectedItem().equals("D.O.A"))) {
                         Sequel.menyimpan("pasien_mati", "'" + tglDaftar + "','" + Sequel.cariIsi("SELECT TIME(NOW()) jam") + "','"
-                                + TNoRM.getText() + "','" + cmbTindakan.getSelectedItem() + "','Rumah Sakit','-','-','-','-','IGD','-'", "pasien");
+                                + TNoRM.getText() + "','" + cmbTindakan.getSelectedItem() + "','Rumah Sakit','-','-','-','-','IGD','-','',''", "pasien");
                     
                     } else if (cmbTindakan.getSelectedItem().equals("APS")) {
                         Sequel.menyimpan("ralan_aps", "'" + TNoRw.getText() + "','" + kdAPS + "','" + ketAPS.getText() + "'");
@@ -4995,7 +4995,7 @@ public final class DlgIGD extends javax.swing.JDialog {
 
                         if ((cmbTindakan.getSelectedItem().equals("MENINGGAL DI IGD")) || (cmbTindakan.getSelectedItem().equals("D.O.A"))) {
                             Sequel.menyimpan("pasien_mati", "'" + tglDaftar + "','" + Sequel.cariIsi("SELECT TIME(NOW()) jam") + "','"
-                                    + TNoRM.getText() + "','" + cmbTindakan.getSelectedItem() + "','Rumah Sakit','-','-','-','-','IGD','-'", "pasien");
+                                    + TNoRM.getText() + "','" + cmbTindakan.getSelectedItem() + "','Rumah Sakit','-','-','-','-','IGD','-','',''", "pasien");
                         
                         } else if (cmbTindakan.getSelectedItem().equals("APS")) {
                             Sequel.menyimpan("ralan_aps", "'" + TNoRw.getText() + "','" + kdAPS + "','" + ketAPS.getText() + "'");
@@ -5023,7 +5023,7 @@ public final class DlgIGD extends javax.swing.JDialog {
 
                             if ((cmbTindakan.getSelectedItem().equals("MENINGGAL DI IGD")) || (cmbTindakan.getSelectedItem().equals("D.O.A"))) {
                                 Sequel.menyimpan("pasien_mati", "'" + tglDaftar + "','" + Sequel.cariIsi("SELECT TIME(NOW()) jam") + "','"
-                                        + TNoRM.getText() + "','" + cmbTindakan.getSelectedItem() + "','Rumah Sakit','-','-','-','-','IGD','-'", "pasien");
+                                        + TNoRM.getText() + "','" + cmbTindakan.getSelectedItem() + "','Rumah Sakit','-','-','-','-','IGD','-','',''", "pasien");
                             
                             } else if (cmbTindakan.getSelectedItem().equals("APS")) {
                                 Sequel.menyimpan("ralan_aps", "'" + TNoRw.getText() + "','" + kdAPS + "','" + ketAPS.getText() + "'");
@@ -5051,7 +5051,7 @@ public final class DlgIGD extends javax.swing.JDialog {
 
                                 if ((cmbTindakan.getSelectedItem().equals("MENINGGAL DI IGD")) || (cmbTindakan.getSelectedItem().equals("D.O.A"))) {
                                     Sequel.menyimpan("pasien_mati", "'" + tglDaftar + "','" + Sequel.cariIsi("SELECT TIME(NOW()) jam") + "','"
-                                            + TNoRM.getText() + "','" + cmbTindakan.getSelectedItem() + "','Rumah Sakit','-','-','-','-','IGD','-'", "pasien");
+                                            + TNoRM.getText() + "','" + cmbTindakan.getSelectedItem() + "','Rumah Sakit','-','-','-','-','IGD','-','',''", "pasien");
                                 
                                 } else if (cmbTindakan.getSelectedItem().equals("APS")) {
                                     Sequel.menyimpan("ralan_aps", "'" + TNoRw.getText() + "','" + kdAPS + "','" + ketAPS.getText() + "'");
@@ -5079,7 +5079,7 @@ public final class DlgIGD extends javax.swing.JDialog {
 
                                     if ((cmbTindakan.getSelectedItem().equals("MENINGGAL DI IGD")) || (cmbTindakan.getSelectedItem().equals("D.O.A"))) {
                                         Sequel.menyimpan("pasien_mati", "'" + tglDaftar + "','" + Sequel.cariIsi("SELECT TIME(NOW()) jam") + "','"
-                                                + TNoRM.getText() + "','" + cmbTindakan.getSelectedItem() + "','Rumah Sakit','-','-','-','-','IGD','-'", "pasien");
+                                                + TNoRM.getText() + "','" + cmbTindakan.getSelectedItem() + "','Rumah Sakit','-','-','-','-','IGD','-','',''", "pasien");
                                     
                                     } else if (cmbTindakan.getSelectedItem().equals("APS")) {
                                         Sequel.menyimpan("ralan_aps", "'" + TNoRw.getText() + "','" + kdAPS + "','" + ketAPS.getText() + "'");
@@ -9221,7 +9221,7 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
 
         } else if ((rmMati.getText().equals("")) && ((cmbTindakan.getSelectedItem().equals("MENINGGAL DI IGD")) || (cmbTindakan.getSelectedItem().equals("D.O.A")))) {
             Sequel.menyimpan("pasien_mati", "'" + tglDaftar + "','" + Sequel.cariIsi("SELECT TIME(NOW()) jam") + "','"
-                    + TNoRM.getText() + "','" + cmbTindakan.getSelectedItem() + "','Rumah Sakit','-','-','-','-','IGD','-'", "pasien");
+                    + TNoRM.getText() + "','" + cmbTindakan.getSelectedItem() + "','Rumah Sakit','-','-','-','-','IGD','-','',''", "pasien");
         }
     }
     

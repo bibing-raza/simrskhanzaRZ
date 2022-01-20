@@ -113,9 +113,10 @@ public class DlgUser extends javax.swing.JDialog {
                     "[L]Master Triase Skala 1","[L]Master Triase Skala 2","[L]Master Triase Skala 3","[L]Master Triase Skala 4","[L]Master Triase Skala 5","[L]Master Triase Macam Kasus",
                     "[L]Master Triase Pemeriksaan","[L]Rekam Medis Triase IGD","[L]Master Cara Bayar","[C]Status Kerja Dokter","[K]Bridging Pasien Corona","[K]Bridging Diagnosa Pasien Corona",
                     "[K]Perawatan Pasien Corona", "[K]Klaim Baru Manual INACBG 2","[I]Indikator Ranap","[A]Sensus Ranap","[L]Review RM IGD","[L]Review RM Ranap H+1","[L]Review RM Ranap Pulang",
-                    "[L]Review RM Laporan","[A]Assesment Gizi Harian","[A]Assesment Gizi Ulang","[O]Tombol Nota Billing","[O]Tombol Simpan Hasil Rad.","[K]Rencana Kontrol/SPRI BPJS",
-                    "[A]Monitoring Evaluasi Asuhan Gizi","[K]Bridging Eklaim INACBG RAZA","[K]Pengajuan Klaim INACBG RAZA","[A]Copy Pemeriksaan Dokter Ke Perawat/Bidan","[K]INACBG JKN Belum Diklaim",
-                    "[L]Input Kode ICD","[L]Indikator Mutu Unit","[K]Kendali Mutu Kendali Biaya INACBG","[D]Dashboard e-Resep"
+                    "[L]Review RM Laporan","[A]Assesment Gizi Harian","[A]Assesment Gizi Ulang","[O]Tombol Nota Billing","[O]Tombol Simpan Hasil Rad.","[A]Monitoring Evaluasi Asuhan Gizi",
+                    "[K]Bridging Eklaim INACBG RAZA","[K]Pengajuan Klaim INACBG RAZA","[A]Copy Pemeriksaan Dokter Ke Perawat/Bidan","[K]INACBG JKN Belum Diklaim","[L]Input Kode ICD",
+                    "[L]Indikator Mutu Unit","[K]Kendali Mutu Kendali Biaya INACBG","[D]Dashboard e-Resep","[K]Cek SEP Internal BPJS","[K]Kemenkes SITB","[K]Rencana Kontrol JKN","[K]SPRI JKN",
+                    "[K]Hapus SEP"
         };
         
         tabMode=new DefaultTableModel(null,row){
@@ -218,6 +219,7 @@ public class DlgUser extends javax.swing.JDialog {
                 java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class,
                 java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class,
                 java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class,
+                java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class,
                 java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class
              };
              @Override
@@ -230,7 +232,7 @@ public class DlgUser extends javax.swing.JDialog {
         tbUser.setPreferredScrollableViewportSize(new Dimension(500,500));
         tbUser.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (i = 0; i < 359; i++) {
+        for (i = 0; i < 363; i++) {
             TableColumn column = tbUser.getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setPreferredWidth(130);
@@ -565,25 +567,33 @@ public class DlgUser extends javax.swing.JDialog {
             } else if (i == 348) {
                 column.setPreferredWidth(140);
             } else if (i == 349) {
-                column.setPreferredWidth(160);
-            } else if (i == 350) {
                 column.setPreferredWidth(180);
-            } else if (i == 351) {
+            } else if (i == 350) {
                 column.setPreferredWidth(165);
-            } else if (i == 352) {
+            } else if (i == 351) {
                 column.setPreferredWidth(170);
-            } else if (i == 353) {
+            } else if (i == 352) {
                 column.setPreferredWidth(235);
-            } else if (i == 354) {
+            } else if (i == 353) {
                 column.setPreferredWidth(150);
-            } else if (i == 355) {
+            } else if (i == 354) {
                 column.setPreferredWidth(100);
-            } else if (i == 356) {
+            } else if (i == 355) {
                 column.setPreferredWidth(115);
-            } else if (i == 357) {
+            } else if (i == 356) {
                 column.setPreferredWidth(200);
-            } else if (i == 358) {
+            } else if (i == 357) {
                 column.setPreferredWidth(120);
+            } else if (i == 358) {
+                column.setPreferredWidth(130);
+            } else if (i == 359) {
+                column.setPreferredWidth(100);
+            } else if (i == 360) {
+                column.setPreferredWidth(135);
+            } else if (i == 361) {
+                column.setPreferredWidth(75);
+            } else if (i == 362) {
+                column.setPreferredWidth(75);
             } else {
                 column.setPreferredWidth(130);
             }
@@ -1399,7 +1409,7 @@ public class DlgUser extends javax.swing.JDialog {
                     + "'false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false',"
                     + "'false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false',"
                     + "'false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false',"
-                    + "'false','false','false','false','false','false','false','false','false','false','false'", "User") == true) {
+                    + "'false','false','false','false','false','false','false','false','false','false','false','false','false','false','false'", "User") == true) {
                 tampil();
                 emptTeks();
             }
@@ -1790,17 +1800,21 @@ public class DlgUser extends javax.swing.JDialog {
                         + "assesmen_gizi_harian='" + tbUser.getValueAt(i, 345).toString() + "',"
                         + "assesmen_gizi_ulang='" + tbUser.getValueAt(i, 346).toString() + "',"
                         + "tombol_nota_billing='" + tbUser.getValueAt(i, 347).toString() + "',"
-                        + "tombol_simpan_hasil_radiologi='" + tbUser.getValueAt(i, 348).toString() + "',"
-                        + "bpjs_surat_kontrol='" + tbUser.getValueAt(i, 349).toString() + "',"
-                        + "monev_asuhan_gizi='" + tbUser.getValueAt(i, 350).toString() + "',"
-                        + "inacbg_klaim_raza='" + tbUser.getValueAt(i, 351).toString() + "',"
-                        + "pengajuan_klaim_inacbg_raza='" + tbUser.getValueAt(i, 352).toString() + "',"
-                        + "copy_pemeriksaan_dokter_kepetugas_ralan='" + tbUser.getValueAt(i, 353).toString() + "',"
-                        + "jkn_belum_diproses_klaim='" + tbUser.getValueAt(i, 354).toString() + "',"
-                        + "input_kode_icd='" + tbUser.getValueAt(i, 355).toString() + "',"
-                        + "indikator_mutu_unit='" + tbUser.getValueAt(i, 356).toString() + "',"
-                        + "kendali_Mutu_kendali_Biaya_INACBG='" + tbUser.getValueAt(i, 357).toString() + "',"
-                        + "dashboard_eResep='" + tbUser.getValueAt(i, 358).toString() + "'");
+                        + "tombol_simpan_hasil_radiologi='" + tbUser.getValueAt(i, 348).toString() + "',"                                
+                        + "monev_asuhan_gizi='" + tbUser.getValueAt(i, 349).toString() + "',"
+                        + "inacbg_klaim_raza='" + tbUser.getValueAt(i, 350).toString() + "',"
+                        + "pengajuan_klaim_inacbg_raza='" + tbUser.getValueAt(i, 351).toString() + "',"
+                        + "copy_pemeriksaan_dokter_kepetugas_ralan='" + tbUser.getValueAt(i, 352).toString() + "',"
+                        + "jkn_belum_diproses_klaim='" + tbUser.getValueAt(i, 353).toString() + "',"
+                        + "input_kode_icd='" + tbUser.getValueAt(i, 354).toString() + "',"
+                        + "indikator_mutu_unit='" + tbUser.getValueAt(i, 355).toString() + "',"
+                        + "kendali_Mutu_kendali_Biaya_INACBG='" + tbUser.getValueAt(i, 356).toString() + "',"
+                        + "dashboard_eResep='" + tbUser.getValueAt(i, 357).toString() + "',"
+                        + "bpjs_sep_internal='" + tbUser.getValueAt(i, 358).toString() + "',"
+                        + "kemenkes_sitt='" + tbUser.getValueAt(i, 359).toString() + "',"
+                        + "rencana_kontrol_jkn='" + tbUser.getValueAt(i, 360).toString() + "',"
+                        + "spri_jkn='" + tbUser.getValueAt(i, 361).toString() + "',"
+                        + "hapus_sep='" + tbUser.getValueAt(i, 362).toString() + "'");
             }
             tampil();
             emptTeks();
@@ -2325,9 +2339,9 @@ private void BtnPrintKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
                     + "master_triase_skala2,master_triase_skala3,master_triase_skala4,master_triase_skala5,master_triase_macamkasus,master_triase_pemeriksaan,"
                     + "data_triase_igd,master_cara_bayar,status_kerja_dokter,pasien_corona,diagnosa_pasien_corona,perawatan_pasien_corona,inacbg_klaim_baru_manual2,"
                     + "indikator_ranap,sensus_inap,review_rm_igd,review_rm_ruangan_h1,review_rm_ruangan_pulang,review_rm_laporan,assesmen_gizi_harian,"
-                    + "assesmen_gizi_ulang,tombol_nota_billing,tombol_simpan_hasil_radiologi,bpjs_surat_kontrol,monev_asuhan_gizi,inacbg_klaim_raza,"
+                    + "assesmen_gizi_ulang,tombol_nota_billing,tombol_simpan_hasil_radiologi,monev_asuhan_gizi,inacbg_klaim_raza,"
                     + "pengajuan_klaim_inacbg_raza,copy_pemeriksaan_dokter_kepetugas_ralan,jkn_belum_diproses_klaim,input_kode_icd,indikator_mutu_unit,"
-                    + "kendali_Mutu_kendali_Biaya_INACBG,dashboard_eResep from user order by AES_DECRYPT(id_user,'nur')");
+                    + "kendali_Mutu_kendali_Biaya_INACBG,dashboard_eResep,bpjs_sep_internal,kemenkes_sitt,rencana_kontrol_jkn,spri_jkn,hapus_sep from user order by AES_DECRYPT(id_user,'nur')");
             try {
                 rs=ps.executeQuery();
                 while(rs.next()){
@@ -2688,7 +2702,6 @@ private void BtnPrintKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
                                 rs.getBoolean("assesmen_gizi_ulang"),
                                 rs.getBoolean("tombol_nota_billing"),
                                 rs.getBoolean("tombol_simpan_hasil_radiologi"),
-                                rs.getBoolean("bpjs_surat_kontrol"),
                                 rs.getBoolean("monev_asuhan_gizi"),
                                 rs.getBoolean("inacbg_klaim_raza"),
                                 rs.getBoolean("pengajuan_klaim_inacbg_raza"),
@@ -2697,7 +2710,12 @@ private void BtnPrintKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
                                 rs.getBoolean("input_kode_icd"),
                                 rs.getBoolean("indikator_mutu_unit"),
                                 rs.getBoolean("kendali_Mutu_kendali_Biaya_INACBG"),
-                                rs.getBoolean("dashboard_eResep")
+                                rs.getBoolean("dashboard_eResep"),
+                                rs.getBoolean("bpjs_sep_internal"),
+                                rs.getBoolean("kemenkes_sitt"),
+                                rs.getBoolean("rencana_kontrol_jkn"),
+                                rs.getBoolean("spri_jkn"),
+                                rs.getBoolean("hapus_sep")
                             });
                         }
                     } catch (Exception e) {
@@ -3048,7 +3066,6 @@ private void BtnPrintKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
                             rs.getBoolean("assesmen_gizi_ulang"),
                             rs.getBoolean("tombol_nota_billing"),
                             rs.getBoolean("tombol_simpan_hasil_radiologi"),
-                            rs.getBoolean("bpjs_surat_kontrol"),
                             rs.getBoolean("monev_asuhan_gizi"),
                             rs.getBoolean("inacbg_klaim_raza"),
                             rs.getBoolean("pengajuan_klaim_inacbg_raza"),
@@ -3057,7 +3074,12 @@ private void BtnPrintKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
                             rs.getBoolean("input_kode_icd"),
                             rs.getBoolean("indikator_mutu_unit"),
                             rs.getBoolean("kendali_Mutu_kendali_Biaya_INACBG"),
-                            rs.getBoolean("dashboard_eResep")
+                            rs.getBoolean("dashboard_eResep"),
+                            rs.getBoolean("bpjs_sep_internal"),
+                            rs.getBoolean("kemenkes_sitt"),
+                            rs.getBoolean("rencana_kontrol_jkn"),
+                            rs.getBoolean("spri_jkn"),
+                            rs.getBoolean("hapus_sep")
                         });
                     }                                             
                  }

@@ -4008,7 +4008,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                             Sequel.menyimpan("pasien_mati", "'" + Valid.SetTgl(TglMati.getSelectedItem() + "") + "','"
                                     + cmbJam2.getSelectedItem() + ":" + cmbMnt2.getSelectedItem() + ":" + cmbDtk2.getSelectedItem() + "','"
                                     + TNoRM.getText() + "','" + cmbStatus.getSelectedItem() + " diruang " + TBangsal.getText() + " - "
-                                    + ket.getText() + "','Rumah Sakit','-','-','-','-','Ruangan Inap','-'", "pasien");
+                                    + ket.getText() + "','Rumah Sakit','-','-','-','-','Ruangan Inap','-','',''", "pasien");
 
                         } else if (cmbStatus.getSelectedItem().equals("Dirujuk")) {
                             DlgRujuk dlgrjk = new DlgRujuk(null, false);
@@ -5075,7 +5075,8 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                 + " pasien.no_tlp, if(jk = 'L','Laki-laki','Perempuan') AS Kelamin, "
                 + " pasien.tmp_lahir, DATE_FORMAT(pasien.tgl_lahir,'%d %M %Y') AS tgl_lahir, "
                 + " pasien.gol_darah, pasien.stts_nikah, pasien.agama, pasien_mati.keterangan, "
-                + " kelurahan.nm_kel, kecamatan.nm_kec, kabupaten.nm_kab "
+                + " kelurahan.nm_kel, kecamatan.nm_kec, kabupaten.nm_kab, "
+                + " ifnull(pasien_mati.no_surat,'.....') nosurat, ifnull(pasien_mati.reg_bulan,'.....') noregbulan "
                 + " FROM pasien_mati, pasien "
                 + " INNER JOIN kabupaten ON kabupaten.kd_kab = pasien.kd_kab "
                 + " INNER JOIN kecamatan ON kecamatan.kd_kec = pasien.kd_kec "

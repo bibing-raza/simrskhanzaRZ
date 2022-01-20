@@ -75,8 +75,9 @@ public final class var {
             laporan_farmasi=false,master_masalah_keperawatan=false,penilaian_awal_keperawatan_ralan=false,master_triase_skala1=false,master_triase_skala2=false,
             master_triase_skala3=false,master_triase_skala4=false,master_triase_skala5=false, data_triase_igd = false, master_triase_pemeriksaan = false, master_triase_macamkasus = false, master_cara_bayar = false,
             status_kerja_dokter = false, pasien_corona = false, diagnosa_pasien_corona = false, perawatan_pasien_corona = false, inacbg_klaim_baru_manual2 = false, assesmen_gizi_harian = false, assesmen_gizi_ulang = false,
-            tombol_nota_billing = false, tombol_simpan_hasil_rad = false, bpjs_surat_kontrol = false, monev_asuhan_gizi = false, inacbg_klaim_raza=false,pengajuan_klaim_inacbg_raza=false,
-            copy_pemeriksaan_dokter_kepetugas_ralan=false, jkn_belum_diproses_klaim=false, input_kode_icd=false, kendali_Mutu_kendali_Biaya_INACBG=false, dashboard_eResep=false;
+            tombol_nota_billing = false, tombol_simpan_hasil_rad = false, monev_asuhan_gizi = false, inacbg_klaim_raza=false,pengajuan_klaim_inacbg_raza=false,
+            copy_pemeriksaan_dokter_kepetugas_ralan=false, jkn_belum_diproses_klaim=false, input_kode_icd=false, kendali_Mutu_kendali_Biaya_INACBG=false, dashboard_eResep=false, bpjs_sep_internal=false,
+            kemenkes_sitt=false, rencana_kontrol_jkn=false, spri_jkn=false, hapus_sep=false;
 
     public static void setData(String user, String pass) {
         try {
@@ -441,7 +442,6 @@ public final class var {
                     var.assesmen_gizi_ulang=true;
                     var.tombol_nota_billing=true;
                     var.tombol_simpan_hasil_rad=true;
-                    var.bpjs_surat_kontrol=true;
                     var.monev_asuhan_gizi=true;
                     var.inacbg_klaim_raza=true;
                     var.pengajuan_klaim_inacbg_raza=true;
@@ -450,6 +450,11 @@ public final class var {
                     var.input_kode_icd=true;
                     var.kendali_Mutu_kendali_Biaya_INACBG=true;
                     var.dashboard_eResep=true;
+                    var.bpjs_sep_internal=true;
+                    var.kemenkes_sitt=true;
+                    var.rencana_kontrol_jkn=true;
+                    var.spri_jkn=true;
+                    var.hapus_sep=true;
                 } else if (rs.getRow() >= 1) {
                     var.kode = "Admin Utama";
                     var.penyakit = true;
@@ -794,7 +799,6 @@ public final class var {
                     var.assesmen_gizi_ulang = true;
                     var.tombol_nota_billing = true;
                     var.tombol_simpan_hasil_rad = true;
-                    var.bpjs_surat_kontrol = true;
                     var.monev_asuhan_gizi = true;
                     var.inacbg_klaim_raza = true;
                     var.pengajuan_klaim_inacbg_raza = true;
@@ -803,6 +807,11 @@ public final class var {
                     var.input_kode_icd = true;
                     var.kendali_Mutu_kendali_Biaya_INACBG = true;
                     var.dashboard_eResep = true;
+                    var.bpjs_sep_internal = true;
+                    var.kemenkes_sitt = true;
+                    var.rencana_kontrol_jkn = true;
+                    var.spri_jkn = true;
+                    var.hapus_sep = true;
                 } else if (rs2.getRow() >= 1) {
                     rs2.beforeFirst();
                     rs2.next();
@@ -1150,7 +1159,6 @@ public final class var {
                     var.assesmen_gizi_ulang = rs2.getBoolean("assesmen_gizi_ulang");
                     var.tombol_nota_billing = rs2.getBoolean("tombol_nota_billing");
                     var.tombol_simpan_hasil_rad = rs2.getBoolean("tombol_simpan_hasil_radiologi");
-                    var.bpjs_surat_kontrol = rs2.getBoolean("bpjs_surat_kontrol");
                     var.monev_asuhan_gizi = rs2.getBoolean("monev_asuhan_gizi");
                     var.inacbg_klaim_raza = rs2.getBoolean("inacbg_klaim_raza");
                     var.pengajuan_klaim_inacbg_raza = rs2.getBoolean("pengajuan_klaim_inacbg_raza");
@@ -1159,6 +1167,11 @@ public final class var {
                     var.input_kode_icd = rs2.getBoolean("input_kode_icd");
                     var.kendali_Mutu_kendali_Biaya_INACBG = rs2.getBoolean("kendali_Mutu_kendali_Biaya_INACBG");
                     var.dashboard_eResep = rs2.getBoolean("dashboard_eResep");
+                    var.bpjs_sep_internal = rs2.getBoolean("bpjs_sep_internal");
+                    var.kemenkes_sitt = rs2.getBoolean("kemenkes_sitt");
+                    var.rencana_kontrol_jkn = rs2.getBoolean("rencana_kontrol_jkn");
+                    var.spri_jkn = rs2.getBoolean("spri_jkn");
+                    var.hapus_sep = rs2.getBoolean("hapus_sep");
                 } else if ((rs.getRow() == 0) && (rs2.getRow() == 0)) {
                     var.kode = "";
                     var.penyakit = false;
@@ -1504,7 +1517,6 @@ public final class var {
                     var.assesmen_gizi_ulang = false;
                     var.tombol_nota_billing = false;
                     var.tombol_simpan_hasil_rad = false;
-                    var.bpjs_surat_kontrol = false;
                     var.monev_asuhan_gizi = false;
                     var.inacbg_klaim_raza = false;
                     var.pengajuan_klaim_inacbg_raza = false;
@@ -1513,6 +1525,11 @@ public final class var {
                     var.input_kode_icd = false;
                     var.kendali_Mutu_kendali_Biaya_INACBG = false;
                     var.dashboard_eResep = false;
+                    var.bpjs_sep_internal = false;
+                    var.kemenkes_sitt = false;
+                    var.rencana_kontrol_jkn = false;
+                    var.spri_jkn = false;
+                    var.hapus_sep = false;
                 }
             } catch (Exception e) {
                 System.out.println("Notifikasi : " + e);
@@ -2795,7 +2812,6 @@ public final class var {
         public static boolean getassesmen_gizi_ulang(){return var.assesmen_gizi_ulang;}
         public static boolean gettombolnota_billing(){return var.tombol_nota_billing;}
         public static boolean gettombolsimpan_hasil_rad(){return var.tombol_simpan_hasil_rad;}
-        public static boolean getbpjs_surat_kontrol(){return var.bpjs_surat_kontrol;}
         public static boolean getmonev_asuhan_gizi(){return var.monev_asuhan_gizi;}
         public static boolean getinacbg_klaim_raza(){return var.inacbg_klaim_raza;}
         public static boolean getpengajuan_klaim_raza(){return var.pengajuan_klaim_inacbg_raza;}
@@ -2804,4 +2820,9 @@ public final class var {
         public static boolean getinput_kode_icd(){return var.input_kode_icd;}
         public static boolean getkendali_mutu_kendali_biaya_inacbg(){return var.kendali_Mutu_kendali_Biaya_INACBG;}
         public static boolean getdashboard_eResep(){return var.dashboard_eResep;}
+        public static boolean getbpjsSEPinternal(){return var.bpjs_sep_internal;}
+        public static boolean getkemenkes_sitt(){return var.kemenkes_sitt;}
+        public static boolean getRencanaKontrolJKN(){return var.rencana_kontrol_jkn;}
+        public static boolean getSPRIJKN(){return var.spri_jkn;}
+        public static boolean getHapusSEP(){return var.hapus_sep;}
 }

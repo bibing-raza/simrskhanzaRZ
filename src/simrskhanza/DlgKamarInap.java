@@ -7191,7 +7191,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                     Sequel.menyimpan("pasien_mati", "'" + Valid.SetTgl(TglMati.getSelectedItem() + "") + "','"
                                             + cmbJam1.getSelectedItem() + ":" + cmbMnt1.getSelectedItem() + ":" + cmbDtk1.getSelectedItem() + "','"
                                             + TNoRM.getText() + "','" + cmbStatus.getSelectedItem() + " diruang " + TBangsal.getText() + " - "
-                                            + ket.getText() + "','Rumah Sakit','-','-','-','-','Ruangan Inap','-'", "pasien");
+                                            + ket.getText() + "','Rumah Sakit','-','-','-','-','Ruangan Inap','-','',''", "pasien");
 
                                     x = JOptionPane.showConfirmDialog(null, "Apakah anda akan mencetak surat keterangan kematian ?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
                                     if (x == JOptionPane.YES_OPTION) {
@@ -7243,7 +7243,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 Sequel.menyimpan("pasien_mati", "'" + Valid.SetTgl(TglMati.getSelectedItem() + "") + "','"
                                         + cmbJam1.getSelectedItem() + ":" + cmbMnt1.getSelectedItem() + ":" + cmbDtk1.getSelectedItem() + "','"
                                         + TNoRM.getText() + "','" + cmbStatus.getSelectedItem() + " diruang " + TBangsal.getText() + " - "
-                                        + ket.getText() + "','Rumah Sakit','-','-','-','-','Ruangan Inap','-'", "pasien");
+                                        + ket.getText() + "','Rumah Sakit','-','-','-','-','Ruangan Inap','-','',''", "pasien");
 
                                 x = JOptionPane.showConfirmDialog(null, "Apakah anda akan mencetak surat keterangan kematian ?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
                                 if (x == JOptionPane.YES_OPTION) {
@@ -7292,7 +7292,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
 //                            Sequel.menyimpan("pasien_mati", "'" + Valid.SetTgl(TglMati.getSelectedItem() + "") + "','"
 //                                    + cmbJam1.getSelectedItem() + ":" + cmbMnt1.getSelectedItem() + ":" + cmbDtk1.getSelectedItem() + "','"
 //                                    + TNoRM.getText() + "','" + cmbStatus.getSelectedItem() + " diruang " + TBangsal.getText() + " - "
-//                                    + ket.getText() + "','Rumah Sakit','-','-','-','-','Ruangan Inap','-'", "pasien");
+//                                    + ket.getText() + "','Rumah Sakit','-','-','-','-','Ruangan Inap','-','',''", "pasien");
 //
 //                            x = JOptionPane.showConfirmDialog(null, "Apakah anda akan mencetak surat keterangan kematian ?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
 //                            if (x == JOptionPane.YES_OPTION) {
@@ -11950,7 +11950,7 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 
             Sequel.menyimpan("pasien_mati", "'" + TOut.getText() + "','" + JamPulang.getText() + "','"
                     + TNoRM.getText() + "','Meninggal >= 48 Jam diruang " + ruangrawat.getText() + "',"
-                    + "'Rumah Sakit','-','-','-','-','Ruangan Inap','-'", "pasien");
+                    + "'Rumah Sakit','-','-','-','-','Ruangan Inap','-','',''", "pasien");
 
             Sequel.mengedit("kamar_inap", "no_rawat='" + norawat.getText() + "' and stts_pulang='" + status_pulang.getText() + "'", "stts_pulang='Meninggal >= 48 Jam' ");
             tampil();
@@ -11972,7 +11972,7 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 
             Sequel.menyimpan("pasien_mati", "'" + TOut.getText() + "','" + JamPulang.getText() + "','"
                     + TNoRM.getText() + "','Meninggal < 48 Jam diruang " + ruangrawat.getText() + "',"
-                    + "'Rumah Sakit','-','-','-','-','Ruangan Inap','-'", "pasien");
+                    + "'Rumah Sakit','-','-','-','-','Ruangan Inap','-','',''", "pasien");
 
             Sequel.mengedit("kamar_inap", "no_rawat='" + norawat.getText() + "' and stts_pulang='" + status_pulang.getText() + "'", "stts_pulang='Meninggal < 48 Jam' ");
             tampil();
@@ -14306,7 +14306,7 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
                 if ((NoRMmati.getText().equals("")) && (JenisMati.getText().equals("Meninggal >= 48 Jam") || (JenisMati.getText().equals("Meninggal < 48 Jam")))) {
                     Sequel.menyimpan("pasien_mati", "'" + TOut.getText() + "','" + JamPulang.getText() + "','"
                             + TNoRM.getText() + "','" + JenisMati.getText() + " diruang "
-                            + ruangrawat.getText() + "','Rumah Sakit','-','-','-','-','Ruangan Inap','-'", "pasien");
+                            + ruangrawat.getText() + "','Rumah Sakit','-','-','-','-','Ruangan Inap','-','',''", "pasien");
                 }
 
             } else if (!NoRMmati.getText().equals("")) {
@@ -14585,7 +14585,7 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         MnOrderLab.setEnabled(var.getpermintaan_lab());
         MnOrderRad.setEnabled(var.getpermintaan_radiologi());
         MnAssesmenAsuhanGizi.setEnabled(var.getassesmen_gizi_harian());
-        ppSuratKontrol.setEnabled(var.getbpjs_surat_kontrol());
+        ppSuratKontrol.setEnabled(var.getRencanaKontrolJKN());
         MnMonevAsuhanGizi.setEnabled(var.getmonev_asuhan_gizi());
     }
 
