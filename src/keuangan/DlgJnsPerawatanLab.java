@@ -189,7 +189,7 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
 
         ppTemplate.setBackground(new java.awt.Color(255, 255, 255));
         ppTemplate.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        ppTemplate.setForeground(new java.awt.Color(90, 120, 80));
+        ppTemplate.setForeground(new java.awt.Color(0, 0, 0));
         ppTemplate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
         ppTemplate.setText("Template Laboratorium");
         ppTemplate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -206,7 +206,7 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
 
         MnRestore.setBackground(new java.awt.Color(255, 255, 255));
         MnRestore.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        MnRestore.setForeground(new java.awt.Color(90, 120, 80));
+        MnRestore.setForeground(new java.awt.Color(0, 0, 0));
         MnRestore.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
         MnRestore.setText("Data Sampah");
         MnRestore.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -236,7 +236,7 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
             }
         });
 
-        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Tarif Pemeriksaan Laboratorium ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(90, 120, 80))); // NOI18N
+        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Tarif Pemeriksaan Laboratorium ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
         internalFrame1.setName("internalFrame1"); // NOI18N
         internalFrame1.setLayout(new java.awt.BorderLayout(1, 1));
 
@@ -271,6 +271,7 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
         panelGlass8.setPreferredSize(new java.awt.Dimension(44, 44));
         panelGlass8.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 9));
 
+        BtnSimpan.setForeground(new java.awt.Color(0, 0, 0));
         BtnSimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/save-16x16.png"))); // NOI18N
         BtnSimpan.setMnemonic('S');
         BtnSimpan.setText("Simpan");
@@ -288,6 +289,7 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
         });
         panelGlass8.add(BtnSimpan);
 
+        BtnBatal.setForeground(new java.awt.Color(0, 0, 0));
         BtnBatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Cancel-2-16x16.png"))); // NOI18N
         BtnBatal.setMnemonic('B');
         BtnBatal.setText("Baru");
@@ -306,6 +308,7 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
         });
         panelGlass8.add(BtnBatal);
 
+        BtnHapus.setForeground(new java.awt.Color(0, 0, 0));
         BtnHapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/stop_f2.png"))); // NOI18N
         BtnHapus.setMnemonic('H');
         BtnHapus.setText("Hapus");
@@ -324,6 +327,7 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
         });
         panelGlass8.add(BtnHapus);
 
+        BtnEdit.setForeground(new java.awt.Color(0, 0, 0));
         BtnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/inventaris.png"))); // NOI18N
         BtnEdit.setMnemonic('G');
         BtnEdit.setText("Ganti");
@@ -342,6 +346,7 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
         });
         panelGlass8.add(BtnEdit);
 
+        BtnPrint.setForeground(new java.awt.Color(0, 0, 0));
         BtnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/b_print.png"))); // NOI18N
         BtnPrint.setMnemonic('T');
         BtnPrint.setText("Cetak");
@@ -360,6 +365,7 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
         });
         panelGlass8.add(BtnPrint);
 
+        BtnAll.setForeground(new java.awt.Color(0, 0, 0));
         BtnAll.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Search-16x16.png"))); // NOI18N
         BtnAll.setMnemonic('M');
         BtnAll.setText("Semua");
@@ -378,6 +384,7 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
         });
         panelGlass8.add(BtnAll);
 
+        BtnKeluar.setForeground(new java.awt.Color(0, 0, 0));
         BtnKeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/exit.png"))); // NOI18N
         BtnKeluar.setMnemonic('K');
         BtnKeluar.setText("Keluar");
@@ -402,13 +409,15 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
         panelGlass9.setPreferredSize(new java.awt.Dimension(44, 44));
         panelGlass9.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 9));
 
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Key Word :");
         jLabel6.setName("jLabel6"); // NOI18N
         jLabel6.setPreferredSize(new java.awt.Dimension(70, 23));
         panelGlass9.add(jLabel6);
 
+        TCari.setForeground(new java.awt.Color(0, 0, 0));
         TCari.setName("TCari"); // NOI18N
-        TCari.setPreferredSize(new java.awt.Dimension(450, 23));
+        TCari.setPreferredSize(new java.awt.Dimension(320, 23));
         TCari.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 TCariKeyPressed(evt);
@@ -416,11 +425,13 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
         });
         panelGlass9.add(TCari);
 
+        BtnCari.setForeground(new java.awt.Color(0, 0, 0));
         BtnCari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept.png"))); // NOI18N
         BtnCari.setMnemonic('2');
+        BtnCari.setText("Tampilkan Data");
         BtnCari.setToolTipText("Alt+2");
         BtnCari.setName("BtnCari"); // NOI18N
-        BtnCari.setPreferredSize(new java.awt.Dimension(28, 23));
+        BtnCari.setPreferredSize(new java.awt.Dimension(130, 23));
         BtnCari.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnCariActionPerformed(evt);
@@ -433,11 +444,13 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
         });
         panelGlass9.add(BtnCari);
 
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Record :");
         jLabel7.setName("jLabel7"); // NOI18N
         jLabel7.setPreferredSize(new java.awt.Dimension(75, 23));
         panelGlass9.add(jLabel7);
 
+        LCount.setForeground(new java.awt.Color(0, 0, 0));
         LCount.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         LCount.setText("0");
         LCount.setName("LCount"); // NOI18N
@@ -457,11 +470,13 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
         FormInput.setPreferredSize(new java.awt.Dimension(100, 167));
         FormInput.setLayout(null);
 
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Kode Periksa :");
         jLabel3.setName("jLabel3"); // NOI18N
         FormInput.add(jLabel3);
         jLabel3.setBounds(-10, 12, 115, 23);
 
+        TKd.setForeground(new java.awt.Color(0, 0, 0));
         TKd.setHighlighter(null);
         TKd.setName("TKd"); // NOI18N
         TKd.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -472,11 +487,13 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
         FormInput.add(TKd);
         TKd.setBounds(108, 12, 130, 23);
 
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Nama Pemeriksaan :");
         jLabel8.setName("jLabel8"); // NOI18N
         FormInput.add(jLabel8);
         jLabel8.setBounds(300, 12, 130, 23);
 
+        TNm.setForeground(new java.awt.Color(0, 0, 0));
         TNm.setHighlighter(null);
         TNm.setName("TNm"); // NOI18N
         TNm.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -487,26 +504,31 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
         FormInput.add(TNm);
         TNm.setBounds(433, 12, 283, 23);
 
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("J.S. Rumah Sakit : Rp.");
         jLabel9.setName("jLabel9"); // NOI18N
         FormInput.add(jLabel9);
         jLabel9.setBounds(-10, 42, 135, 23);
 
+        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Total Biaya Laborat : Rp. ");
         jLabel11.setName("jLabel11"); // NOI18N
         FormInput.add(jLabel11);
         jLabel11.setBounds(300, 102, 153, 23);
 
+        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setText("J.M. Petugas : Rp.");
         jLabel13.setName("jLabel13"); // NOI18N
         FormInput.add(jLabel13);
         jLabel13.setBounds(-10, 132, 135, 23);
 
+        jLabel18.setForeground(new java.awt.Color(0, 0, 0));
         jLabel18.setText("Jenis Bayar :");
         jLabel18.setName("jLabel18"); // NOI18N
         FormInput.add(jLabel18);
         jLabel18.setBounds(300, 132, 130, 23);
 
+        kdpnj.setForeground(new java.awt.Color(0, 0, 0));
         kdpnj.setHighlighter(null);
         kdpnj.setName("kdpnj"); // NOI18N
         kdpnj.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -518,10 +540,12 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
         kdpnj.setBounds(433, 132, 60, 23);
 
         nmpnj.setEditable(false);
+        nmpnj.setForeground(new java.awt.Color(0, 0, 0));
         nmpnj.setName("nmpnj"); // NOI18N
         FormInput.add(nmpnj);
         nmpnj.setBounds(495, 132, 192, 23);
 
+        btnPj.setForeground(new java.awt.Color(0, 0, 0));
         btnPj.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/190.png"))); // NOI18N
         btnPj.setMnemonic('2');
         btnPj.setToolTipText("ALt+2");
@@ -534,21 +558,25 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
         FormInput.add(btnPj);
         btnPj.setBounds(688, 132, 28, 23);
 
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("J.M. Dokter : Rp.");
         jLabel10.setName("jLabel10"); // NOI18N
         FormInput.add(jLabel10);
         jLabel10.setBounds(-10, 102, 135, 23);
 
+        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("J.M. Perujuk : Rp.");
         jLabel12.setName("jLabel12"); // NOI18N
         FormInput.add(jLabel12);
         jLabel12.setBounds(-10, 162, 135, 23);
 
+        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
         jLabel14.setText("Paket BHP : Rp.");
         jLabel14.setName("jLabel14"); // NOI18N
         FormInput.add(jLabel14);
         jLabel14.setBounds(-10, 72, 135, 23);
 
+        BagianRs.setForeground(new java.awt.Color(0, 0, 0));
         BagianRs.setText("0");
         BagianRs.setHighlighter(null);
         BagianRs.setName("BagianRs"); // NOI18N
@@ -560,6 +588,7 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
         FormInput.add(BagianRs);
         BagianRs.setBounds(127, 42, 170, 23);
 
+        Bhp.setForeground(new java.awt.Color(0, 0, 0));
         Bhp.setText("0");
         Bhp.setHighlighter(null);
         Bhp.setName("Bhp"); // NOI18N
@@ -571,6 +600,7 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
         FormInput.add(Bhp);
         Bhp.setBounds(127, 72, 170, 23);
 
+        JMDokter.setForeground(new java.awt.Color(0, 0, 0));
         JMDokter.setText("0");
         JMDokter.setHighlighter(null);
         JMDokter.setName("JMDokter"); // NOI18N
@@ -582,6 +612,7 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
         FormInput.add(JMDokter);
         JMDokter.setBounds(127, 102, 170, 23);
 
+        JMLaborat.setForeground(new java.awt.Color(0, 0, 0));
         JMLaborat.setText("0");
         JMLaborat.setHighlighter(null);
         JMLaborat.setName("JMLaborat"); // NOI18N
@@ -593,6 +624,7 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
         FormInput.add(JMLaborat);
         JMLaborat.setBounds(127, 132, 170, 23);
 
+        JMPerujuk.setForeground(new java.awt.Color(0, 0, 0));
         JMPerujuk.setText("0");
         JMPerujuk.setHighlighter(null);
         JMPerujuk.setName("JMPerujuk"); // NOI18N
@@ -604,6 +636,7 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
         FormInput.add(JMPerujuk);
         JMPerujuk.setBounds(127, 162, 170, 23);
 
+        TotalBiaya.setForeground(new java.awt.Color(0, 0, 0));
         TotalBiaya.setText("0");
         TotalBiaya.setHighlighter(null);
         TotalBiaya.setName("TotalBiaya"); // NOI18N
@@ -615,11 +648,13 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
         FormInput.add(TotalBiaya);
         TotalBiaya.setBounds(453, 102, 170, 23);
 
+        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("K.S.0.: Rp. ");
         jLabel15.setName("jLabel15"); // NOI18N
         FormInput.add(jLabel15);
         jLabel15.setBounds(300, 42, 153, 23);
 
+        KSO.setForeground(new java.awt.Color(0, 0, 0));
         KSO.setText("0");
         KSO.setHighlighter(null);
         KSO.setName("KSO"); // NOI18N
@@ -631,11 +666,13 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
         FormInput.add(KSO);
         KSO.setBounds(453, 42, 170, 23);
 
+        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("Manajemen : Rp. ");
         jLabel16.setName("jLabel16"); // NOI18N
         FormInput.add(jLabel16);
         jLabel16.setBounds(300, 72, 153, 23);
 
+        Menejemen.setForeground(new java.awt.Color(0, 0, 0));
         Menejemen.setText("0");
         Menejemen.setHighlighter(null);
         Menejemen.setName("Menejemen"); // NOI18N
@@ -647,12 +684,13 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
         FormInput.add(Menejemen);
         Menejemen.setBounds(453, 72, 170, 23);
 
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Kelas :");
         jLabel5.setName("jLabel5"); // NOI18N
         FormInput.add(jLabel5);
         jLabel5.setBounds(300, 162, 130, 23);
 
-        Kelas.setForeground(new java.awt.Color(153, 0, 51));
+        Kelas.setForeground(new java.awt.Color(0, 0, 0));
         Kelas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "Rawat Jalan", "Kelas 1", "Kelas 2", "Kelas 3", "Kelas Utama", "Kelas VIP", "Kelas VVIP" }));
         Kelas.setName("Kelas"); // NOI18N
         Kelas.setOpaque(false);
@@ -666,6 +704,7 @@ public final class DlgJnsPerawatanLab extends javax.swing.JDialog {
 
         PanelInput.add(FormInput, java.awt.BorderLayout.CENTER);
 
+        ChkInput.setForeground(new java.awt.Color(0, 0, 0));
         ChkInput.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/143.png"))); // NOI18N
         ChkInput.setMnemonic('I');
         ChkInput.setText(".: Input Data");
@@ -1304,6 +1343,4 @@ private void btnPjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
     public JTable getTable(){
         return tbJnsPerawatan;
     }
-
-    
 }

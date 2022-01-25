@@ -316,7 +316,7 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
 
         MnRestore.setBackground(new java.awt.Color(255, 255, 255));
         MnRestore.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        MnRestore.setForeground(new java.awt.Color(90, 120, 80));
+        MnRestore.setForeground(new java.awt.Color(0, 0, 0));
         MnRestore.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
         MnRestore.setText("Data Sampah");
         MnRestore.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -342,7 +342,7 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
             }
         });
 
-        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Data Paket Tindakan Operasi/VK ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(90, 120, 80))); // NOI18N
+        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Data Paket Tindakan Operasi/VK ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
         internalFrame1.setName("internalFrame1"); // NOI18N
         internalFrame1.setLayout(new java.awt.BorderLayout(1, 1));
 
@@ -355,6 +355,7 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         panelGlass8.setPreferredSize(new java.awt.Dimension(44, 44));
         panelGlass8.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 9));
 
+        BtnSimpan.setForeground(new java.awt.Color(0, 0, 0));
         BtnSimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/save-16x16.png"))); // NOI18N
         BtnSimpan.setMnemonic('S');
         BtnSimpan.setText("Simpan");
@@ -373,6 +374,7 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         });
         panelGlass8.add(BtnSimpan);
 
+        BtnBatal.setForeground(new java.awt.Color(0, 0, 0));
         BtnBatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Cancel-2-16x16.png"))); // NOI18N
         BtnBatal.setMnemonic('B');
         BtnBatal.setText("Baru");
@@ -391,6 +393,7 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         });
         panelGlass8.add(BtnBatal);
 
+        BtnHapus.setForeground(new java.awt.Color(0, 0, 0));
         BtnHapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/stop_f2.png"))); // NOI18N
         BtnHapus.setMnemonic('H');
         BtnHapus.setText("Hapus");
@@ -409,6 +412,7 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         });
         panelGlass8.add(BtnHapus);
 
+        BtnEdit.setForeground(new java.awt.Color(0, 0, 0));
         BtnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/inventaris.png"))); // NOI18N
         BtnEdit.setMnemonic('G');
         BtnEdit.setText("Ganti");
@@ -427,6 +431,7 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         });
         panelGlass8.add(BtnEdit);
 
+        BtnPrint.setForeground(new java.awt.Color(0, 0, 0));
         BtnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/b_print.png"))); // NOI18N
         BtnPrint.setMnemonic('T');
         BtnPrint.setText("Cetak");
@@ -445,6 +450,7 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         });
         panelGlass8.add(BtnPrint);
 
+        BtnAll.setForeground(new java.awt.Color(0, 0, 0));
         BtnAll.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Search-16x16.png"))); // NOI18N
         BtnAll.setMnemonic('M');
         BtnAll.setText("Semua");
@@ -463,6 +469,7 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         });
         panelGlass8.add(BtnAll);
 
+        BtnKeluar.setForeground(new java.awt.Color(0, 0, 0));
         BtnKeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/exit.png"))); // NOI18N
         BtnKeluar.setMnemonic('K');
         BtnKeluar.setText("Keluar");
@@ -487,13 +494,15 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         panelGlass9.setPreferredSize(new java.awt.Dimension(44, 44));
         panelGlass9.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 9));
 
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Key Word :");
         jLabel6.setName("jLabel6"); // NOI18N
         jLabel6.setPreferredSize(new java.awt.Dimension(70, 23));
         panelGlass9.add(jLabel6);
 
+        TCari.setForeground(new java.awt.Color(0, 0, 0));
         TCari.setName("TCari"); // NOI18N
-        TCari.setPreferredSize(new java.awt.Dimension(450, 23));
+        TCari.setPreferredSize(new java.awt.Dimension(310, 23));
         TCari.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 TCariKeyPressed(evt);
@@ -501,11 +510,13 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         });
         panelGlass9.add(TCari);
 
+        BtnCari.setForeground(new java.awt.Color(0, 0, 0));
         BtnCari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept.png"))); // NOI18N
         BtnCari.setMnemonic('2');
+        BtnCari.setText("Tampilkan Data");
         BtnCari.setToolTipText("Alt+2");
         BtnCari.setName("BtnCari"); // NOI18N
-        BtnCari.setPreferredSize(new java.awt.Dimension(28, 23));
+        BtnCari.setPreferredSize(new java.awt.Dimension(130, 23));
         BtnCari.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnCariActionPerformed(evt);
@@ -518,11 +529,13 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         });
         panelGlass9.add(BtnCari);
 
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Record :");
         jLabel7.setName("jLabel7"); // NOI18N
         jLabel7.setPreferredSize(new java.awt.Dimension(75, 23));
         panelGlass9.add(jLabel7);
 
+        LCount.setForeground(new java.awt.Color(0, 0, 0));
         LCount.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         LCount.setText("0");
         LCount.setName("LCount"); // NOI18N
@@ -535,8 +548,8 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
 
         TabRawat.setBackground(new java.awt.Color(250, 255, 245));
         TabRawat.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(230, 235, 225)));
-        TabRawat.setForeground(new java.awt.Color(90, 120, 80));
-        TabRawat.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        TabRawat.setForeground(new java.awt.Color(0, 0, 0));
+        TabRawat.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         TabRawat.setName("TabRawat"); // NOI18N
         TabRawat.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -556,11 +569,13 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.setPreferredSize(new java.awt.Dimension(100, 257));
         FormInput.setLayout(null);
 
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Kode Paket :");
         jLabel3.setName("jLabel3"); // NOI18N
         FormInput.add(jLabel3);
         jLabel3.setBounds(0, 12, 96, 23);
 
+        TKd.setForeground(new java.awt.Color(0, 0, 0));
         TKd.setHighlighter(null);
         TKd.setName("TKd"); // NOI18N
         TKd.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -571,11 +586,13 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(TKd);
         TKd.setBounds(100, 12, 100, 23);
 
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Nama Tnd/Prw/Tagihan :");
         jLabel8.setName("jLabel8"); // NOI18N
         FormInput.add(jLabel8);
         jLabel8.setBounds(206, 12, 160, 23);
 
+        TNm.setForeground(new java.awt.Color(0, 0, 0));
         TNm.setHighlighter(null);
         TNm.setName("TNm"); // NOI18N
         TNm.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -586,6 +603,7 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(TNm);
         TNm.setBounds(370, 12, 350, 23);
 
+        TOperator1.setForeground(new java.awt.Color(0, 0, 0));
         TOperator1.setText("0");
         TOperator1.setHighlighter(null);
         TOperator1.setName("TOperator1"); // NOI18N
@@ -597,11 +615,13 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(TOperator1);
         TOperator1.setBounds(100, 72, 122, 23);
 
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Operator 1 : Rp");
         jLabel9.setName("jLabel9"); // NOI18N
         FormInput.add(jLabel9);
         jLabel9.setBounds(0, 72, 96, 23);
 
+        TAsisOperator1.setForeground(new java.awt.Color(0, 0, 0));
         TAsisOperator1.setText("0");
         TAsisOperator1.setHighlighter(null);
         TAsisOperator1.setName("TAsisOperator1"); // NOI18N
@@ -613,16 +633,19 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(TAsisOperator1);
         TAsisOperator1.setBounds(370, 72, 122, 23);
 
+        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Asisten Operator 1 : Rp");
         jLabel12.setName("jLabel12"); // NOI18N
         FormInput.add(jLabel12);
         jLabel12.setBounds(225, 72, 140, 23);
 
+        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setText("Alat : Rp");
         jLabel13.setName("jLabel13"); // NOI18N
         FormInput.add(jLabel13);
         jLabel13.setBounds(0, 252, 96, 23);
 
+        TAlat.setForeground(new java.awt.Color(0, 0, 0));
         TAlat.setText("0");
         TAlat.setHighlighter(null);
         TAlat.setName("TAlat"); // NOI18N
@@ -634,6 +657,7 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(TAlat);
         TAlat.setBounds(100, 252, 122, 23);
 
+        TSewaOK.setForeground(new java.awt.Color(0, 0, 0));
         TSewaOK.setText("0");
         TSewaOK.setHighlighter(null);
         TSewaOK.setName("TSewaOK"); // NOI18N
@@ -645,11 +669,13 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(TSewaOK);
         TSewaOK.setBounds(370, 282, 122, 23);
 
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Sewa Ok/VK : RP");
         jLabel10.setName("jLabel10"); // NOI18N
         FormInput.add(jLabel10);
         jLabel10.setBounds(225, 282, 140, 23);
 
+        TAnastesi.setForeground(new java.awt.Color(0, 0, 0));
         TAnastesi.setText("0");
         TAnastesi.setHighlighter(null);
         TAnastesi.setName("TAnastesi"); // NOI18N
@@ -661,16 +687,19 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(TAnastesi);
         TAnastesi.setBounds(100, 162, 122, 23);
 
+        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
         jLabel14.setText("dr Anestesi : Rp");
         jLabel14.setName("jLabel14"); // NOI18N
         FormInput.add(jLabel14);
         jLabel14.setBounds(0, 162, 96, 23);
 
+        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("Asisten Anestesi 1 : Rp");
         jLabel15.setName("jLabel15"); // NOI18N
         FormInput.add(jLabel15);
         jLabel15.setBounds(225, 162, 140, 23);
 
+        TAsisAnastesi.setForeground(new java.awt.Color(0, 0, 0));
         TAsisAnastesi.setText("0");
         TAsisAnastesi.setHighlighter(null);
         TAsisAnastesi.setName("TAsisAnastesi"); // NOI18N
@@ -682,11 +711,13 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(TAsisAnastesi);
         TAsisAnastesi.setBounds(370, 162, 122, 23);
 
+        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Prw Luar : RP");
         jLabel11.setName("jLabel11"); // NOI18N
         FormInput.add(jLabel11);
         jLabel11.setBounds(225, 312, 140, 23);
 
+        TPerawatLuar.setForeground(new java.awt.Color(0, 0, 0));
         TPerawatLuar.setText("0");
         TPerawatLuar.setHighlighter(null);
         TPerawatLuar.setName("TPerawatLuar"); // NOI18N
@@ -698,23 +729,27 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(TPerawatLuar);
         TPerawatLuar.setBounds(370, 312, 122, 23);
 
+        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("Total : Rp");
         jLabel16.setName("jLabel16"); // NOI18N
         FormInput.add(jLabel16);
         jLabel16.setBounds(495, 312, 98, 23);
 
         TTotal.setEditable(false);
+        TTotal.setForeground(new java.awt.Color(0, 0, 0));
         TTotal.setText("0");
         TTotal.setHighlighter(null);
         TTotal.setName("TTotal"); // NOI18N
         FormInput.add(TTotal);
         TTotal.setBounds(598, 312, 122, 23);
 
+        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
         jLabel17.setText("Operator 2 : Rp");
         jLabel17.setName("jLabel17"); // NOI18N
         FormInput.add(jLabel17);
         jLabel17.setBounds(0, 102, 96, 23);
 
+        TOperator2.setForeground(new java.awt.Color(0, 0, 0));
         TOperator2.setText("0");
         TOperator2.setHighlighter(null);
         TOperator2.setName("TOperator2"); // NOI18N
@@ -726,11 +761,13 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(TOperator2);
         TOperator2.setBounds(100, 102, 122, 23);
 
+        jLabel18.setForeground(new java.awt.Color(0, 0, 0));
         jLabel18.setText("Operator 3 : Rp");
         jLabel18.setName("jLabel18"); // NOI18N
         FormInput.add(jLabel18);
         jLabel18.setBounds(0, 132, 96, 23);
 
+        TOperator3.setForeground(new java.awt.Color(0, 0, 0));
         TOperator3.setText("0");
         TOperator3.setHighlighter(null);
         TOperator3.setName("TOperator3"); // NOI18N
@@ -742,11 +779,13 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(TOperator3);
         TOperator3.setBounds(100, 132, 122, 23);
 
+        jLabel19.setForeground(new java.awt.Color(0, 0, 0));
         jLabel19.setText("Asisten Operator 2 : Rp");
         jLabel19.setName("jLabel19"); // NOI18N
         FormInput.add(jLabel19);
         jLabel19.setBounds(225, 102, 140, 23);
 
+        TAsisOperator2.setForeground(new java.awt.Color(0, 0, 0));
         TAsisOperator2.setText("0");
         TAsisOperator2.setHighlighter(null);
         TAsisOperator2.setName("TAsisOperator2"); // NOI18N
@@ -758,11 +797,13 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(TAsisOperator2);
         TAsisOperator2.setBounds(370, 102, 122, 23);
 
+        jLabel20.setForeground(new java.awt.Color(0, 0, 0));
         jLabel20.setText("Instrumen : Rp");
         jLabel20.setName("jLabel20"); // NOI18N
         FormInput.add(jLabel20);
         jLabel20.setBounds(0, 340, 96, 23);
 
+        TInstrumen.setForeground(new java.awt.Color(0, 0, 0));
         TInstrumen.setText("0");
         TInstrumen.setHighlighter(null);
         TInstrumen.setName("TInstrumen"); // NOI18N
@@ -774,11 +815,13 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(TInstrumen);
         TInstrumen.setBounds(100, 342, 122, 23);
 
+        jLabel21.setForeground(new java.awt.Color(0, 0, 0));
         jLabel21.setText("dr Anak : Rp");
         jLabel21.setName("jLabel21"); // NOI18N
         FormInput.add(jLabel21);
         jLabel21.setBounds(0, 192, 96, 23);
 
+        TAnak.setForeground(new java.awt.Color(0, 0, 0));
         TAnak.setText("0");
         TAnak.setHighlighter(null);
         TAnak.setName("TAnak"); // NOI18N
@@ -790,11 +833,13 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(TAnak);
         TAnak.setBounds(100, 192, 122, 23);
 
+        jLabel22.setForeground(new java.awt.Color(0, 0, 0));
         jLabel22.setText("Perawat Resusitasi : Rp");
         jLabel22.setName("jLabel22"); // NOI18N
         FormInput.add(jLabel22);
         jLabel22.setBounds(225, 222, 140, 23);
 
+        TResusitas.setForeground(new java.awt.Color(0, 0, 0));
         TResusitas.setText("0");
         TResusitas.setHighlighter(null);
         TResusitas.setName("TResusitas"); // NOI18N
@@ -806,11 +851,13 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(TResusitas);
         TResusitas.setBounds(370, 222, 122, 23);
 
+        jLabel23.setForeground(new java.awt.Color(0, 0, 0));
         jLabel23.setText("Bidan 1 : Rp");
         jLabel23.setName("jLabel23"); // NOI18N
         FormInput.add(jLabel23);
         jLabel23.setBounds(495, 72, 98, 23);
 
+        TBidan1.setForeground(new java.awt.Color(0, 0, 0));
         TBidan1.setText("0");
         TBidan1.setHighlighter(null);
         TBidan1.setName("TBidan1"); // NOI18N
@@ -822,11 +869,13 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(TBidan1);
         TBidan1.setBounds(598, 72, 122, 23);
 
+        jLabel24.setForeground(new java.awt.Color(0, 0, 0));
         jLabel24.setText("N.M.S. : Rp");
         jLabel24.setName("jLabel24"); // NOI18N
         FormInput.add(jLabel24);
         jLabel24.setBounds(0, 222, 96, 23);
 
+        TBagianRS.setForeground(new java.awt.Color(0, 0, 0));
         TBagianRS.setText("0");
         TBagianRS.setHighlighter(null);
         TBagianRS.setName("TBagianRS"); // NOI18N
@@ -838,11 +887,13 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(TBagianRS);
         TBagianRS.setBounds(100, 222, 122, 23);
 
+        jLabel25.setForeground(new java.awt.Color(0, 0, 0));
         jLabel25.setText("Akomodasi : Rp");
         jLabel25.setName("jLabel25"); // NOI18N
         FormInput.add(jLabel25);
         jLabel25.setBounds(225, 252, 140, 23);
 
+        TAkomodasi.setForeground(new java.awt.Color(0, 0, 0));
         TAkomodasi.setText("0");
         TAkomodasi.setHighlighter(null);
         TAkomodasi.setName("TAkomodasi"); // NOI18N
@@ -854,11 +905,13 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(TAkomodasi);
         TAkomodasi.setBounds(370, 252, 122, 23);
 
+        jLabel26.setForeground(new java.awt.Color(0, 0, 0));
         jLabel26.setText("Onloop 1 : Rp");
         jLabel26.setName("jLabel26"); // NOI18N
         FormInput.add(jLabel26);
         jLabel26.setBounds(495, 162, 98, 23);
 
+        TOmloop1.setForeground(new java.awt.Color(0, 0, 0));
         TOmloop1.setText("0");
         TOmloop1.setHighlighter(null);
         TOmloop1.setName("TOmloop1"); // NOI18N
@@ -870,12 +923,13 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(TOmloop1);
         TOmloop1.setBounds(598, 162, 122, 23);
 
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Kategori :");
         jLabel4.setName("jLabel4"); // NOI18N
         FormInput.add(jLabel4);
         jLabel4.setBounds(0, 42, 96, 23);
 
-        Kategori.setForeground(new java.awt.Color(153, 0, 51));
+        Kategori.setForeground(new java.awt.Color(0, 0, 0));
         Kategori.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Kebidanan", "Operasi" }));
         Kategori.setName("Kategori"); // NOI18N
         Kategori.setOpaque(false);
@@ -887,11 +941,13 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(Kategori);
         Kategori.setBounds(100, 42, 122, 23);
 
+        jLabel27.setForeground(new java.awt.Color(0, 0, 0));
         jLabel27.setText("Bidan 2 : Rp");
         jLabel27.setName("jLabel27"); // NOI18N
         FormInput.add(jLabel27);
         jLabel27.setBounds(495, 102, 98, 23);
 
+        TBidan2.setForeground(new java.awt.Color(0, 0, 0));
         TBidan2.setText("0");
         TBidan2.setHighlighter(null);
         TBidan2.setName("TBidan2"); // NOI18N
@@ -903,11 +959,13 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(TBidan2);
         TBidan2.setBounds(598, 102, 122, 23);
 
+        jLabel28.setForeground(new java.awt.Color(0, 0, 0));
         jLabel28.setText("Bidan 3 : Rp");
         jLabel28.setName("jLabel28"); // NOI18N
         FormInput.add(jLabel28);
         jLabel28.setBounds(495, 132, 98, 23);
 
+        TBidan3.setForeground(new java.awt.Color(0, 0, 0));
         TBidan3.setText("0");
         TBidan3.setHighlighter(null);
         TBidan3.setName("TBidan3"); // NOI18N
@@ -919,11 +977,13 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(TBidan3);
         TBidan3.setBounds(598, 132, 122, 23);
 
+        jLabel29.setForeground(new java.awt.Color(0, 0, 0));
         jLabel29.setText("Onloop 2 : Rp");
         jLabel29.setName("jLabel29"); // NOI18N
         FormInput.add(jLabel29);
         jLabel29.setBounds(495, 192, 98, 23);
 
+        TOmloop2.setForeground(new java.awt.Color(0, 0, 0));
         TOmloop2.setText("0");
         TOmloop2.setHighlighter(null);
         TOmloop2.setName("TOmloop2"); // NOI18N
@@ -935,11 +995,13 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(TOmloop2);
         TOmloop2.setBounds(598, 192, 122, 23);
 
+        jLabel30.setForeground(new java.awt.Color(0, 0, 0));
         jLabel30.setText("Onloop 3 : Rp");
         jLabel30.setName("jLabel30"); // NOI18N
         FormInput.add(jLabel30);
         jLabel30.setBounds(495, 222, 98, 23);
 
+        TOmloop3.setForeground(new java.awt.Color(0, 0, 0));
         TOmloop3.setText("0");
         TOmloop3.setHighlighter(null);
         TOmloop3.setName("TOmloop3"); // NOI18N
@@ -951,11 +1013,13 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(TOmloop3);
         TOmloop3.setBounds(598, 222, 122, 23);
 
+        jLabel31.setForeground(new java.awt.Color(0, 0, 0));
         jLabel31.setText("Sarpras : Rp");
         jLabel31.setName("jLabel31"); // NOI18N
         FormInput.add(jLabel31);
         jLabel31.setBounds(270, 342, 98, 23);
 
+        TSarpras.setForeground(new java.awt.Color(0, 0, 0));
         TSarpras.setText("0");
         TSarpras.setHighlighter(null);
         TSarpras.setName("TSarpras"); // NOI18N
@@ -967,11 +1031,13 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(TSarpras);
         TSarpras.setBounds(370, 342, 122, 23);
 
+        jLabel32.setForeground(new java.awt.Color(0, 0, 0));
         jLabel32.setText("dr Umum : Rp");
         jLabel32.setName("jLabel32"); // NOI18N
         FormInput.add(jLabel32);
         jLabel32.setBounds(0, 282, 96, 23);
 
+        TdrUmum.setForeground(new java.awt.Color(0, 0, 0));
         TdrUmum.setText("0");
         TdrUmum.setHighlighter(null);
         TdrUmum.setName("TdrUmum"); // NOI18N
@@ -983,11 +1049,13 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(TdrUmum);
         TdrUmum.setBounds(100, 282, 122, 23);
 
+        jLabel33.setForeground(new java.awt.Color(0, 0, 0));
         jLabel33.setText("dr Pj Anak : RP");
         jLabel33.setName("jLabel33"); // NOI18N
         FormInput.add(jLabel33);
         jLabel33.setBounds(0, 312, 96, 23);
 
+        TdrPJAnak.setForeground(new java.awt.Color(0, 0, 0));
         TdrPJAnak.setText("0");
         TdrPJAnak.setHighlighter(null);
         TdrPJAnak.setName("TdrPJAnak"); // NOI18N
@@ -999,11 +1067,13 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(TdrPJAnak);
         TdrPJAnak.setBounds(100, 312, 122, 23);
 
+        jLabel34.setForeground(new java.awt.Color(0, 0, 0));
         jLabel34.setText("Bayar :");
         jLabel34.setName("jLabel34"); // NOI18N
         FormInput.add(jLabel34);
         jLabel34.setBounds(225, 42, 140, 23);
 
+        kdpnj.setForeground(new java.awt.Color(0, 0, 0));
         kdpnj.setToolTipText("Tekan ENTER untuk lanjut ke field berikutnya, tekan PAGE UP untuk ke field sebelumnya, Tekan UP untuk menampilkan data Jenis Pembayaran");
         kdpnj.setHighlighter(null);
         kdpnj.setName("kdpnj"); // NOI18N
@@ -1016,10 +1086,12 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         kdpnj.setBounds(370, 42, 60, 23);
 
         nmpnj.setEditable(false);
+        nmpnj.setForeground(new java.awt.Color(0, 0, 0));
         nmpnj.setName("nmpnj"); // NOI18N
         FormInput.add(nmpnj);
         nmpnj.setBounds(432, 42, 258, 23);
 
+        BtnPenjab.setForeground(new java.awt.Color(0, 0, 0));
         BtnPenjab.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/190.png"))); // NOI18N
         BtnPenjab.setMnemonic('2');
         BtnPenjab.setToolTipText("ALt+2");
@@ -1032,11 +1104,13 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(BtnPenjab);
         BtnPenjab.setBounds(692, 42, 28, 23);
 
+        jLabel35.setForeground(new java.awt.Color(0, 0, 0));
         jLabel35.setText("Asisten Operator 3 : Rp");
         jLabel35.setName("jLabel35"); // NOI18N
         FormInput.add(jLabel35);
         jLabel35.setBounds(225, 132, 140, 23);
 
+        TAsisOperator3.setForeground(new java.awt.Color(0, 0, 0));
         TAsisOperator3.setText("0");
         TAsisOperator3.setHighlighter(null);
         TAsisOperator3.setName("TAsisOperator3"); // NOI18N
@@ -1048,11 +1122,13 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(TAsisOperator3);
         TAsisOperator3.setBounds(370, 132, 122, 23);
 
+        jLabel36.setForeground(new java.awt.Color(0, 0, 0));
         jLabel36.setText("Asisten Anestesi 2 : Rp");
         jLabel36.setName("jLabel36"); // NOI18N
         FormInput.add(jLabel36);
         jLabel36.setBounds(225, 192, 140, 23);
 
+        TAsisAnastesi1.setForeground(new java.awt.Color(0, 0, 0));
         TAsisAnastesi1.setText("0");
         TAsisAnastesi1.setHighlighter(null);
         TAsisAnastesi1.setName("TAsisAnastesi1"); // NOI18N
@@ -1064,11 +1140,13 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(TAsisAnastesi1);
         TAsisAnastesi1.setBounds(370, 192, 122, 23);
 
+        jLabel37.setForeground(new java.awt.Color(0, 0, 0));
         jLabel37.setText("Onloop 4 : Rp");
         jLabel37.setName("jLabel37"); // NOI18N
         FormInput.add(jLabel37);
         jLabel37.setBounds(495, 252, 98, 23);
 
+        TOmloop4.setForeground(new java.awt.Color(0, 0, 0));
         TOmloop4.setText("0");
         TOmloop4.setHighlighter(null);
         TOmloop4.setName("TOmloop4"); // NOI18N
@@ -1080,11 +1158,13 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(TOmloop4);
         TOmloop4.setBounds(598, 252, 122, 23);
 
+        jLabel38.setForeground(new java.awt.Color(0, 0, 0));
         jLabel38.setText("Onloop 5 : Rp");
         jLabel38.setName("jLabel38"); // NOI18N
         FormInput.add(jLabel38);
         jLabel38.setBounds(495, 282, 98, 23);
 
+        TOmloop5.setForeground(new java.awt.Color(0, 0, 0));
         TOmloop5.setText("0");
         TOmloop5.setHighlighter(null);
         TOmloop5.setName("TOmloop5"); // NOI18N
@@ -1096,12 +1176,13 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         FormInput.add(TOmloop5);
         TOmloop5.setBounds(598, 282, 122, 23);
 
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Kelas :");
         jLabel5.setName("jLabel5"); // NOI18N
         FormInput.add(jLabel5);
         jLabel5.setBounds(495, 342, 98, 23);
 
-        Kelas.setForeground(new java.awt.Color(153, 0, 51));
+        Kelas.setForeground(new java.awt.Color(0, 0, 0));
         Kelas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "Rawat Jalan", "Kelas 1", "Kelas 2", "Kelas 3", "Kelas Utama", "Kelas VIP", "Kelas VVIP" }));
         Kelas.setName("Kelas"); // NOI18N
         Kelas.setOpaque(false);
@@ -2286,6 +2367,4 @@ private void TOmloop1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
     public JTable getTable(){
         return tbJnsPerawatan;
     }
-
-    
 }

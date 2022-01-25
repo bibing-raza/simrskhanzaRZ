@@ -2277,12 +2277,12 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     + "from diagnosa_pasien inner join reg_periksa inner join pasien inner join penyakit "
                     + "on diagnosa_pasien.no_rawat=reg_periksa.no_rawat and reg_periksa.no_rkm_medis=pasien.no_rkm_medis "
                     + "and diagnosa_pasien.kd_penyakit=penyakit.kd_penyakit where "
-                    + "reg_periksa.tgl_registrasi between ? and ? and reg_periksa.no_rkm_medis like ? "
+                    + "reg_periksa.tgl_registrasi between ? and ? and reg_periksa.no_rawat like ? "
                     + "order by reg_periksa.tgl_registrasi,diagnosa_pasien.prioritas ");
             try {
                 psdiagnosapasien.setString(1, Valid.SetTgl(DTPCari1.getSelectedItem() + ""));
                 psdiagnosapasien.setString(2, Valid.SetTgl(DTPCari2.getSelectedItem() + ""));
-                psdiagnosapasien.setString(3, "%" + norm + "%");
+                psdiagnosapasien.setString(3, "%" + norw + "%");
                 rs = psdiagnosapasien.executeQuery();
                 while (rs.next()) {
                     TabModeDiagnosaPasien.addRow(new Object[]{
@@ -2319,12 +2319,12 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     + "from prosedur_pasien inner join reg_periksa inner join pasien inner join icd9 "
                     + "on prosedur_pasien.no_rawat=reg_periksa.no_rawat and reg_periksa.no_rkm_medis=pasien.no_rkm_medis "
                     + "and prosedur_pasien.kode=icd9.kode where "                    
-                    + "reg_periksa.tgl_registrasi between ? and ? and reg_periksa.no_rkm_medis like ? "
+                    + "reg_periksa.tgl_registrasi between ? and ? and reg_periksa.no_rawat like ? "
                     + "order by reg_periksa.tgl_registrasi,prosedur_pasien.prioritas ");
             try {
                 pstindakanpasien.setString(1, Valid.SetTgl(DTPCari1.getSelectedItem() + ""));
                 pstindakanpasien.setString(2, Valid.SetTgl(DTPCari2.getSelectedItem() + ""));
-                pstindakanpasien.setString(3, "%" + norm + "%");
+                pstindakanpasien.setString(3, "%" + norw + "%");
                 rs = pstindakanpasien.executeQuery();
                 while (rs.next()) {
                     TabModeTindakanPasien.addRow(new Object[]{
