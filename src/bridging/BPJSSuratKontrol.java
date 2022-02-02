@@ -14,6 +14,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.FileInputStream;
 import java.net.URI;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
@@ -24,6 +25,7 @@ import java.sql.ResultSet;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.X509TrustManager;
 import javax.swing.JOptionPane;
@@ -49,22 +51,22 @@ import org.springframework.web.client.RestTemplate;
  */
 public class BPJSSuratKontrol extends javax.swing.JDialog {
     private final DefaultTableModel tabMode;
-    private Connection koneksi=koneksiDB.condb();
-    private sekuel Sequel=new sekuel();
-    private validasi Valid=new validasi();
+    private Connection koneksi = koneksiDB.condb();
+    private sekuel Sequel = new sekuel();
+    private validasi Valid = new validasi();
+    private final Properties prop = new Properties();
     private PreparedStatement ps;
     private ResultSet rs;
-    private int i = 0;
+    private int i = 0, x = 0;
+    private Date tgl = new Date();
     private BPJSCekReferensiDokterKontrol dokter = new BPJSCekReferensiDokterKontrol(null, false);
     private BPJSCekReferensiSpesialistikKontrol poli = new BPJSCekReferensiSpesialistikKontrol(null, false);
     private HttpHeaders headers;
     private HttpEntity requestEntity;
-    private ObjectMapper mapper = new ObjectMapper();
-    private JsonNode root;
-    private JsonNode nameNode;
-    private JsonNode response;
-    private String link = "", requestJson = "", URL = "", user = "";
-    private ApiBPJS api = new ApiBPJS();
+    private ObjectMapper mapper = new ObjectMapper();    
+    private String requestJson = "", URL = "", user = "", utc = "", diagnosa = "", kdICD10 = "";
+//    private ApiBPJS api = new ApiBPJS();
+    private BPJSApi api = new BPJSApi();
 
     /** Creates new form DlgPemberianInfus
      * @param parent
@@ -73,18 +75,18 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
 
-        tabMode=new DefaultTableModel(null,new Object[]{
-                "No. Rawat","No. SEP","No. Kartu","No. RM","Nama Pasien","Tgl. Lahir","J.K.","Diagnosa","Tgl. Surat","No. Surat",
-                "Jenis Kontrol","Tgl. ontrol","Kode Dokter","Nama Dokter/Sepesialis","Kode Poli","Nama Poliklinik"
-            }){
+        tabMode = new DefaultTableModel(null, new Object[]{
+            "No. Rawat", "No. SEP", "No. Kartu", "No. RM", "Nama Pasien", "Tgl. Lahir", "J.K.", "Diagnosa", "Tgl. Surat", "No. Surat",
+            "Tgl. Kontrol", "Kode Dokter", "Nama Dokter/Sepesialis", "Kode Poli", "Nama Poliklinik", "kdpenyakit"
+        }) {
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
         };
-        tbObat.setModel(tabMode);
-        tbObat.setPreferredScrollableViewportSize(new Dimension(500,500));
-        tbObat.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tbSuratKontrol.setModel(tabMode);
+        tbSuratKontrol.setPreferredScrollableViewportSize(new Dimension(500,500));
+        tbSuratKontrol.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
         for (i = 0; i < 16; i++) {
-            TableColumn column = tbObat.getColumnModel().getColumn(i);
+            TableColumn column = tbSuratKontrol.getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setPreferredWidth(105);
             } else if (i == 1) {
@@ -98,7 +100,7 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
             } else if (i == 5) {
                 column.setPreferredWidth(65);
             } else if (i == 6) {
-                column.setPreferredWidth(25);
+                column.setPreferredWidth(80);
             } else if (i == 7) {
                 column.setPreferredWidth(150);
             } else if (i == 8) {
@@ -106,24 +108,24 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
             } else if (i == 9) {
                 column.setPreferredWidth(125);
             } else if (i == 10) {
-                column.setPreferredWidth(100);
-            } else if (i == 11) {
                 column.setPreferredWidth(65);
+            } else if (i == 11) {
+                column.setPreferredWidth(70);
             } else if (i == 12) {
-                column.setPreferredWidth(70);
+                column.setPreferredWidth(340);
             } else if (i == 13) {
-                column.setPreferredWidth(150);
-            } else if (i == 14) {
                 column.setPreferredWidth(70);
-            } else if (i == 15) {
+            } else if (i == 14) {
                 column.setPreferredWidth(150);
+            } else if (i == 15) {
+                column.setMinWidth(0);
+                column.setMaxWidth(0);
             }
         }
-        tbObat.setDefaultRenderer(Object.class, new WarnaTable());
+        tbSuratKontrol.setDefaultRenderer(Object.class, new WarnaTable());
 
-        NoRawat.setDocument(new batasInput((byte)15).getKata(NoRawat));
         TCari.setDocument(new batasInput((byte)100).getKata(TCari));
-        KdDokter.setDocument(new batasInput((byte)20).getKata(KdDokter));
+        
         if(koneksiDB.cariCepat().equals("aktif")){
             TCari.getDocument().addDocumentListener(new javax.swing.event.DocumentListener(){
                 @Override
@@ -177,10 +179,8 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
             public void keyTyped(KeyEvent e) {}
             @Override
             public void keyPressed(KeyEvent e) {
-                if(var.getform().equals("BPJSSuratKontrol")){
-                    if(e.getKeyCode()==KeyEvent.VK_SPACE || e.getKeyCode()==KeyEvent.VK_ENTER){
-                        dokter.dispose();
-                    }
+                if (e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    dokter.dispose();
                 }
             }
             @Override
@@ -214,12 +214,11 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
             public void keyTyped(KeyEvent e) {}
             @Override
             public void keyPressed(KeyEvent e) {
-                if(var.getform().equals("BPJSSuratKontrol")){
-                    if(e.getKeyCode()==KeyEvent.VK_SPACE || e.getKeyCode()==KeyEvent.VK_ENTER){
-                        poli.dispose();
-                    }                
+                if (e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    poli.dispose();
                 }
             }
+
             @Override
             public void keyReleased(KeyEvent e) {}
         });
@@ -231,7 +230,7 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         }
         
         try {
-            link=koneksiDB.URLAPIBPJSyangbaru();
+            prop.loadFromXML(new FileInputStream("setting/database.xml"));            
         } catch (Exception e) {
             System.out.println("E : "+e);
         }
@@ -251,7 +250,7 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         MnSurat = new javax.swing.JMenuItem();
         internalFrame1 = new widget.InternalFrame();
         Scroll = new widget.ScrollPane();
-        tbObat = new widget.Table();
+        tbSuratKontrol = new widget.Table();
         jPanel3 = new javax.swing.JPanel();
         panelGlass8 = new widget.panelisi();
         BtnSimpan = new widget.Button();
@@ -269,13 +268,13 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         LCount = new widget.Label();
         panelCari = new widget.panelisi();
         R1 = new widget.RadioButton();
-        DTPTanggalSurat1 = new widget.Tanggal();
+        tglSurat1 = new widget.Tanggal();
         jLabel22 = new widget.Label();
-        DTPTanggalSurat2 = new widget.Tanggal();
+        tglSurat2 = new widget.Tanggal();
         R2 = new widget.RadioButton();
-        DTPTanggalKontrol1 = new widget.Tanggal();
+        tglKontrol1 = new widget.Tanggal();
         jLabel25 = new widget.Label();
-        DTPTanggalKontrol2 = new widget.Tanggal();
+        tglKontrol2 = new widget.Tanggal();
         PanelInput = new javax.swing.JPanel();
         ChkInput = new widget.CekBox();
         FormInput = new widget.PanelBiasa();
@@ -284,17 +283,14 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         jLabel9 = new widget.Label();
         NmDokter = new widget.TextBox();
         NoSEP = new widget.TextBox();
-        TanggalSurat = new widget.Tanggal();
-        jLabel10 = new widget.Label();
         KdDokter = new widget.TextBox();
         BtnDokter = new widget.Button();
         jLabel11 = new widget.Label();
         KdPoli = new widget.TextBox();
         NmPoli = new widget.TextBox();
         BtnPoli = new widget.Button();
-        jLabel14 = new widget.Label();
+        label_rencana = new widget.Label();
         TanggalKontrol = new widget.Tanggal();
-        jLabel15 = new widget.Label();
         NoSurat = new widget.TextBox();
         jLabel5 = new widget.Label();
         jLabel8 = new widget.Label();
@@ -307,10 +303,6 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         jLabel16 = new widget.Label();
         JK = new widget.TextBox();
         jLabel17 = new widget.Label();
-        jLabel18 = new widget.Label();
-        JenisKontrol = new widget.ComboBox();
-        Scroll3 = new widget.ScrollPane();
-        Diagnosa = new widget.TextArea();
 
         jPopupMenu1.setName("jPopupMenu1"); // NOI18N
 
@@ -318,7 +310,7 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         MnSurat.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         MnSurat.setForeground(new java.awt.Color(0, 0, 0));
         MnSurat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
-        MnSurat.setText("Surat Kontrol/SPRI");
+        MnSurat.setText("Surat Rencana Kontrol");
         MnSurat.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MnSurat.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         MnSurat.setName("MnSurat"); // NOI18N
@@ -334,31 +326,33 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         setUndecorated(true);
         setResizable(false);
 
-        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Surat Kontrol/SPRI VClaim ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255), 3), "::[ Surat Rencana Kontrol VClaim ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
         internalFrame1.setName("internalFrame1"); // NOI18N
         internalFrame1.setLayout(new java.awt.BorderLayout(1, 1));
 
         Scroll.setName("Scroll"); // NOI18N
         Scroll.setOpaque(true);
-
-        tbObat.setAutoCreateRowSorter(true);
-        tbObat.setToolTipText("Silahkan klik untuk memilih data yang mau diedit ataupun dihapus");
-        tbObat.setComponentPopupMenu(jPopupMenu1);
-        tbObat.setName("tbObat"); // NOI18N
-        tbObat.addMouseListener(new java.awt.event.MouseAdapter() {
+        Scroll.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbObatMouseClicked(evt);
+                ScrollMouseClicked(evt);
             }
         });
-        tbObat.addKeyListener(new java.awt.event.KeyAdapter() {
+
+        tbSuratKontrol.setAutoCreateRowSorter(true);
+        tbSuratKontrol.setToolTipText("Silahkan klik untuk memilih data yang mau diedit ataupun dihapus");
+        tbSuratKontrol.setComponentPopupMenu(jPopupMenu1);
+        tbSuratKontrol.setName("tbSuratKontrol"); // NOI18N
+        tbSuratKontrol.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbSuratKontrolMouseClicked(evt);
+            }
+        });
+        tbSuratKontrol.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                tbObatKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                tbObatKeyReleased(evt);
+                tbSuratKontrolKeyPressed(evt);
             }
         });
-        Scroll.setViewportView(tbObat);
+        Scroll.setViewportView(tbSuratKontrol);
 
         internalFrame1.add(Scroll, java.awt.BorderLayout.CENTER);
 
@@ -518,7 +512,7 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
 
         TCari.setForeground(new java.awt.Color(0, 0, 0));
         TCari.setName("TCari"); // NOI18N
-        TCari.setPreferredSize(new java.awt.Dimension(450, 23));
+        TCari.setPreferredSize(new java.awt.Dimension(300, 23));
         TCari.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 TCariKeyPressed(evt);
@@ -568,30 +562,25 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         R1.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.pink));
         buttonGroup1.add(R1);
         R1.setSelected(true);
-        R1.setText("Tgl. Surat :");
+        R1.setText("Tgl. Surat : ");
         R1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         R1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         R1.setName("R1"); // NOI18N
         R1.setPreferredSize(new java.awt.Dimension(100, 23));
         panelCari.add(R1);
 
-        DTPTanggalSurat1.setEditable(false);
-        DTPTanggalSurat1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-05-2021" }));
-        DTPTanggalSurat1.setDisplayFormat("dd-MM-yyyy");
-        DTPTanggalSurat1.setName("DTPTanggalSurat1"); // NOI18N
-        DTPTanggalSurat1.setOpaque(false);
-        DTPTanggalSurat1.setPreferredSize(new java.awt.Dimension(95, 23));
-        DTPTanggalSurat1.addItemListener(new java.awt.event.ItemListener() {
+        tglSurat1.setEditable(false);
+        tglSurat1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-01-2022" }));
+        tglSurat1.setDisplayFormat("dd-MM-yyyy");
+        tglSurat1.setName("tglSurat1"); // NOI18N
+        tglSurat1.setOpaque(false);
+        tglSurat1.setPreferredSize(new java.awt.Dimension(95, 23));
+        tglSurat1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                DTPTanggalSurat1ItemStateChanged(evt);
+                tglSurat1ItemStateChanged(evt);
             }
         });
-        DTPTanggalSurat1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                DTPTanggalSurat1KeyPressed(evt);
-            }
-        });
-        panelCari.add(DTPTanggalSurat1);
+        panelCari.add(tglSurat1);
 
         jLabel22.setForeground(new java.awt.Color(0, 0, 0));
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -600,46 +589,41 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         jLabel22.setPreferredSize(new java.awt.Dimension(25, 23));
         panelCari.add(jLabel22);
 
-        DTPTanggalSurat2.setEditable(false);
-        DTPTanggalSurat2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-05-2021" }));
-        DTPTanggalSurat2.setDisplayFormat("dd-MM-yyyy");
-        DTPTanggalSurat2.setName("DTPTanggalSurat2"); // NOI18N
-        DTPTanggalSurat2.setOpaque(false);
-        DTPTanggalSurat2.setPreferredSize(new java.awt.Dimension(95, 23));
-        DTPTanggalSurat2.addKeyListener(new java.awt.event.KeyAdapter() {
+        tglSurat2.setEditable(false);
+        tglSurat2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-01-2022" }));
+        tglSurat2.setDisplayFormat("dd-MM-yyyy");
+        tglSurat2.setName("tglSurat2"); // NOI18N
+        tglSurat2.setOpaque(false);
+        tglSurat2.setPreferredSize(new java.awt.Dimension(95, 23));
+        tglSurat2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                DTPTanggalSurat2KeyPressed(evt);
+                tglSurat2KeyPressed(evt);
             }
         });
-        panelCari.add(DTPTanggalSurat2);
+        panelCari.add(tglSurat2);
 
         R2.setBackground(new java.awt.Color(240, 250, 230));
         R2.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.pink));
         buttonGroup1.add(R2);
-        R2.setText("Tgl.  Kontrol :");
+        R2.setText("Tgl. Rencana  Kontrol : ");
         R2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         R2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         R2.setName("R2"); // NOI18N
-        R2.setPreferredSize(new java.awt.Dimension(115, 23));
+        R2.setPreferredSize(new java.awt.Dimension(145, 23));
         panelCari.add(R2);
 
-        DTPTanggalKontrol1.setEditable(false);
-        DTPTanggalKontrol1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-05-2021" }));
-        DTPTanggalKontrol1.setDisplayFormat("dd-MM-yyyy");
-        DTPTanggalKontrol1.setName("DTPTanggalKontrol1"); // NOI18N
-        DTPTanggalKontrol1.setOpaque(false);
-        DTPTanggalKontrol1.setPreferredSize(new java.awt.Dimension(95, 23));
-        DTPTanggalKontrol1.addItemListener(new java.awt.event.ItemListener() {
+        tglKontrol1.setEditable(false);
+        tglKontrol1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-01-2022" }));
+        tglKontrol1.setDisplayFormat("dd-MM-yyyy");
+        tglKontrol1.setName("tglKontrol1"); // NOI18N
+        tglKontrol1.setOpaque(false);
+        tglKontrol1.setPreferredSize(new java.awt.Dimension(95, 23));
+        tglKontrol1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                DTPTanggalKontrol1ItemStateChanged(evt);
+                tglKontrol1ItemStateChanged(evt);
             }
         });
-        DTPTanggalKontrol1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                DTPTanggalKontrol1KeyPressed(evt);
-            }
-        });
-        panelCari.add(DTPTanggalKontrol1);
+        panelCari.add(tglKontrol1);
 
         jLabel25.setForeground(new java.awt.Color(0, 0, 0));
         jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -648,23 +632,18 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         jLabel25.setPreferredSize(new java.awt.Dimension(25, 23));
         panelCari.add(jLabel25);
 
-        DTPTanggalKontrol2.setEditable(false);
-        DTPTanggalKontrol2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-05-2021" }));
-        DTPTanggalKontrol2.setDisplayFormat("dd-MM-yyyy");
-        DTPTanggalKontrol2.setName("DTPTanggalKontrol2"); // NOI18N
-        DTPTanggalKontrol2.setOpaque(false);
-        DTPTanggalKontrol2.setPreferredSize(new java.awt.Dimension(95, 23));
-        DTPTanggalKontrol2.addItemListener(new java.awt.event.ItemListener() {
+        tglKontrol2.setEditable(false);
+        tglKontrol2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-01-2022" }));
+        tglKontrol2.setDisplayFormat("dd-MM-yyyy");
+        tglKontrol2.setName("tglKontrol2"); // NOI18N
+        tglKontrol2.setOpaque(false);
+        tglKontrol2.setPreferredSize(new java.awt.Dimension(95, 23));
+        tglKontrol2.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                DTPTanggalKontrol2ItemStateChanged(evt);
+                tglKontrol2ItemStateChanged(evt);
             }
         });
-        DTPTanggalKontrol2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                DTPTanggalKontrol2KeyPressed(evt);
-            }
-        });
-        panelCari.add(DTPTanggalKontrol2);
+        panelCari.add(tglKontrol2);
 
         jPanel3.add(panelCari, java.awt.BorderLayout.PAGE_START);
 
@@ -672,7 +651,7 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
 
         PanelInput.setName("PanelInput"); // NOI18N
         PanelInput.setOpaque(false);
-        PanelInput.setPreferredSize(new java.awt.Dimension(192, 250));
+        PanelInput.setPreferredSize(new java.awt.Dimension(192, 190));
         PanelInput.setLayout(new java.awt.BorderLayout(1, 1));
 
         ChkInput.setForeground(new java.awt.Color(0, 0, 0));
@@ -713,17 +692,17 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         NoRawat.setBounds(94, 10, 150, 23);
 
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel9.setText("Spesialis/Sub :");
+        jLabel9.setText("Nama Dokter :");
         jLabel9.setName("jLabel9"); // NOI18N
         FormInput.add(jLabel9);
-        jLabel9.setBounds(0, 190, 90, 23);
+        jLabel9.setBounds(0, 129, 90, 23);
 
         NmDokter.setEditable(false);
         NmDokter.setForeground(new java.awt.Color(0, 0, 0));
         NmDokter.setHighlighter(null);
         NmDokter.setName("NmDokter"); // NOI18N
         FormInput.add(NmDokter);
-        NmDokter.setBounds(158, 190, 350, 23);
+        NmDokter.setBounds(158, 129, 350, 23);
 
         NoSEP.setEditable(false);
         NoSEP.setForeground(new java.awt.Color(0, 0, 0));
@@ -731,31 +710,12 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         FormInput.add(NoSEP);
         NoSEP.setBounds(310, 10, 150, 23);
 
-        TanggalSurat.setEditable(false);
-        TanggalSurat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-05-2021" }));
-        TanggalSurat.setDisplayFormat("dd-MM-yyyy");
-        TanggalSurat.setName("TanggalSurat"); // NOI18N
-        TanggalSurat.setOpaque(false);
-        TanggalSurat.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                TanggalSuratKeyPressed(evt);
-            }
-        });
-        FormInput.add(TanggalSurat);
-        TanggalSurat.setBounds(632, 70, 95, 23);
-
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel10.setText("Tgl. Surat : ");
-        jLabel10.setName("jLabel10"); // NOI18N
-        FormInput.add(jLabel10);
-        jLabel10.setBounds(548, 70, 80, 23);
-
         KdDokter.setEditable(false);
         KdDokter.setForeground(new java.awt.Color(0, 0, 0));
         KdDokter.setHighlighter(null);
         KdDokter.setName("KdDokter"); // NOI18N
         FormInput.add(KdDokter);
-        KdDokter.setBounds(94, 190, 60, 23);
+        KdDokter.setBounds(94, 129, 60, 23);
 
         BtnDokter.setForeground(new java.awt.Color(0, 0, 0));
         BtnDokter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/download24.png"))); // NOI18N
@@ -773,27 +733,27 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
             }
         });
         FormInput.add(BtnDokter);
-        BtnDokter.setBounds(510, 190, 28, 23);
+        BtnDokter.setBounds(510, 129, 28, 23);
 
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel11.setText("Poliklinik :");
+        jLabel11.setText("Spesialis/Sub :");
         jLabel11.setName("jLabel11"); // NOI18N
         FormInput.add(jLabel11);
-        jLabel11.setBounds(0, 160, 90, 23);
+        jLabel11.setBounds(0, 100, 90, 23);
 
         KdPoli.setEditable(false);
         KdPoli.setForeground(new java.awt.Color(0, 0, 0));
         KdPoli.setHighlighter(null);
         KdPoli.setName("KdPoli"); // NOI18N
         FormInput.add(KdPoli);
-        KdPoli.setBounds(94, 160, 50, 23);
+        KdPoli.setBounds(94, 100, 50, 23);
 
         NmPoli.setEditable(false);
         NmPoli.setForeground(new java.awt.Color(0, 0, 0));
         NmPoli.setHighlighter(null);
         NmPoli.setName("NmPoli"); // NOI18N
         FormInput.add(NmPoli);
-        NmPoli.setBounds(147, 160, 360, 23);
+        NmPoli.setBounds(147, 100, 360, 23);
 
         BtnPoli.setForeground(new java.awt.Color(0, 0, 0));
         BtnPoli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/download24.png"))); // NOI18N
@@ -811,43 +771,27 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
             }
         });
         FormInput.add(BtnPoli);
-        BtnPoli.setBounds(510, 160, 28, 23);
+        BtnPoli.setBounds(510, 100, 28, 23);
 
-        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel14.setText("Tgl.  Kontrol : ");
-        jLabel14.setName("jLabel14"); // NOI18N
-        FormInput.add(jLabel14);
-        jLabel14.setBounds(528, 130, 100, 23);
+        label_rencana.setForeground(new java.awt.Color(0, 0, 0));
+        label_rencana.setText("Tgl. Rencana Kontrol : ");
+        label_rencana.setName("label_rencana"); // NOI18N
+        FormInput.add(label_rencana);
+        label_rencana.setBounds(295, 70, 120, 23);
 
         TanggalKontrol.setEditable(false);
-        TanggalKontrol.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-05-2021" }));
+        TanggalKontrol.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-01-2022" }));
         TanggalKontrol.setDisplayFormat("dd-MM-yyyy");
         TanggalKontrol.setName("TanggalKontrol"); // NOI18N
         TanggalKontrol.setOpaque(false);
-        TanggalKontrol.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                TanggalKontrolKeyPressed(evt);
-            }
-        });
         FormInput.add(TanggalKontrol);
-        TanggalKontrol.setBounds(632, 130, 95, 23);
-
-        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel15.setText("No. Surat :");
-        jLabel15.setName("jLabel15"); // NOI18N
-        FormInput.add(jLabel15);
-        jLabel15.setBounds(0, 130, 90, 23);
+        TanggalKontrol.setBounds(416, 70, 95, 23);
 
         NoSurat.setEditable(false);
         NoSurat.setForeground(new java.awt.Color(0, 0, 0));
         NoSurat.setName("NoSurat"); // NOI18N
-        NoSurat.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                NoSuratKeyPressed(evt);
-            }
-        });
         FormInput.add(NoSurat);
-        NoSurat.setBounds(94, 130, 200, 23);
+        NoSurat.setBounds(94, 70, 200, 23);
 
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("No. Rawat :");
@@ -865,7 +809,7 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         NoKartu.setForeground(new java.awt.Color(0, 0, 0));
         NoKartu.setName("NoKartu"); // NOI18N
         FormInput.add(NoKartu);
-        NoKartu.setBounds(538, 10, 120, 23);
+        NoKartu.setBounds(538, 10, 180, 23);
 
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Pasien :");
@@ -899,58 +843,22 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         jLabel13.setBounds(429, 40, 62, 23);
 
         jLabel16.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel16.setText("J.K. :");
+        jLabel16.setText("J.K. : ");
         jLabel16.setName("jLabel16"); // NOI18N
         FormInput.add(jLabel16);
-        jLabel16.setBounds(588, 40, 40, 23);
+        jLabel16.setBounds(590, 40, 60, 23);
 
         JK.setEditable(false);
         JK.setForeground(new java.awt.Color(0, 0, 0));
         JK.setName("JK"); // NOI18N
         FormInput.add(JK);
-        JK.setBounds(632, 40, 95, 23);
+        JK.setBounds(650, 40, 95, 23);
 
         jLabel17.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel17.setText("Diagnosa :");
+        jLabel17.setText("No. Surat :");
         jLabel17.setName("jLabel17"); // NOI18N
         FormInput.add(jLabel17);
         jLabel17.setBounds(0, 70, 90, 23);
-
-        jLabel18.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel18.setText("Jenis Kontrol :");
-        jLabel18.setName("jLabel18"); // NOI18N
-        jLabel18.setPreferredSize(new java.awt.Dimension(76, 23));
-        FormInput.add(jLabel18);
-        jLabel18.setBounds(302, 130, 76, 23);
-
-        JenisKontrol.setForeground(new java.awt.Color(0, 0, 0));
-        JenisKontrol.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "1: Rencana Kontrol", "2: SPRI" }));
-        JenisKontrol.setName("JenisKontrol"); // NOI18N
-        JenisKontrol.setPreferredSize(new java.awt.Dimension(145, 23));
-        JenisKontrol.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                JenisKontrolKeyPressed(evt);
-            }
-        });
-        FormInput.add(JenisKontrol);
-        JenisKontrol.setBounds(382, 130, 145, 23);
-
-        Scroll3.setName("Scroll3"); // NOI18N
-        Scroll3.setOpaque(true);
-
-        Diagnosa.setEditable(false);
-        Diagnosa.setColumns(20);
-        Diagnosa.setRows(5);
-        Diagnosa.setName("Diagnosa"); // NOI18N
-        Diagnosa.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                DiagnosaKeyPressed(evt);
-            }
-        });
-        Scroll3.setViewportView(Diagnosa);
-
-        FormInput.add(Scroll3);
-        Scroll3.setBounds(93, 70, 450, 53);
 
         PanelInput.add(FormInput, java.awt.BorderLayout.CENTER);
 
@@ -961,27 +869,24 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TanggalSuratKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TanggalSuratKeyPressed
-        Valid.pindah(evt,TCari,JenisKontrol);
-}//GEN-LAST:event_TanggalSuratKeyPressed
-
     private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSimpanActionPerformed
-        if (NoRawat.getText().trim().equals("") || NoSEP.getText().trim().equals("")) {
+        if (NoRawat.getText().trim().equals("")) {
             Valid.textKosong(NoRawat, "pasien");
         } else if (NmDokter.getText().trim().equals("") || KdDokter.getText().trim().equals("")) {
             Valid.textKosong(KdDokter, "Dokter");
         } else if (NmPoli.getText().trim().equals("") || NmPoli.getText().trim().equals("")) {
             Valid.textKosong(KdPoli, "Poli");
-        } else if (JenisKontrol.getSelectedItem().equals(" ")) {
-            Valid.textKosong(JenisKontrol, "Jenis Kontrol");
         } else {
             try {
-                headers = new HttpHeaders();
+                HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-                headers.add("X-Cons-ID", koneksiDB.CONSIDAPIBPJSyangbaru());
-                headers.add("X-Timestamp", String.valueOf(api.GetUTCdatetimeAsString()));
-                headers.add("X-Signature", api.getHmac());
-                URL = link + "/RencanaKontrol/insert";
+                headers.add("X-Cons-ID", koneksiDB.CONSIDAPIBPJS());
+                utc = String.valueOf(api.GetUTCdatetimeAsString());
+                headers.add("X-Timestamp", utc);
+                headers.add("X-Signature", api.getHmac(utc));
+                headers.add("user_key", koneksiDB.USERKEYAPIBPJS());
+                URL = prop.getProperty("URLAPIBPJS") + "/RencanaKontrol/insert";
+
                 requestJson = "{"
                         + "\"request\": {"
                         + "\"noSEP\":\"" + NoSEP.getText() + "\","
@@ -991,23 +896,29 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
                         + "\"user\":\"" + user + "\""
                         + "}"
                         + "}";
-                System.out.println("JSON : " + requestJson);
-                requestEntity = new HttpEntity(requestJson, headers);
-                root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.POST, requestEntity, String.class).getBody());
-                nameNode = root.path("metaData");
+
+                System.out.println("ini mengirim JSON : " + requestJson);
+                HttpEntity requestEntity = new HttpEntity(requestJson, headers);
+                ObjectMapper mapper = new ObjectMapper();
+                JsonNode root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.POST, requestEntity, String.class).getBody());
+                JsonNode nameNode = root.path("metaData");
                 System.out.println("code : " + nameNode.path("code").asText());
                 System.out.println("message : " + nameNode.path("message").asText());
-                response = root.path("response").path("noSuratKontrol");
+                JOptionPane.showMessageDialog(rootPane, "Notifikasi WS VClaim 2.0 : Kode " + nameNode.path("code").asText() + ", Isi pesan : " + nameNode.path("message").asText());
+//ini yang baru -----------            
+                JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc));
+                System.out.println("Ini responnya : " + mapper.readTree(api.Decrypt(root.path("response").asText(), utc)));
+//sampai sini -------------
                 if (nameNode.path("code").asText().equals("200")) {
-                    if (Sequel.menyimpantf("bridging_surat_kontrol_bpjs", "?,?,?,?,?,?,?,?,?", "No.Surat", 9, new String[]{
-                        NoSEP.getText(), Valid.SetTgl(TanggalSurat.getSelectedItem() + ""), response.asText(), Valid.SetTgl(TanggalKontrol.getSelectedItem() + ""), 
-                        KdDokter.getText(), NmDokter.getText(), KdPoli.getText(), NmPoli.getText(), JenisKontrol.getSelectedItem().toString()
+                    if (Sequel.menyimpantf("bridging_surat_kontrol_bpjs", "?,?,?,?,?,?,?,?,?,?", "No. Rencana Kontrol", 10, new String[]{
+                        NoSEP.getText(), Sequel.cariIsi("SELECT DATE(NOW())"), response.path("noSuratKontrol").asText(), Valid.SetTgl(TanggalKontrol.getSelectedItem() + ""),
+                        KdDokter.getText(), NmDokter.getText(), KdPoli.getText(), NmPoli.getText(), "2: Rencana Kontrol", NoRawat.getText()
                     }) == true) {
                         emptTeks();
                         tampil();
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, nameNode.path("message").asText());
+                    JOptionPane.showMessageDialog(rootPane, "Notifikasi WS VClaim 2.0 : Kode " + nameNode.path("code").asText() + ", Pesan : " + nameNode.path("message").asText());
                 }
             } catch (Exception ex) {
                 System.out.println("Notifikasi Bridging : " + ex);
@@ -1019,10 +930,10 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
 }//GEN-LAST:event_BtnSimpanActionPerformed
 
     private void BtnSimpanKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnSimpanKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_SPACE){
+        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
             BtnSimpanActionPerformed(null);
-        }else{
-            Valid.pindah(evt,NoSurat,BtnBatal);
+        } else {
+            Valid.pindah(evt, NoSurat, BtnBatal);
         }
 }//GEN-LAST:event_BtnSimpanKeyPressed
 
@@ -1033,17 +944,25 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
 }//GEN-LAST:event_BtnBatalActionPerformed
 
     private void BtnBatalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnBatalKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_SPACE){
+        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
             emptTeks();
-        }else{Valid.pindah(evt, BtnSimpan, BtnHapus);}
+        } else {
+            Valid.pindah(evt, BtnSimpan, BtnHapus);
+        }
 }//GEN-LAST:event_BtnBatalKeyPressed
 
     private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHapusActionPerformed
-        if (tbObat.getSelectedRow() != -1) {
+        if (tbSuratKontrol.getSelectedRow() != -1) {
             try {
-                bodyWithDeleteRequest();
+                x = JOptionPane.showConfirmDialog(rootPane, "Yakin data mau dihapus..??", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+                if (x == JOptionPane.YES_OPTION) {
+                    bodyWithDeleteRequest();                  
+                }
             } catch (Exception ex) {
                 System.out.println("Notifikasi Bridging : " + ex);
+                if (ex.toString().contains("UnknownHostException")) {
+                    JOptionPane.showMessageDialog(null, "Koneksi ke server BPJS terputus...!");
+                }
             }
         } else {
             JOptionPane.showMessageDialog(null, "Silahkan pilih dulu data yang mau dihapus..!!");
@@ -1051,9 +970,9 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
 }//GEN-LAST:event_BtnHapusActionPerformed
 
     private void BtnHapusKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnHapusKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_SPACE){
+        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
             BtnHapusActionPerformed(null);
-        }else{
+        } else {
             Valid.pindah(evt, BtnBatal, BtnPrint);
         }
 }//GEN-LAST:event_BtnHapusKeyPressed
@@ -1063,9 +982,11 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
 }//GEN-LAST:event_BtnKeluarActionPerformed
 
     private void BtnKeluarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnKeluarKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_SPACE){
+        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
             dispose();
-        }else{Valid.pindah(evt,BtnPrint,TCari);}
+        } else {
+            Valid.pindah(evt, BtnPrint, TCari);
+        }
 }//GEN-LAST:event_BtnKeluarKeyPressed
 
     private void BtnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPrintActionPerformed
@@ -1083,12 +1004,12 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
                 param.put("kontakrs", var.getkontakrs());
                 param.put("emailrs", var.getemailrs());
                 param.put("logo", Sequel.cariGambar("select logo from setting"));
-                Valid.MyReportqry("rptBridgingSuratKontrol.jasper", "report", "::[ Data Surat Kontrol VClaim ]::",
+                Valid.MyReport("rptBridgingSuratKontrol.jrxml", "report", "::[ Data Surat Kontrol VClaim ]::",
                         "select bridging_sep.no_rawat,bridging_sep.no_sep,bridging_sep.no_kartu,bridging_sep.nomr,bridging_sep.nama_pasien,bridging_sep.tanggal_lahir,"
                         + "bridging_sep.jkel,bridging_sep.diagawal,bridging_sep.nmdiagnosaawal,bridging_surat_kontrol_bpjs.tgl_surat,bridging_surat_kontrol_bpjs.no_surat,"
                         + "bridging_surat_kontrol_bpjs.jenis,bridging_surat_kontrol_bpjs.tgl_rencana,bridging_surat_kontrol_bpjs.kd_dokter_bpjs,bridging_surat_kontrol_bpjs.nm_dokter_bpjs,"
                         + "bridging_surat_kontrol_bpjs.kd_poli_bpjs,bridging_surat_kontrol_bpjs.nm_poli_bpjs from bridging_sep inner join bridging_surat_kontrol_bpjs "
-                        + "on bridging_surat_kontrol_bpjs.no_sep=bridging_sep.no_sep where bridging_surat_kontrol_bpjs.tgl_surat between '" + Valid.SetTgl(DTPTanggalSurat1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(DTPTanggalSurat2.getSelectedItem() + "") + "' "
+                        + "on bridging_surat_kontrol_bpjs.no_sep=bridging_sep.no_sep where bridging_surat_kontrol_bpjs.tgl_surat between '" + Valid.SetTgl(tglSurat1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(tglSurat2.getSelectedItem() + "") + "' "
                         + (TCari.getText().trim().equals("") ? "" : "and (bridging_sep.no_rawat like '%" + TCari.getText().trim() + "%' or bridging_sep.no_sep like '%" + TCari.getText().trim() + "%' or bridging_sep.no_kartu like '%" + TCari.getText().trim() + "%' or "
                         + "bridging_sep.nomr like '%" + TCari.getText().trim() + "%' or bridging_sep.nama_pasien like '%" + TCari.getText().trim() + "%' or bridging_surat_kontrol_bpjs.jenis like '%" + TCari.getText().trim() + "%' or bridging_surat_kontrol_bpjs.no_surat like '%" + TCari.getText().trim() + "%' or "
                         + "bridging_surat_kontrol_bpjs.nm_poli_bpjs like '%" + TCari.getText().trim() + "%' or bridging_surat_kontrol_bpjs.nm_dokter_bpjs like '%" + TCari.getText().trim() + "%')")
@@ -1102,12 +1023,12 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
                 param.put("kontakrs", var.getkontakrs());
                 param.put("emailrs", var.getemailrs());
                 param.put("logo", Sequel.cariGambar("select logo from setting"));
-                Valid.MyReportqry("rptBridgingSuratKontrol.jasper", "report", "::[ Data Surat Kontrol VClaim ]::",
+                Valid.MyReport("rptBridgingSuratKontrol.jrxml", "report", "::[ Data Surat Kontrol VClaim ]::",
                         "select bridging_sep.no_rawat,bridging_sep.no_sep,bridging_sep.no_kartu,bridging_sep.nomr,bridging_sep.nama_pasien,bridging_sep.tanggal_lahir,"
                         + "bridging_sep.jkel,bridging_sep.diagawal,bridging_sep.nmdiagnosaawal,bridging_surat_kontrol_bpjs.tgl_surat,bridging_surat_kontrol_bpjs.no_surat,"
                         + "bridging_surat_kontrol_bpjs.jenis,bridging_surat_kontrol_bpjs.tgl_rencana,bridging_surat_kontrol_bpjs.kd_dokter_bpjs,bridging_surat_kontrol_bpjs.nm_dokter_bpjs,"
                         + "bridging_surat_kontrol_bpjs.kd_poli_bpjs,bridging_surat_kontrol_bpjs.nm_poli_bpjs from bridging_sep inner join bridging_surat_kontrol_bpjs "
-                        + "on bridging_surat_kontrol_bpjs.no_sep=bridging_sep.no_sep where bridging_surat_kontrol_bpjs.tgl_rencana between '" + Valid.SetTgl(DTPTanggalKontrol1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(DTPTanggalKontrol2.getSelectedItem() + "") + "' "
+                        + "on bridging_surat_kontrol_bpjs.no_sep=bridging_sep.no_sep where bridging_surat_kontrol_bpjs.tgl_rencana between '" + Valid.SetTgl(tglKontrol1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(tglKontrol2.getSelectedItem() + "") + "' "
                         + (TCari.getText().trim().equals("") ? "" : "and (bridging_sep.no_rawat like '%" + TCari.getText().trim() + "%' or bridging_sep.no_sep like '%" + TCari.getText().trim() + "%' or bridging_sep.no_kartu like '%" + TCari.getText().trim() + "%' or "
                         + "bridging_sep.nomr like '%" + TCari.getText().trim() + "%' or bridging_sep.nama_pasien like '%" + TCari.getText().trim() + "%' or bridging_surat_kontrol_bpjs.jenis like '%" + TCari.getText().trim() + "%' or bridging_surat_kontrol_bpjs.no_surat like '%" + TCari.getText().trim() + "%' or "
                         + "bridging_surat_kontrol_bpjs.nm_poli_bpjs like '%" + TCari.getText().trim() + "%' or bridging_surat_kontrol_bpjs.nm_dokter_bpjs like '%" + TCari.getText().trim() + "%')")
@@ -1126,11 +1047,11 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
 }//GEN-LAST:event_BtnPrintKeyPressed
 
     private void TCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TCariKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             BtnCariActionPerformed(null);
-        }else if(evt.getKeyCode()==KeyEvent.VK_PAGE_DOWN){
+        } else if (evt.getKeyCode() == KeyEvent.VK_PAGE_DOWN) {
             BtnCari.requestFocus();
-        }else if(evt.getKeyCode()==KeyEvent.VK_PAGE_UP){
+        } else if (evt.getKeyCode() == KeyEvent.VK_PAGE_UP) {
             BtnKeluar.requestFocus();
         }
 }//GEN-LAST:event_TCariKeyPressed
@@ -1161,45 +1082,39 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         }
 }//GEN-LAST:event_BtnAllKeyPressed
 
-    private void tbObatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbObatMouseClicked
-        if(tabMode.getRowCount()!=0){
+    private void tbSuratKontrolMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbSuratKontrolMouseClicked
+        if (tabMode.getRowCount() != 0) {
             try {
                 getData();
             } catch (java.lang.NullPointerException e) {
             }
         }
-}//GEN-LAST:event_tbObatMouseClicked
+}//GEN-LAST:event_tbSuratKontrolMouseClicked
 
 private void BtnDokterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDokterActionPerformed
     if (KdPoli.getText().equals("") || NmPoli.getText().equals("")) {
-        Valid.textKosong(BtnPoli, "Poliklinik");
+        Valid.textKosong(BtnPoli, "Spesialis/Sub Spesialis");
     } else {
-        dokter.SetKontrol(KdPoli.getText(), JenisKontrol.getSelectedItem().toString(), Valid.SetTgl(TanggalKontrol.getSelectedItem() + ""));
-        dokter.setSize(internalFrame1.getWidth() - 20, internalFrame1.getHeight() - 20);
+        dokter.SetKontrol(KdPoli.getText(), "2", Valid.SetTgl(TanggalKontrol.getSelectedItem() + ""));
+        dokter.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
         dokter.setLocationRelativeTo(internalFrame1);
         dokter.setVisible(true);
-    }        
+        dokter.tampil();
+        dokter.TCari.requestFocus();
+    }   
 }//GEN-LAST:event_BtnDokterActionPerformed
 
 private void BtnDokterKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnDokterKeyPressed
-    if(evt.getKeyCode()==KeyEvent.VK_SPACE){
+    if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
         BtnDokterActionPerformed(null);
-    }else{
-        Valid.pindah(evt,TanggalKontrol,BtnPoli);
-    }        
+    } else {
+        Valid.pindah(evt, TanggalKontrol, BtnPoli);
+    }
 }//GEN-LAST:event_BtnDokterKeyPressed
 
 private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChkInputActionPerformed
   isForm();                
 }//GEN-LAST:event_ChkInputActionPerformed
-
-    private void DTPTanggalKontrol1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DTPTanggalKontrol1KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_DTPTanggalKontrol1KeyPressed
-
-    private void DTPTanggalKontrol2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DTPTanggalKontrol2KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_DTPTanggalKontrol2KeyPressed
 
     private void BtnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEditActionPerformed
         if (NoRawat.getText().trim().equals("") || NoSEP.getText().trim().equals("")) {
@@ -1208,53 +1123,63 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             Valid.textKosong(KdDokter, "Dokter");
         } else if (NmPoli.getText().trim().equals("") || NmPoli.getText().trim().equals("")) {
             Valid.textKosong(KdPoli, "Poli");
-        } else if (JenisKontrol.getSelectedItem().equals(" ")) {
-            Valid.textKosong(JenisKontrol, "Jenis Kontrol");
         } else {
-            if(tbObat.getSelectedRow()!= -1){
+            if (tbSuratKontrol.getSelectedRow() != -1) {
                 try {
-                    headers = new HttpHeaders();
+                    HttpHeaders headers = new HttpHeaders();
                     headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-                    headers.add("X-Cons-ID",koneksiDB.CONSIDAPIBPJSyangbaru());
-                    headers.add("X-Timestamp",String.valueOf(api.GetUTCdatetimeAsString()));            
-                    headers.add("X-Signature",api.getHmac());
-                    URL = link+"/RencanaKontrol/Update";            
-                    requestJson ="{" +
-                                    "\"request\": {" +
-                                        "\"noSuratKontrol\":\""+NoSurat.getText()+"\"," +
-                                        "\"noSEP\":\""+NoSEP.getText()+"\"," +
-                                        "\"kodeDokter\":\""+KdDokter.getText()+"\"," +
-                                        "\"poliKontrol\":\""+KdPoli.getText()+"\"," +
-                                        "\"tglRencanaKontrol\":\""+Valid.SetTgl(TanggalKontrol.getSelectedItem()+"")+"\"," +
-                                        "\"user\":\""+user+"\"" +
-                                    "}" +
-                                 "}";
-                    System.out.println("JSON : "+requestJson);
-                    requestEntity = new HttpEntity(requestJson,headers);
-                    root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.PUT, requestEntity, String.class).getBody());
-                    nameNode = root.path("metaData");
-                    System.out.println("code : "+nameNode.path("code").asText());
-                    System.out.println("message : "+nameNode.path("message").asText());
-                    if(nameNode.path("code").asText().equals("200")){
-                        if(Sequel.mengedittf("bridging_surat_kontrol_bpjs", "no_surat=?", "tgl_surat=?,tgl_rencana=?,kd_dokter_bpjs=?,nm_dokter_bpjs=?,kd_poli_bpjs=?,nm_poli_bpjs=?,jenis=?", 8, new String[]{
-                            Valid.SetTgl(TanggalSurat.getSelectedItem() + ""), Valid.SetTgl(TanggalKontrol.getSelectedItem() + ""), KdDokter.getText(),
-                            NmDokter.getText(), KdPoli.getText(), NmPoli.getText(), JenisKontrol.getSelectedItem().toString(), NoSurat.getText()
-                            })==true){
+                    headers.add("X-Cons-ID", koneksiDB.CONSIDAPIBPJS());
+                    utc = String.valueOf(api.GetUTCdatetimeAsString());
+                    headers.add("X-Timestamp", utc);
+                    headers.add("X-Signature", api.getHmac(utc));
+                    headers.add("user_key", koneksiDB.USERKEYAPIBPJS());
+                    URL = prop.getProperty("URLAPIBPJS") + "/RencanaKontrol/Update";
+
+                    requestJson = "{"
+                            + "\"request\": {"
+                            + "\"noSuratKontrol\":\"" + NoSurat.getText() + "\","
+                            + "\"noSEP\":\"" + NoSEP.getText() + "\","
+                            + "\"kodeDokter\":\"" + KdDokter.getText() + "\","
+                            + "\"poliKontrol\":\"" + KdPoli.getText() + "\","
+                            + "\"tglRencanaKontrol\":\"" + Valid.SetTgl(TanggalKontrol.getSelectedItem() + "") + "\","
+                            + "\"user\":\"" + user + "\""
+                            + "}"
+                            + "}";
+
+                    System.out.println("Ini mengirim JSON : " + requestJson);
+                    HttpEntity requestEntity = new HttpEntity(requestJson, headers);
+                    ObjectMapper mapper = new ObjectMapper();
+                    JsonNode root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.PUT, requestEntity, String.class).getBody());
+                    JsonNode nameNode = root.path("metaData");
+                    System.out.println("code : " + nameNode.path("code").asText());
+                    System.out.println("message : " + nameNode.path("message").asText());
+                    JOptionPane.showMessageDialog(rootPane, "Notifikasi WS VClaim 2.0 : Kode " + nameNode.path("code").asText() + ", Pesan : " + nameNode.path("message").asText());
+//ini yang baru -----------            
+                    JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc));
+                    System.out.println("Ini responnya : " + mapper.readTree(api.Decrypt(root.path("response").asText(), utc)));
+//sampai sini -------------
+
+                    if (nameNode.path("code").asText().equals("200")) {
+                        if (Sequel.mengedittf("bridging_surat_kontrol_bpjs", "no_surat=?",
+                                "tgl_rencana=?,kd_dokter_bpjs=?,nm_dokter_bpjs=?,kd_poli_bpjs=?,nm_poli_bpjs=?", 6, new String[]{
+                                    Valid.SetTgl(TanggalKontrol.getSelectedItem() + ""), KdDokter.getText(),
+                                    NmDokter.getText(), KdPoli.getText(), NmPoli.getText(), NoSurat.getText()
+                                }) == true) {
                             emptTeks();
                             tampil();
                         }
-                    }else{
-                        JOptionPane.showMessageDialog(null,nameNode.path("message").asText());
-                    }   
-                }catch (Exception ex) {
-                    System.out.println("Notifikasi Bridging : "+ex);
-                    if(ex.toString().contains("UnknownHostException")){
-                        JOptionPane.showMessageDialog(null,"Koneksi ke server BPJS terputus...!");
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Notifikasi WS VClaim 2.0 : Kode " + nameNode.path("code").asText() + ", Pesan : " + nameNode.path("message").asText());
+                    }
+                } catch (Exception ex) {
+                    System.out.println("Notifikasi Bridging : " + ex);
+                    if (ex.toString().contains("UnknownHostException")) {
+                        JOptionPane.showMessageDialog(null, "Koneksi ke server BPJS terputus...!");
                     }
                 }
-            }else{
-                JOptionPane.showMessageDialog(null,"Maaf, Silahkan anda pilih terlebih dulu data yang mau anda ganti, Klik data pada table untuk memilih data...!!!!");
-            }                
+            } else {
+                JOptionPane.showMessageDialog(null, "Maaf, Silahkan anda pilih terlebih dulu data yang mau anda ganti, Klik data pada table untuk memilih data...!!!!");
+            }
         }
     }//GEN-LAST:event_BtnEditActionPerformed
 
@@ -1266,104 +1191,79 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         }
     }//GEN-LAST:event_BtnEditKeyPressed
 
-    private void DTPTanggalKontrol1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_DTPTanggalKontrol1ItemStateChanged
+    private void tglKontrol1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tglKontrol1ItemStateChanged
         R2.setSelected(true);
-    }//GEN-LAST:event_DTPTanggalKontrol1ItemStateChanged
+    }//GEN-LAST:event_tglKontrol1ItemStateChanged
 
-    private void DTPTanggalKontrol2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_DTPTanggalKontrol2ItemStateChanged
+    private void tglKontrol2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tglKontrol2ItemStateChanged
         R2.setSelected(true);
-    }//GEN-LAST:event_DTPTanggalKontrol2ItemStateChanged
-
-    private void TanggalKontrolKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TanggalKontrolKeyPressed
-        Valid.pindah(evt,JenisKontrol,BtnDokter);
-    }//GEN-LAST:event_TanggalKontrolKeyPressed
-
-    private void NoSuratKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NoSuratKeyPressed
-        Valid.pindah(evt,TanggalSurat,TanggalKontrol);
-    }//GEN-LAST:event_NoSuratKeyPressed
+    }//GEN-LAST:event_tglKontrol2ItemStateChanged
 
     private void BtnPoliKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnPoliKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_SPACE){
+        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
             BtnPoliActionPerformed(null);
-        }else{
-            Valid.pindah(evt,BtnDokter,TanggalKontrol);
+        } else {
+            Valid.pindah(evt, BtnDokter, TanggalKontrol);
         }
     }//GEN-LAST:event_BtnPoliKeyPressed
 
     private void BtnPoliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPoliActionPerformed
-        poli.SetKontrol(NoKartu.getText(),NoSEP.getText(),JenisKontrol.getSelectedItem().toString(),Valid.SetTgl(TanggalKontrol.getSelectedItem()+""));
-        poli.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+        poli.SetKontrol(NoSEP.getText(), "2", Valid.SetTgl(TanggalKontrol.getSelectedItem() + ""));
+        poli.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
         poli.setLocationRelativeTo(internalFrame1);
         poli.setVisible(true);
+        poli.tampil();
+        poli.TCari.requestFocus();        
     }//GEN-LAST:event_BtnPoliActionPerformed
 
     private void MnSuratActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnSuratActionPerformed
-        if (tbObat.getSelectedRow() != -1) {
+        if (tbSuratKontrol.getSelectedRow() != -1) {
             this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
             Map<String, Object> param = new HashMap<>();
             param.put("namars", var.getnamars());
-            param.put("alamatrs", var.getalamatrs());
-            param.put("kotars", var.getkabupatenrs());
-            param.put("propinsirs", var.getpropinsirs());
-            param.put("kontakrs", var.getkontakrs());
             param.put("logo", Sequel.cariGambar("select bpjs from gambar"));
-            param.put("parameter", tbObat.getValueAt(tbObat.getSelectedRow(), 0).toString());
-            param.put("tgl_lahir", Sequel.cariIsi("select date_format(a.tanggal_lahir,'%d') from bridging_sep a inner join bridging_surat_kontrol_bpjs b on b.no_sep=a.no_sep where b.no_surat='" + NoSurat.getText() + "'") + " "
-                    + Sequel.bulanINDONESIA("select month(a.tanggal_lahir) from bridging_sep a inner join bridging_surat_kontrol_bpjs b on b.no_sep=a.no_sep where b.no_surat='" + NoSurat.getText() + "'") + " "
-                    + Sequel.cariIsi("select year(a.tanggal_lahir) from bridging_sep a inner join bridging_surat_kontrol_bpjs b on b.no_sep=a.no_sep where b.no_surat='" + NoSurat.getText() + "'"));            
-            param.put("tgl_surat", Sequel.cariIsi("select date_format(tgl_surat,'%d') from bridging_surat_kontrol_bpjs where no_surat='" + NoSurat.getText() + "'") + " "
-                    + Sequel.bulanINDONESIA("select month(tgl_surat) from bridging_surat_kontrol_bpjs where no_surat='" + NoSurat.getText() + "'") + " "
-                    + Sequel.cariIsi("select year(tgl_surat) from bridging_surat_kontrol_bpjs where no_surat='" + NoSurat.getText() + "'"));
-            param.put("tgl_rencana", Sequel.cariIsi("select date_format(tgl_rencana,'%d') from bridging_surat_kontrol_bpjs where no_surat='" + NoSurat.getText() + "'") + " "
-                    + Sequel.bulanINDONESIA("select month(tgl_rencana) from bridging_surat_kontrol_bpjs where no_surat='" + NoSurat.getText() + "'") + " "
-                    + Sequel.cariIsi("select year(tgl_rencana) from bridging_surat_kontrol_bpjs where no_surat='" + NoSurat.getText() + "'"));
-            Valid.MyReportqry("rptBridgingSuratKontrol2.jasper", "report", "::[ Data Surat Kontrol VClaim ]::",
-                    "select bridging_sep.no_rawat,bridging_sep.no_sep,bridging_sep.no_kartu,bridging_sep.nomr,bridging_sep.nama_pasien,"
-                    + "bridging_sep.jkel,bridging_sep.diagawal,bridging_sep.nmdiagnosaawal,bridging_surat_kontrol_bpjs.no_surat,"
-                    + "bridging_surat_kontrol_bpjs.jenis,bridging_surat_kontrol_bpjs.kd_dokter_bpjs,bridging_surat_kontrol_bpjs.nm_dokter_bpjs,"
-                    + "bridging_surat_kontrol_bpjs.kd_poli_bpjs,bridging_surat_kontrol_bpjs.nm_poli_bpjs from bridging_sep inner join bridging_surat_kontrol_bpjs "
-                    + "on bridging_surat_kontrol_bpjs.no_sep=bridging_sep.no_sep where bridging_surat_kontrol_bpjs.no_surat='" + NoSurat.getText() + "'", param);
+            param.put("dokter_layan", Sequel.cariIsi("select ifnull(nmdpjpLayan,'-') from bridging_sep where no_rawat='" + tbSuratKontrol.getValueAt(tbSuratKontrol.getSelectedRow(), 0).toString() + "'"));
+            param.put("tgl_lahir", Sequel.cariIsi("select DATE_FORMAT(tgl_lahir,'%d') from pasien where no_rkm_medis='" + tbSuratKontrol.getValueAt(tbSuratKontrol.getSelectedRow(), 3).toString() + "'") + " "
+                    + Sequel.bulanINDONESIA("select DATE_FORMAT(tgl_lahir,'%m') from pasien where no_rkm_medis='" + tbSuratKontrol.getValueAt(tbSuratKontrol.getSelectedRow(), 3).toString() + "'") + " "
+                    + Sequel.cariIsi("select DATE_FORMAT(tgl_lahir,'%Y') from pasien where no_rkm_medis='" + tbSuratKontrol.getValueAt(tbSuratKontrol.getSelectedRow(), 3).toString() + "'"));
+            param.put("tgl_rencana", Sequel.cariIsi("select DATE_FORMAT(tgl_rencana,'%d') from bridging_surat_kontrol_bpjs where no_surat='" + tbSuratKontrol.getValueAt(tbSuratKontrol.getSelectedRow(), 9).toString() + "'") + " "
+                    + Sequel.bulanINDONESIA("select DATE_FORMAT(tgl_rencana,'%m') from bridging_surat_kontrol_bpjs where no_surat='" + tbSuratKontrol.getValueAt(tbSuratKontrol.getSelectedRow(), 9).toString() + "'") + " "
+                    + Sequel.cariIsi("select DATE_FORMAT(tgl_rencana,'%Y') from bridging_surat_kontrol_bpjs where no_surat='" + tbSuratKontrol.getValueAt(tbSuratKontrol.getSelectedRow(), 9).toString() + "'"));
+            
+            Valid.MyReport("rptBridgingSuratKontrol2.jrxml", "report", "::[ Cetak Surat Rencana Kontrol ]::",
+                    " SELECT bsk.no_surat, bsk.nm_dokter_bpjs, bsk.nm_poli_bpjs, bs.no_kartu, "
+                    + "CONCAT(bs.nama_pasien,' (',IF(bs.jkel='L','Laki-laki','Perempuan'),')') peserta, "
+                    + "CONCAT(bs.diagawal,' - ',bs.nmdiagnosaawal) diagnosa FROM bridging_surat_kontrol_bpjs bsk "
+                    + "INNER JOIN bridging_sep bs ON bs.no_rawat=bsk.no_rawat WHERE bsk.no_surat='" + tbSuratKontrol.getValueAt(tbSuratKontrol.getSelectedRow(), 9).toString() + "'", param);
             this.setCursor(Cursor.getDefaultCursor());
         } else {
-            JOptionPane.showMessageDialog(null, "Maaf, silahkan pilih data Surat Kontrol yang mau dicetak...!!!!");
+            JOptionPane.showMessageDialog(null, "Maaf, silahkan pilih data No. Surat nya yang mau dicetak...!!!!");
             BtnBatal.requestFocus();
         }
     }//GEN-LAST:event_MnSuratActionPerformed
 
-    private void tbObatKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbObatKeyReleased
-        if(tabMode.getRowCount()!=0){
-            if((evt.getKeyCode()==KeyEvent.VK_ENTER)||(evt.getKeyCode()==KeyEvent.VK_UP)||(evt.getKeyCode()==KeyEvent.VK_DOWN)){
+    private void tglSurat1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tglSurat1ItemStateChanged
+        R1.setSelected(true);
+    }//GEN-LAST:event_tglSurat1ItemStateChanged
+
+    private void tglSurat2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tglSurat2KeyPressed
+        R1.setSelected(true);
+    }//GEN-LAST:event_tglSurat2KeyPressed
+
+    private void tbSuratKontrolKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbSuratKontrolKeyPressed
+        if (tabMode.getRowCount() != 0) {
+            if ((evt.getKeyCode() == KeyEvent.VK_ENTER) || (evt.getKeyCode() == KeyEvent.VK_SPACE)) {
                 try {
                     getData();
                 } catch (java.lang.NullPointerException e) {
                 }
             }
         }
-    }//GEN-LAST:event_tbObatKeyReleased
+    }//GEN-LAST:event_tbSuratKontrolKeyPressed
 
-    private void DTPTanggalSurat1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DTPTanggalSurat1KeyPressed
-
-    }//GEN-LAST:event_DTPTanggalSurat1KeyPressed
-
-    private void DTPTanggalSurat1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_DTPTanggalSurat1ItemStateChanged
-        R1.setSelected(true);
-    }//GEN-LAST:event_DTPTanggalSurat1ItemStateChanged
-
-    private void DTPTanggalSurat2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DTPTanggalSurat2KeyPressed
-        R1.setSelected(true);
-    }//GEN-LAST:event_DTPTanggalSurat2KeyPressed
-
-    private void JenisKontrolKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JenisKontrolKeyPressed
-        Valid.pindah(evt,TanggalSurat,TanggalKontrol);
-    }//GEN-LAST:event_JenisKontrolKeyPressed
-
-    private void DiagnosaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DiagnosaKeyPressed
-
-    }//GEN-LAST:event_DiagnosaKeyPressed
-
-    private void tbObatKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbObatKeyPressed
+    private void ScrollMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ScrollMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_tbObatKeyPressed
+    }//GEN-LAST:event_ScrollMouseClicked
 
     /**
     * @param args the command line arguments
@@ -1393,14 +1293,8 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.Button BtnPrint;
     private widget.Button BtnSimpan;
     public widget.CekBox ChkInput;
-    private widget.Tanggal DTPTanggalKontrol1;
-    private widget.Tanggal DTPTanggalKontrol2;
-    private widget.Tanggal DTPTanggalSurat1;
-    private widget.Tanggal DTPTanggalSurat2;
-    public widget.TextArea Diagnosa;
     private widget.PanelBiasa FormInput;
     private widget.TextBox JK;
-    private widget.ComboBox JenisKontrol;
     private widget.TextBox KdDokter;
     private widget.TextBox KdPoli;
     private widget.Label LCount;
@@ -1417,22 +1311,16 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.RadioButton R1;
     private widget.RadioButton R2;
     private widget.ScrollPane Scroll;
-    private widget.ScrollPane Scroll3;
     public widget.TextBox TCari;
     private widget.Tanggal TanggalKontrol;
-    private widget.Tanggal TanggalSurat;
     private widget.TextBox TglLahir;
     private javax.swing.ButtonGroup buttonGroup1;
     private widget.InternalFrame internalFrame1;
-    private widget.Label jLabel10;
     private widget.Label jLabel11;
     private widget.Label jLabel12;
     private widget.Label jLabel13;
-    private widget.Label jLabel14;
-    private widget.Label jLabel15;
     private widget.Label jLabel16;
     private widget.Label jLabel17;
-    private widget.Label jLabel18;
     private widget.Label jLabel22;
     private widget.Label jLabel25;
     private widget.Label jLabel4;
@@ -1443,113 +1331,130 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.Label jLabel9;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPopupMenu jPopupMenu1;
+    private widget.Label label_rencana;
     private widget.panelisi panelCari;
     private widget.panelisi panelGlass10;
     private widget.panelisi panelGlass8;
-    private widget.Table tbObat;
+    private widget.Table tbSuratKontrol;
+    private widget.Tanggal tglKontrol1;
+    private widget.Tanggal tglKontrol2;
+    private widget.Tanggal tglSurat1;
+    private widget.Tanggal tglSurat2;
     // End of variables declaration//GEN-END:variables
 
     public void tampil() {     
         Valid.tabelKosong(tabMode);
         try {
-           if(R1.isSelected()==true){
-                ps=koneksi.prepareStatement(
-                    "select bridging_sep.no_rawat,bridging_sep.no_sep,bridging_sep.no_kartu,bridging_sep.nomr,bridging_sep.nama_pasien,bridging_sep.tanggal_lahir,"+
-                    "bridging_sep.jkel,bridging_sep.diagawal,bridging_sep.nmdiagnosaawal,bridging_surat_kontrol_bpjs.tgl_surat,bridging_surat_kontrol_bpjs.no_surat,"+
-                    "bridging_surat_kontrol_bpjs.jenis,bridging_surat_kontrol_bpjs.tgl_rencana,bridging_surat_kontrol_bpjs.kd_dokter_bpjs,bridging_surat_kontrol_bpjs.nm_dokter_bpjs,"+
-                    "bridging_surat_kontrol_bpjs.kd_poli_bpjs,bridging_surat_kontrol_bpjs.nm_poli_bpjs from bridging_sep inner join bridging_surat_kontrol_bpjs "+
-                    "on bridging_surat_kontrol_bpjs.no_sep=bridging_sep.no_sep where bridging_surat_kontrol_bpjs.tgl_surat between ? and ? "+
-                    (TCari.getText().trim().equals("")?"":"and (bridging_sep.no_rawat like ? or bridging_sep.no_sep like ? or bridging_sep.no_kartu like ? or "+
-                    "bridging_sep.nomr like ? or bridging_sep.nama_pasien like ? or bridging_surat_kontrol_bpjs.jenis like ? or bridging_surat_kontrol_bpjs.no_surat like ? or "+
-                    "bridging_surat_kontrol_bpjs.nm_poli_bpjs like ? or bridging_surat_kontrol_bpjs.nm_dokter_bpjs like ?)")+
-                    "order by bridging_surat_kontrol_bpjs.tgl_surat");
-                try {
-                    ps.setString(1,Valid.SetTgl(DTPTanggalSurat1.getSelectedItem()+""));
-                    ps.setString(2,Valid.SetTgl(DTPTanggalSurat2.getSelectedItem()+""));
-                    if(!TCari.getText().trim().equals("")){
-                        ps.setString(3,"%"+TCari.getText().trim()+"%");
-                        ps.setString(4,"%"+TCari.getText().trim()+"%");
-                        ps.setString(5,"%"+TCari.getText().trim()+"%");
-                        ps.setString(6,"%"+TCari.getText().trim()+"%");
-                        ps.setString(7,"%"+TCari.getText().trim()+"%");
-                        ps.setString(8,"%"+TCari.getText().trim()+"%");
-                        ps.setString(9,"%"+TCari.getText().trim()+"%");
-                        ps.setString(10,"%"+TCari.getText().trim()+"%");
-                        ps.setString(11,"%"+TCari.getText().trim()+"%");
-                    }
-                        
-                    rs=ps.executeQuery();
-                    while(rs.next()){
-                        tabMode.addRow(new Object[]{
-                            rs.getString("no_rawat"),rs.getString("no_sep"),rs.getString("no_kartu"),rs.getString("nomr"),rs.getString("nama_pasien"),
-                            rs.getString("tanggal_lahir"),rs.getString("jkel"),rs.getString("nmdiagnosaawal"),rs.getString("tgl_surat"),rs.getString("no_surat"),
-                            rs.getString("jenis"),rs.getString("tgl_rencana"),rs.getString("kd_dokter_bpjs"),rs.getString("nm_dokter_bpjs"),
-                            rs.getString("kd_poli_bpjs"),rs.getString("nm_poli_bpjs")
-                        });                    
-                    }
-                } catch (Exception e) {
-                    System.out.println("Notif : "+e);
-                } finally{
-                    if(rs!=null){
-                        rs.close();
-                    }
-                    if(ps!=null){
-                        ps.close();
-                    }
-                }
-            }else if(R2.isSelected()==true){
-                ps=koneksi.prepareStatement(
-                    "select bridging_sep.no_rawat,bridging_sep.no_sep,bridging_sep.no_kartu,bridging_sep.nomr,bridging_sep.nama_pasien,bridging_sep.tanggal_lahir,"+
-                    "bridging_sep.jkel,bridging_sep.diagawal,bridging_sep.nmdiagnosaawal,bridging_surat_kontrol_bpjs.tgl_surat,bridging_surat_kontrol_bpjs.no_surat,"+
-                    "bridging_surat_kontrol_bpjs.jenis,bridging_surat_kontrol_bpjs.tgl_rencana,bridging_surat_kontrol_bpjs.kd_dokter_bpjs,bridging_surat_kontrol_bpjs.nm_dokter_bpjs,"+
-                    "bridging_surat_kontrol_bpjs.kd_poli_bpjs,bridging_surat_kontrol_bpjs.nm_poli_bpjs from bridging_sep inner join bridging_surat_kontrol_bpjs "+
-                    "on bridging_surat_kontrol_bpjs.no_sep=bridging_sep.no_sep where bridging_surat_kontrol_bpjs.tgl_rencana between ? and ? "+
-                    (TCari.getText().trim().equals("")?"":"and (bridging_sep.no_rawat like ? or bridging_sep.no_sep like ? or bridging_sep.no_kartu like ? or "+
-                    "bridging_sep.nomr like ? or bridging_sep.nama_pasien like ? or bridging_surat_kontrol_bpjs.jenis like ? or bridging_surat_kontrol_bpjs.no_surat like ? or "+
-                    "bridging_surat_kontrol_bpjs.nm_poli_bpjs like ? or bridging_surat_kontrol_bpjs.nm_dokter_bpjs like ?)")+
-                    "order by bridging_surat_kontrol_bpjs.tgl_rencana");
-                try {
-                    ps.setString(1,Valid.SetTgl(DTPTanggalKontrol1.getSelectedItem()+""));
-                    ps.setString(2,Valid.SetTgl(DTPTanggalKontrol2.getSelectedItem()+""));
-                    if(!TCari.getText().trim().equals("")){
-                        ps.setString(3,"%"+TCari.getText().trim()+"%");
-                        ps.setString(4,"%"+TCari.getText().trim()+"%");
-                        ps.setString(5,"%"+TCari.getText().trim()+"%");
-                        ps.setString(6,"%"+TCari.getText().trim()+"%");
-                        ps.setString(7,"%"+TCari.getText().trim()+"%");
-                        ps.setString(8,"%"+TCari.getText().trim()+"%");
-                        ps.setString(9,"%"+TCari.getText().trim()+"%");
-                        ps.setString(10,"%"+TCari.getText().trim()+"%");
-                        ps.setString(11,"%"+TCari.getText().trim()+"%");
-                    }
-                        
-                    rs=ps.executeQuery();
-                    while(rs.next()){
-                        tabMode.addRow(new Object[]{
-                            rs.getString("no_rawat"),rs.getString("no_sep"),rs.getString("no_kartu"),rs.getString("nomr"),rs.getString("nama_pasien"),
-                            rs.getString("tanggal_lahir"),rs.getString("jkel"),rs.getString("nmdiagnosaawal"),rs.getString("tgl_surat"),rs.getString("no_surat"),
-                            rs.getString("jenis"),rs.getString("tgl_rencana"),rs.getString("kd_dokter_bpjs"),rs.getString("nm_dokter_bpjs"),
-                            rs.getString("kd_poli_bpjs"),rs.getString("nm_poli_bpjs")
-                        });                    
-                    }
-                } catch (Exception e) {
-                    System.out.println("Notif : "+e);
-                } finally{
-                    if(rs!=null){
-                        rs.close();
-                    }
-                    if(ps!=null){
-                        ps.close();
-                    }
-                }       
+            if (R1.isSelected() == true) {
+                ps = koneksi.prepareStatement("SELECT bsk.no_rawat, bs.no_sep, bs.no_kartu, bs.nomr, bs.nama_pasien, bs.tanggal_lahir, IF(bs.jkel='L','Laki-laki','Perempuan') jkel, "
+                        + "bs.nmdiagnosaawal, bsk.tgl_surat, bsk.no_surat, bsk.tgl_rencana, bsk.kd_dokter_bpjs, bsk.nm_dokter_bpjs, "
+                        + "bsk.kd_poli_bpjs, bsk.nm_poli_bpjs, bs.diagawal FROM bridging_surat_kontrol_bpjs bsk "
+                        + "INNER JOIN bridging_sep bs ON bs.no_rawat=bsk.no_rawat WHERE "
+                        + "bsk.tgl_surat BETWEEN ? AND ? AND bsk.no_rawat LIKE ? OR "
+                        + "bsk.tgl_surat BETWEEN ? AND ? AND bs.no_sep LIKE ? OR "
+                        + "bsk.tgl_surat BETWEEN ? AND ? AND bs.no_kartu LIKE ? OR "
+                        + "bsk.tgl_surat BETWEEN ? AND ? AND bs.nomr LIKE ? OR "
+                        + "bsk.tgl_surat BETWEEN ? AND ? AND bs.nama_pasien LIKE ? OR "
+                        + "bsk.tgl_surat BETWEEN ? AND ? AND bsk.no_surat LIKE ? OR "
+                        + "bsk.tgl_surat BETWEEN ? AND ? AND bsk.nm_poli_bpjs LIKE ? OR "
+                        + "bsk.tgl_surat BETWEEN ? AND ? AND bsk.nm_dokter_bpjs LIKE ? ORDER BY bsk.tgl_surat");
+                
+            } else if (R2.isSelected() == true) {
+                ps = koneksi.prepareStatement("SELECT bsk.no_rawat, bs.no_sep, bs.no_kartu, bs.nomr, bs.nama_pasien, bs.tanggal_lahir, IF(bs.jkel='L','Laki-laki','Perempuan') jkel, "
+                        + "bs.nmdiagnosaawal, bsk.tgl_surat, bsk.no_surat, bsk.tgl_rencana, bsk.kd_dokter_bpjs, bsk.nm_dokter_bpjs, "
+                        + "bsk.kd_poli_bpjs, bsk.nm_poli_bpjs, bs.diagawal FROM bridging_surat_kontrol_bpjs bsk "
+                        + "INNER JOIN bridging_sep bs ON bs.no_rawat=bsk.no_rawat WHERE "
+                        + "bsk.tgl_rencana BETWEEN ? AND ? AND bsk.no_rawat LIKE ? OR "
+                        + "bsk.tgl_rencana BETWEEN ? AND ? AND bs.no_sep LIKE ? OR "
+                        + "bsk.tgl_rencana BETWEEN ? AND ? AND bs.no_kartu LIKE ? OR "
+                        + "bsk.tgl_rencana BETWEEN ? AND ? AND bs.nomr LIKE ? OR "
+                        + "bsk.tgl_rencana BETWEEN ? AND ? AND bs.nama_pasien LIKE ? OR "
+                        + "bsk.tgl_rencana BETWEEN ? AND ? AND bsk.no_surat LIKE ? OR "
+                        + "bsk.tgl_rencana BETWEEN ? AND ? AND bsk.nm_poli_bpjs LIKE ? OR "
+                        + "bsk.tgl_rencana BETWEEN ? AND ? AND bsk.nm_dokter_bpjs LIKE ? ORDER BY bsk.tgl_rencana");
             }
+            try {
+                if (R1.isSelected() == true) {
+                    ps.setString(1, Valid.SetTgl(tglSurat1.getSelectedItem() + ""));
+                    ps.setString(2, Valid.SetTgl(tglSurat2.getSelectedItem() + ""));
+                    ps.setString(3, "%" + TCari.getText().trim() + "%");
+                    ps.setString(4, Valid.SetTgl(tglSurat1.getSelectedItem() + ""));
+                    ps.setString(5, Valid.SetTgl(tglSurat2.getSelectedItem() + ""));
+                    ps.setString(6, "%" + TCari.getText().trim() + "%");
+                    ps.setString(7, Valid.SetTgl(tglSurat1.getSelectedItem() + ""));
+                    ps.setString(8, Valid.SetTgl(tglSurat2.getSelectedItem() + ""));
+                    ps.setString(9, "%" + TCari.getText().trim() + "%");
+                    ps.setString(10, Valid.SetTgl(tglSurat1.getSelectedItem() + ""));
+                    ps.setString(11, Valid.SetTgl(tglSurat2.getSelectedItem() + ""));
+                    ps.setString(12, "%" + TCari.getText().trim() + "%");
+                    ps.setString(13, Valid.SetTgl(tglSurat1.getSelectedItem() + ""));
+                    ps.setString(14, Valid.SetTgl(tglSurat2.getSelectedItem() + ""));
+                    ps.setString(15, "%" + TCari.getText().trim() + "%");
+                    ps.setString(16, Valid.SetTgl(tglSurat1.getSelectedItem() + ""));
+                    ps.setString(17, Valid.SetTgl(tglSurat2.getSelectedItem() + ""));
+                    ps.setString(18, "%" + TCari.getText().trim() + "%");
+                    ps.setString(19, Valid.SetTgl(tglSurat1.getSelectedItem() + ""));
+                    ps.setString(20, Valid.SetTgl(tglSurat2.getSelectedItem() + ""));
+                    ps.setString(21, "%" + TCari.getText().trim() + "%");
+                    ps.setString(22, Valid.SetTgl(tglSurat1.getSelectedItem() + ""));
+                    ps.setString(23, Valid.SetTgl(tglSurat2.getSelectedItem() + ""));
+                    ps.setString(24, "%" + TCari.getText().trim() + "%");
+                } else if (R2.isSelected() == true) {
+                    ps.setString(1, Valid.SetTgl(tglKontrol1.getSelectedItem() + ""));
+                    ps.setString(2, Valid.SetTgl(tglKontrol2.getSelectedItem() + ""));
+                    ps.setString(3, "%" + TCari.getText().trim() + "%");
+                    ps.setString(4, Valid.SetTgl(tglKontrol1.getSelectedItem() + ""));
+                    ps.setString(5, Valid.SetTgl(tglKontrol2.getSelectedItem() + ""));
+                    ps.setString(6, "%" + TCari.getText().trim() + "%");
+                    ps.setString(7, Valid.SetTgl(tglKontrol1.getSelectedItem() + ""));
+                    ps.setString(8, Valid.SetTgl(tglKontrol2.getSelectedItem() + ""));
+                    ps.setString(9, "%" + TCari.getText().trim() + "%");
+                    ps.setString(10, Valid.SetTgl(tglKontrol1.getSelectedItem() + ""));
+                    ps.setString(11, Valid.SetTgl(tglKontrol2.getSelectedItem() + ""));
+                    ps.setString(12, "%" + TCari.getText().trim() + "%");
+                    ps.setString(13, Valid.SetTgl(tglKontrol1.getSelectedItem() + ""));
+                    ps.setString(14, Valid.SetTgl(tglKontrol2.getSelectedItem() + ""));
+                    ps.setString(15, "%" + TCari.getText().trim() + "%");
+                    ps.setString(16, Valid.SetTgl(tglKontrol1.getSelectedItem() + ""));
+                    ps.setString(17, Valid.SetTgl(tglKontrol2.getSelectedItem() + ""));
+                    ps.setString(18, "%" + TCari.getText().trim() + "%");
+                    ps.setString(19, Valid.SetTgl(tglKontrol1.getSelectedItem() + ""));
+                    ps.setString(20, Valid.SetTgl(tglKontrol2.getSelectedItem() + ""));
+                    ps.setString(21, "%" + TCari.getText().trim() + "%");
+                    ps.setString(22, Valid.SetTgl(tglKontrol1.getSelectedItem() + ""));
+                    ps.setString(23, Valid.SetTgl(tglKontrol2.getSelectedItem() + ""));
+                    ps.setString(24, "%" + TCari.getText().trim() + "%");
+                }
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    tabMode.addRow(new Object[]{
+                        rs.getString("no_rawat"), rs.getString("no_sep"), rs.getString("no_kartu"), rs.getString("nomr"), rs.getString("nama_pasien"),
+                        rs.getString("tanggal_lahir"), rs.getString("jkel"), rs.getString("nmdiagnosaawal"), rs.getString("tgl_surat"), rs.getString("no_surat"),
+                        rs.getString("tgl_rencana"), rs.getString("kd_dokter_bpjs"), rs.getString("nm_dokter_bpjs"),
+                        rs.getString("kd_poli_bpjs"), rs.getString("nm_poli_bpjs"), rs.getString("diagawal")
+                    });
+                }
+            } catch (Exception e) {
+                System.out.println("Notif : " + e);
+            } finally {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            }
+
         } catch (Exception e) {
-            System.out.println("Notif : "+e);
-        } 
-        LCount.setText(""+tabMode.getRowCount());
+            System.out.println("Notif : " + e);
+        }
+        LCount.setText("" + tabMode.getRowCount());
     }
 
     public void emptTeks() {
+        tgl.setDate(1);
+        tglKontrol1.setDate(tgl);
+        tglKontrol2.setDate(new Date());
         NoRawat.setText("");
         NoSEP.setText("");
         NoKartu.setText("");
@@ -1557,64 +1462,70 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         NmPasien.setText("");
         TglLahir.setText("");
         JK.setText("");
-        Diagnosa.setText("");
-        TanggalSurat.setDate(new Date());
         NoSurat.setText("");
-        JenisKontrol.setSelectedIndex(0);
         TanggalKontrol.setDate(new Date());
         KdDokter.setText("");
         NmDokter.setText("");
         KdPoli.setText("");
         NmPoli.setText("");
-        TanggalSurat.requestFocus();
+        TanggalKontrol.requestFocus();
     }   
 
     private void getData() {
-        if(tbObat.getSelectedRow()!= -1){
-            NoRawat.setText(tbObat.getValueAt(tbObat.getSelectedRow(),0).toString()); 
-            NoSEP.setText(tbObat.getValueAt(tbObat.getSelectedRow(),1).toString());
-            NoKartu.setText(tbObat.getValueAt(tbObat.getSelectedRow(),2).toString());
-            NoRM.setText(tbObat.getValueAt(tbObat.getSelectedRow(),3).toString());
-            NmPasien.setText(tbObat.getValueAt(tbObat.getSelectedRow(),4).toString());
-            TglLahir.setText(tbObat.getValueAt(tbObat.getSelectedRow(),5).toString());
-            JK.setText(tbObat.getValueAt(tbObat.getSelectedRow(),6).toString().replaceAll("P","PEREMPUAN").replaceAll("L","LAKI-LAKI"));
-            Diagnosa.setText(tbObat.getValueAt(tbObat.getSelectedRow(),7).toString());
-            NoSurat.setText(tbObat.getValueAt(tbObat.getSelectedRow(),9).toString());
-            JenisKontrol.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(),10).toString());
-            KdDokter.setText(tbObat.getValueAt(tbObat.getSelectedRow(),12).toString());
-            NmDokter.setText(tbObat.getValueAt(tbObat.getSelectedRow(),13).toString());
-            KdPoli.setText(tbObat.getValueAt(tbObat.getSelectedRow(),14).toString());
-            NmPoli.setText(tbObat.getValueAt(tbObat.getSelectedRow(),15).toString());
-            Valid.SetTgl(TanggalSurat,tbObat.getValueAt(tbObat.getSelectedRow(),8).toString());
-            Valid.SetTgl(TanggalKontrol,tbObat.getValueAt(tbObat.getSelectedRow(),11).toString());
+        diagnosa = "";
+        kdICD10 = "";
+
+        if (tbSuratKontrol.getSelectedRow() != -1) {
+            NoRawat.setText(tbSuratKontrol.getValueAt(tbSuratKontrol.getSelectedRow(), 0).toString());
+            NoSEP.setText(tbSuratKontrol.getValueAt(tbSuratKontrol.getSelectedRow(), 1).toString());
+            NoKartu.setText(tbSuratKontrol.getValueAt(tbSuratKontrol.getSelectedRow(), 2).toString());
+            NoRM.setText(tbSuratKontrol.getValueAt(tbSuratKontrol.getSelectedRow(), 3).toString());
+            NmPasien.setText(tbSuratKontrol.getValueAt(tbSuratKontrol.getSelectedRow(), 4).toString());
+            TglLahir.setText(tbSuratKontrol.getValueAt(tbSuratKontrol.getSelectedRow(), 5).toString());
+            JK.setText(tbSuratKontrol.getValueAt(tbSuratKontrol.getSelectedRow(), 6).toString());
+            diagnosa = tbSuratKontrol.getValueAt(tbSuratKontrol.getSelectedRow(), 7).toString();
+            NoSurat.setText(tbSuratKontrol.getValueAt(tbSuratKontrol.getSelectedRow(), 9).toString());
+            Valid.SetTgl(TanggalKontrol, tbSuratKontrol.getValueAt(tbSuratKontrol.getSelectedRow(), 10).toString());
+            KdDokter.setText(tbSuratKontrol.getValueAt(tbSuratKontrol.getSelectedRow(), 11).toString());
+            NmDokter.setText(tbSuratKontrol.getValueAt(tbSuratKontrol.getSelectedRow(), 12).toString());
+            KdPoli.setText(tbSuratKontrol.getValueAt(tbSuratKontrol.getSelectedRow(), 13).toString());
+            NmPoli.setText(tbSuratKontrol.getValueAt(tbSuratKontrol.getSelectedRow(), 14).toString());
+            kdICD10 = tbSuratKontrol.getValueAt(tbSuratKontrol.getSelectedRow(), 15).toString();
         }
     }
     
-    public void setNoRm(String norawat, String nosep, String nokartu, String norm, String namapasien, String tanggallahir, String jk, String diagnosa) {
+    public void setNoRm(String norawat, String nosep, String nokartu, String norm, String namapasien, String tanggallahir, String jk, String diagnosanya) {
         NoRawat.setText(norawat);
         NoSEP.setText(nosep);
         NoKartu.setText(nokartu);
         NoRM.setText(norm);
         NmPasien.setText(namapasien);
         TglLahir.setText(tanggallahir);
-        JK.setText(jk.replaceAll("L", "LAKI-LAKI").replaceAll("P", "PEREMPUAN"));
-        Diagnosa.setText(diagnosa);
+        diagnosa = diagnosanya;
         TCari.setText(nosep);
         ChkInput.setSelected(true);
+
+        if (jk.equals("L")) {
+            JK.setText("Laki-laki");
+        } else if (jk.equals("P")) {
+            JK.setText("Perempuan");
+        } else {
+            JK.setText(jk);
+        }
         isForm();
         tampil();
     }
     
-    public void isForm(){
-        if(ChkInput.isSelected()==true){
+    public void isForm() {
+        if (ChkInput.isSelected() == true) {
             ChkInput.setVisible(false);
-            PanelInput.setPreferredSize(new Dimension(WIDTH,250));
-            FormInput.setVisible(true);      
+            PanelInput.setPreferredSize(new Dimension(WIDTH, 190));
+            FormInput.setVisible(true);
             ChkInput.setVisible(true);
-        }else if(ChkInput.isSelected()==false){           
-            ChkInput.setVisible(false);            
-            PanelInput.setPreferredSize(new Dimension(WIDTH,20));
-            FormInput.setVisible(false);      
+        } else if (ChkInput.isSelected() == false) {
+            ChkInput.setVisible(false);
+            PanelInput.setPreferredSize(new Dimension(WIDTH, 20));
+            FormInput.setVisible(false);
             ChkInput.setVisible(true);
         }
     }
@@ -1627,7 +1538,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     }
 
     public JTable getTable(){
-        return tbObat;
+        return tbSuratKontrol;
     }
     
     public static class HttpEntityEnclosingDeleteRequest extends HttpEntityEnclosingRequestBase {
@@ -1642,7 +1553,6 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         }
     }
 
-    @Test
     public void bodyWithDeleteRequest() throws Exception {
         RestTemplate restTemplate = new RestTemplate();
         SSLContext sslContext = SSLContext.getInstance("SSL");
@@ -1670,30 +1580,45 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         restTemplate.setRequestFactory(factory);
         
         try {
-            headers = new HttpHeaders();
+            HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-            headers.add("X-Cons-ID",koneksiDB.CONSIDAPIBPJSyangbaru());
-            headers.add("X-Timestamp",String.valueOf(api.GetUTCdatetimeAsString()));            
-            headers.add("X-Signature",api.getHmac());
-            URL = link+"/RencanaKontrol/Delete";
-            requestJson ="{\"request\":{\"t_suratkontrol\":{\"noSuratKontrol\":\""+NoSurat.getText()+"\",\"user\":\""+user+"\"}}}";            
-            requestEntity = new HttpEntity(requestJson,headers);
-            root = mapper.readTree(restTemplate.exchange(URL, HttpMethod.DELETE,requestEntity, String.class).getBody());
-            nameNode = root.path("metaData");
-            System.out.println("code : "+nameNode.path("code").asText());
-            System.out.println("message : "+nameNode.path("message").asText());
-            if(nameNode.path("code").asText().equals("200")){
-                Sequel.meghapus("bridging_surat_kontrol_bpjs","no_surat",NoSurat.getText());
+            headers.add("X-Cons-ID",koneksiDB.CONSIDAPIBPJS());
+            utc = String.valueOf(api.GetUTCdatetimeAsString());
+	    headers.add("X-Timestamp",utc);            
+	    headers.add("X-Signature",api.getHmac(utc));  
+            headers.add("user_key",koneksiDB.USERKEYAPIBPJS());
+            URL = prop.getProperty("URLAPIBPJS") + "/RencanaKontrol/Delete";
+            
+            requestJson = "{"
+                    + "\"request\":{"
+                    + "\"t_suratkontrol\":{"
+                    + "\"noSuratKontrol\":\"" + NoSurat.getText() + "\","
+                    + "\"user\":\"" + user + "\""
+                    + "}"
+                    + "}"
+                    + "}";
+            
+            System.out.println("Ini mengirim : " + requestJson);
+            HttpEntity requestEntity = new HttpEntity(requestJson, headers);
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode root = mapper.readTree(restTemplate.exchange(URL, HttpMethod.DELETE, requestEntity, String.class).getBody());
+            JsonNode nameNode = root.path("metaData");
+            System.out.println("code : " + nameNode.path("code").asText());
+            System.out.println("message : " + nameNode.path("message").asText());
+            JOptionPane.showMessageDialog(rootPane, "Notifikasi WS VClaim 2.0 : Kode " + nameNode.path("code").asText() + ", Pesan : " + nameNode.path("message").asText());
+
+            if (nameNode.path("code").asText().equals("200")) {
+                Sequel.meghapus("bridging_surat_kontrol_bpjs", "no_surat", NoSurat.getText());
                 tampil();
                 emptTeks();
-            }else{
-                JOptionPane.showMessageDialog(null,nameNode.path("message").asText());
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Notifikasi WS VClaim 2.0 : Kode " + nameNode.path("code").asText() + ", Pesan : " + nameNode.path("message").asText());
             }
-        } catch (Exception e) {   
-            System.out.println("Notif : "+e);
-            if(e.toString().contains("UnknownHostException")){
-                JOptionPane.showMessageDialog(null,"Koneksi ke server BPJS terputus...!");
+        } catch (Exception e) {
+            System.out.println("Notif : " + e);
+            if (e.toString().contains("UnknownHostException")) {
+                JOptionPane.showMessageDialog(null, "Koneksi ke server BPJS terputus...!");
             }
         }
     }
-}
+ }

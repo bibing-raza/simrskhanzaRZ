@@ -166,7 +166,7 @@ bridging_surat_kontrol_bpjs.kd_poli_bpjs,bridging_surat_kontrol_bpjs.nm_poli_bpj
 			</textField>
 			<image scaleImage="FillFrame" onErrorType="Blank">
 				<reportElement x="418" y="2" width="36" height="45"/>
-				<imageExpression class="java.lang.String"><![CDATA[$P{logo}]]></imageExpression>
+				<imageExpression class="java.io.InputStream"><![CDATA[$P{logo}]]></imageExpression>
 			</image>
 			<textField>
 				<reportElement x="0" y="14" width="1184" height="14"/>
@@ -352,7 +352,7 @@ bridging_surat_kontrol_bpjs.kd_poli_bpjs,bridging_surat_kontrol_bpjs.nm_poli_bpj
 				<textElement lineSpacing="Single">
 					<font fontName="Tahoma" size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{tanggal_lahir}]]></textFieldExpression>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{tanggal_lahir}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="475" y="0" width="15" height="10"/>
@@ -373,7 +373,7 @@ bridging_surat_kontrol_bpjs.kd_poli_bpjs,bridging_surat_kontrol_bpjs.nm_poli_bpj
 				<textElement lineSpacing="Single">
 					<font fontName="Tahoma" size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{tgl_surat}]]></textFieldExpression>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{tgl_surat}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="654" y="0" width="88" height="10">
@@ -396,7 +396,7 @@ bridging_surat_kontrol_bpjs.kd_poli_bpjs,bridging_surat_kontrol_bpjs.nm_poli_bpj
 				<textElement lineSpacing="Single">
 					<font fontName="Tahoma" size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{tgl_rencana}]]></textFieldExpression>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{tgl_rencana}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="860" y="0" width="50" height="10"/>
@@ -478,7 +478,7 @@ bridging_surat_kontrol_bpjs.kd_poli_bpjs,bridging_surat_kontrol_bpjs.nm_poli_bpj
 				<textElement lineSpacing="Single">
 					<font fontName="Tahoma" size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[new Date()]]></textFieldExpression>
+				<textFieldExpression class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement key="textField" x="158" y="3" width="87" height="15" forecolor="#000000" backcolor="#FFFFFF"/>

@@ -48,11 +48,13 @@ import org.springframework.web.client.RestTemplate;
 public final class BPJSCekReferensiKecamatan extends javax.swing.JDialog {
     private final DefaultTableModel tabMode;
     private final Properties prop = new Properties();
-    private validasi Valid=new validasi();
-    private sekuel Sequel=new sekuel();
-    private BPJSCekReferensiKabupaten kabupaten=new BPJSCekReferensiKabupaten(null,false);
-    private int i=0;
-    private BPJSApi api=new BPJSApi();
+    private validasi Valid = new validasi();
+    private sekuel Sequel = new sekuel();
+    private BPJSCekReferensiKabupaten kabupaten = new BPJSCekReferensiKabupaten(null, false);
+    private int i = 0;
+    private BPJSApi api = new BPJSApi();
+    private String URL = "", utc = "";
+
     /** Creates new form DlgKamar
      * @param parent
      * @param modal */
@@ -372,20 +374,24 @@ public final class BPJSCekReferensiKecamatan extends javax.swing.JDialog {
 
 	    HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-	    headers.add("X-Cons-ID",prop.getProperty("CONSIDAPIBPJS"));
-	    headers.add("X-Timestamp",String.valueOf(api.GetUTCdatetimeAsString()));            
-	    headers.add("X-Signature",api.getHmac());
-	    HttpEntity requestEntity = new HttpEntity(headers);
-	    RestTemplate rest = new RestTemplate();	
+	    headers.add("X-Cons-ID",Sequel.decXML2(prop.getProperty("CONSIDAPIBPJS"), prop.getProperty("KEY")));
+            utc = String.valueOf(api.GetUTCdatetimeAsString());
+	    headers.add("X-Timestamp",utc);            
+	    headers.add("X-Signature",api.getHmac(utc));
+            headers.add("user_key",koneksiDB.USERKEYAPIBPJS());
             
-            //System.out.println(rest.exchange(URL, HttpMethod.GET, requestEntity, String.class).getBody());
+	    HttpEntity requestEntity = new HttpEntity(headers);
+	    RestTemplate rest = new RestTemplate();
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.GET, requestEntity, String.class).getBody());
-            //JsonNode root = mapper.readTree(rest.exchange(URL, HttpMethod.GET, requestEntity, String.class).getBody());
             JsonNode nameNode = root.path("metaData");
+            
             if(nameNode.path("code").asText().equals("200")){
                 Valid.tabelKosong(tabMode);
-                JsonNode response = root.path("response");
+//ini yang baru -----------            
+            JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc));
+//sampai sini                 
+//                JsonNode response = root.path("response");
                 if(response.path("list").isArray()){
                     i=1;
                     for(JsonNode list:response.path("list")){

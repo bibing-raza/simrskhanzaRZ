@@ -48,7 +48,7 @@ public class riwayatobat {
                 }
             }
                      
-            ps=koneksi.prepareStatement("insert into riwayat_barang_medis values(?,?,?,?,?,?,?,?,?,?,?)");
+            ps=koneksi.prepareStatement("insert into riwayat_barang_medis values(?,?,?,?,?,?,?,?,?,?,?,current_timestamp)");
             try {
                 if(posisi.equals("Opname")){
                     ps.setString(1,kodebarang);
@@ -115,7 +115,7 @@ public class riwayatobat {
                 }
             }
                      
-            ps=koneksi.prepareStatement("insert into riwayat_barang_medis values(?,?,?,?,?,?,current_date(),current_time(),?,?,?)");
+            ps=koneksi.prepareStatement("insert into riwayat_barang_medis values(?,?,?,?,?,?,current_date(),current_time(),?,?,?,current_timestamp)");
             try {
                 if(posisi.equals("Opname")){
                     ps.setString(1,kodebarang);
@@ -179,7 +179,7 @@ public class riwayatobat {
                 }
             }
                      
-            ps=koneksi.prepareStatement("insert into riwayat_obat_pasien values(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            ps=koneksi.prepareStatement("insert into riwayat_obat_pasien values(?,?,?,?,?,?,?,?,?,?,?,?,?,current_timestamp)");
             try {
                 if(posisi.equals("Opname")){
                     ps.setString(1,kodebarang);
@@ -250,7 +250,7 @@ public class riwayatobat {
                 }
             }
                      
-            ps=koneksi.prepareStatement("insert into riwayat_obat_pasien values(?,?,?,?,?,?,current_date(),current_time(),?,?,?,?,?)");
+            ps=koneksi.prepareStatement("insert into riwayat_obat_pasien values(?,?,?,?,?,?,current_date(),current_time(),?,?,?,?,?,current_timestamp)");
             try {
                 if(posisi.equals("Opname")){
                     ps.setString(1,kodebarang);

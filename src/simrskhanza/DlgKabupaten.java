@@ -55,7 +55,7 @@ public class DlgKabupaten extends javax.swing.JDialog {
         this.setLocation(10, 10);
         setSize(459, 539);
 
-        Object[] row = {"Nama Kabupaten"};
+        Object[] row = {"Nama Kabupaten","kdkabupaten"};
         tabMode = new DefaultTableModel(null, row) {
             @Override
             public boolean isCellEditable(int rowIndex, int colIndex) {
@@ -69,10 +69,13 @@ public class DlgKabupaten extends javax.swing.JDialog {
         tbkabupaten.setPreferredScrollableViewportSize(new Dimension(500, 500));
         tbkabupaten.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 2; i++) {
             TableColumn column = tbkabupaten.getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setPreferredWidth(500);
+            } else if (i == 1) {
+                column.setMinWidth(0);
+                column.setMaxWidth(0);
             }
         }
 
@@ -513,12 +516,12 @@ public class DlgKabupaten extends javax.swing.JDialog {
     private void tampil() {
         Valid.tabelKosong(tabMode);
         try {
-            ps = koneksi.prepareStatement("select nm_kab from kabupaten where nm_kab like ? ");
+            ps = koneksi.prepareStatement("select nm_kab, kd_kab from kabupaten where nm_kab like ? ");
             try {
                 ps.setString(1, "%" + TCari.getText().trim() + "%");
                 rs = ps.executeQuery();
                 while (rs.next()) {
-                    tabMode.addRow(new String[]{rs.getString(1)});
+                    tabMode.addRow(new String[]{rs.getString(1),rs.getString(2)});
                 }
             } catch (Exception e) {
                 System.out.println("Notifikasi : " + e);

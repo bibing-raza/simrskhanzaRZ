@@ -45,10 +45,11 @@ import org.springframework.web.client.RestTemplate;
 public final class BPJSCekReferensiPoli extends javax.swing.JDialog {
     private final DefaultTableModel tabMode;
     private final Properties prop = new Properties();
-    private validasi Valid=new validasi();
-    private sekuel Sequel=new sekuel();
-    private int i=0;
-    private BPJSApi api=new BPJSApi();
+    private validasi Valid = new validasi();
+    private sekuel Sequel = new sekuel();
+    private int i = 0;
+    private BPJSApi api = new BPJSApi();
+    private String utc = "", URL = "";
 
     /** Creates new form DlgKamar
      * @param parent
@@ -63,19 +64,18 @@ public final class BPJSCekReferensiPoli extends javax.swing.JDialog {
         tabMode=new DefaultTableModel(null,new String[]{"No.","Kode Poli","Nama Poli"}){
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
         };
+        
         tbKamar.setModel(tabMode);
-
-        //tbKamar.setDefaultRenderer(Object.class, new WarnaTable(panelJudul.getBackground(),tbKamar.getBackground()));
         tbKamar.setPreferredScrollableViewportSize(new Dimension(500,500));
         tbKamar.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
         for (int i = 0; i < 3; i++) {
             TableColumn column = tbKamar.getColumnModel().getColumn(i);
-            if(i==0){
+            if (i == 0) {
                 column.setPreferredWidth(40);
-            }else if(i==1){
+            } else if (i == 1) {
                 column.setPreferredWidth(140);
-            }else if(i==2){
+            } else if (i == 2) {
                 column.setPreferredWidth(470);
             }
         }
@@ -270,15 +270,15 @@ public final class BPJSCekReferensiPoli extends javax.swing.JDialog {
     }//GEN-LAST:event_BtnPrintActionPerformed
 
     private void PoliKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PoliKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             tampil(Poli.getText());
             Poli.requestFocus();
-        }else if(evt.getKeyCode()==KeyEvent.VK_PAGE_DOWN){
+        } else if (evt.getKeyCode() == KeyEvent.VK_PAGE_DOWN) {
             tampil(Poli.getText());
             Poli.requestFocus();
-        }else if(evt.getKeyCode()==KeyEvent.VK_PAGE_UP){
+        } else if (evt.getKeyCode() == KeyEvent.VK_PAGE_UP) {
             BtnKeluar.requestFocus();
-        }else if(evt.getKeyCode()==KeyEvent.VK_UP){
+        } else if (evt.getKeyCode() == KeyEvent.VK_UP) {
             BtnCariActionPerformed(null);
         }
     }//GEN-LAST:event_PoliKeyPressed
@@ -290,10 +290,10 @@ public final class BPJSCekReferensiPoli extends javax.swing.JDialog {
     }//GEN-LAST:event_BtnCariActionPerformed
 
     private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnCariKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_SPACE){
+        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
             BtnCariActionPerformed(null);
-        }else{
-            Valid.pindah(evt,Poli,BtnPrint);
+        } else {
+            Valid.pindah(evt, Poli, BtnPrint);
         }
     }//GEN-LAST:event_BtnCariKeyPressed
 
@@ -329,21 +329,27 @@ public final class BPJSCekReferensiPoli extends javax.swing.JDialog {
     public void tampil(String poli) {
         try {
             
-            String URL = prop.getProperty("URLAPIBPJS")+"/referensi/poli/"+poli;	
-
-	    HttpHeaders headers = new HttpHeaders();
+            URL = prop.getProperty("URLAPIBPJS") + "/referensi/poli/" + poli;
+            HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-	    headers.add("X-Cons-ID",prop.getProperty("CONSIDAPIBPJS"));
-	    headers.add("X-Timestamp",String.valueOf(api.GetUTCdatetimeAsString()));            
-	    headers.add("X-Signature",api.getHmac());
+            headers.add("X-Cons-ID", Sequel.decXML2(prop.getProperty("CONSIDAPIBPJS"), prop.getProperty("KEY")));
+            utc = String.valueOf(api.GetUTCdatetimeAsString());
+            headers.add("X-Timestamp", utc);
+            headers.add("X-Signature", api.getHmac(utc));
+            headers.add("user_key",koneksiDB.USERKEYAPIBPJS());
+            
 	    HttpEntity requestEntity = new HttpEntity(headers);
-	    //System.out.println(rest.exchange(URL, HttpMethod.GET, requestEntity, String.class).getBody());
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.GET, requestEntity, String.class).getBody());
             JsonNode nameNode = root.path("metaData");
+            
             if(nameNode.path("code").asText().equals("200")){
                 Valid.tabelKosong(tabMode);
-                JsonNode response = root.path("response");
+//ini yang baru -----------            
+            JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc));
+//sampai sini -------------                
+//                JsonNode response = root.path("response");
+
                 if(response.path("poli").isArray()){
                     i=1;
                     for(JsonNode list:response.path("poli")){

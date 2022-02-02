@@ -41,10 +41,11 @@ import org.springframework.http.MediaType;
 public final class BPJSCekReferensiRuangRawat extends javax.swing.JDialog {
     private final DefaultTableModel tabMode;
     private final Properties prop = new Properties();
-    private validasi Valid=new validasi();
-    private sekuel Sequel=new sekuel();
-    private int i=0;
-    private BPJSApi api=new BPJSApi();
+    private validasi Valid = new validasi();
+    private sekuel Sequel = new sekuel();
+    private int i = 0;
+    private BPJSApi api = new BPJSApi();
+    private String URL = "", utc = "";
         
     /** Creates new form DlgKamar
      * @param parent
@@ -59,19 +60,18 @@ public final class BPJSCekReferensiRuangRawat extends javax.swing.JDialog {
         tabMode=new DefaultTableModel(null,new String[]{"No.","Kode Ruang","Nama Ruang"}){
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
         };
+        
         tbKamar.setModel(tabMode);
-
-        //tbKamar.setDefaultRenderer(Object.class, new WarnaTable(panelJudul.getBackground(),tbKamar.getBackground()));
-        tbKamar.setPreferredScrollableViewportSize(new Dimension(500,500));
+        tbKamar.setPreferredScrollableViewportSize(new Dimension(500, 500));
         tbKamar.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
         for (int i = 0; i < 3; i++) {
             TableColumn column = tbKamar.getColumnModel().getColumn(i);
-            if(i==0){
+            if (i == 0) {
                 column.setPreferredWidth(40);
-            }else if(i==1){
+            } else if (i == 1) {
                 column.setPreferredWidth(100);
-            }else if(i==2){
+            } else if (i == 2) {
                 column.setPreferredWidth(380);
             }
         }
@@ -124,7 +124,7 @@ public final class BPJSCekReferensiRuangRawat extends javax.swing.JDialog {
         setUndecorated(true);
         setResizable(false);
 
-        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Pencarian Data Referensi Ruang Rawat VClaim ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 0))); // NOI18N
+        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Pencarian Data Referensi Ruang Rawat VClaim ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
         internalFrame1.setName("internalFrame1"); // NOI18N
         internalFrame1.setLayout(new java.awt.BorderLayout(1, 1));
 
@@ -132,7 +132,6 @@ public final class BPJSCekReferensiRuangRawat extends javax.swing.JDialog {
         Scroll.setOpaque(true);
 
         tbKamar.setAutoCreateRowSorter(true);
-        tbKamar.setForeground(new java.awt.Color(0, 0, 0));
         tbKamar.setToolTipText("Silahkan klik untuk memilih data yang mau diedit ataupun dihapus");
         tbKamar.setName("tbKamar"); // NOI18N
         Scroll.setViewportView(tbKamar);
@@ -277,21 +276,27 @@ public final class BPJSCekReferensiRuangRawat extends javax.swing.JDialog {
 
     public void tampil(String poli) {
         try {
-            String URL = prop.getProperty("URLAPIBPJS")+"/referensi/ruangrawat";	
+            URL = prop.getProperty("URLAPIBPJS")+"/referensi/ruangrawat";	
 
 	    HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-	    headers.add("X-Cons-ID",prop.getProperty("CONSIDAPIBPJS"));
-	    headers.add("X-Timestamp",String.valueOf(api.GetUTCdatetimeAsString()));            
-	    headers.add("X-Signature",api.getHmac());
+	    headers.add("X-Cons-ID",Sequel.decXML2(prop.getProperty("CONSIDAPIBPJS"), prop.getProperty("KEY")));
+            utc = String.valueOf(api.GetUTCdatetimeAsString());
+            headers.add("X-Timestamp", utc);
+            headers.add("X-Signature", api.getHmac(utc));
+            headers.add("user_key",koneksiDB.USERKEYAPIBPJS());
+            
 	    HttpEntity requestEntity = new HttpEntity(headers);
-	    //System.out.println(rest.exchange(URL, HttpMethod.GET, requestEntity, String.class).getBody());
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.GET, requestEntity, String.class).getBody());
             JsonNode nameNode = root.path("metaData");
+            
             if(nameNode.path("code").asText().equals("200")){
                 Valid.tabelKosong(tabMode);
-                JsonNode response = root.path("response");
+//ini yang baru -----------            
+                JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc));
+//sampai sini -------------                
+//                JsonNode response = root.path("response");
                 if(response.path("list").isArray()){
                     i=1;
                     for(JsonNode list:response.path("list")){
@@ -304,13 +309,15 @@ public final class BPJSCekReferensiRuangRawat extends javax.swing.JDialog {
                         i++;
                     }
                 }
-            }else {
-                JOptionPane.showMessageDialog(null,nameNode.path("message").asText());                
-            }   
+                System.out.println("Notifikasi WS VClaim 2.0 : Kode " + nameNode.path("code").asText() + ", isi pesan : " + nameNode.path("message").asText());
+            } else {
+                System.out.println("Notifikasi WS VClaim 2.0 : Kode " + nameNode.path("code").asText() + ", isi pesan : " + nameNode.path("message").asText());
+                JOptionPane.showMessageDialog(null, "Notifikasi WS VClaim 2.0 : Kode " + nameNode.path("code").asText() + ", isi pesan : " + nameNode.path("message").asText());
+            }
         } catch (Exception ex) {
-            System.out.println("Notifikasi : "+ex);
-            if(ex.toString().contains("UnknownHostException")){
-                JOptionPane.showMessageDialog(rootPane,"Koneksi ke server BPJS terputus...!");
+            System.out.println("Notifikasi : " + ex);
+            if (ex.toString().contains("UnknownHostException")) {
+                JOptionPane.showMessageDialog(rootPane, "Koneksi ke server BPJS terputus...!");
             }
         }
     }    

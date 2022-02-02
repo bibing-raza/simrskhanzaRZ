@@ -2159,11 +2159,6 @@ public class DlgPasien extends javax.swing.JDialog {
         CmbJk.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "LAKI-LAKI", "PEREMPUAN" }));
         CmbJk.setName("CmbJk"); // NOI18N
         CmbJk.setOpaque(false);
-        CmbJk.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                CmbJkMouseClicked(evt);
-            }
-        });
         CmbJk.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 CmbJkKeyPressed(evt);
@@ -2229,7 +2224,7 @@ public class DlgPasien extends javax.swing.JDialog {
         FormInput.add(jLabel13);
         jLabel13.setBounds(4, 98, 95, 23);
 
-        DTPLahir.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-08-2021" }));
+        DTPLahir.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-11-2021" }));
         DTPLahir.setDisplayFormat("dd-MM-yyyy");
         DTPLahir.setName("DTPLahir"); // NOI18N
         DTPLahir.setOpaque(false);
@@ -2348,7 +2343,6 @@ public class DlgPasien extends javax.swing.JDialog {
 
         TTlp.setForeground(new java.awt.Color(0, 0, 0));
         TTlp.setToolTipText("Harus diisi dengan angka..!!!");
-        TTlp.setHighlighter(null);
         TTlp.setName("TTlp"); // NOI18N
         TTlp.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -2388,7 +2382,7 @@ public class DlgPasien extends javax.swing.JDialog {
         TKtp.setBounds(712, 127, 130, 23);
 
         DTPDaftar.setEditable(false);
-        DTPDaftar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-08-2021" }));
+        DTPDaftar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-11-2021" }));
         DTPDaftar.setDisplayFormat("dd-MM-yyyy");
         DTPDaftar.setEnabled(false);
         DTPDaftar.setName("DTPDaftar"); // NOI18N
@@ -2808,7 +2802,6 @@ public class DlgPasien extends javax.swing.JDialog {
         jLabel28.setBounds(392, 69, 100, 23);
 
         TNoPeserta.setForeground(new java.awt.Color(0, 0, 0));
-        TNoPeserta.setHighlighter(null);
         TNoPeserta.setName("TNoPeserta"); // NOI18N
         TNoPeserta.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -4843,12 +4836,18 @@ private void KabupatenMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         cekViaBPJS.tampil(TKtp.getText());
         TNm.setText(Strings.toUpperCase(cekViaBPJS.nama));
-        CmbJk.setSelectedItem(cekViaBPJS.sex);
+        Valid.SetTgl(DTPLahir, cekViaBPJS.tglLahir);
         TNoPeserta.setText(cekViaBPJS.noKartu);
+        TKtp.setText(cekViaBPJS.nik);
         Pekerjaan.setText(cekViaBPJS.jenisPesertaketerangan);
-//        TUmurTh.setText(cekViaBPJS.umurumurSekarang);
         Valid.SetTgl(DTPLahir, cekViaBPJS.tglLahir);
         DTPLahirItemStateChanged(null);
+
+        if (cekViaBPJS.sex.equals("L")) {
+            CmbJk.setSelectedIndex(1);
+        } else {
+            CmbJk.setSelectedIndex(2);
+        }        
         jPopupMenu2.setVisible(false);
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_MnViaBPJSNikActionPerformed
@@ -4856,14 +4855,19 @@ private void KabupatenMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
     private void MnViaBPJSNoKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnViaBPJSNoKartuActionPerformed
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         cekViaBPJSKartu.tampil(TNoPeserta.getText());
-        //TNm.setText(cekViaBPJSKartu.nama);
         TNm.setText(Strings.toUpperCase(cekViaBPJSKartu.nama));
-        CmbJk.setSelectedItem(cekViaBPJSKartu.sex);
+        Valid.SetTgl(DTPLahir, cekViaBPJSKartu.tglLahir);
+        TNoPeserta.setText(cekViaBPJSKartu.noKartu);
         TKtp.setText(cekViaBPJSKartu.nik);
         Pekerjaan.setText(cekViaBPJSKartu.jenisPesertaketerangan);
-//        TUmurTh.setText(cekViaBPJSKartu.umurumurSekarang);
         Valid.SetTgl(DTPLahir, cekViaBPJSKartu.tglLahir);
-        DTPLahirItemStateChanged(null);
+        DTPLahirItemStateChanged(null);        
+        
+        if (cekViaBPJSKartu.sex.equals("L")) {
+            CmbJk.setSelectedIndex(1);
+        } else {
+            CmbJk.setSelectedIndex(2);
+        }
         jPopupMenu2.setVisible(false);
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_MnViaBPJSNoKartuActionPerformed
@@ -5413,10 +5417,6 @@ private void KabupatenMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
     private void CmbSttsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CmbSttsMouseClicked
         CmbStts.setEditable(false);
     }//GEN-LAST:event_CmbSttsMouseClicked
-
-    private void CmbJkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CmbJkMouseClicked
-        CmbJk.setEditable(false);
-    }//GEN-LAST:event_CmbJkMouseClicked
 
     private void CMbGdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CMbGdMouseClicked
         CMbGd.setEditable(false);

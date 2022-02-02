@@ -45,11 +45,11 @@ import org.springframework.web.client.RestTemplate;
 public final class BPJSCekReferensiFaskes extends javax.swing.JDialog {
     private final DefaultTableModel tabMode;
     private final Properties prop = new Properties();
-    private validasi Valid=new validasi();
-    private sekuel Sequel=new sekuel();
-    private int i=0;
-    private BPJSApi api=new BPJSApi();
-    private String URL="";
+    private validasi Valid = new validasi();
+    private sekuel Sequel = new sekuel();
+    private int i = 0;
+    private BPJSApi api = new BPJSApi();
+    private String URL = "", utc = "";
 
     /** Creates new form DlgKamar
      * @param parent
@@ -64,33 +64,32 @@ public final class BPJSCekReferensiFaskes extends javax.swing.JDialog {
         tabMode=new DefaultTableModel(null,new String[]{"No.","Kode Faskes","Nama Faskes"}){
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
         };
+        
         tbKamar.setModel(tabMode);
-
-        //tbKamar.setDefaultRenderer(Object.class, new WarnaTable(panelJudul.getBackground(),tbKamar.getBackground()));
         tbKamar.setPreferredScrollableViewportSize(new Dimension(500,500));
         tbKamar.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
         for (int i = 0; i < 3; i++) {
             TableColumn column = tbKamar.getColumnModel().getColumn(i);
-            if(i==0){
+            if (i == 0) {
                 column.setPreferredWidth(40);
-            }else if(i==1){
+            } else if (i == 1) {
                 column.setPreferredWidth(120);
-            }else if(i==2){
+            } else if (i == 2) {
                 column.setPreferredWidth(500);
             }
         }
         tbKamar.setDefaultRenderer(Object.class, new WarnaTable());
-        diagnosa.setDocument(new batasInput((byte)100).getKata(diagnosa));
+        nmFaskes.setDocument(new batasInput((byte) 100).getKata(nmFaskes));
         
         if(koneksiDB.cariCepat().equals("aktif")){
-            diagnosa.getDocument().addDocumentListener(new javax.swing.event.DocumentListener(){
+            nmFaskes.getDocument().addDocumentListener(new javax.swing.event.DocumentListener(){
                 @Override
-                public void insertUpdate(DocumentEvent e) {tampil(diagnosa.getText());}
+                public void insertUpdate(DocumentEvent e) {tampil(nmFaskes.getText());}
                 @Override
-                public void removeUpdate(DocumentEvent e) {tampil(diagnosa.getText());}
+                public void removeUpdate(DocumentEvent e) {tampil(nmFaskes.getText());}
                 @Override
-                public void changedUpdate(DocumentEvent e) {tampil(diagnosa.getText());}
+                public void changedUpdate(DocumentEvent e) {tampil(nmFaskes.getText());}
             });
         }   
         try {
@@ -116,7 +115,7 @@ public final class BPJSCekReferensiFaskes extends javax.swing.JDialog {
         tbKamar = new widget.Table();
         panelGlass6 = new widget.panelisi();
         jLabel16 = new widget.Label();
-        diagnosa = new widget.TextBox();
+        nmFaskes = new widget.TextBox();
         BtnCari = new widget.Button();
         jLabel17 = new widget.Label();
         BtnPrint = new widget.Button();
@@ -152,15 +151,15 @@ public final class BPJSCekReferensiFaskes extends javax.swing.JDialog {
         jLabel16.setPreferredSize(new java.awt.Dimension(105, 23));
         panelGlass6.add(jLabel16);
 
-        diagnosa.setForeground(new java.awt.Color(0, 0, 0));
-        diagnosa.setName("diagnosa"); // NOI18N
-        diagnosa.setPreferredSize(new java.awt.Dimension(250, 23));
-        diagnosa.addKeyListener(new java.awt.event.KeyAdapter() {
+        nmFaskes.setForeground(new java.awt.Color(0, 0, 0));
+        nmFaskes.setName("nmFaskes"); // NOI18N
+        nmFaskes.setPreferredSize(new java.awt.Dimension(250, 23));
+        nmFaskes.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                diagnosaKeyPressed(evt);
+                nmFaskesKeyPressed(evt);
             }
         });
-        panelGlass6.add(diagnosa);
+        panelGlass6.add(nmFaskes);
 
         BtnCari.setForeground(new java.awt.Color(0, 0, 0));
         BtnCari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept.png"))); // NOI18N
@@ -231,70 +230,71 @@ public final class BPJSCekReferensiFaskes extends javax.swing.JDialog {
     }//GEN-LAST:event_BtnKeluarActionPerformed
 
     private void BtnKeluarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnKeluarKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_SPACE){
+        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
             dispose();
-        }else{Valid.pindah(evt,BtnPrint,BtnKeluar);}
+        } else {
+            Valid.pindah(evt, BtnPrint, BtnKeluar);
+        }
     }//GEN-LAST:event_BtnKeluarKeyPressed
 
     private void BtnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPrintActionPerformed
-        if(tabMode.getRowCount()==0){
-            JOptionPane.showMessageDialog(null,"Maaf, data sudah habis. Tidak ada data yang bisa anda print...!!!!");
-            //TCari.requestFocus();
-        }else if(tabMode.getRowCount()!=0){
+        if (tabMode.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Maaf, data sudah habis. Tidak ada data yang bisa anda print...!!!!");
+        } else if (tabMode.getRowCount() != 0) {
             this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
             Sequel.AutoComitFalse();
             Sequel.queryu("delete from temporary");
-            int row=tabMode.getRowCount();
-            for(int r=0;r<row;r++){  
-                Sequel.menyimpan("temporary","'0','"+
-                                tabMode.getValueAt(r,0).toString()+"','"+
-                                tabMode.getValueAt(r,1).toString().replaceAll("'","`")+"','"+
-                                tabMode.getValueAt(r,2).toString().replaceAll("'","`")+"','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''","Rekap Harian Pengadaan Ipsrs"); 
+            int row = tabMode.getRowCount();
+            for (int r = 0; r < row; r++) {
+                Sequel.menyimpan("temporary", "'0','"
+                        + tabMode.getValueAt(r, 0).toString() + "','"
+                        + tabMode.getValueAt(r, 1).toString().replaceAll("'", "`") + "','"
+                        + tabMode.getValueAt(r, 2).toString().replaceAll("'", "`") + "','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''", "Rekap Harian Pengadaan Ipsrs");
             }
             Sequel.AutoComitTrue();
-            Map<String, Object> param = new HashMap<>();                 
-            param.put("namars",var.getnamars());
-            param.put("alamatrs",var.getalamatrs());
-            param.put("kotars",var.getkabupatenrs());
-            param.put("propinsirs",var.getpropinsirs());
+            Map<String, Object> param = new HashMap<>();
+            param.put("namars", var.getnamars());
+            param.put("alamatrs", var.getalamatrs());
+            param.put("kotars", var.getkabupatenrs());
+            param.put("propinsirs", var.getpropinsirs());
             //param.put("peserta","No.Peserta : "+NoKartu.getText()+" Nama Peserta : "+NamaPasien.getText());
-            param.put("kontakrs",var.getkontakrs());
-            param.put("emailrs",var.getemailrs());   
-            param.put("logo",Sequel.cariGambar("select logo from setting")); 
-            Valid.MyReport("rptCariBPJSReferensiFaskes.jrxml","report","[ Pencarian Referensi Faskes ]",
-                "select no, temp1, temp2, temp3, temp4, temp5, temp6, temp7, temp8, temp9, temp10, temp11, temp12, temp13, temp14 from temporary order by no asc",param);
+            param.put("kontakrs", var.getkontakrs());
+            param.put("emailrs", var.getemailrs());
+            param.put("logo", Sequel.cariGambar("select logo from setting"));
+            Valid.MyReport("rptCariBPJSReferensiFaskes.jrxml", "report", "[ Pencarian Referensi Faskes ]",
+                    "select no, temp1, temp2, temp3, temp4, temp5, temp6, temp7, temp8, temp9, temp10, temp11, temp12, temp13, temp14 from temporary order by no asc", param);
             this.setCursor(Cursor.getDefaultCursor());
-        }        
+        }
     }//GEN-LAST:event_BtnPrintActionPerformed
 
-    private void diagnosaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_diagnosaKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            tampil(diagnosa.getText());
-            tampil2(diagnosa.getText());
-            diagnosa.requestFocus();
-        }else if(evt.getKeyCode()==KeyEvent.VK_PAGE_DOWN){
-            tampil(diagnosa.getText());
-            tampil2(diagnosa.getText());
-            diagnosa.requestFocus();
-        }else if(evt.getKeyCode()==KeyEvent.VK_PAGE_UP){
+    private void nmFaskesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nmFaskesKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            tampil(nmFaskes.getText());
+            tampil2(nmFaskes.getText());
+            nmFaskes.requestFocus();
+        } else if (evt.getKeyCode() == KeyEvent.VK_PAGE_DOWN) {
+            tampil(nmFaskes.getText());
+            tampil2(nmFaskes.getText());
+            nmFaskes.requestFocus();
+        } else if (evt.getKeyCode() == KeyEvent.VK_PAGE_UP) {
             BtnKeluar.requestFocus();
-        }else if(evt.getKeyCode()==KeyEvent.VK_UP){
+        } else if (evt.getKeyCode() == KeyEvent.VK_UP) {
             BtnCariActionPerformed(null);
         }
-    }//GEN-LAST:event_diagnosaKeyPressed
+    }//GEN-LAST:event_nmFaskesKeyPressed
 
     private void BtnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCariActionPerformed
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        tampil(diagnosa.getText());
-        tampil2(diagnosa.getText());
+        tampil(nmFaskes.getText());
+        tampil2(nmFaskes.getText());
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_BtnCariActionPerformed
 
     private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnCariKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_SPACE){
+        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
             BtnCariActionPerformed(null);
-        }else{
-            Valid.pindah(evt,diagnosa,BtnPrint);
+        } else {
+            Valid.pindah(evt, nmFaskes, BtnPrint);
         }
     }//GEN-LAST:event_BtnCariKeyPressed
 
@@ -319,10 +319,10 @@ public final class BPJSCekReferensiFaskes extends javax.swing.JDialog {
     private widget.Button BtnKeluar;
     private widget.Button BtnPrint;
     private widget.ScrollPane Scroll;
-    private widget.TextBox diagnosa;
     private widget.InternalFrame internalFrame1;
     private widget.Label jLabel16;
     private widget.Label jLabel17;
+    private widget.TextBox nmFaskes;
     private widget.panelisi panelGlass6;
     private widget.Table tbKamar;
     // End of variables declaration//GEN-END:variables
@@ -330,24 +330,29 @@ public final class BPJSCekReferensiFaskes extends javax.swing.JDialog {
     public void tampil(String faskes) {
         try {
             Valid.tabelKosong(tabMode);
-            
-            URL = prop.getProperty("URLAPIBPJS")+"/referensi/faskes/"+faskes+"/1";	
-
-	    HttpHeaders headers = new HttpHeaders();
+            URL = prop.getProperty("URLAPIBPJS") + "/referensi/faskes/" + faskes + "/1";
+            HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-	    headers.add("X-Cons-ID",prop.getProperty("CONSIDAPIBPJS"));
-	    headers.add("X-Timestamp",String.valueOf(api.GetUTCdatetimeAsString()));            
-	    headers.add("X-Signature",api.getHmac());
+            headers.add("X-Cons-ID", Sequel.decXML2(prop.getProperty("CONSIDAPIBPJS"), prop.getProperty("KEY")));
+            utc = String.valueOf(api.GetUTCdatetimeAsString());
+            headers.add("X-Timestamp", utc);
+            headers.add("X-Signature", api.getHmac(utc));   
+            headers.add("user_key",koneksiDB.USERKEYAPIBPJS());
+            
 	    HttpEntity requestEntity = new HttpEntity(headers);
-	    //System.out.println(rest.exchange(URL, HttpMethod.GET, requestEntity, String.class).getBody());
-            ObjectMapper mapper = new ObjectMapper();
+	    ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.GET, requestEntity, String.class).getBody());
             JsonNode nameNode = root.path("metaData");            
+            
             if(nameNode.path("code").asText().equals("200")){ 
                 tabMode.addRow(new Object[]{
                     "A","Faskes 1",""
                 });
-                JsonNode response = root.path("response");
+//ini yang baru -----------            
+                JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc));
+//sampai sini -------------
+//                JsonNode response = root.path("response");
+
                 if(response.path("faskes").isArray()){
                     i=1;
                     for(JsonNode list:response.path("faskes")){
@@ -359,7 +364,7 @@ public final class BPJSCekReferensiFaskes extends javax.swing.JDialog {
                     }
                 }
             }else {
-                JOptionPane.showMessageDialog(null,nameNode.path("message").asText());                
+                JOptionPane.showMessageDialog(null,nameNode.path("message").asText()+" di Faskes 1.");                
             }   
         } catch (Exception ex) {
             System.out.println("Notifikasi : "+ex);
@@ -372,18 +377,20 @@ public final class BPJSCekReferensiFaskes extends javax.swing.JDialog {
     public void tampil2(String faskes) {        
         try {
             prop.loadFromXML(new FileInputStream("setting/database.xml"));
-            URL = prop.getProperty("URLAPIBPJS")+"/referensi/faskes/"+faskes+"/2";	
-
-	    HttpHeaders headers = new HttpHeaders();
+            URL = prop.getProperty("URLAPIBPJS") + "/referensi/faskes/" + faskes + "/2";
+            HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-	    headers.add("X-Cons-ID",prop.getProperty("CONSIDAPIBPJS"));
-	    headers.add("X-Timestamp",String.valueOf(api.GetUTCdatetimeAsString()));            
-	    headers.add("X-Signature",api.getHmac());
+            headers.add("X-Cons-ID", Sequel.decXML2(prop.getProperty("CONSIDAPIBPJS"), prop.getProperty("KEY")));
+            utc = String.valueOf(api.GetUTCdatetimeAsString());
+            headers.add("X-Timestamp", utc);
+            headers.add("X-Signature", api.getHmac(utc));
+            headers.add("user_key",koneksiDB.USERKEYAPIBPJS());
+                        
 	    HttpEntity requestEntity = new HttpEntity(headers);
-	    //System.out.println(rest.exchange(URL, HttpMethod.GET, requestEntity, String.class).getBody());
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.GET, requestEntity, String.class).getBody());
             JsonNode nameNode = root.path("metaData");
+            
             if(nameNode.path("message").asText().equals("Sukses")){ 
                 tabMode.addRow(new Object[]{
                     "","",""
@@ -391,7 +398,12 @@ public final class BPJSCekReferensiFaskes extends javax.swing.JDialog {
                 tabMode.addRow(new Object[]{
                     "B","Faskes 2/RS",""
                 });
-                JsonNode response = root.path("response");
+
+//ini yang baru -----------            
+            JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc));
+//sampai sini -------------
+//                JsonNode response = root.path("response");
+
                 if(response.path("faskes").isArray()){
                     i=1;
                     for(JsonNode list:response.path("faskes")){
@@ -403,7 +415,7 @@ public final class BPJSCekReferensiFaskes extends javax.swing.JDialog {
                     }
                 }
             }else {
-                JOptionPane.showMessageDialog(null,nameNode.path("message").asText());                
+                JOptionPane.showMessageDialog(null, nameNode.path("message").asText() + " di Faskes 2/RS.");                
             }   
         } catch (Exception ex) {
             System.out.println("Notifikasi : "+ex);
@@ -418,7 +430,7 @@ public final class BPJSCekReferensiFaskes extends javax.swing.JDialog {
     }      
     
     public void fokus(){
-        diagnosa.requestFocus();
+        nmFaskes.requestFocus();
     }
 
 }

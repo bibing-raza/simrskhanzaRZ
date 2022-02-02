@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fungsi.koneksiDB;
 import fungsi.sekuel;
 import fungsi.validasi;
 import fungsi.var;
@@ -45,12 +46,12 @@ import simrskhanza.DlgPasien;
 public final class BPJSCekRiwayatRujukanRS extends javax.swing.JDialog {
     private final DefaultTableModel tabMode;
     private final Properties prop = new Properties();
-    private validasi Valid=new validasi();
-    private sekuel Sequel=new sekuel();
-    private int i=0;
-    private DlgPasien pasien=new DlgPasien(null,false);
-    private BPJSApi api=new BPJSApi();
-    private String URL="";
+    private validasi Valid = new validasi();
+    private sekuel Sequel = new sekuel();
+    private int i = 0;
+    private DlgPasien pasien = new DlgPasien(null, false);
+    private BPJSApi api = new BPJSApi();
+    private String URL = "", utc = "";
         
     /** Creates new form DlgKamar
      * @param parent
@@ -66,23 +67,22 @@ public final class BPJSCekRiwayatRujukanRS extends javax.swing.JDialog {
         tabMode=new DefaultTableModel(null,row){
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
         };
+        
         tbKamar.setModel(tabMode);
-
-        //tbKamar.setDefaultRenderer(Object.class, new WarnaTable(panelJudul.getBackground(),tbKamar.getBackground()));
         tbKamar.setPreferredScrollableViewportSize(new Dimension(500,500));
         tbKamar.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
         for (i = 0; i < 3; i++) {
             TableColumn column = tbKamar.getColumnModel().getColumn(i);
-            if(i==0){
+            if (i == 0) {
                 column.setPreferredWidth(25);
-            }else if(i==1){
+            } else if (i == 1) {
                 column.setPreferredWidth(170);
-            }else if(i==2){
+            } else if (i == 2) {
                 column.setPreferredWidth(450);
             }
         }
-        
+
         tbKamar.setDefaultRenderer(Object.class, new WarnaTable());
         pasien.addWindowListener(new WindowListener() {
             @Override
@@ -92,13 +92,13 @@ public final class BPJSCekRiwayatRujukanRS extends javax.swing.JDialog {
             @Override
             public void windowClosed(WindowEvent e) {
                 if(var.getform().equals("DlgBPJSCekRiwayatPeserta")){
-                    if(pasien.getTable().getSelectedRow()!= -1){                   
-                        if(pasien.getTable().getValueAt(pasien.getTable().getSelectedRow(),20).toString().equals("")){
-                            JOptionPane.showMessageDialog(rootPane,"Maaf pasien tidak punya Nomor Kartu...!");
-                        }else{
-                            NoKartu.setText(pasien.getTable().getValueAt(pasien.getTable().getSelectedRow(),20).toString());
-                            NamaPasien.setText(pasien.getTable().getValueAt(pasien.getTable().getSelectedRow(),2).toString());
-                        }                            
+                    if (pasien.getTable().getSelectedRow() != -1) {
+                        if (pasien.getTable().getValueAt(pasien.getTable().getSelectedRow(), 21).toString().equals("")) {
+                            JOptionPane.showMessageDialog(rootPane, "Maaf pasien tidak punya Nomor Kartu...!");
+                        } else {
+                            NoKartu.setText(pasien.getTable().getValueAt(pasien.getTable().getSelectedRow(), 21).toString());
+                            NamaPasien.setText(pasien.getTable().getValueAt(pasien.getTable().getSelectedRow(), 2).toString());
+                        }                           
                     }  
                 }
             }
@@ -163,7 +163,7 @@ public final class BPJSCekRiwayatRujukanRS extends javax.swing.JDialog {
         setUndecorated(true);
         setResizable(false);
 
-        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Pencarian Riwayat Rujukan RS di VClaim Berdasarkan Nomor Kepesertaan ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 0))); // NOI18N
+        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Pencarian Riwayat Rujukan RS di VClaim Berdasarkan Nomor Kepesertaan ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
         internalFrame1.setName("internalFrame1"); // NOI18N
         internalFrame1.setLayout(new java.awt.BorderLayout(1, 1));
 
@@ -171,7 +171,6 @@ public final class BPJSCekRiwayatRujukanRS extends javax.swing.JDialog {
         Scroll.setOpaque(true);
 
         tbKamar.setAutoCreateRowSorter(true);
-        tbKamar.setForeground(new java.awt.Color(0, 0, 0));
         tbKamar.setToolTipText("Silahkan klik untuk memilih data yang mau diedit ataupun dihapus");
         tbKamar.setName("tbKamar"); // NOI18N
         Scroll.setViewportView(tbKamar);
@@ -343,7 +342,7 @@ public final class BPJSCekRiwayatRujukanRS extends javax.swing.JDialog {
         var.setform("DlgBPJSCekRiwayatPeserta");
         pasien.emptTeks();
         pasien.isCek();
-        pasien.setSize(internalFrame1.getWidth()-40,internalFrame1.getHeight()-40);
+        pasien.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
         pasien.setLocationRelativeTo(internalFrame1);
         pasien.setVisible(true);
         pasien.fokus();
@@ -400,21 +399,27 @@ public final class BPJSCekRiwayatRujukanRS extends javax.swing.JDialog {
 
     public void tampil(String nomorrujukan) {
         try {
-            URL = prop.getProperty("URLAPIBPJS")+"/Rujukan/RS/List/Peserta/"+nomorrujukan;	
+            URL = prop.getProperty("URLAPIBPJS") + "/Rujukan/RS/List/Peserta/" + nomorrujukan;
 
 	    HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-	    headers.add("X-Cons-ID",prop.getProperty("CONSIDAPIBPJS"));
-	    headers.add("X-Timestamp",String.valueOf(api.GetUTCdatetimeAsString()));            
-	    headers.add("X-Signature",api.getHmac());
+	    headers.add("X-Cons-ID",Sequel.decXML2(prop.getProperty("CONSIDAPIBPJS"), prop.getProperty("KEY")));
+            utc = String.valueOf(api.GetUTCdatetimeAsString());
+            headers.add("X-Timestamp", utc);
+            headers.add("X-Signature", api.getHmac(utc));
+            headers.add("user_key",koneksiDB.USERKEYAPIBPJS());
             
 	    HttpEntity requestEntity = new HttpEntity(headers);
 	    ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.GET, requestEntity, String.class).getBody());
             JsonNode nameNode = root.path("metaData");
+            
             if(nameNode.path("code").asText().equals("200")){
                 Valid.tabelKosong(tabMode);
-                JsonNode response = root.path("response").path("rujukan");
+//ini yang baru -----------            
+                JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc)).path("rujukan");
+//sampai sini -------------                
+//                JsonNode response = root.path("response").path("rujukan");
                 if(response.isArray()){
                     i=1;
                     for(JsonNode list:response){

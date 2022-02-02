@@ -146,7 +146,7 @@ public final class koneksiDB {
         return var;
     }
     
-    public static String URLAPIBPJSyangbaru(){
+    public static String URLAPIBPJS(){
         try{
             prop.loadFromXML(new FileInputStream("setting/database.xml"));
             var=prop.getProperty("URLAPIBPJS");
@@ -156,20 +156,20 @@ public final class koneksiDB {
         return var;
     }
     
-    public static String CONSIDAPIBPJSyangbaru(){
+    public static String CONSIDAPIBPJS(){
         try{
             prop.loadFromXML(new FileInputStream("setting/database.xml"));
-            var=prop.getProperty("CONSIDAPIBPJS");
+            var = Sequel.decXML2(prop.getProperty("CONSIDAPIBPJS"), prop.getProperty("KEY"));
         }catch(Exception e){
             var=""; 
         }
         return var;
     }
     
-    public static String SECRETKEYAPIBPJSyangbaru(){
+    public static String SECRETKEYAPIBPJS(){
         try{
             prop.loadFromXML(new FileInputStream("setting/database.xml"));
-            var=prop.getProperty("SECRETKEYAPIBPJS");
+            var = Sequel.decXML2(prop.getProperty("SECRETKEYAPIBPJS"), prop.getProperty("KEY"));
         }catch(Exception e){
             var=""; 
         }
@@ -186,4 +186,83 @@ public final class koneksiDB {
         return var;
     }
     
+    public static String USERKEYAPIBPJS(){
+        try {
+            prop.loadFromXML(new FileInputStream("setting/database.xml"));
+            var = Sequel.decXML2(prop.getProperty("USERKEYAPIBPJS"), prop.getProperty("KEY"));
+        } catch (Exception e) {
+            var = "";
+        }
+        return var;
+    }
+
+    public static String URLAPIMOBILEJKN() {
+        try {
+            prop.loadFromXML(new FileInputStream("setting/database.xml"));
+            var = prop.getProperty("URLAPIMOBILEJKN");
+        } catch (Exception e) {
+            var = "";
+        }
+        return var;
+    }
+
+    public static String SECRETKEYAPIMOBILEJKN() {
+        try {
+            prop.loadFromXML(new FileInputStream("setting/database.xml"));
+            var = Sequel.decXML2(prop.getProperty("SECRETKEYAPIMOBILEJKN"), prop.getProperty("KEY"));
+        } catch (Exception e) {
+            var = "";
+        }
+        return var;
+    }
+
+    public static String CONSIDAPIMOBILEJKN() {
+        try {
+            prop.loadFromXML(new FileInputStream("setting/database.xml"));
+            var = Sequel.decXML2(prop.getProperty("CONSIDAPIMOBILEJKN"), prop.getProperty("KEY"));
+        } catch (Exception e) {
+            var = "";
+        }
+        return var;
+    }
+
+    public static String USERKEYAPIMOBILEJKN() {
+        try {
+            prop.loadFromXML(new FileInputStream("setting/database.xml"));
+            var = Sequel.decXML2(prop.getProperty("USERKEYAPIMOBILEJKN"), prop.getProperty("KEY"));
+        } catch (Exception e) {
+            var = "";
+        }
+        return var;
+    }
+
+    public static String IDSITT(){
+        try {
+            prop.loadFromXML(new FileInputStream("setting/database.xml"));
+            var = Sequel.decXML2(prop.getProperty("IDSITT"), prop.getProperty("KEY"));
+        } catch (Exception e) {
+            var = "";
+        }
+        return var;
+    }
+    
+    public static String PASSSITT() {
+        try {
+            prop.loadFromXML(new FileInputStream("setting/database.xml"));
+            var = Sequel.decXML2(prop.getProperty("PASSSITT"), prop.getProperty("KEY"));
+        } catch (Exception e) {
+            var = "";
+        }
+        return var;
+    }
+
+    public static String URLAPISITT() {
+        try {
+            prop.loadFromXML(new FileInputStream("setting/database.xml"));
+            var = prop.getProperty("URLAPISITT");
+        } catch (Exception e) {
+            var = "";
+        }
+        return var;
+    }
 }

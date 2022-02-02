@@ -45,10 +45,12 @@ import org.springframework.web.client.RestTemplate;
 public final class BPJSCekReferensiPropinsi extends javax.swing.JDialog {
     private final DefaultTableModel tabMode;
     private final Properties prop = new Properties();
-    private validasi Valid=new validasi();
-    private sekuel Sequel=new sekuel();
-    private int i=0;
-    private BPJSApi api=new BPJSApi();
+    private validasi Valid = new validasi();
+    private sekuel Sequel = new sekuel();
+    private int i = 0;
+    private BPJSApi api = new BPJSApi();
+    private String URL = "", utc = "";
+    
     /** Creates new form DlgKamar
      * @param parent
      * @param modal */
@@ -62,19 +64,18 @@ public final class BPJSCekReferensiPropinsi extends javax.swing.JDialog {
         tabMode=new DefaultTableModel(null,new String[]{"No.","Kode Propinsi","Nama Propinsi"}){
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
         };
+        
         tbKamar.setModel(tabMode);
-
-        //tbKamar.setDefaultRenderer(Object.class, new WarnaTable(panelJudul.getBackground(),tbKamar.getBackground()));
         tbKamar.setPreferredScrollableViewportSize(new Dimension(500,500));
         tbKamar.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
         for (i = 0; i < 3; i++) {
             TableColumn column = tbKamar.getColumnModel().getColumn(i);
-            if(i==0){
+            if (i == 0) {
                 column.setPreferredWidth(30);
-            }else if(i==1){
+            } else if (i == 1) {
                 column.setPreferredWidth(100);
-            }else if(i==2){
+            } else if (i == 2) {
                 column.setPreferredWidth(400);
             }
         }
@@ -97,11 +98,8 @@ public final class BPJSCekReferensiPropinsi extends javax.swing.JDialog {
             prop.loadFromXML(new FileInputStream("setting/database.xml"));            
         } catch (Exception e) {
             System.out.println("E : "+e);
-        }
-              
+        }              
     }
-    
-    
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -215,19 +213,21 @@ public final class BPJSCekReferensiPropinsi extends javax.swing.JDialog {
     }//GEN-LAST:event_BtnKeluarActionPerformed
 
     private void BtnKeluarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnKeluarKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_SPACE){
+        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
             dispose();
-        }else{Valid.pindah(evt,Propinsi,BtnKeluar);}
+        } else {
+            Valid.pindah(evt, Propinsi, BtnKeluar);
+        }
     }//GEN-LAST:event_BtnKeluarKeyPressed
 
     private void PropinsiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PropinsiKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             BtnCariActionPerformed(null);
-        }else if(evt.getKeyCode()==KeyEvent.VK_PAGE_DOWN){
+        } else if (evt.getKeyCode() == KeyEvent.VK_PAGE_DOWN) {
             BtnCariActionPerformed(null);
-        }else if(evt.getKeyCode()==KeyEvent.VK_PAGE_UP){
+        } else if (evt.getKeyCode() == KeyEvent.VK_PAGE_UP) {
             BtnKeluar.requestFocus();
-        }else if(evt.getKeyCode()==KeyEvent.VK_UP){
+        } else if (evt.getKeyCode() == KeyEvent.VK_UP) {
             tbKamar.requestFocus();
         }
     }//GEN-LAST:event_PropinsiKeyPressed
@@ -239,10 +239,10 @@ public final class BPJSCekReferensiPropinsi extends javax.swing.JDialog {
     }//GEN-LAST:event_BtnCariActionPerformed
 
     private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnCariKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_SPACE){
+        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
             BtnCariActionPerformed(null);
-        }else{
-            Valid.pindah(evt,Propinsi,BtnKeluar);
+        } else {
+            Valid.pindah(evt, Propinsi, BtnKeluar);
         }
     }//GEN-LAST:event_BtnCariKeyPressed
 
@@ -276,24 +276,28 @@ public final class BPJSCekReferensiPropinsi extends javax.swing.JDialog {
 
     public void tampil(String poli) {
         try {
-            String URL = prop.getProperty("URLAPIBPJS")+"/referensi/propinsi";	
+            URL = prop.getProperty("URLAPIBPJS")+"/referensi/propinsi";	
 
 	    HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-	    headers.add("X-Cons-ID",prop.getProperty("CONSIDAPIBPJS"));
-	    headers.add("X-Timestamp",String.valueOf(api.GetUTCdatetimeAsString()));            
-	    headers.add("X-Signature",api.getHmac());
-	    HttpEntity requestEntity = new HttpEntity(headers);
-	    RestTemplate rest = new RestTemplate();	
+	    headers.add("X-Cons-ID", Sequel.decXML2(prop.getProperty("CONSIDAPIBPJS"), prop.getProperty("KEY")));
+            utc = String.valueOf(api.GetUTCdatetimeAsString());
+	    headers.add("X-Timestamp",utc);            
+	    headers.add("X-Signature",api.getHmac(utc));
+            headers.add("user_key",koneksiDB.USERKEYAPIBPJS());
             
-            //System.out.println(rest.exchange(URL, HttpMethod.GET, requestEntity, String.class).getBody());
+	    HttpEntity requestEntity = new HttpEntity(headers);
+	    RestTemplate rest = new RestTemplate();
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.GET, requestEntity, String.class).getBody());
-            //JsonNode root = mapper.readTree(rest.exchange(URL, HttpMethod.GET, requestEntity, String.class).getBody());
             JsonNode nameNode = root.path("metaData");
+            
             if(nameNode.path("code").asText().equals("200")){
                 Valid.tabelKosong(tabMode);
-                JsonNode response = root.path("response");
+//ini yang baru -----------            
+            JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc));
+//sampai sini -------------                
+//                JsonNode response = root.path("response");
                 if(response.path("list").isArray()){
                     i=1;
                     for(JsonNode list:response.path("list")){

@@ -11,9 +11,14 @@
     <entry key="HYBRIDWEB">webapps</entry>
     <entry key="ANTRIAN">sender</entry>
     <entry key="MENUTRANSPARAN">no</entry>
-    <entry key="URLAPIBPJS">https://new-api.bpjs-kesehatan.go.id:8080/new-vclaim-rest</entry>
-    <entry key="SECRETKEYAPIBPJS">kode secret key dari bpjs</entry>
-    <entry key="CONSIDAPIBPJS">kode cons id dari bpjs</entry>
+    <entry key="URLAPIBPJS">https://apijkn-dev.bpjs-kesehatan.go.id/vclaim-rest-dev</entry>
+    <entry key="SECRETKEYAPIBPJS">kode secret key dari bpjs dienkrip dulu</entry>
+    <entry key="CONSIDAPIBPJS">kode cons id dari bpjs dienkrip dulu</entry>	
+	<entry key="USERKEYAPIBPJS">user key dari bpjs dienkrip dulu</entry>
+    <entry key="URLAPIMOBILEJKN">https://apijkn-dev.bpjs-kesehatan.go.id/vclaim-rest-dev</entry>
+    <entry key="SECRETKEYAPIMOBILEJKN">kode secret key dari bpjs dienkrip dulu</entry>
+    <entry key="CONSIDAPIMOBILEJKN">kode cons id dari bpjs dienkrip dulu</entry>
+	<entry key="USERKEYAPIMOBILEJKN">user key dari bpjs dienkrip dulu</entry>	
     <entry key="URLAPIAPLICARE">http://dvlp.bpjs-kesehatan.go.id:8888/aplicaresws</entry>
     <entry key="SECRETKEYAPIAPLICARE">kode secret key dari bpjs</entry>
     <entry key="CONSIDAPIAPLICARE">kode cons id dari bpjs</entry>
@@ -52,4 +57,7 @@
 	<entry key="LOKASIFILE">/home/unitSIMRS/Documents/</entry>
     <entry key="URLEKLAIMINACBG"></entry>
 	<entry key="HOSTraza">ip addres server dienkrip dulu(server alternatif)</entry>
+	<entry key="IDSITT">kode id sitt dienkrip dulu</entry>
+	<entry key="PASSSITT">password sitt dienkrip dulu</entry>
+	<entry key="URLAPISITT">http://sirs.yankes.kemkes.go.id/sirsservice/sitbtraining/sitb/senddata</entry>	
 </properties>

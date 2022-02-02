@@ -1,6 +1,7 @@
 package bridging;
 
 import fungsi.koneksiDB;
+import fungsi.sekuel;
 import java.io.FileInputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
@@ -35,30 +36,33 @@ public class ApiBPJS {
     private SecretKeySpec secretKey;
     private Scheme scheme;
     private HttpComponentsClientHttpRequestFactory factory;
+    private static sekuel Sequel = new sekuel();
     
     public ApiBPJS(){
         try {
             prop.loadFromXML(new FileInputStream("setting/database.xml"));
-            Key = koneksiDB.SECRETKEYAPIBPJSyangbaru();
-            Consid = koneksiDB.CONSIDAPIBPJSyangbaru();
+            Key = Sequel.decXML2(prop.getProperty("SECRETKEYAPIBPJS"), prop.getProperty("KEY"));
+            Consid = Sequel.decXML2(prop.getProperty("CONSIDAPIBPJS"), prop.getProperty("KEY"));
+//            Key = koneksiDB.SECRETKEYAPIBPJS();
+//            Consid = koneksiDB.CONSIDAPIBPJS();
         } catch (Exception ex) {
             System.out.println("Notifikasi : "+ex);
         }
     }
-    public String getHmac() {        
-        GetUTCdatetimeAsString = GetUTCdatetimeAsString();        
-        salt = Consid +"&"+String.valueOf(GetUTCdatetimeAsString);
-	generateHmacSHA256Signature = null;
-	try {
-	    generateHmacSHA256Signature = generateHmacSHA256Signature(salt,Key);
-	} catch (GeneralSecurityException e) {
-	    // TODO Auto-generated catch block
-            System.out.println("Error Signature : "+e);
-	    e.printStackTrace();
-	}
-	return generateHmacSHA256Signature;
+    
+    public String getHmac(String utc) {
+        salt = Consid + "&" + utc;
+        generateHmacSHA256Signature = null;
+        try {
+            generateHmacSHA256Signature = generateHmacSHA256Signature(salt, Key);
+        } catch (GeneralSecurityException e) {
+            // TODO Auto-generated catch block
+            System.out.println("Error Signature : " + e);
+            e.printStackTrace();
+        }
+        return generateHmacSHA256Signature;
     }
-
+    
     public String generateHmacSHA256Signature(String data, String key)throws GeneralSecurityException {
         hmacData = null;
 	try {

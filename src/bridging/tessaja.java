@@ -12,13 +12,15 @@ import static bridging.tessaja2.api;
  * @author khanzasoft
  */
 public class tessaja {
-    public static BPJSApi api=new BPJSApi();
-    public static void tessaja(){
-        System.out.println("X-Timestamp:"+String.valueOf(api.GetUTCdatetimeAsString()));
-        System.out.println("X-Signature:"+api.getHmac());
+    public static BPJSApi api = new BPJSApi();
+    public static void tessaja() {
+        String utc = "";
+        utc = String.valueOf(api.GetUTCdatetimeAsString());
+        System.out.println("X-Timestamp:" + utc);
+        System.out.println("X-Signature:" + api.getHmac(utc));
     }
+
     public static void main(String[] args) {
         tessaja();
-    }
-    
+    }    
 }

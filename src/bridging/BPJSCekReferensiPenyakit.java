@@ -45,10 +45,11 @@ import org.springframework.web.client.RestTemplate;
 public final class BPJSCekReferensiPenyakit extends javax.swing.JDialog {
     private final DefaultTableModel tabMode;
     private final Properties prop = new Properties();
-    private validasi Valid=new validasi();
-    private sekuel Sequel=new sekuel();
-    private int i=0;
-    private BPJSApi api=new BPJSApi();
+    private validasi Valid = new validasi();
+    private sekuel Sequel = new sekuel();
+    private int i = 0;
+    private BPJSApi api = new BPJSApi();
+    private String utc = "", URL = "";
         
     /** Creates new form DlgKamar
      * @param parent
@@ -62,19 +63,18 @@ public final class BPJSCekReferensiPenyakit extends javax.swing.JDialog {
         tabMode=new DefaultTableModel(null,new String[]{"No.","Kode ICD X","Nama Penyakit"}){
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
         };
+        
         tbKamar.setModel(tabMode);
-
-        //tbKamar.setDefaultRenderer(Object.class, new WarnaTable(panelJudul.getBackground(),tbKamar.getBackground()));
         tbKamar.setPreferredScrollableViewportSize(new Dimension(500,500));
         tbKamar.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
         for (int i = 0; i < 3; i++) {
             TableColumn column = tbKamar.getColumnModel().getColumn(i);
-            if(i==0){
+            if (i == 0) {
                 column.setPreferredWidth(40);
-            }else if(i==1){
+            } else if (i == 1) {
                 column.setPreferredWidth(140);
-            }else if(i==2){
+            } else if (i == 2) {
                 column.setPreferredWidth(470);
             }
         }
@@ -268,34 +268,34 @@ public final class BPJSCekReferensiPenyakit extends javax.swing.JDialog {
     }//GEN-LAST:event_BtnPrintActionPerformed
 
     private void diagnosaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_diagnosaKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             tampil(diagnosa.getText());
             diagnosa.requestFocus();
-        }else if(evt.getKeyCode()==KeyEvent.VK_PAGE_DOWN){
+        } else if (evt.getKeyCode() == KeyEvent.VK_PAGE_DOWN) {
             tampil(diagnosa.getText());
             diagnosa.requestFocus();
-        }else if(evt.getKeyCode()==KeyEvent.VK_PAGE_UP){
+        } else if (evt.getKeyCode() == KeyEvent.VK_PAGE_UP) {
             BtnKeluar.requestFocus();
-        }else if(evt.getKeyCode()==KeyEvent.VK_UP){
+        } else if (evt.getKeyCode() == KeyEvent.VK_UP) {
             BtnCariActionPerformed(null);
         }
     }//GEN-LAST:event_diagnosaKeyPressed
 
     private void BtnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCariActionPerformed
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        if(diagnosa.getText().trim().equals("")){
-            JOptionPane.showMessageDialog(null,"Silahkan masukkan pencarian terlebih dahulu..!!!");
-        }else{
+        if (diagnosa.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Silahkan masukkan pencarian terlebih dahulu..!!!");
+        } else {
             tampil(diagnosa.getText());
-        }        
+        }
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_BtnCariActionPerformed
 
     private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnCariKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_SPACE){
+        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
             BtnCariActionPerformed(null);
-        }else{
-            Valid.pindah(evt,diagnosa,BtnPrint);
+        } else {
+            Valid.pindah(evt, diagnosa, BtnPrint);
         }
     }//GEN-LAST:event_BtnCariKeyPressed
 
@@ -320,7 +320,7 @@ public final class BPJSCekReferensiPenyakit extends javax.swing.JDialog {
     private widget.Button BtnKeluar;
     private widget.Button BtnPrint;
     private widget.ScrollPane Scroll;
-    private widget.TextBox diagnosa;
+    public widget.TextBox diagnosa;
     private widget.InternalFrame internalFrame1;
     private widget.Label jLabel16;
     private widget.Label jLabel17;
@@ -330,26 +330,35 @@ public final class BPJSCekReferensiPenyakit extends javax.swing.JDialog {
 
     public void tampil(String diagnosa) {
         try {            
-            String URL = prop.getProperty("URLAPIBPJS")+"/referensi/diagnosa/"+diagnosa;	
+            URL = prop.getProperty("URLAPIBPJS") + "/referensi/diagnosa/" + diagnosa;
 
 	    HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-	    headers.add("X-Cons-ID",prop.getProperty("CONSIDAPIBPJS"));
-	    headers.add("X-Timestamp",String.valueOf(api.GetUTCdatetimeAsString()));            
-	    headers.add("X-Signature",api.getHmac());
+            headers.add("X-Cons-ID", Sequel.decXML2(prop.getProperty("CONSIDAPIBPJS"), prop.getProperty("KEY")));
+            utc = String.valueOf(api.GetUTCdatetimeAsString());
+            headers.add("X-Timestamp", utc);
+            headers.add("X-Signature", api.getHmac(utc));
+            headers.add("user_key",koneksiDB.USERKEYAPIBPJS());
+            
 	    HttpEntity requestEntity = new HttpEntity(headers);
-	    //System.out.println(rest.exchange(URL, HttpMethod.GET, requestEntity, String.class).getBody());
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.GET, requestEntity, String.class).getBody());
             JsonNode nameNode = root.path("metaData");
+            
             if(nameNode.path("code").asText().equals("200")){
                 Valid.tabelKosong(tabMode);
-                JsonNode response = root.path("response");
-                if(response.path("diagnosa").isArray()){
-                    i=1;
-                    for(JsonNode list:response.path("diagnosa")){
+//ini yang baru -----------            
+            JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc));
+//sampai sini -------------                
+//                JsonNode response = root.path("response");
+
+                if (response.path("diagnosa").isArray()) {
+                    i = 1;
+                    for (JsonNode list : response.path("diagnosa")) {
                         tabMode.addRow(new Object[]{
-                            i+".",list.path("kode").asText(),list.path("nama").asText()
+                            i + ".",
+                            list.path("kode").asText(),
+                            list.path("nama").asText()
                         });
                         i++;
                     }

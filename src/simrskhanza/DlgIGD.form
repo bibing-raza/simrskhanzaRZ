@@ -431,6 +431,7 @@
                   <Image iconType="3" name="/picture/b_print.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Label Identitas (KERTAS BESAR)"/>
+                <Property name="iconTextGap" type="int" value="5"/>
                 <Property name="name" type="java.lang.String" value="MnLabelRM1" noResource="true"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[210, 28]"/>
@@ -452,6 +453,7 @@
                   <Image iconType="3" name="/picture/b_print.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Label Identitas (KERTAS KECIL)"/>
+                <Property name="iconTextGap" type="int" value="5"/>
                 <Property name="name" type="java.lang.String" value="MnLabelRM2" noResource="true"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[210, 28]"/>
@@ -1660,6 +1662,7 @@
                 <Property name="text" type="java.lang.String" value="Pasien Corona Kemenkes"/>
                 <Property name="horizontalAlignment" type="int" value="2"/>
                 <Property name="horizontalTextPosition" type="int" value="4"/>
+                <Property name="iconTextGap" type="int" value="5"/>
                 <Property name="name" type="java.lang.String" value="ppPasienCorona" noResource="true"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[180, 26]"/>
@@ -2082,6 +2085,7 @@
                 <Property name="text" type="java.lang.String" value="Perawatan Pasien Corona INACBG"/>
                 <Property name="horizontalAlignment" type="int" value="2"/>
                 <Property name="horizontalTextPosition" type="int" value="4"/>
+                <Property name="iconTextGap" type="int" value="5"/>
                 <Property name="name" type="java.lang.String" value="ppPerawatanCorona" noResource="true"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[245, 26]"/>
@@ -5556,7 +5560,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="0" red="0" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="No. Reg. :"/>
+                    <Property name="text" type="java.lang.String" value="No. Reg. : "/>
                     <Property name="name" type="java.lang.String" value="jLabel3" noResource="true"/>
                   </Properties>
                   <Constraints>
@@ -5570,7 +5574,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="0" red="0" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="No. Rawat :"/>
+                    <Property name="text" type="java.lang.String" value="No. Rawat : "/>
                     <Property name="name" type="java.lang.String" value="jLabel4" noResource="true"/>
                   </Properties>
                   <Constraints>
@@ -5598,9 +5602,6 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="0" red="0" type="rgb"/>
                     </Property>
-                    <Property name="highlighter" type="javax.swing.text.Highlighter" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                      <ComponentRef name="null"/>
-                    </Property>
                     <Property name="name" type="java.lang.String" value="TNoRw" noResource="true"/>
                   </Properties>
                   <Events>
@@ -5617,7 +5618,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="0" red="0" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Tgl. Reg. :"/>
+                    <Property name="text" type="java.lang.String" value="Tgl. Reg. : "/>
                     <Property name="name" type="java.lang.String" value="jLabel8" noResource="true"/>
                   </Properties>
                   <Constraints>
@@ -5631,7 +5632,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="0" red="0" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Dr Dituju :"/>
+                    <Property name="text" type="java.lang.String" value="dr. IGD : "/>
                     <Property name="name" type="java.lang.String" value="jLabel13" noResource="true"/>
                   </Properties>
                   <AccessibilityProperties>
@@ -5694,9 +5695,6 @@
                   <Properties>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="0" red="0" type="rgb"/>
-                    </Property>
-                    <Property name="highlighter" type="javax.swing.text.Highlighter" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                      <ComponentRef name="null"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="TNoID" noResource="true"/>
                   </Properties>
@@ -5843,9 +5841,6 @@
                     </Property>
                     <Property name="name" type="java.lang.String" value="kddokter" noResource="true"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="kddokterKeyPressed"/>
-                  </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                       <AbsoluteConstraints x="81" y="102" width="70" height="23"/>
@@ -6458,6 +6453,72 @@
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                       <AbsoluteConstraints x="81" y="72" width="300" height="23"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="widget.Label" name="jLabel14">
+                  <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="0" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="dr. R. Inap : "/>
+                    <Property name="name" type="java.lang.String" value="jLabel14" noResource="true"/>
+                  </Properties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="0" y="132" width="77" height="23"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="widget.TextBox" name="kddrINAP">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="0" type="rgb"/>
+                    </Property>
+                    <Property name="highlighter" type="javax.swing.text.Highlighter" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="null"/>
+                    </Property>
+                    <Property name="name" type="java.lang.String" value="kddrINAP" noResource="true"/>
+                  </Properties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="81" y="132" width="70" height="23"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="widget.TextBox" name="TDrINAP">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="0" type="rgb"/>
+                    </Property>
+                    <Property name="name" type="java.lang.String" value="TDrINAP" noResource="true"/>
+                  </Properties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="154" y="132" width="210" height="23"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="widget.Button" name="BtnDokterINAP">
+                  <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="0" type="rgb"/>
+                    </Property>
+                    <Property name="icon" type="javax.swing.Icon" noResource="true" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/picture/190.png"/>
+                    </Property>
+                    <Property name="mnemonic" type="int" value="51"/>
+                    <Property name="toolTipText" type="java.lang.String" value="ALt+3"/>
+                    <Property name="name" type="java.lang.String" value="BtnDokterINAP" noResource="true"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnDokterINAPActionPerformed"/>
+                  </Events>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="366" y="132" width="28" height="23"/>
                     </Constraint>
                   </Constraints>
                 </Component>

@@ -5076,7 +5076,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                 + " pasien.tmp_lahir, DATE_FORMAT(pasien.tgl_lahir,'%d %M %Y') AS tgl_lahir, "
                 + " pasien.gol_darah, pasien.stts_nikah, pasien.agama, pasien_mati.keterangan, "
                 + " kelurahan.nm_kel, kecamatan.nm_kec, kabupaten.nm_kab, "
-                + " ifnull(pasien_mati.no_surat,'.....') nosurat, ifnull(pasien_mati.reg_bulan,'.....') noregbulan "
+                + " ifnull(pasien_mati.no_surat,'.....') nosurat, ifnull(pasien_mati.reg_bulan,'.....') noregbulan "        
                 + " FROM pasien_mati, pasien "
                 + " INNER JOIN kabupaten ON kabupaten.kd_kab = pasien.kd_kab "
                 + " INNER JOIN kecamatan ON kecamatan.kd_kec = pasien.kd_kec "

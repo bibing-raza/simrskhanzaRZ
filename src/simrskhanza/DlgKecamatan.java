@@ -55,7 +55,7 @@ public class DlgKecamatan extends javax.swing.JDialog {
         this.setLocation(10, 10);
         setSize(459, 539);
 
-        Object[] row = {"Nama Kecamatan"};
+        Object[] row = {"Nama Kecamatan","kdkecamatan"};
         tabMode = new DefaultTableModel(null, row) {
             @Override
             public boolean isCellEditable(int rowIndex, int colIndex) {
@@ -69,10 +69,13 @@ public class DlgKecamatan extends javax.swing.JDialog {
         tbkecamatan.setPreferredScrollableViewportSize(new Dimension(500, 500));
         tbkecamatan.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 2; i++) {
             TableColumn column = tbkecamatan.getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setPreferredWidth(500);
+            } else if (i == 1) {
+                column.setMinWidth(0);
+                column.setMaxWidth(0);
             }
         }
 
@@ -98,7 +101,7 @@ public class DlgKecamatan extends javax.swing.JDialog {
             });
         }
         try {
-            ps = koneksi.prepareStatement("select nm_kec from kecamatan where nm_kec like ? ");
+            ps = koneksi.prepareStatement("select nm_kec, kd_kec from kecamatan where nm_kec like ? ");
         } catch (Exception e) {
         }
     }
@@ -520,7 +523,7 @@ public class DlgKecamatan extends javax.swing.JDialog {
             ps.setString(1, "%" + TCari.getText().trim() + "%");
             rs = ps.executeQuery();
             while (rs.next()) {
-                tabMode.addRow(new String[]{rs.getString(1)});
+                tabMode.addRow(new String[]{rs.getString(1),rs.getString(2)});
             }
         } catch (SQLException e) {
             System.out.println("Notifikasi : " + e);
