@@ -1110,9 +1110,17 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         }
 
         try {
-            user=var.getkode().replace(" ","").substring(0,9);
+            if (var.getkode().equals("Admin Utama")) {
+                user = "AdminUtama";
+            } else {
+                user = var.getnamauser().replace(" ", "").substring(0, 10);
+            }
         } catch (Exception e) {
-            user=var.getkode();
+            if (var.getkode().equals("Admin Utama")) {
+                user = "AdminUtama";
+            } else {
+                user = var.getnamauser();
+            }
         }
 
         try {

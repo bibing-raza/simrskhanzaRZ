@@ -1455,9 +1455,6 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         LabelKelas1 = new widget.Label();
         hakKelas = new widget.ComboBox();
         COB = new widget.ComboBox();
-        Scroll3 = new widget.ScrollPane();
-        Catatan = new widget.TextArea();
-        jLabel17 = new widget.Label();
         jLabel43 = new widget.Label();
         KdPPK = new widget.TextBox();
         NmPPK = new widget.TextBox();
@@ -1635,7 +1632,7 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         Popup.add(MnSttsCetakSEP);
 
         TanggalBooking.setEditable(false);
-        TanggalBooking.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "30-12-2021" }));
+        TanggalBooking.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-01-2022" }));
         TanggalBooking.setDisplayFormat("dd-MM-yyyy");
         TanggalBooking.setName("TanggalBooking"); // NOI18N
         TanggalBooking.setOpaque(false);
@@ -1816,11 +1813,6 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         LokasiLaka.setForeground(new java.awt.Color(0, 0, 0));
         LokasiLaka.setHighlighter(null);
         LokasiLaka.setName("LokasiLaka"); // NOI18N
-        LokasiLaka.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                LokasiLakaKeyPressed(evt);
-            }
-        });
 
         jk.setForeground(new java.awt.Color(0, 0, 0));
         jk.setHighlighter(null);
@@ -2174,7 +2166,7 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         panelCari.add(R2);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "30-12-2021" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-01-2022" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -2199,7 +2191,7 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         panelCari.add(jLabel22);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "30-12-2021" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-01-2022" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -2222,7 +2214,7 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         panelCari.add(R3);
 
         DTPCari3.setEditable(false);
-        DTPCari3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "30-12-2021" }));
+        DTPCari3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-01-2022" }));
         DTPCari3.setDisplayFormat("dd-MM-yyyy");
         DTPCari3.setName("DTPCari3"); // NOI18N
         DTPCari3.setOpaque(false);
@@ -2247,7 +2239,7 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         panelCari.add(jLabel25);
 
         DTPCari4.setEditable(false);
-        DTPCari4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "30-12-2021" }));
+        DTPCari4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-01-2022" }));
         DTPCari4.setDisplayFormat("dd-MM-yyyy");
         DTPCari4.setName("DTPCari4"); // NOI18N
         DTPCari4.setOpaque(false);
@@ -2270,7 +2262,7 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
 
         PanelInput.setName("PanelInput"); // NOI18N
         PanelInput.setOpaque(false);
-        PanelInput.setPreferredSize(new java.awt.Dimension(192, 430));
+        PanelInput.setPreferredSize(new java.awt.Dimension(192, 380));
         PanelInput.setLayout(new java.awt.BorderLayout(1, 1));
 
         ChkInput.setForeground(new java.awt.Color(0, 0, 0));
@@ -2417,7 +2409,7 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         jLabel14.setBounds(0, 66, 115, 23);
 
         TanggalPeriksa.setEditable(false);
-        TanggalPeriksa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "30-12-2021" }));
+        TanggalPeriksa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-01-2022" }));
         TanggalPeriksa.setDisplayFormat("dd-MM-yyyy");
         TanggalPeriksa.setName("TanggalPeriksa"); // NOI18N
         TanggalPeriksa.setOpaque(false);
@@ -2801,7 +2793,7 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         jLabel28.setBounds(0, 67, 95, 23);
 
         TanggalRujuk.setEditable(false);
-        TanggalRujuk.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "30-12-2021" }));
+        TanggalRujuk.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-01-2022" }));
         TanggalRujuk.setDisplayFormat("dd-MM-yyyy");
         TanggalRujuk.setName("TanggalRujuk"); // NOI18N
         TanggalRujuk.setOpaque(false);
@@ -3170,28 +3162,6 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         panelisi2.add(COB);
         COB.setBounds(660, 153, 75, 23);
 
-        Scroll3.setName("Scroll3"); // NOI18N
-        Scroll3.setOpaque(true);
-
-        Catatan.setColumns(20);
-        Catatan.setRows(5);
-        Catatan.setName("Catatan"); // NOI18N
-        Catatan.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                CatatanKeyPressed(evt);
-            }
-        });
-        Scroll3.setViewportView(Catatan);
-
-        panelisi2.add(Scroll3);
-        Scroll3.setBounds(100, 326, 590, 45);
-
-        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel17.setText("Catatan :");
-        jLabel17.setName("jLabel17"); // NOI18N
-        panelisi2.add(jLabel17);
-        jLabel17.setBounds(0, 326, 95, 23);
-
         jLabel43.setForeground(new java.awt.Color(0, 0, 0));
         jLabel43.setText("PPK Pelayanan :");
         jLabel43.setName("jLabel43"); // NOI18N
@@ -3403,7 +3373,7 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         LabTglkll.setBounds(0, 38, 90, 23);
 
         TanggalKejadian.setEditable(false);
-        TanggalKejadian.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "30-12-2021" }));
+        TanggalKejadian.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-01-2022" }));
         TanggalKejadian.setDisplayFormat("dd-MM-yyyy");
         TanggalKejadian.setName("TanggalKejadian"); // NOI18N
         TanggalKejadian.setOpaque(false);
@@ -4316,12 +4286,8 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     }//GEN-LAST:event_COBMouseClicked
 
     private void COBKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_COBKeyPressed
-        Valid.pindah(evt, Eksekutif, Catatan);
+        Valid.pindah(evt, Eksekutif, KasusKatarak);
     }//GEN-LAST:event_COBKeyPressed
-
-    private void CatatanKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CatatanKeyPressed
-//        Valid.pindah(evt,COB,LokasiLaka);
-    }//GEN-LAST:event_CatatanKeyPressed
 
     private void tbFaskes1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbFaskes1MouseClicked
         if (tabMode1.getRowCount() != 0) {
@@ -4507,10 +4473,6 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         // TODO add your handling code here:
     }//GEN-LAST:event_NoSEPSuplesiKeyPressed
 
-    private void LokasiLakaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_LokasiLakaKeyPressed
-        Valid.pindah(evt, Catatan, BtnSimpan);
-    }//GEN-LAST:event_LokasiLakaKeyPressed
-
     private void MnCetakKodeBarkodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnCetakKodeBarkodeActionPerformed
         Sequel.cariIsi("select kd_booking from booking_registrasi where kd_booking=?", cekKDboking, kdboking.getText());
 
@@ -4688,7 +4650,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     dlgki.setLocationRelativeTo(internalFrame1);
                     dlgki.isCek();
                     dlgki.setNoRm(norawat.getText(), "2. Ralan", KdPoli1.getText(), NmPoli1.getText());
-                    dlgki.Catatan.setText(Catatan.getText());
+                    dlgki.Catatan.setText("Registrasi pasien dengan mendaftar online");
                     dlgki.tampil();
                     dlgki.setVisible(true);
                     dlgki.cekLAYAN();
@@ -4846,7 +4808,6 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.Button BtnSimpan;
     private widget.Button BtnSuku;
     private widget.ComboBox COB;
-    private widget.TextArea Catatan;
     public widget.CekBox ChkInput;
     public widget.CekBox ChkNoTelp;
     private widget.Tanggal DTPCari1;
@@ -4913,7 +4874,6 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.RadioButton R2;
     private widget.RadioButton R3;
     private widget.ScrollPane Scroll;
-    private widget.ScrollPane Scroll3;
     private widget.TextBox Status;
     public widget.TextBox TCari;
     private widget.TextBox TNoRM;
@@ -4959,7 +4919,6 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.Label jLabel14;
     private widget.Label jLabel15;
     private widget.Label jLabel16;
-    private widget.Label jLabel17;
     private widget.Label jLabel18;
     private widget.Label jLabel19;
     private widget.Label jLabel20;
@@ -5245,7 +5204,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     public void isForm() {
         if (ChkInput.isSelected() == true) {
             ChkInput.setVisible(false);
-            PanelInput.setPreferredSize(new Dimension(WIDTH, 430));
+            PanelInput.setPreferredSize(new Dimension(WIDTH, 380));
             FormInput.setVisible(true);
             ChkInput.setVisible(true);
         } else if (ChkInput.isSelected() == false) {
@@ -5790,7 +5749,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 + "'" + KdPPK.getText() + "',"
                 + "'" + NmPPK.getText() + "',"
                 + "'" + JenisPelayanan.getSelectedItem().toString().substring(0, 1) + "',"
-                + "'" + Catatan.getText() + "',"
+                + "'Registrasi pasien dengan mendaftar online',"
                 + "'" + KdPenyakit.getText() + "',"
                 + "'" + NmPenyakit.getText().replace("'", "''") + "',"
                 + "'" + KdPoli1.getText() + "',"
@@ -5918,7 +5877,6 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         TanggalRujuk.setDate(new Date());
         Eksekutif.setSelectedIndex(0);
         COB.setSelectedIndex(0);
-        Catatan.setText("Registrasi pasien dengan mendaftar online");
         label_cetak.setVisible(false);
         statusSEP.setVisible(false);
 
@@ -6014,7 +5972,6 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 + "kdppkpelayanan='" + KdPPK.getText() + "',"
                 + "nmppkpelayanan='" + NmPPK.getText() + "',"
                 + "jnspelayanan='" + JenisPelayanan.getSelectedItem().toString().substring(0, 1) + "',"
-                + "catatan='" + Catatan.getText() + "',"
                 + "diagawal='" + KdPenyakit.getText() + "',"
                 + "nmdiagnosaawal='" + NmPenyakit.getText().replace("'", "''") + "',"
                 + "kdpolitujuan='" + KdPoli1.getText() + "',"
@@ -6070,7 +6027,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             pskelengkapanBPJS = koneksi.prepareStatement("select tanggal_lahir, peserta, jkel, kdppkpelayanan, nmppkpelayanan, no_kartu, 'AKTIF' status, "
                     + "no_rujukan, tglrujukan, noskdp, katarak, asal_rujukan, nmppkrujukan, kddpjp, nmdpdjp, kdppkrujukan, notelep, diagawal, "
                     + "nmdiagnosaawal, IF (klsrawat = '1','1. Kelas 1',IF (klsrawat = '2','2. Kelas 2','3. Kelas 3')) kls_rwt, kdpolitujuan, nmpolitujuan, eksekutif, "
-                    + "cob, catatan, IF (lakalantas = '0','0. Tidak','1. Ya') kasus_laka, keterangankkl, kdprop, nmprop, kdkab, nmkab, kdkec, nmkec, suplesi, no_sep_suplesi, status_cetak_sep, "
+                    + "cob, IF (lakalantas = '0','0. Tidak','1. Ya') kasus_laka, keterangankkl, kdprop, nmprop, kdkab, nmkab, kdkec, nmkec, suplesi, no_sep_suplesi, status_cetak_sep, "
                     + "dpjpLayan, nmdpjpLayan, klsRawatHak, pembiayaan, penanggungJawab, tujuanKunjungan, flagProcedur, "
                     + "kdPenunjang, assesmentPel from kelengkapan_booking_sep_bpjs where kd_booking=?");
             try {
@@ -6101,7 +6058,6 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     NmPoli1.setText(rskelengkapanBPJS.getString("nmpolitujuan"));
                     Eksekutif.setSelectedItem(rskelengkapanBPJS.getString("eksekutif"));
                     COB.setSelectedItem(rskelengkapanBPJS.getString("cob"));
-                    Catatan.setText(rskelengkapanBPJS.getString("catatan"));
                     LakaLantas.setSelectedItem(rskelengkapanBPJS.getString("kasus_laka"));
                     Ket.setText(rskelengkapanBPJS.getString("keterangankkl"));
                     KdProv.setText(rskelengkapanBPJS.getString("kdprop"));

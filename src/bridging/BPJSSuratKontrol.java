@@ -1452,9 +1452,11 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     }
 
     public void emptTeks() {
-        tgl.setDate(1);
-        tglKontrol1.setDate(tgl);
-        tglKontrol2.setDate(new Date());
+//        tgl.setDate(1);
+//        tglKontrol1.setDate(tgl);
+//        tglKontrol2.setDate(new Date());
+
+        R1.setSelected(true);
         NoRawat.setText("");
         NoSEP.setText("");
         NoKartu.setText("");
