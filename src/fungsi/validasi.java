@@ -78,6 +78,7 @@ import net.sf.jasperreports.view.JasperViewer;
 import uz.ncipro.calendar.JDateTimePicker;
 import widget.Tanggal;
 import java.sql.*;
+import java.time.LocalDate;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileSystemView;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -1847,6 +1848,62 @@ public final class validasi {
         s = "";
         try {
             s = original.substring(6, 10) + "/" + original.substring(3, 5) + "/" + original.substring(0, 2);
+        } catch (Exception e) {
+        }
+        return s;
+    }
+
+    public Object SetTglINDONESIA(LocalDate tgl) {
+        s = "";
+        String nilai = tgl.toString();
+        try {
+            if (nilai.substring(5, 7).equals("1") || nilai.substring(5, 7).equals("01")) {
+                s = nilai.substring(8, 10) + " Januari " + nilai.substring(0, 4);
+            }
+
+            if (nilai.substring(5, 7).equals("2") || nilai.substring(5, 7).equals("02")) {
+                s = nilai.substring(8, 10) + " Februari " + nilai.substring(0, 4);
+            }
+
+            if (nilai.substring(5, 7).equals("3") || nilai.substring(5, 7).equals("03")) {
+                s = nilai.substring(8, 10) + " Maret " + nilai.substring(0, 4);
+            }
+
+            if (nilai.substring(5, 7).equals("4") || nilai.substring(5, 7).equals("04")) {
+                s = nilai.substring(8, 10) + " April " + nilai.substring(0, 4);
+            }
+
+            if (nilai.substring(5, 7).equals("5") || nilai.substring(5, 7).equals("05")) {
+                s = nilai.substring(8, 10) + " Mei " + nilai.substring(0, 4);
+            }
+
+            if (nilai.substring(5, 7).equals("6") || nilai.substring(5, 7).equals("06")) {
+                s = nilai.substring(8, 10) + " Juni " + nilai.substring(0, 4);
+            }
+
+            if (nilai.substring(5, 7).equals("7") || nilai.substring(5, 7).equals("07")) {
+                s = nilai.substring(8, 10) + " Juli " + nilai.substring(0, 4);
+            }
+
+            if (nilai.substring(5, 7).equals("8") || nilai.substring(5, 7).equals("08")) {
+                s = nilai.substring(8, 10) + " Agustus " + nilai.substring(0, 4);
+            }
+
+            if (nilai.substring(5, 7).equals("9") || nilai.substring(5, 7).equals("09")) {
+                s = nilai.substring(8, 10) + " September " + nilai.substring(0, 4);
+            }
+
+            if (nilai.substring(5, 7).equals("10")) {
+                s = nilai.substring(8, 10) + " Oktober " + nilai.substring(0, 4);
+            }
+
+            if (nilai.substring(5, 7).equals("11")) {
+                s = nilai.substring(8, 10) + " Nopember " + nilai.substring(0, 4);
+            }
+
+            if (nilai.substring(5, 7).equals("12")) {
+                s = nilai.substring(8, 10) + " Desember " + nilai.substring(0, 4);
+            }
         } catch (Exception e) {
         }
         return s;

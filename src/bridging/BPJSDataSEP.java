@@ -35,6 +35,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -1808,7 +1809,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         noSrtMati.setBounds(130, 62, 280, 23);
 
         tglMati.setEditable(false);
-        tglMati.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-01-2022" }));
+        tglMati.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-02-2022" }));
         tglMati.setDisplayFormat("dd-MM-yyyy");
         tglMati.setName("tglMati"); // NOI18N
         tglMati.setOpaque(false);
@@ -1824,7 +1825,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         jLabel48.setBounds(220, 91, 90, 23);
 
         noLP.setEditable(false);
-        noLP.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-01-2022" }));
+        noLP.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-02-2022" }));
         noLP.setDisplayFormat("dd-MM-yyyy");
         noLP.setName("noLP"); // NOI18N
         noLP.setOpaque(false);
@@ -1914,7 +1915,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         jLabel30.setBounds(0, 25, 160, 23);
 
         TanggalRujukKeluar.setEditable(false);
-        TanggalRujukKeluar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-01-2022" }));
+        TanggalRujukKeluar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-02-2022" }));
         TanggalRujukKeluar.setDisplayFormat("dd-MM-yyyy");
         TanggalRujukKeluar.setName("TanggalRujukKeluar"); // NOI18N
         TanggalRujukKeluar.setOpaque(false);
@@ -1997,7 +1998,6 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         NmPenyakit1.setEditable(false);
         NmPenyakit1.setBackground(new java.awt.Color(245, 250, 240));
         NmPenyakit1.setForeground(new java.awt.Color(0, 0, 0));
-        NmPenyakit1.setHighlighter(null);
         NmPenyakit1.setName("NmPenyakit1"); // NOI18N
         internalFrame6.add(NmPenyakit1);
         NmPenyakit1.setBounds(245, 112, 384, 23);
@@ -2137,7 +2137,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         jLabel49.setBounds(0, 54, 160, 23);
 
         tglRencanaKunjungan.setEditable(false);
-        tglRencanaKunjungan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-01-2022" }));
+        tglRencanaKunjungan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-02-2022" }));
         tglRencanaKunjungan.setDisplayFormat("dd-MM-yyyy");
         tglRencanaKunjungan.setName("tglRencanaKunjungan"); // NOI18N
         tglRencanaKunjungan.setOpaque(false);
@@ -2723,7 +2723,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         jLabel20.setBounds(183, 102, 53, 23);
 
         TanggalSEP.setEditable(false);
-        TanggalSEP.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-01-2022" }));
+        TanggalSEP.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-02-2022" }));
         TanggalSEP.setDisplayFormat("dd-MM-yyyy");
         TanggalSEP.setName("TanggalSEP"); // NOI18N
         TanggalSEP.setOpaque(false);
@@ -2744,7 +2744,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         jLabel22.setBounds(0, 102, 90, 23);
 
         TanggalRujuk.setEditable(false);
-        TanggalRujuk.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-01-2022" }));
+        TanggalRujuk.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-02-2022" }));
         TanggalRujuk.setDisplayFormat("dd-MM-yyyy");
         TanggalRujuk.setName("TanggalRujuk"); // NOI18N
         TanggalRujuk.setOpaque(false);
@@ -3106,7 +3106,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         jLabel36.setBounds(806, 12, 93, 23);
 
         TanggalKejadian.setEditable(false);
-        TanggalKejadian.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-01-2022" }));
+        TanggalKejadian.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-02-2022" }));
         TanggalKejadian.setDisplayFormat("dd-MM-yyyy");
         TanggalKejadian.setName("TanggalKejadian"); // NOI18N
         TanggalKejadian.setOpaque(false);
@@ -3760,7 +3760,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         panelGlass11.add(jLabel19);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-01-2022" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-02-2022" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -3780,7 +3780,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         panelGlass11.add(jLabel21);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-01-2022" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-02-2022" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -4611,40 +4611,51 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                 JsonNode nameNode = root.path("metaData");
                 System.out.println("code : " + nameNode.path("code").asText());
                 System.out.println("message : " + nameNode.path("message").asText());
-//ini yang baru -----------            
-                JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc)).path("rujukan").path("noRujukan");
-//sampai sini -------------
 //                JsonNode response = root.path("response");
 
                 if (nameNode.path("code").asText().equals("200")) {
-                    if (Sequel.menyimpantf2("bridging_rujukan_bpjs", "?,?,?,?,?,?,?,?,?,?,?,?,?,?", "No. Rujukan", 14, new String[]{
+//ini yang baru -----------            
+                JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc)).path("rujukan").path("noRujukan");
+//sampai sini -------------
+
+                    if (Sequel.menyimpantf2("bridging_rujukan_bpjs", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "No. Rujukan", 15, new String[]{
                         tbSEP.getValueAt(tbSEP.getSelectedRow(), 0).toString(), Valid.SetTgl(TanggalRujukKeluar.getSelectedItem() + ""),
                         KdPpkRujukan1.getText(), NmPpkRujukan1.getText(), JenisPelayanan1.getSelectedItem().toString().substring(0, 1),
                         Catatan1.getText(), KdPenyakit1.getText(), NmPenyakit1.getText(),
                         TipeRujukan.getSelectedItem().toString(), KdPoli1.getText(),
-                        NmPoli1.getText(), response.path("rujukan").path("noRujukan").asText(),
-                        user, Valid.SetTgl(tglRencanaKunjungan.getSelectedItem() + "")
+                        NmPoli1.getText(), response.asText(), user, Valid.SetTgl(tglRencanaKunjungan.getSelectedItem() + ""), TNoRw.getText()
                     }) == true) {
 
                         Sequel.cariIsi("select nama_rujukan from master_nama_rujukan where kode_faskes_bpjs=? ", nmfaskes_keluar, KdPpkRujukan1.getText());
                         Sequel.cariIsi("select kd_rujukan from master_nama_rujukan where kode_faskes_bpjs=? ", kode_rujukanya, KdPpkRujukan1.getText());
 
-                        Sequel.menyimpan("rujuk", "'" + response.path("rujukan").path("noRujukan").asText() + "','"
+                        Sequel.menyimpan("rujuk", "'" + response.asText() + "','"
                                 + TNoRw.getText() + "','" + nmfaskes_keluar.getText() + "','"
                                 + Valid.SetTgl(TanggalRujukKeluar.getSelectedItem() + "") + "','"
                                 + NmPenyakit1.getText() + "','" + Sequel.cariIsi("select kd_dokter from reg_periksa where no_rawat=?", TNoRw.getText())
                                 + "','-','-','" + Catatan1.getText() + "','12:00:01','" + kode_rujukanya.getText() + "'", "No.Rujuk");
 
                         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                        LocalDate tgldirujuk = LocalDate.parse(Valid.SetTgl(TanggalRujukKeluar.getSelectedItem() + ""));
+                        LocalDate habisBerlaku = tgldirujuk.plusDays(90);
+
                         Map<String, Object> param = new HashMap<>();
                         param.put("namars", var.getnamars());
                         param.put("alamatrs", var.getalamatrs());
                         param.put("kotars", var.getkabupatenrs());
                         param.put("propinsirs", var.getpropinsirs());
                         param.put("kontakrs", var.getkontakrs());
-                        param.put("norujuk", response.path("rujukan").path("noRujukan").asText());
+                        param.put("norujuk", response.asText());
                         param.put("logo", Sequel.cariGambar("select bpjs from gambar"));
-                        Valid.MyReport("rptBridgingRujukanBPJS.jrxml", param, "::[ Surat Rujukan Keluar VClaim BPJS ]::");
+                        param.put("tglRujukan", Valid.SetTglINDONESIA(Valid.SetTgl(TanggalRujukKeluar.getSelectedItem() + "")));
+                        param.put("tglLahir", Valid.SetTglINDONESIA(TglLahir.getText()));
+                        param.put("berlakuSampai", Valid.SetTglINDONESIA(habisBerlaku));
+                        Valid.MyReport("rptBridgingRujukanBPJS.jrxml", "report", "::[ Surat Rujukan Keluar VClaim ]::",
+                                " SELECT br.no_sep, bs.no_rawat, bs.nomr,bs.nama_pasien,br.tglRujukan, br.no_rujukan,br.ppkDirujuk, br.nm_ppkDirujuk, "
+                                + "IF(br.jnsPelayanan='1','Rawat Inap','Rawat Jalan')  jenis, br.tipeRujukan,br.catatan, br.diagRujukan,br.nama_diagRujukan, "
+                                + "br.poliRujukan,br.nama_poliRujukan,bs.no_kartu, IF(bs.jkel='L','Laki-Laki','Perempuan') jkel "
+                                + "FROM bridging_sep bs LEFT JOIN bridging_rujukan_bpjs br ON br.no_rawat=bs.no_rawat "
+                                + "WHERE br.no_rujukan='" + response.asText() + "'", param);
                         WindowRujukanBiasa.dispose();
                         this.setCursor(Cursor.getDefaultCursor());
                     }
@@ -5433,15 +5444,26 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                             + "kd_rujukan='" + kode_rujukanya.getText() + "'");
 
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                    LocalDate tgldirujuk = LocalDate.parse(Valid.SetTgl(TanggalRujukKeluar.getSelectedItem() + ""));
+                    LocalDate habisBerlaku = tgldirujuk.plusDays(90);
+                    
                     Map<String, Object> param = new HashMap<>();
                     param.put("namars", var.getnamars());
                     param.put("alamatrs", var.getalamatrs());
                     param.put("kotars", var.getkabupatenrs());
                     param.put("propinsirs", var.getpropinsirs());
                     param.put("kontakrs", var.getkontakrs());
-                    param.put("norujuk", response.path("rujukan").path("noRujukan").asText());
+                    param.put("norujuk", norujukan);
                     param.put("logo", Sequel.cariGambar("select bpjs from gambar"));
-                    Valid.MyReport("rptBridgingRujukanBPJS.jrxml", param, "::[ Surat Rujukan Keluar VClaim BPJS ]::");
+                    param.put("tglRujukan", Valid.SetTglINDONESIA(Valid.SetTgl(TanggalRujukKeluar.getSelectedItem() + "")));
+                    param.put("tglLahir", Valid.SetTglINDONESIA(TglLahir.getText()));
+                    param.put("berlakuSampai", Valid.SetTglINDONESIA(habisBerlaku));
+                    Valid.MyReport("rptBridgingRujukanBPJS.jrxml", "report", "::[ Surat Rujukan Keluar VClaim ]::",
+                            " SELECT br.no_sep, bs.no_rawat, bs.nomr,bs.nama_pasien,br.tglRujukan, br.no_rujukan,br.ppkDirujuk, br.nm_ppkDirujuk, "
+                            + "IF(br.jnsPelayanan='1','Rawat Inap','Rawat Jalan')  jenis, br.tipeRujukan,br.catatan, br.diagRujukan,br.nama_diagRujukan, "
+                            + "br.poliRujukan,br.nama_poliRujukan,bs.no_kartu, IF(bs.jkel='L','Laki-Laki','Perempuan') jkel "
+                            + "FROM bridging_sep bs LEFT JOIN bridging_rujukan_bpjs br ON br.no_rawat=bs.no_rawat "
+                            + "WHERE br.no_rujukan='" + norujukan + "'", param);
                     WindowRujukanBiasa.dispose();
                     this.setCursor(Cursor.getDefaultCursor());
 

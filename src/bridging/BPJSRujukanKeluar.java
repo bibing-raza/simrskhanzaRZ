@@ -34,8 +34,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 import javax.net.ssl.SSLContext;
@@ -57,7 +61,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
-
 /**
  *
  * @author perpustakaan
@@ -75,7 +78,7 @@ public final class BPJSRujukanKeluar extends javax.swing.JDialog {
     private BPJSCekReferensiFaskes faskes = new BPJSCekReferensiFaskes(null, false);
     private BPJSCekReferensiPenyakit penyakit = new BPJSCekReferensiPenyakit(null, false);
     private BPJSCekReferensiPoli poli = new BPJSCekReferensiPoli(null, false);
-    private String URL = "", requestJson, user = "", utc = "";
+    private String URL = "", requestJson, user = "", utc = "", norujukan = "", tgllahir = "";
     private final Properties prop = new Properties();
     
     /** Creates new form DlgRujuk
@@ -86,12 +89,11 @@ public final class BPJSRujukanKeluar extends javax.swing.JDialog {
         initComponents();
         this.setLocation(8,1);
         setSize(628,674);
-
-
+        
         Object[] row={
             "No.SEP","No.Rawat","No.RM","Nama Pasien","Tgl.Rujukan", 
             "No.Rujukan","Kode PPK","Nama PPK Rujukan","Jenis Pelayanan","Tipe Rujukan","Catatan",
-            "Kode Diagnosa","Nama Diagnosa", "Kode Poli", "Nama Poli"
+            "Kode Diagnosa","Nama Diagnosa", "Kode Poli", "Nama Poli","tgllahir"
         };
         tabMode=new DefaultTableModel(null,row){
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
@@ -101,7 +103,7 @@ public final class BPJSRujukanKeluar extends javax.swing.JDialog {
         tbObat.setPreferredScrollableViewportSize(new Dimension(500,500));
         tbObat.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (i = 0; i < 15; i++) {
+        for (i = 0; i < 16; i++) {
             TableColumn column = tbObat.getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setPreferredWidth(120);
@@ -133,6 +135,9 @@ public final class BPJSRujukanKeluar extends javax.swing.JDialog {
                 column.setPreferredWidth(80);
             } else if (i == 14) {
                 column.setPreferredWidth(150);
+            } else if (i == 15) {
+                column.setMinWidth(0);
+                column.setMaxWidth(0);
             }
         }
         tbObat.setDefaultRenderer(Object.class, new WarnaTable());
@@ -410,7 +415,7 @@ public final class BPJSRujukanKeluar extends javax.swing.JDialog {
         panelGlass8.add(jLabel19);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-11-2021" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-02-2022" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -425,7 +430,7 @@ public final class BPJSRujukanKeluar extends javax.swing.JDialog {
         panelGlass8.add(jLabel21);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-11-2021" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-02-2022" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -603,7 +608,7 @@ public final class BPJSRujukanKeluar extends javax.swing.JDialog {
         jLabel30.setBounds(0, 12, 102, 23);
 
         TanggalRujukKeluar.setEditable(false);
-        TanggalRujukKeluar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-11-2021" }));
+        TanggalRujukKeluar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-02-2022" }));
         TanggalRujukKeluar.setDisplayFormat("dd-MM-yyyy");
         TanggalRujukKeluar.setName("TanggalRujukKeluar"); // NOI18N
         TanggalRujukKeluar.setOpaque(false);
@@ -817,7 +822,7 @@ public final class BPJSRujukanKeluar extends javax.swing.JDialog {
         jLabel35.setBounds(0, 103, 102, 23);
 
         tglRencanaKunjungan.setEditable(false);
-        tglRencanaKunjungan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-11-2021" }));
+        tglRencanaKunjungan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-02-2022" }));
         tglRencanaKunjungan.setDisplayFormat("dd-MM-yyyy");
         tglRencanaKunjungan.setName("tglRencanaKunjungan"); // NOI18N
         tglRencanaKunjungan.setOpaque(false);
@@ -1059,21 +1064,32 @@ public final class BPJSRujukanKeluar extends javax.swing.JDialog {
 }//GEN-LAST:event_tbObatKeyPressed
 
     private void MnSuratRujukanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnSuratRujukanActionPerformed
-        if(tbObat.getSelectedRow()!= -1){
-            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR)); 
+        if (tbObat.getSelectedRow() != -1) {
+            LocalDate tgldirujuk = LocalDate.parse(Valid.SetTgl(TanggalRujukKeluar.getSelectedItem() + ""));
+            LocalDate habisBerlaku = tgldirujuk.plusDays(90);
+            
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
             Map<String, Object> param = new HashMap<>();
-            param.put("namars",var.getnamars());
-            param.put("alamatrs",var.getalamatrs());
-            param.put("kotars",var.getkabupatenrs());
-            param.put("propinsirs",var.getpropinsirs());
-            param.put("kontakrs",var.getkontakrs());
-            param.put("norujuk",tbObat.getValueAt(tbObat.getSelectedRow(),5).toString());
-            param.put("logo",Sequel.cariGambar("select bpjs from gambar")); 
-            Valid.MyReport("rptBridgingRujukanBPJS.jrxml",param,"::[ Surat Rujukan Keluar VClaim ]::");
+            param.put("namars", var.getnamars());
+            param.put("alamatrs", var.getalamatrs());
+            param.put("kotars", var.getkabupatenrs());
+            param.put("propinsirs", var.getpropinsirs());
+            param.put("kontakrs", var.getkontakrs());
+            param.put("norujuk", tbObat.getValueAt(tbObat.getSelectedRow(), 5).toString());
+            param.put("logo", Sequel.cariGambar("select bpjs from gambar"));
+            param.put("tglRujukan", Valid.SetTglINDONESIA(Valid.SetTgl(TanggalRujukKeluar.getSelectedItem() + "")));
+            param.put("tglLahir", Valid.SetTglINDONESIA(tgllahir));
+            param.put("berlakuSampai", Valid.SetTglINDONESIA(habisBerlaku));
+            Valid.MyReport("rptBridgingRujukanBPJS.jrxml", "report", "::[ Surat Rujukan Keluar VClaim ]::",
+                    " SELECT br.no_sep, bs.no_rawat, bs.nomr,bs.nama_pasien,br.tglRujukan, br.no_rujukan,br.ppkDirujuk, br.nm_ppkDirujuk, "
+                    + "IF(br.jnsPelayanan='1','Rawat Inap','Rawat Jalan')  jenis, br.tipeRujukan,br.catatan, br.diagRujukan,br.nama_diagRujukan, "
+                    + "br.poliRujukan,br.nama_poliRujukan,bs.no_kartu, IF(bs.jkel='L','Laki-Laki','Perempuan') jkel "
+                    + "FROM bridging_sep bs LEFT JOIN bridging_rujukan_bpjs br ON br.no_rawat=bs.no_rawat "
+                    + "WHERE br.no_rujukan='" + norujukan + "'", param);
             this.setCursor(Cursor.getDefaultCursor());
-        }else{
-            JOptionPane.showMessageDialog(null,"Maaf, silahkan pilih data SEP yang mau dicetak...!!!!");
-        }   
+        } else {
+            JOptionPane.showMessageDialog(null, "Maaf, silahkan pilih data No. Rujukan yang mau dicetak...!!!!");
+        } 
     }//GEN-LAST:event_MnSuratRujukanActionPerformed
 
     private void btnPPKRujukan1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPPKRujukan1ActionPerformed
@@ -1220,27 +1236,22 @@ public final class BPJSRujukanKeluar extends javax.swing.JDialog {
         Valid.tabelKosong(tabMode);
         try{
             ps=koneksi.prepareStatement(
-                    "select bridging_rujukan_bpjs.no_sep, bridging_sep.no_rawat,"+
-                    "bridging_sep.nomr,bridging_sep.nama_pasien,bridging_rujukan_bpjs.tglRujukan,"+
-                    "bridging_rujukan_bpjs.no_rujukan,bridging_rujukan_bpjs.ppkDirujuk,"+
-                    "bridging_rujukan_bpjs.nm_ppkDirujuk,"+
-                    "if(bridging_rujukan_bpjs.jnsPelayanan='1','1. Rawat Inap','2. Rawat Jalan'),"+
-                    "bridging_rujukan_bpjs.tipeRujukan,bridging_rujukan_bpjs.catatan,"+
-                    "bridging_rujukan_bpjs.diagRujukan,bridging_rujukan_bpjs.nama_diagRujukan,"+
-                    "bridging_rujukan_bpjs.poliRujukan,bridging_rujukan_bpjs.nama_poliRujukan  "+
-                    "from bridging_sep inner join bridging_rujukan_bpjs on bridging_rujukan_bpjs.no_sep=bridging_sep.no_sep where "+
-                    "bridging_rujukan_bpjs.tglRujukan between ? and ? and bridging_rujukan_bpjs.no_sep like ? or "+
-                    "bridging_rujukan_bpjs.tglRujukan between ? and ? and bridging_sep.no_rawat like ? or "+
-                    "bridging_rujukan_bpjs.tglRujukan between ? and ? and bridging_sep.nomr like ? or "+
-                    "bridging_rujukan_bpjs.tglRujukan between ? and ? and bridging_sep.nama_pasien like ? or "+
-                    "bridging_rujukan_bpjs.tglRujukan between ? and ? and bridging_rujukan_bpjs.no_rujukan like ? or "+
-                    "bridging_rujukan_bpjs.tglRujukan between ? and ? and bridging_rujukan_bpjs.ppkDirujuk like ? or "+
-                    "bridging_rujukan_bpjs.tglRujukan between ? and ? and bridging_rujukan_bpjs.nm_ppkDirujuk like ? or "+
-                    "bridging_rujukan_bpjs.tglRujukan between ? and ? and bridging_rujukan_bpjs.diagRujukan like ? or "+
-                    "bridging_rujukan_bpjs.tglRujukan between ? and ? and bridging_rujukan_bpjs.nama_diagRujukan like ? or "+
-                    "bridging_rujukan_bpjs.tglRujukan between ? and ? and bridging_rujukan_bpjs.poliRujukan like ? or "+
-                    "bridging_rujukan_bpjs.tglRujukan between ? and ? and bridging_rujukan_bpjs.nama_poliRujukan like ? or "+
-                    "bridging_rujukan_bpjs.tglRujukan between ? and ? and bridging_rujukan_bpjs.catatan like ? order by bridging_rujukan_bpjs.tglRujukan");
+                    "SELECT br.no_sep, bs.no_rawat, bs.nomr,bs.nama_pasien,br.tglRujukan, br.no_rujukan,"
+                    + "br.ppkDirujuk, br.nm_ppkDirujuk, IF(br.jnsPelayanan='1','1. Rawat Inap','2. Rawat Jalan'), br.tipeRujukan,br.catatan, "
+                    + "br.diagRujukan,br.nama_diagRujukan, br.poliRujukan,br.nama_poliRujukan, bs.tanggal_lahir "
+                    + "FROM bridging_sep bs LEFT JOIN bridging_rujukan_bpjs br ON br.no_rawat=bs.no_rawat WHERE "
+                    + "br.tglRujukan BETWEEN ? AND ? AND br.no_sep LIKE ? OR "
+                    + "br.tglRujukan BETWEEN ? AND ? AND bs.no_rawat LIKE ? OR "
+                    + "br.tglRujukan BETWEEN ? AND ? AND bs.nomr LIKE ? OR "
+                    + "br.tglRujukan BETWEEN ? AND ? AND bs.nama_pasien LIKE ? OR "
+                    + "br.tglRujukan BETWEEN ? AND ? AND br.no_rujukan LIKE ? OR "
+                    + "br.tglRujukan BETWEEN ? AND ? AND br.ppkDirujuk LIKE ? OR "
+                    + "br.tglRujukan BETWEEN ? AND ? AND br.nm_ppkDirujuk LIKE ? OR "
+                    + "br.tglRujukan BETWEEN ? AND ? AND br.diagRujukan LIKE ? OR "
+                    + "br.tglRujukan BETWEEN ? AND ? AND br.nama_diagRujukan LIKE ? OR "
+                    + "br.tglRujukan BETWEEN ? AND ? AND br.poliRujukan LIKE ? OR "
+                    + "br.tglRujukan BETWEEN ? AND ? AND br.nama_poliRujukan LIKE ? OR "
+                    + "br.tglRujukan BETWEEN ? AND ? AND br.catatan LIKE ? ORDER BY br.tglRujukan");
             try {
                 ps.setString(1,Valid.SetTgl(DTPCari1.getSelectedItem()+""));
                 ps.setString(2,Valid.SetTgl(DTPCari2.getSelectedItem()+""));
@@ -1281,11 +1292,16 @@ public final class BPJSRujukanKeluar extends javax.swing.JDialog {
                 rs=ps.executeQuery();
                 while(rs.next()){
                     tabMode.addRow(new Object[]{
-                        rs.getString(1),rs.getString(2),rs.getString(3),
-                        rs.getString(4),rs.getString(5),rs.getString(6),
-                        rs.getString(7),rs.getString(8),rs.getString(9),
-                        rs.getString(10),rs.getString(11),rs.getString(12),
-                        rs.getString(13),rs.getString(14),rs.getString(15)
+                        rs.getString(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getString(5), rs.getString(6),
+                        rs.getString(7), rs.getString(8), rs.getString(9),
+                        rs.getString(10).
+                        replaceAll("0. Penuh", "0. Penuh").
+                        replaceAll("1. Partial", "1. Partial").
+                        replaceAll("2. Rujuk Balik", "2. Balik PRB").
+                        replaceAll("2. Balik PRB", "2. Balik PRB"),
+                        rs.getString(11), rs.getString(12),
+                        rs.getString(13), rs.getString(14), rs.getString(15), rs.getString(16)
                     });
                 }
             } catch (Exception e) {
@@ -1320,14 +1336,18 @@ public final class BPJSRujukanKeluar extends javax.swing.JDialog {
     
 
     private void getData() {
+        norujukan = "";
+        tgllahir = "";
         if(tbObat.getSelectedRow()!= -1){
             TipeRujukan.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(),9).toString());
+            norujukan = tbObat.getValueAt(tbObat.getSelectedRow(),5).toString();
             KdPpkRujukan1.setText(tbObat.getValueAt(tbObat.getSelectedRow(),6).toString());
             NmPpkRujukan1.setText(tbObat.getValueAt(tbObat.getSelectedRow(),7).toString());
             KdPenyakit1.setText(tbObat.getValueAt(tbObat.getSelectedRow(),11).toString());
             NmPenyakit1.setText(tbObat.getValueAt(tbObat.getSelectedRow(),12).toString());
             KdPoli1.setText(tbObat.getValueAt(tbObat.getSelectedRow(),13).toString());
             NmPoli1.setText(tbObat.getValueAt(tbObat.getSelectedRow(),14).toString());
+            tgllahir = tbObat.getValueAt(tbObat.getSelectedRow(),15).toString();
             JenisPelayanan1.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(),8).toString());
             Catatan1.setText(tbObat.getValueAt(tbObat.getSelectedRow(),10).toString());
             Valid.SetTgl(TanggalRujukKeluar,tbObat.getValueAt(tbObat.getSelectedRow(),4).toString());

@@ -2,6 +2,7 @@ package widget;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.time.LocalDate;
 
 /**
  *
@@ -24,5 +25,9 @@ public class Label extends usu.widget.Label {
         setVerticalAlignment(CENTER);
         setHorizontalTextPosition(CENTER);
         setVerticalTextPosition(CENTER);
+    }
+
+    public void setText(LocalDate habisBerlaku) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
