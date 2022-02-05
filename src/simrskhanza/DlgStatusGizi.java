@@ -811,7 +811,7 @@ public final class DlgStatusGizi extends javax.swing.JDialog {
                 param.put("kontakrs", var.getkontakrs());
                 param.put("emailrs", var.getemailrs());
                 param.put("logo", Sequel.cariGambar("select logo from setting"));
-                param.put("periode", "Periode Tgl. " + DTPCari1.getSelectedItem() + " S.D " + DTPCari2.getSelectedItem());
+                param.put("periode", "Periode Tgl. " + tgl1.getSelectedItem() + " S.D " + tgl2.getSelectedItem());
                 param.put("tgl_surat", Sequel.cariIsi("select day(now())") + " " + Sequel.bulanINDONESIA("select month(now())") + " " + Sequel.cariIsi("select year(now())"));
                 param.put("gedung", "Laporan Status Gizi Pasien Rawat Inap Di Ruang Perawatan " + cmbGedung.getSelectedItem());
                 Valid.MyReport("rptlapstatusgizi.jrxml", "report", "::[ Laporan Status Gizi Pasien Rawat Inap Per Gedung ]::", " select * from temporary", param);

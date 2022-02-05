@@ -1037,7 +1037,9 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                     KddpjpLayan.setText(suratKontrol.getTable().getValueAt(suratKontrol.getTable().getSelectedRow(), 11).toString());
                     nmdpjpLayan.setText(suratKontrol.getTable().getValueAt(suratKontrol.getTable().getSelectedRow(), 12).toString());
                     KdPenyakit.setText(suratKontrol.getTable().getValueAt(suratKontrol.getTable().getSelectedRow(), 15).toString());
-                    NmPenyakit.setText(suratKontrol.getTable().getValueAt(suratKontrol.getTable().getSelectedRow(), 7).toString());
+                    NmPenyakit.setText(suratKontrol.getTable().getValueAt(suratKontrol.getTable().getSelectedRow(), 7).toString());                    
+                    KdPoli.setText(suratKontrol.getTable().getValueAt(suratKontrol.getTable().getSelectedRow(), 13).toString());
+                    NmPoli.setText(suratKontrol.getTable().getValueAt(suratKontrol.getTable().getSelectedRow(), 14).toString());
                     btnNoSurat.requestFocus();
                 }                  
             }

@@ -858,6 +858,8 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
                     nmdpjpLayan.setText(surat_suratan.getTable().getValueAt(surat_suratan.getTable().getSelectedRow(), 12).toString());
                     KdPenyakit.setText(surat_suratan.getTable().getValueAt(surat_suratan.getTable().getSelectedRow(), 15).toString());
                     NmPenyakit.setText(surat_suratan.getTable().getValueAt(surat_suratan.getTable().getSelectedRow(), 7).toString());
+                    KdPoli1.setText(surat_suratan.getTable().getValueAt(surat_suratan.getTable().getSelectedRow(), 13).toString());
+                    NmPoli1.setText(surat_suratan.getTable().getValueAt(surat_suratan.getTable().getSelectedRow(), 14).toString());
                     btnNoSurat.requestFocus();
                 }                  
             }
