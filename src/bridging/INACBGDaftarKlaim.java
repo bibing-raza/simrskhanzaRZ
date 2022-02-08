@@ -2598,6 +2598,8 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
                         ajukan.tarifRS(noRawat.getText());
                         ajukan.TabRawat.setEnabled(true);
                         ajukan.TabRawat.setSelectedIndex(0);
+                        ajukan.TabDiagnosa1.setSelectedIndex(0);
+                        ajukan.TabProsedur1.setSelectedIndex(0);
                         ajukan.emptTeksLAINNYA();
                         ajukan.setVisible(true);
                         if (Chktgl.isSelected() == true) {
@@ -2613,6 +2615,8 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
                         ajukan.TabRawat.setEnabledAt(1, false);
                         ajukan.TabRawat.setEnabledAt(0, true);
                         ajukan.TabRawat.setSelectedIndex(0);
+                        ajukan.TabDiagnosa1.setSelectedIndex(0);
+                        ajukan.TabProsedur1.setSelectedIndex(0);
                         ajukan.emptTeksLAINNYA();
                         ajukan.setVisible(true);
                         if (Chktgl.isSelected() == true) {
@@ -2629,6 +2633,8 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
                         ajukan.tarifRS(noRawat.getText());
                         ajukan.TabRawat.setEnabled(true);
                         ajukan.TabRawat.setSelectedIndex(0);
+                        ajukan.TabDiagnosa1.setSelectedIndex(0);
+                        ajukan.TabProsedur1.setSelectedIndex(0);
                         ajukan.emptTeksLAINNYA();
                         ajukan.setVisible(true);
                         if (Chktgl.isSelected() == true) {
@@ -2644,6 +2650,8 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
                         ajukan.TabRawat.setEnabledAt(1, false);
                         ajukan.TabRawat.setEnabledAt(0, true);
                         ajukan.TabRawat.setSelectedIndex(0);
+                        ajukan.TabDiagnosa1.setSelectedIndex(0);
+                        ajukan.TabProsedur1.setSelectedIndex(0);
                         ajukan.emptTeksLAINNYA();
                         ajukan.setVisible(true);
                         if (Chktgl.isSelected() == true) {
@@ -2663,6 +2671,8 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
                     ajukan.tarifRS(noRawat.getText());
                     ajukan.TabRawat.setEnabled(true);
                     ajukan.TabRawat.setSelectedIndex(0);
+                    ajukan.TabDiagnosa1.setSelectedIndex(0);
+                    ajukan.TabProsedur1.setSelectedIndex(0);
                     ajukan.emptTeksLAINNYA();
                     ajukan.setVisible(true);
                     if (Chktgl.isSelected() == true) {
@@ -2678,6 +2688,8 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
                     ajukan.TabRawat.setEnabledAt(1, false);
                     ajukan.TabRawat.setEnabledAt(0, true);
                     ajukan.TabRawat.setSelectedIndex(0);
+                    ajukan.TabDiagnosa1.setSelectedIndex(0);
+                    ajukan.TabProsedur1.setSelectedIndex(0);
                     ajukan.emptTeksLAINNYA();
                     ajukan.setVisible(true);
                     if (Chktgl.isSelected() == true) {
@@ -2694,6 +2706,8 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
                     ajukan.tarifRS(noRawat.getText());
                     ajukan.TabRawat.setEnabled(true);
                     ajukan.TabRawat.setSelectedIndex(0);
+                    ajukan.TabDiagnosa1.setSelectedIndex(0);
+                    ajukan.TabProsedur1.setSelectedIndex(0);
                     ajukan.emptTeksLAINNYA();
                     ajukan.setVisible(true);
                     if (Chktgl.isSelected() == true) {
@@ -2709,6 +2723,8 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
                     ajukan.TabRawat.setEnabledAt(1, false);
                     ajukan.TabRawat.setEnabledAt(0, true);
                     ajukan.TabRawat.setSelectedIndex(0);
+                    ajukan.TabDiagnosa1.setSelectedIndex(0);
+                    ajukan.TabProsedur1.setSelectedIndex(0);
                     ajukan.emptTeksLAINNYA();
                     ajukan.setVisible(true);
                     if (Chktgl.isSelected() == true) {
@@ -2741,6 +2757,7 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
                         ajukan.tarifRS(noRawat.getText());
                         ajukan.TabRawat.setEnabled(true);
                         ajukan.TabRawat.setSelectedIndex(1);
+                        ajukan.TabDiagnosa2.setSelectedIndex(0);
                         ajukan.emptTeksJKN();
                         ajukan.setVisible(true);
                         if (Chktgl.isSelected() == true) {
@@ -2760,6 +2777,7 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
                         ajukan.TabRawat.setEnabledAt(0, false);
                         ajukan.TabRawat.setEnabledAt(1, true);
                         ajukan.TabRawat.setSelectedIndex(1);
+                        ajukan.TabDiagnosa2.setSelectedIndex(0);
                         ajukan.emptTeksJKN();
                         ajukan.setVisible(true);
                         if (Chktgl.isSelected() == true) {
@@ -2780,6 +2798,7 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
                         ajukan.tarifRS(noRawat.getText());
                         ajukan.TabRawat.setEnabled(true);
                         ajukan.TabRawat.setSelectedIndex(1);
+                        ajukan.TabDiagnosa2.setSelectedIndex(0);
                         ajukan.emptTeksJKN();
                         ajukan.setVisible(true);
                         if (Chktgl.isSelected() == true) {
@@ -2799,6 +2818,7 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
                         ajukan.TabRawat.setEnabledAt(0, false);
                         ajukan.TabRawat.setEnabledAt(1, true);
                         ajukan.TabRawat.setSelectedIndex(1);
+                        ajukan.TabDiagnosa2.setSelectedIndex(0);
                         ajukan.emptTeksJKN();
                         ajukan.setVisible(true);
                         if (Chktgl.isSelected() == true) {
@@ -2822,6 +2842,7 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
                     ajukan.tarifRS(noRawat.getText());
                     ajukan.TabRawat.setEnabled(true);
                     ajukan.TabRawat.setSelectedIndex(1);
+                    ajukan.TabDiagnosa2.setSelectedIndex(0);
                     ajukan.emptTeksJKN();
                     ajukan.setVisible(true);
                     if (Chktgl.isSelected() == true) {
@@ -2841,6 +2862,7 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
                     ajukan.TabRawat.setEnabledAt(0, false);
                     ajukan.TabRawat.setEnabledAt(1, true);
                     ajukan.TabRawat.setSelectedIndex(1);
+                    ajukan.TabDiagnosa2.setSelectedIndex(0);
                     ajukan.emptTeksJKN();
                     ajukan.setVisible(true);
                     if (Chktgl.isSelected() == true) {
@@ -2861,6 +2883,7 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
                     ajukan.tarifRS(noRawat.getText());
                     ajukan.TabRawat.setEnabled(true);
                     ajukan.TabRawat.setSelectedIndex(1);
+                    ajukan.TabDiagnosa2.setSelectedIndex(0);
                     ajukan.emptTeksJKN();
                     ajukan.setVisible(true);
                     if (Chktgl.isSelected() == true) {
@@ -2880,6 +2903,7 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
                     ajukan.TabRawat.setEnabledAt(0, false);
                     ajukan.TabRawat.setEnabledAt(1, true);
                     ajukan.TabRawat.setSelectedIndex(1);
+                    ajukan.TabDiagnosa2.setSelectedIndex(0);
                     ajukan.emptTeksJKN();
                     ajukan.setVisible(true);
                     if (Chktgl.isSelected() == true) {
@@ -2904,6 +2928,8 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
                 ajukan.tarifRS(noRawat.getText());
                 ajukan.TabRawat.setEnabled(true);
                 ajukan.TabRawat.setSelectedIndex(0);
+                ajukan.TabDiagnosa1.setSelectedIndex(0);
+                ajukan.TabProsedur1.setSelectedIndex(0);
                 ajukan.emptTeksLAINNYA();
                 ajukan.setVisible(true);
             } else {
@@ -2914,6 +2940,8 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
                 ajukan.TabRawat.setEnabledAt(1, false);
                 ajukan.TabRawat.setEnabledAt(0, true);
                 ajukan.TabRawat.setSelectedIndex(0);
+                ajukan.TabDiagnosa1.setSelectedIndex(0);
+                ajukan.TabProsedur1.setSelectedIndex(0);
                 ajukan.emptTeksLAINNYA();
                 ajukan.setVisible(true);
             }
@@ -2925,6 +2953,8 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
                 ajukan.tarifRS(noRawat.getText());
                 ajukan.TabRawat.setEnabled(true);
                 ajukan.TabRawat.setSelectedIndex(0);
+                ajukan.TabDiagnosa1.setSelectedIndex(0);
+                ajukan.TabProsedur1.setSelectedIndex(0);
                 ajukan.emptTeksLAINNYA();
                 ajukan.setVisible(true);
             } else {
@@ -2935,6 +2965,8 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
                 ajukan.TabRawat.setEnabledAt(1, false);
                 ajukan.TabRawat.setEnabledAt(0, true);
                 ajukan.TabRawat.setSelectedIndex(0);
+                ajukan.TabDiagnosa1.setSelectedIndex(0);
+                ajukan.TabProsedur1.setSelectedIndex(0);
                 ajukan.emptTeksLAINNYA();
                 ajukan.setVisible(true);
             }
@@ -2957,6 +2989,7 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
                 ajukan.tarifRS(noRawat.getText());
                 ajukan.TabRawat.setEnabled(true);
                 ajukan.TabRawat.setSelectedIndex(1);
+                ajukan.TabDiagnosa2.setSelectedIndex(0);
                 ajukan.emptTeksJKN();
                 ajukan.setVisible(true);
             } else {
@@ -2971,6 +3004,7 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
                 ajukan.TabRawat.setEnabledAt(0, false);
                 ajukan.TabRawat.setEnabledAt(1, true);
                 ajukan.TabRawat.setSelectedIndex(1);
+                ajukan.TabDiagnosa2.setSelectedIndex(0);
                 ajukan.emptTeksJKN();
                 ajukan.setVisible(true);
             }
@@ -2986,6 +3020,7 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
                 ajukan.tarifRS(noRawat.getText());
                 ajukan.TabRawat.setEnabled(true);
                 ajukan.TabRawat.setSelectedIndex(1);
+                ajukan.TabDiagnosa2.setSelectedIndex(0);
                 ajukan.emptTeksJKN();
                 ajukan.setVisible(true);
             } else {
@@ -3000,6 +3035,7 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
                 ajukan.TabRawat.setEnabledAt(0, false);
                 ajukan.TabRawat.setEnabledAt(1, true);
                 ajukan.TabRawat.setSelectedIndex(1);
+                ajukan.TabDiagnosa2.setSelectedIndex(0);
                 ajukan.emptTeksJKN();
                 ajukan.setVisible(true);
             }

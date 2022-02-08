@@ -35,7 +35,7 @@ public class ApiEKLAIM_inacbg {
     private String URL = "", requestJson1 = "", requestJson2 = "", requestJson3 = "", requestJson4 = "",
             requestJson5 = "", requestJson6 = "", requestJson7 = "", requestJson8 = "", requestJson9 = "",
             requestJson10 = "", requestJson11 = "", requestJson12 = "", requestJson13 = "", requestJson14 = "",
-            stringbalik = "";
+            stringbalik = "", requestJson15 = "";
     private HttpHeaders headers;
     private HttpEntity requestEntity;
     private JsonNode root;
@@ -199,7 +199,7 @@ public class ApiEKLAIM_inacbg {
             String dj, String mj,String dmj, String covidStatus, String noKT, String episod, String ccInd, String rsDarurat, String coInside, String labAL,
             String labPro, String labCRP, String labKul, String labDim, String labPT, String labAPTT, String labWP, String labAnti, String labAnaGas, String labAlbu, 
             String radTho, String tarifPE, String nmDokter, String payorI, String payorC, String cob, String codNik, String konvalesen, String naat, String isoman,
-            String bayi_baru_lhr, String prosedur_inadrg) {
+            String bayi_baru_lhr, String prosedur_inadrg, String diagnosa_inadrg) {
         try {
             headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
@@ -230,7 +230,7 @@ public class ApiEKLAIM_inacbg {
                                         + "\"discharge_status\": \"" + dischargeStts + "\","
                                         + "\"diagnosa\": \"" + diagnosa + "\","
                                         + "\"procedure\": \"" + prosedur + "\","
-                    + "\"diagnosa_inagrouper\": \"" + diagnosa + "\","
+                    + "\"diagnosa_inagrouper\": \"" + diagnosa_inadrg + "\","
                     + "\"procedure_inagrouper\": \"" + prosedur_inadrg + "\","
                                     + "\"tarif_rs\": {"
                                         + "\"prosedur_non_bedah\": \"" + pnb + "\","
@@ -543,6 +543,41 @@ public class ApiEKLAIM_inacbg {
 
             System.out.println("JSON : " + requestJson9);
             requestEntity = new HttpEntity(requestJson9, headers);
+            stringbalik = getRest().exchange(URL, HttpMethod.POST, requestEntity, String.class).getBody();
+            System.out.println("Output : " + stringbalik);
+            root = mapper.readTree(stringbalik);
+
+            if (root.path("metadata").path("code").asText().equals("200") && root.path("response").path("count").asText().equals("1")) {
+                x = true;
+            } else {
+                x = false;
+            }
+        } catch (Exception erornya) {
+            System.out.println("Notifikasi : " + erornya);
+            if (erornya.toString().contains("UnknownHostException") || erornya.toString().contains("false")) {
+                JOptionPane.showMessageDialog(null, erornya);
+            }
+        }
+        return x;
+    }
+    
+    public boolean ngecekDiagnosaINADRG(String kodeICD) {
+        try {
+            headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.add("Content-Type", "application/json;charset=UTF-8");
+            requestJson15
+                    = "{"
+                    + "\"metadata\": {"
+                    + "\"method\": \"search_diagnosis_inagrouper\""                    
+                    + "},"
+                    + "\"data\": {"
+                    + "\"keyword\": \"" + kodeICD + "\""
+                    + "}"
+                    + "}";
+
+            System.out.println("JSON : " + requestJson15);
+            requestEntity = new HttpEntity(requestJson15, headers);
             stringbalik = getRest().exchange(URL, HttpMethod.POST, requestEntity, String.class).getBody();
             System.out.println("Output : " + stringbalik);
             root = mapper.readTree(stringbalik);

@@ -51,7 +51,8 @@ import org.springframework.http.MediaType;
 public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
 
     private final DefaultTableModel tabMode, tabMode1, tabMode2, tabMode3, tabMode4,
-            tabMode5, tabMode6, tabMode7, tabMode8, tabMode9, tabMode10, tabMode11, tabMode12;
+            tabMode5, tabMode6, tabMode7, tabMode8, tabMode9, tabMode10, tabMode11, tabMode12, 
+            tabMode13, tabMode14, tabMode15, tabMode16;
     private final Properties prop = new Properties();
     private validasi Valid = new validasi();
     private sekuel Sequel = new sekuel();
@@ -62,14 +63,15 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
     private String jknya = "", tgllhrnya = "", jpel = "", norawat = "", sts_umur = "", sts_umur_ok = "", konversiKD = "",
             cekstsPulang = "", kdPulang = "", kls = "", nilaiKP = "", cekBB = "", tglmsk = "", tglplg = "", icuindikator = "",
             naikTurunkls = "", persenNaikKls = "", diagnosaKlaim = "", prosedurKlaim = "", trfPoliEx = "", kdEpisod = "",
-            kodeTopUPnya = "", cekFinal = "", datanya = "", naikKLS = "", cekklsLAGI = "", cekCOB = "", hasilVerifDiag = "",
+            kodeTopUPnya = "", cekFinal = "", datanya = "", naikKLS = "", cekklsLAGI = "", cekCOB = "", hasilVerifDiag1 = "",
             tgllhrnyaCOVID = "", jknyaCOVID = "", cekID = "", cekCI = "", cekKOM = "", cekSTATUS = "", cekRS = "", ibunya = "",
             cekPEMU = "", cekPLAS = "", cekKAN = "", cekDESJEN = "", cekDESMOB = "", cekPET = "", cekTRA = "", kirimEPISOD = "",
             cekASAM = "", cekKUL = "", cekAPTT = "", cekANAL = "", cekPRO = "", cekDIM = "", nilaiUnggah = "", nilaiIsolasi = "",
             cekWAK = "", cekALBU = "", cekCRP = "", cekPT = "", cekANT = "", cekTHO = "", file = "", directory = "", nilaiKriteria = "",
-            trfPlasma = "", kodePayor = "", nilaiKelainan = "", prosedurINADRG1 = "", prosedurINADRG2 = "", tglREG = "", NrawatTARIF = "";
-    private PreparedStatement ps, ps1, ps2, ps3, ps4, ps5, ps6, ps7, ps8, ps9, ps10, ps11, ps12;
-    private ResultSet rs, rs1, rs2, rs3, rs4, rs5, rs6, rs7, rs8, rs9, rs10, rs11, rs12;
+            trfPlasma = "", kodePayor = "", nilaiKelainan = "", prosedurINADRG1 = "", prosedurINADRG2 = "", tglREG = "", NrawatTARIF = "",
+            diagnosaKlaimINADRG = "", hasilVerifDiag2 = "", hasilVerifDiag3 = "", hasilVerifDiag4 = "";
+    private PreparedStatement ps, ps1, ps2, ps3, ps4, ps5, ps6, ps7, ps8, ps9, ps10, ps11, ps12, ps13, ps14, ps15, ps16;
+    private ResultSet rs, rs1, rs2, rs3, rs4, rs5, rs6, rs7, rs8, rs9, rs10, rs11, rs12, rs13, rs14, rs15, rs16;
     private ApiEKLAIM_inacbg mbak_eka = new ApiEKLAIM_inacbg();
     private double nilaiPNB = 0, nilaiRAD = 0, nilaiREH = 0, nilaiOBAT = 0, nilaiPB = 0,
             nilaiKEP = 0, nilaiLAB = 0, nilaiKAM = 0, nilaiKON = 0, nilaiRI = 0, nilaiTOTAL = 0;
@@ -115,12 +117,12 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
                 return types[columnIndex];
             }
         };
-        tbDiagnosa.setModel(tabMode);
-        tbDiagnosa.setPreferredScrollableViewportSize(new Dimension(500, 500));
-        tbDiagnosa.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tbDiagnosaPasien1.setModel(tabMode);
+        tbDiagnosaPasien1.setPreferredScrollableViewportSize(new Dimension(500, 500));
+        tbDiagnosaPasien1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
         for (int i = 0; i < 4; i++) {
-            TableColumn column = tbDiagnosa.getColumnModel().getColumn(i);
+            TableColumn column = tbDiagnosaPasien1.getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setPreferredWidth(70);
             } else if (i == 1) {
@@ -131,7 +133,44 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
                 column.setPreferredWidth(95);
             }
         }
-        tbDiagnosa.setDefaultRenderer(Object.class, new WarnaTable());
+        tbDiagnosaPasien1.setDefaultRenderer(Object.class, new WarnaTable());
+        
+        tabMode13 = new DefaultTableModel(null, new Object[]{"Kode", "Deskripsi Diagnosa ICD-10", "Status Diag.", "Verifikasi"
+        }) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                boolean a = false;
+                if (colIndex == 0) {
+                    a = false;
+                }
+                return a;
+            }
+            Class[] types = new Class[]{
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                return types[columnIndex];
+            }
+        };
+        tbDiagnosaPasien2.setModel(tabMode13);
+        tbDiagnosaPasien2.setPreferredScrollableViewportSize(new Dimension(500, 500));
+        tbDiagnosaPasien2.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        for (int i = 0; i < 4; i++) {
+            TableColumn column = tbDiagnosaPasien2.getColumnModel().getColumn(i);
+            if (i == 0) {
+                column.setPreferredWidth(70);
+            } else if (i == 1) {
+                column.setPreferredWidth(340);
+            } else if (i == 2) {
+                column.setPreferredWidth(95);
+            } else if (i == 3) {
+                column.setPreferredWidth(95);
+            }
+        }
+        tbDiagnosaPasien2.setDefaultRenderer(Object.class, new WarnaTable());
 
         tabMode5 = new DefaultTableModel(null, new Object[]{"Kode", "Deskripsi Diagnosa ICD-10", "Status Diag.", "Verifikasi"
         }) {
@@ -152,12 +191,12 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
                 return types[columnIndex];
             }
         };
-        tbDiagnosa1.setModel(tabMode5);
-        tbDiagnosa1.setPreferredScrollableViewportSize(new Dimension(500, 500));
-        tbDiagnosa1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tbDiagnosaPasie3.setModel(tabMode5);
+        tbDiagnosaPasie3.setPreferredScrollableViewportSize(new Dimension(500, 500));
+        tbDiagnosaPasie3.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
         for (int i = 0; i < 4; i++) {
-            TableColumn column = tbDiagnosa1.getColumnModel().getColumn(i);
+            TableColumn column = tbDiagnosaPasie3.getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setPreferredWidth(70);
             } else if (i == 1) {
@@ -168,14 +207,82 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
                 column.setPreferredWidth(95);
             }
         }
-        tbDiagnosa1.setDefaultRenderer(Object.class, new WarnaTable());
+        tbDiagnosaPasie3.setDefaultRenderer(Object.class, new WarnaTable());
+        
+        tabMode14 = new DefaultTableModel(null, new Object[]{"Kode", "Deskripsi Diagnosa ICD-10", "Status Diag.", "Verifikasi"
+        }) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                boolean a = false;
+                if (colIndex == 0) {
+                    a = false;
+                }
+                return a;
+            }
+            Class[] types = new Class[]{
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
 
-        tabMode1 = new DefaultTableModel(null, new Object[]{"Kode", "Deskripsi Prosedur ICD-9-CM","Jlh."}) {
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                return types[columnIndex];
+            }
+        };
+        tbDiagnosaPasie4.setModel(tabMode14);
+        tbDiagnosaPasie4.setPreferredScrollableViewportSize(new Dimension(500, 500));
+        tbDiagnosaPasie4.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        for (int i = 0; i < 4; i++) {
+            TableColumn column = tbDiagnosaPasie4.getColumnModel().getColumn(i);
+            if (i == 0) {
+                column.setPreferredWidth(70);
+            } else if (i == 1) {
+                column.setPreferredWidth(340);
+            } else if (i == 2) {
+                column.setPreferredWidth(95);
+            } else if (i == 3) {
+                column.setPreferredWidth(95);
+            }
+        }
+        tbDiagnosaPasie4.setDefaultRenderer(Object.class, new WarnaTable());
+        
+        tabMode1 = new DefaultTableModel(null, new Object[]{"Kode", "Deskripsi Prosedur ICD-9-CM"}) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                boolean a = false;
+                if (colIndex == 0) {
+                    a = false;
+                }
+                return a;
+            }
+            Class[] types = new Class[]{
+                java.lang.Object.class, java.lang.Object.class
+            };
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+             }
+        };
+        tbTindakanPasien1.setModel(tabMode1);
+        tbTindakanPasien1.setPreferredScrollableViewportSize(new Dimension(500, 500));
+        tbTindakanPasien1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        for (int i = 0; i < 2; i++) {
+            TableColumn column = tbTindakanPasien1.getColumnModel().getColumn(i);
+            if (i == 0) {
+                column.setPreferredWidth(70);
+            } else if (i == 1) {
+                column.setPreferredWidth(350);
+            }
+        }
+        tbTindakanPasien1.setDefaultRenderer(Object.class, new WarnaTable());
+
+        tabMode15 = new DefaultTableModel(null, new Object[]{"Kode", "Deskripsi Prosedur ICD-9-CM","Jlh."}) {
             @Override
             public boolean isCellEditable(int rowIndex, int colIndex) {
                 boolean a = false;
                 if (colIndex == 2) {
-                    a = true;
+                    a = false;
                 }
                 return a;
             }
@@ -187,12 +294,12 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
                 return types [columnIndex];
              }
         };
-        tbProsedur.setModel(tabMode1);
-        tbProsedur.setPreferredScrollableViewportSize(new Dimension(500, 500));
-        tbProsedur.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tbTindakanPasien2.setModel(tabMode15);
+        tbTindakanPasien2.setPreferredScrollableViewportSize(new Dimension(500, 500));
+        tbTindakanPasien2.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
         for (int i = 0; i < 3; i++) {
-            TableColumn column = tbProsedur.getColumnModel().getColumn(i);
+            TableColumn column = tbTindakanPasien2.getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setPreferredWidth(70);
             } else if (i == 1) {
@@ -201,14 +308,45 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
                 column.setPreferredWidth(40);
             }
         }
-        tbProsedur.setDefaultRenderer(Object.class, new WarnaTable());
+        tbTindakanPasien2.setDefaultRenderer(Object.class, new WarnaTable());
 
-        tabMode6 = new DefaultTableModel(null, new Object[]{"Kode", "Deskripsi Prosedur ICD-9-CM","Jlh."}) {
+        tabMode6 = new DefaultTableModel(null, new Object[]{"Kode", "Deskripsi Prosedur ICD-9-CM"}) {
             @Override
             public boolean isCellEditable(int rowIndex, int colIndex) {
                 boolean a = false;
                 if (colIndex == 2) {
-                    a = true;
+                    a = false;
+                }
+                return a;
+            }
+            Class[] types = new Class[]{
+                java.lang.Object.class, java.lang.Object.class
+            };
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+             }
+        };
+        tbTindakanPasien3.setModel(tabMode6);
+        tbTindakanPasien3.setPreferredScrollableViewportSize(new Dimension(500, 500));
+        tbTindakanPasien3.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        for (int i = 0; i < 2; i++) {
+            TableColumn column = tbTindakanPasien3.getColumnModel().getColumn(i);
+            if (i == 0) {
+                column.setPreferredWidth(70);
+            } else if (i == 1) {
+                column.setPreferredWidth(350);
+            }
+        }
+        tbTindakanPasien3.setDefaultRenderer(Object.class, new WarnaTable());
+        
+        tabMode16 = new DefaultTableModel(null, new Object[]{"Kode", "Deskripsi Prosedur ICD-9-CM","Jlh."}) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                boolean a = false;
+                if (colIndex == 2) {
+                    a = false;
                 }
                 return a;
             }
@@ -220,12 +358,12 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
                 return types [columnIndex];
              }
         };
-        tbProsedur1.setModel(tabMode6);
-        tbProsedur1.setPreferredScrollableViewportSize(new Dimension(500, 500));
-        tbProsedur1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tbTindakanPasien4.setModel(tabMode16);
+        tbTindakanPasien4.setPreferredScrollableViewportSize(new Dimension(500, 500));
+        tbTindakanPasien4.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
         for (int i = 0; i < 3; i++) {
-            TableColumn column = tbProsedur1.getColumnModel().getColumn(i);
+            TableColumn column = tbTindakanPasien4.getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setPreferredWidth(70);
             } else if (i == 1) {
@@ -234,7 +372,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
                 column.setPreferredWidth(40);
             }
         }
-        tbProsedur1.setDefaultRenderer(Object.class, new WarnaTable());
+        tbTindakanPasien4.setDefaultRenderer(Object.class, new WarnaTable());
 
         tabMode2 = new DefaultTableModel(null, new Object[]{"Komponen", "Deskripsi", "Kode INACBG", "Nominal"}) {
             @Override
@@ -673,11 +811,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel59 = new widget.Label();
-        Scroll = new widget.ScrollPane();
-        tbDiagnosa = new widget.Table();
         jLabel60 = new widget.Label();
-        Scroll1 = new widget.ScrollPane();
-        tbProsedur = new widget.Table();
         labelLOS = new widget.Label();
         BtnGruper = new widget.Button();
         separatHasil = new javax.swing.JSeparator();
@@ -740,6 +874,20 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         jLabel65 = new widget.Label();
         labelklspel4 = new widget.Label();
         tglSEP = new widget.Label();
+        TabDiagnosa1 = new javax.swing.JTabbedPane();
+        internalFrame4 = new widget.InternalFrame();
+        Scroll7 = new widget.ScrollPane();
+        tbDiagnosaPasien1 = new widget.Table();
+        internalFrame5 = new widget.InternalFrame();
+        Scroll8 = new widget.ScrollPane();
+        tbDiagnosaPasien2 = new widget.Table();
+        TabProsedur1 = new javax.swing.JTabbedPane();
+        internalFrame8 = new widget.InternalFrame();
+        Scroll2 = new widget.ScrollPane();
+        tbTindakanPasien1 = new widget.Table();
+        internalFrame9 = new widget.InternalFrame();
+        Scroll10 = new widget.ScrollPane();
+        tbTindakanPasien2 = new widget.Table();
         internalFrame3 = new widget.InternalFrame();
         scrollInput1 = new widget.ScrollPane();
         FormInput2 = new widget.PanelBiasa();
@@ -788,11 +936,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
         jLabel92 = new widget.Label();
-        Scroll2 = new widget.ScrollPane();
-        tbDiagnosa1 = new widget.Table();
         jLabel93 = new widget.Label();
-        Scroll3 = new widget.ScrollPane();
-        tbProsedur1 = new widget.Table();
         labelLOS1 = new widget.Label();
         BtnGruper2 = new widget.Button();
         separatHasil1 = new javax.swing.JSeparator();
@@ -923,6 +1067,20 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         tbRespon2 = new widget.Table();
         pros_inadrg2 = new widget.Label();
         jLabel98 = new widget.Label();
+        TabDiagnosa2 = new javax.swing.JTabbedPane();
+        internalFrame6 = new widget.InternalFrame();
+        Scroll = new widget.ScrollPane();
+        tbDiagnosaPasie3 = new widget.Table();
+        internalFrame7 = new widget.InternalFrame();
+        Scroll9 = new widget.ScrollPane();
+        tbDiagnosaPasie4 = new widget.Table();
+        TabProsedur2 = new javax.swing.JTabbedPane();
+        internalFrame10 = new widget.InternalFrame();
+        Scroll1 = new widget.ScrollPane();
+        tbTindakanPasien3 = new widget.Table();
+        internalFrame11 = new widget.InternalFrame();
+        Scroll11 = new widget.ScrollPane();
+        tbTindakanPasien4 = new widget.Table();
 
         Popup1.setName("Popup1"); // NOI18N
 
@@ -943,7 +1101,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         Popup1.add(ppDiagnosa);
 
         tglDiagnosa.setEditable(false);
-        tglDiagnosa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "11-01-2022" }));
+        tglDiagnosa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-02-2022" }));
         tglDiagnosa.setDisplayFormat("dd-MM-yyyy");
         tglDiagnosa.setName("tglDiagnosa"); // NOI18N
         tglDiagnosa.setOpaque(false);
@@ -1525,41 +1683,12 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         FormInput.add(jLabel59);
         jLabel59.setBounds(45, 500, 140, 23);
 
-        Scroll.setComponentPopupMenu(Popup1);
-        Scroll.setName("Scroll"); // NOI18N
-        Scroll.setOpaque(true);
-
-        tbDiagnosa.setToolTipText("");
-        tbDiagnosa.setComponentPopupMenu(Popup1);
-        tbDiagnosa.setName("tbDiagnosa"); // NOI18N
-        Scroll.setViewportView(tbDiagnosa);
-
-        FormInput.add(Scroll);
-        Scroll.setBounds(45, 525, 630, 140);
-
         jLabel60.setForeground(new java.awt.Color(0, 0, 0));
         jLabel60.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel60.setText("Prosedur (ICD-9-CM) : ");
         jLabel60.setName("jLabel60"); // NOI18N
         FormInput.add(jLabel60);
         jLabel60.setBounds(690, 500, 120, 23);
-
-        Scroll1.setComponentPopupMenu(Popup1);
-        Scroll1.setName("Scroll1"); // NOI18N
-        Scroll1.setOpaque(true);
-
-        tbProsedur.setToolTipText("");
-        tbProsedur.setComponentPopupMenu(Popup1);
-        tbProsedur.setName("tbProsedur"); // NOI18N
-        tbProsedur.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                tbProsedurKeyPressed(evt);
-            }
-        });
-        Scroll1.setViewportView(tbProsedur);
-
-        FormInput.add(Scroll1);
-        Scroll1.setBounds(690, 525, 510, 125);
 
         labelLOS.setForeground(new java.awt.Color(0, 0, 0));
         labelLOS.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -2022,14 +2151,14 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         pros_inadrg1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         pros_inadrg1.setName("pros_inadrg1"); // NOI18N
         FormInput.add(pros_inadrg1);
-        pros_inadrg1.setBounds(847, 650, 430, 23);
+        pros_inadrg1.setBounds(870, 650, 430, 23);
 
         jLabel65.setForeground(new java.awt.Color(0, 0, 0));
         jLabel65.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel65.setText("Prosedur INADRG yang dikirim : ");
+        jLabel65.setText("Prosedur INADRG (V6) yang dikirim : ");
         jLabel65.setName("jLabel65"); // NOI18N
         FormInput.add(jLabel65);
-        jLabel65.setBounds(690, 650, 155, 23);
+        jLabel65.setBounds(690, 650, 180, 23);
 
         labelklspel4.setForeground(new java.awt.Color(0, 0, 0));
         labelklspel4.setText("Tgl. SEP : ");
@@ -2043,6 +2172,100 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         tglSEP.setName("tglSEP"); // NOI18N
         FormInput.add(tglSEP);
         tglSEP.setBounds(490, 53, 200, 23);
+
+        TabDiagnosa1.setBackground(new java.awt.Color(250, 255, 245));
+        TabDiagnosa1.setForeground(new java.awt.Color(0, 0, 0));
+        TabDiagnosa1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        TabDiagnosa1.setName("TabDiagnosa1"); // NOI18N
+        TabDiagnosa1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TabDiagnosa1MouseClicked(evt);
+            }
+        });
+
+        internalFrame4.setBorder(null);
+        internalFrame4.setName("internalFrame4"); // NOI18N
+        internalFrame4.setLayout(new java.awt.BorderLayout(1, 1));
+
+        Scroll7.setName("Scroll7"); // NOI18N
+        Scroll7.setOpaque(true);
+
+        tbDiagnosaPasien1.setAutoCreateRowSorter(true);
+        tbDiagnosaPasien1.setToolTipText("Silahkan klik kanan untuk memperbaiki datanya");
+        tbDiagnosaPasien1.setComponentPopupMenu(Popup1);
+        tbDiagnosaPasien1.setName("tbDiagnosaPasien1"); // NOI18N
+        Scroll7.setViewportView(tbDiagnosaPasien1);
+
+        internalFrame4.add(Scroll7, java.awt.BorderLayout.CENTER);
+
+        TabDiagnosa1.addTab("Diagnosa Statistik (V5)", internalFrame4);
+
+        internalFrame5.setBorder(null);
+        internalFrame5.setName("internalFrame5"); // NOI18N
+        internalFrame5.setLayout(new java.awt.BorderLayout(1, 1));
+
+        Scroll8.setName("Scroll8"); // NOI18N
+        Scroll8.setOpaque(true);
+
+        tbDiagnosaPasien2.setAutoCreateRowSorter(true);
+        tbDiagnosaPasien2.setToolTipText("Silahkan klik kanan untuk memperbaiki datanya");
+        tbDiagnosaPasien2.setComponentPopupMenu(Popup1);
+        tbDiagnosaPasien2.setName("tbDiagnosaPasien2"); // NOI18N
+        Scroll8.setViewportView(tbDiagnosaPasien2);
+
+        internalFrame5.add(Scroll8, java.awt.BorderLayout.CENTER);
+
+        TabDiagnosa1.addTab("Diagnosa INADRG (V6)", internalFrame5);
+
+        FormInput.add(TabDiagnosa1);
+        TabDiagnosa1.setBounds(45, 520, 630, 145);
+
+        TabProsedur1.setBackground(new java.awt.Color(250, 255, 245));
+        TabProsedur1.setForeground(new java.awt.Color(0, 0, 0));
+        TabProsedur1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        TabProsedur1.setName("TabProsedur1"); // NOI18N
+        TabProsedur1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TabProsedur1MouseClicked(evt);
+            }
+        });
+
+        internalFrame8.setBorder(null);
+        internalFrame8.setName("internalFrame8"); // NOI18N
+        internalFrame8.setLayout(new java.awt.BorderLayout(1, 1));
+
+        Scroll2.setName("Scroll2"); // NOI18N
+        Scroll2.setOpaque(true);
+
+        tbTindakanPasien1.setAutoCreateRowSorter(true);
+        tbTindakanPasien1.setToolTipText("Silahkan klik kanan untuk memperbaiki datanya");
+        tbTindakanPasien1.setComponentPopupMenu(Popup1);
+        tbTindakanPasien1.setName("tbTindakanPasien1"); // NOI18N
+        Scroll2.setViewportView(tbTindakanPasien1);
+
+        internalFrame8.add(Scroll2, java.awt.BorderLayout.CENTER);
+
+        TabProsedur1.addTab("Prosedur Statistik (V5)", internalFrame8);
+
+        internalFrame9.setBorder(null);
+        internalFrame9.setName("internalFrame9"); // NOI18N
+        internalFrame9.setLayout(new java.awt.BorderLayout(1, 1));
+
+        Scroll10.setName("Scroll10"); // NOI18N
+        Scroll10.setOpaque(true);
+
+        tbTindakanPasien2.setAutoCreateRowSorter(true);
+        tbTindakanPasien2.setToolTipText("Silahkan klik kanan untuk memperbaiki datanya");
+        tbTindakanPasien2.setComponentPopupMenu(Popup1);
+        tbTindakanPasien2.setName("tbTindakanPasien2"); // NOI18N
+        Scroll10.setViewportView(tbTindakanPasien2);
+
+        internalFrame9.add(Scroll10, java.awt.BorderLayout.CENTER);
+
+        TabProsedur1.addTab("Prosedur INADRG (V6)", internalFrame9);
+
+        FormInput.add(TabProsedur1);
+        TabProsedur1.setBounds(690, 520, 510, 131);
 
         scrollInput.setViewportView(FormInput);
 
@@ -2349,41 +2572,12 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         FormInput2.add(jLabel92);
         jLabel92.setBounds(45, 730, 140, 23);
 
-        Scroll2.setComponentPopupMenu(Popup1);
-        Scroll2.setName("Scroll2"); // NOI18N
-        Scroll2.setOpaque(true);
-
-        tbDiagnosa1.setToolTipText("");
-        tbDiagnosa1.setComponentPopupMenu(Popup1);
-        tbDiagnosa1.setName("tbDiagnosa1"); // NOI18N
-        Scroll2.setViewportView(tbDiagnosa1);
-
-        FormInput2.add(Scroll2);
-        Scroll2.setBounds(45, 755, 630, 140);
-
         jLabel93.setForeground(new java.awt.Color(0, 0, 0));
         jLabel93.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel93.setText("Prosedur (ICD-9-CM) : ");
         jLabel93.setName("jLabel93"); // NOI18N
         FormInput2.add(jLabel93);
         jLabel93.setBounds(690, 730, 120, 23);
-
-        Scroll3.setComponentPopupMenu(Popup1);
-        Scroll3.setName("Scroll3"); // NOI18N
-        Scroll3.setOpaque(true);
-
-        tbProsedur1.setToolTipText("");
-        tbProsedur1.setComponentPopupMenu(Popup1);
-        tbProsedur1.setName("tbProsedur1"); // NOI18N
-        tbProsedur1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                tbProsedur1KeyPressed(evt);
-            }
-        });
-        Scroll3.setViewportView(tbProsedur1);
-
-        FormInput2.add(Scroll3);
-        Scroll3.setBounds(690, 755, 510, 125);
 
         labelLOS1.setForeground(new java.awt.Color(0, 0, 0));
         labelLOS1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -3553,14 +3747,108 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         pros_inadrg2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         pros_inadrg2.setName("pros_inadrg2"); // NOI18N
         FormInput2.add(pros_inadrg2);
-        pros_inadrg2.setBounds(847, 880, 500, 23);
+        pros_inadrg2.setBounds(870, 880, 500, 23);
 
         jLabel98.setForeground(new java.awt.Color(0, 0, 0));
         jLabel98.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel98.setText("Prosedur INADRG yang dikirim : ");
+        jLabel98.setText("Prosedur INADRG (V6) yang dikirim : ");
         jLabel98.setName("jLabel98"); // NOI18N
         FormInput2.add(jLabel98);
-        jLabel98.setBounds(690, 880, 155, 23);
+        jLabel98.setBounds(690, 880, 180, 23);
+
+        TabDiagnosa2.setBackground(new java.awt.Color(250, 255, 245));
+        TabDiagnosa2.setForeground(new java.awt.Color(0, 0, 0));
+        TabDiagnosa2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        TabDiagnosa2.setName("TabDiagnosa2"); // NOI18N
+        TabDiagnosa2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TabDiagnosa2MouseClicked(evt);
+            }
+        });
+
+        internalFrame6.setBorder(null);
+        internalFrame6.setName("internalFrame6"); // NOI18N
+        internalFrame6.setLayout(new java.awt.BorderLayout(1, 1));
+
+        Scroll.setName("Scroll"); // NOI18N
+        Scroll.setOpaque(true);
+
+        tbDiagnosaPasie3.setAutoCreateRowSorter(true);
+        tbDiagnosaPasie3.setToolTipText("Silahkan klik kanan untuk memperbaiki datanya");
+        tbDiagnosaPasie3.setComponentPopupMenu(Popup1);
+        tbDiagnosaPasie3.setName("tbDiagnosaPasie3"); // NOI18N
+        Scroll.setViewportView(tbDiagnosaPasie3);
+
+        internalFrame6.add(Scroll, java.awt.BorderLayout.CENTER);
+
+        TabDiagnosa2.addTab("Diagnosa Statistik (V5)", internalFrame6);
+
+        internalFrame7.setBorder(null);
+        internalFrame7.setName("internalFrame7"); // NOI18N
+        internalFrame7.setLayout(new java.awt.BorderLayout(1, 1));
+
+        Scroll9.setName("Scroll9"); // NOI18N
+        Scroll9.setOpaque(true);
+
+        tbDiagnosaPasie4.setAutoCreateRowSorter(true);
+        tbDiagnosaPasie4.setToolTipText("Silahkan klik kanan untuk memperbaiki datanya");
+        tbDiagnosaPasie4.setComponentPopupMenu(Popup1);
+        tbDiagnosaPasie4.setName("tbDiagnosaPasie4"); // NOI18N
+        Scroll9.setViewportView(tbDiagnosaPasie4);
+
+        internalFrame7.add(Scroll9, java.awt.BorderLayout.CENTER);
+
+        TabDiagnosa2.addTab("Diagnosa INADRG (V6)", internalFrame7);
+
+        FormInput2.add(TabDiagnosa2);
+        TabDiagnosa2.setBounds(45, 750, 630, 145);
+
+        TabProsedur2.setBackground(new java.awt.Color(250, 255, 245));
+        TabProsedur2.setForeground(new java.awt.Color(0, 0, 0));
+        TabProsedur2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        TabProsedur2.setName("TabProsedur2"); // NOI18N
+        TabProsedur2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TabProsedur2MouseClicked(evt);
+            }
+        });
+
+        internalFrame10.setBorder(null);
+        internalFrame10.setName("internalFrame10"); // NOI18N
+        internalFrame10.setLayout(new java.awt.BorderLayout(1, 1));
+
+        Scroll1.setName("Scroll1"); // NOI18N
+        Scroll1.setOpaque(true);
+
+        tbTindakanPasien3.setAutoCreateRowSorter(true);
+        tbTindakanPasien3.setToolTipText("Silahkan klik kanan untuk memperbaiki datanya");
+        tbTindakanPasien3.setComponentPopupMenu(Popup1);
+        tbTindakanPasien3.setName("tbTindakanPasien3"); // NOI18N
+        Scroll1.setViewportView(tbTindakanPasien3);
+
+        internalFrame10.add(Scroll1, java.awt.BorderLayout.CENTER);
+
+        TabProsedur2.addTab("Prosedur Statistik (V5)", internalFrame10);
+
+        internalFrame11.setBorder(null);
+        internalFrame11.setName("internalFrame11"); // NOI18N
+        internalFrame11.setLayout(new java.awt.BorderLayout(1, 1));
+
+        Scroll11.setName("Scroll11"); // NOI18N
+        Scroll11.setOpaque(true);
+
+        tbTindakanPasien4.setAutoCreateRowSorter(true);
+        tbTindakanPasien4.setToolTipText("Silahkan klik kanan untuk memperbaiki datanya");
+        tbTindakanPasien4.setComponentPopupMenu(Popup1);
+        tbTindakanPasien4.setName("tbTindakanPasien4"); // NOI18N
+        Scroll11.setViewportView(tbTindakanPasien4);
+
+        internalFrame11.add(Scroll11, java.awt.BorderLayout.CENTER);
+
+        TabProsedur2.addTab("Prosedur INADRG (V6)", internalFrame11);
+
+        FormInput2.add(TabProsedur2);
+        TabProsedur2.setBounds(690, 750, 510, 131);
 
         scrollInput1.setViewportView(FormInput2);
 
@@ -3576,7 +3864,13 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void TabRawatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabRawatMouseClicked
-
+        if (TabRawat.getSelectedIndex() == 0) {
+            TabDiagnosa1.setSelectedIndex(0);
+            TabProsedur1.setSelectedIndex(0);
+        } else if (TabRawat.getSelectedIndex() == 1) {
+            TabDiagnosa2.setSelectedIndex(0);
+            TabProsedur2.setSelectedIndex(0);
+        }
     }//GEN-LAST:event_TabRawatMouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -3668,30 +3962,46 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
             setKlaim(norawat, noSEP.getText(), "JKN", "3","-");
         } else if (cmbcrPulang.getSelectedItem().equals("-")) {
             JOptionPane.showMessageDialog(null, "Pilihlah cara pulang pasien dengan benar...!!!!");
-        } else if (tabMode.getRowCount() == 0) {
+        } else if (tabMode.getRowCount() == 0 || tabMode13.getRowCount() == 0) {
             JOptionPane.showMessageDialog(null, "Diagnosa ICD-10 masih kosong...!!!!");
         } else {
             cekDATA();
             tampilDiagnosa();
-            hasilJLHProsedur();
+            tampilProsedur();
 
             diag = 0;
-            for (i = 0; i < tbDiagnosa.getRowCount(); i++) {
-                if (tbDiagnosa.getValueAt(i, 3).toString().equals("Belum Sesuai")) {
-                    diag++;
+            if (jpel.equals("2")) {
+                for (i = 0; i < tbDiagnosaPasien1.getRowCount(); i++) {
+                    if (tbDiagnosaPasien1.getValueAt(i, 3).toString().equals("Belum Sesuai")) {
+                        diag++;
+                    }
+                }
+            } else {
+                for (i = 0; i < tbDiagnosaPasien1.getRowCount(); i++) {
+                    if (tbDiagnosaPasien1.getValueAt(i, 3).toString().equals("Belum Sesuai")) {
+                        diag++;
+                    }
+                }
+                
+                for (i = 0; i < tbDiagnosaPasien2.getRowCount(); i++) {
+                    if (tbDiagnosaPasien2.getValueAt(i, 3).toString().equals("Belum Sesuai")) {
+                        diag++;
+                    }
                 }
             }
+            
 
             if (diag > 0) {
                 JOptionPane.showMessageDialog(null, "Masih ada diagnosa yg. blm. sesuai utk. diklaimkan, Silahkan perbaiki dulu.!!!");
-                tbDiagnosa.requestFocus();
+                tbDiagnosaPasien1.requestFocus();
             } else {
                 if (mbak_eka.menggrouper(noSEP.getText(), noPeserta.getText(), tglmsk, tglplg, jpel, kls, subakut.getText(), kronik.getText(), icuindikator,
                         losIntensif.getText(), ventilator.getText(), naikTurunkls, nilaiKP, losNaikKls.getText(), persenNaikKls, brtlhr.getText(),
                         kdPulang, diagnosaKlaim, prosedurKlaim, nilaiPNB, nilaiPB, nilaiKON, ta.getText(), nilaiKEP, pen.getText(), nilaiRAD, nilaiLAB,
                         pd.getText(), nilaiREH, nilaiKAM, nilaiRI, nilaiOBAT, okr.getText(), oke.getText(), alkes.getText(), bmhp.getText(), sa.getText(),
                         "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", trfPoliEx, dpjp.getText(),
-                        kodePayor, "JKN", cmbCOB.getSelectedItem().toString(), nikPetugas.getText(), "0", "#", "0", "0", pros_inadrg1.getText()) == true) {
+                        kodePayor, "JKN", cmbCOB.getSelectedItem().toString(), nikPetugas.getText(), "0", "#", "0", "0", pros_inadrg1.getText(), diagnosaKlaimINADRG) == true) {
+                    
                     labelhasilG.setText("Hasil Grouper : " + Sequel.cariIsi("select if(klaim_final='Belum','',klaim_final) from eklaim_new_claim where no_sep='" + noSEP.getText() + "'"));
                     labeltambahan.setText("Tambahan biaya yang dibayar pasien naik kelas : Rp. "
                             + Sequel.cariIsi("SELECT format(ifnull(add_payment_amt,'0'),0) tambhn_biaya FROM eklaim_grouping WHERE no_sep='" + noSEP.getText() + "'"));
@@ -4047,23 +4357,37 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
             setKlaim(norawat, noKlaim.getText(), nmJaminan.getText(), kodePayor, ibunya);
         } else if (cmbcrPulang1.getSelectedItem().equals("-")) {
             JOptionPane.showMessageDialog(null, "Pilihlah cara pulang pasien dengan benar...!!!!");
-        } else if (tabMode5.getRowCount() == 0) {
+        } else if (tabMode5.getRowCount() == 0 || tabMode14.getRowCount() == 0) {
             JOptionPane.showMessageDialog(null, "Diagnosa ICD-10 masih kosong...!!!!");
         } else {
             cekDATA();
             tampilDiagnosa();
-            hasilJLHProsedur();
+            tampilProsedur();
 
             diag = 0;
-            for (i = 0; i < tbDiagnosa1.getRowCount(); i++) {
-                if (tbDiagnosa1.getValueAt(i, 3).toString().equals("Belum Sesuai")) {
-                    diag++;
+            if (jpel.equals("2")) {
+                for (i = 0; i < tbDiagnosaPasie3.getRowCount(); i++) {
+                    if (tbDiagnosaPasie3.getValueAt(i, 3).toString().equals("Belum Sesuai")) {
+                        diag++;
+                    }
+                }
+            } else {
+                for (i = 0; i < tbDiagnosaPasie3.getRowCount(); i++) {
+                    if (tbDiagnosaPasie3.getValueAt(i, 3).toString().equals("Belum Sesuai")) {
+                        diag++;
+                    }
+                }
+
+                for (i = 0; i < tbDiagnosaPasie4.getRowCount(); i++) {
+                    if (tbDiagnosaPasie4.getValueAt(i, 3).toString().equals("Belum Sesuai")) {
+                        diag++;
+                    }
                 }
             }
 
             if (diag > 0) {
                 JOptionPane.showMessageDialog(null, "Masih ada diagnosa yg. blm. sesuai utk. diklaimkan, Silahkan perbaiki dulu.!!!");
-                tbDiagnosa1.requestFocus();
+                tbDiagnosaPasie3.requestFocus();
             } else {
                 if (mbak_eka.menggrouper(noKlaim.getText(), noID.getText(), tglmsk, tglplg, jpel, kls, subakut1.getText(), kronik1.getText(), icuindikator,
                         losIntensif1.getText(), ventilator1.getText(), "0", "", "0", "0", brtlhr1.getText(), kdPulang, diagnosaKlaim, prosedurKlaim, nilaiPNB, 
@@ -4071,7 +4395,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
                         okr1.getText(), oke1.getText(), alkes1.getText(), bmhp1.getText(), sa1.getText(), cekPEMU, cekKAN, cekPET, cekPLAS, cekDESJEN, cekTRA, 
                         cekDESMOB, cekSTATUS, cekID, kirimEPISOD, cekKOM, cekRS, cekCI, cekASAM, cekPRO, cekCRP, cekKUL, cekDIM, cekPT, cekAPTT, cekWAK, 
                         cekANT, cekANAL, cekALBU, cekTHO, "0", dpjp1.getText(), kodePayor, nmJaminan.getText(), "#", nikPetugas1.getText(), trfPlasma,
-                        nilaiKriteria, nilaiIsolasi, nilaiKelainan, pros_inadrg2.getText()) == true) {
+                        nilaiKriteria, nilaiIsolasi, nilaiKelainan, pros_inadrg2.getText(), diagnosaKlaimINADRG) == true) {
 
                     labelhasilG2.setText("Hasil Grouper : " + Sequel.cariIsi("select if(klaim_final='Belum','',klaim_final) from eklaim_new_claim "
                             + "where no_sep='" + Sequel.cariIsi("SELECT claim_number FROM eklaim_generate_claim where no_rawat='" + norawat + "'") + "'"));
@@ -4520,21 +4844,21 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_BtnUnggahDipilihActionPerformed
 
-    private void tbProsedur1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbProsedur1KeyPressed
-        if (tbProsedur1.getRowCount() != 0) {
-            if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-                hasilJLHProsedur();
-            }
-        }
-    }//GEN-LAST:event_tbProsedur1KeyPressed
+    private void TabDiagnosa1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabDiagnosa1MouseClicked
+        tampilDiagnosa();
+    }//GEN-LAST:event_TabDiagnosa1MouseClicked
 
-    private void tbProsedurKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbProsedurKeyPressed
-        if (tbProsedur.getRowCount() != 0) {
-            if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-                hasilJLHProsedur();
-            }
-        }
-    }//GEN-LAST:event_tbProsedurKeyPressed
+    private void TabDiagnosa2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabDiagnosa2MouseClicked
+        tampilDiagnosa();
+    }//GEN-LAST:event_TabDiagnosa2MouseClicked
+
+    private void TabProsedur1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabProsedur1MouseClicked
+        tampilProsedur();
+    }//GEN-LAST:event_TabProsedur1MouseClicked
+
+    private void TabProsedur2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabProsedur2MouseClicked
+        tampilProsedur();
+    }//GEN-LAST:event_TabProsedur2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -4601,17 +4925,25 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
     private javax.swing.JPopupMenu Popup1;
     private widget.ScrollPane Scroll;
     private widget.ScrollPane Scroll1;
+    private widget.ScrollPane Scroll10;
+    private widget.ScrollPane Scroll11;
     private widget.ScrollPane Scroll2;
-    private widget.ScrollPane Scroll3;
     private widget.ScrollPane Scroll4;
     private widget.ScrollPane Scroll5;
     private widget.ScrollPane Scroll6;
+    private widget.ScrollPane Scroll7;
+    private widget.ScrollPane Scroll8;
+    private widget.ScrollPane Scroll9;
     private widget.ScrollPane ScrollHasil1;
     private widget.ScrollPane ScrollHasil2;
     private widget.ScrollPane ScrollHasil3;
     private widget.ScrollPane ScrollHasil4;
     private widget.ScrollPane ScrollHasil5;
     private widget.ScrollPane ScrollHasil6;
+    public javax.swing.JTabbedPane TabDiagnosa1;
+    public javax.swing.JTabbedPane TabDiagnosa2;
+    public javax.swing.JTabbedPane TabProsedur1;
+    public javax.swing.JTabbedPane TabProsedur2;
     public javax.swing.JTabbedPane TabRawat;
     private widget.Label alkes;
     private widget.Label alkes1;
@@ -4638,8 +4970,16 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
     private widget.Label dpjp1;
     private widget.TextBox hari;
     private widget.InternalFrame internalFrame1;
+    private widget.InternalFrame internalFrame10;
+    private widget.InternalFrame internalFrame11;
     private widget.InternalFrame internalFrame2;
     private widget.InternalFrame internalFrame3;
+    private widget.InternalFrame internalFrame4;
+    private widget.InternalFrame internalFrame5;
+    private widget.InternalFrame internalFrame6;
+    private widget.InternalFrame internalFrame7;
+    private widget.InternalFrame internalFrame8;
+    private widget.InternalFrame internalFrame9;
     private widget.Label jLabel10;
     private widget.Label jLabel100;
     private widget.Label jLabel101;
@@ -4852,17 +5192,21 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
     private widget.Label ta1;
     private widget.TextBox tarifPlasma;
     private widget.TextBox tarifPoliExe;
-    private widget.Table tbDiagnosa;
-    private widget.Table tbDiagnosa1;
+    private widget.Table tbDiagnosaPasie3;
+    private widget.Table tbDiagnosaPasie4;
+    private widget.Table tbDiagnosaPasien1;
+    private widget.Table tbDiagnosaPasien2;
     private widget.Table tbEpisod;
     private widget.Table tbHasil1;
     private widget.Table tbHasil2;
     private widget.Table tbHasil3;
     private widget.Table tbHasil4;
-    private widget.Table tbProsedur;
-    private widget.Table tbProsedur1;
     private widget.Table tbRespon1;
     private widget.Table tbRespon2;
+    private widget.Table tbTindakanPasien1;
+    private widget.Table tbTindakanPasien2;
+    private widget.Table tbTindakanPasien3;
+    private widget.Table tbTindakanPasien4;
     private widget.Table tbUnggah;
     private widget.Table tbUnggahPilihan;
     private widget.Tanggal tglDiagnosa;
@@ -5384,8 +5728,10 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
 
     private void tampilDiagnosa() {
         diagnosaKlaim = "";
+        diagnosaKlaimINADRG = "";
         //kalau kode payor 3 adalah JKN
         if (kodePayor.equals("3")) {
+            //diagnosa v5 -----------------------------------------
             Valid.tabelKosong(tabMode);
             try {
                 ps1 = koneksi.prepareStatement("SELECT dp.kd_penyakit, p.ciri_ciri, IF (dp.prioritas = '1','Primer','Sekunder') status "
@@ -5396,15 +5742,15 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
                     while (rs1.next()) {
                         diagnosaKlaim = diagnosaKlaim + rs1.getString("kd_penyakit") + "#";
                         if (mbak_eka.ngecekDiagnosa(rs1.getString("kd_penyakit")) == true) {
-                            hasilVerifDiag = "Sesuai";
+                            hasilVerifDiag1 = "Sesuai";
                         } else {
-                            hasilVerifDiag = "Belum Sesuai";
+                            hasilVerifDiag1 = "Belum Sesuai";
                         }
                         tabMode.addRow(new Object[]{
                             rs1.getString("kd_penyakit"),
                             rs1.getString("ciri_ciri"),
                             rs1.getString("status"),
-                            hasilVerifDiag
+                            hasilVerifDiag1
                         });
                     }
                 } catch (Exception e) {
@@ -5420,8 +5766,45 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
             } catch (SQLException e) {
                 System.out.println("Notifikasi : " + e);
             }
+            
+            //diagnosa v6 -----------------------------------------
+            Valid.tabelKosong(tabMode13);
+            try {
+                ps13 = koneksi.prepareStatement("SELECT dp.kd_penyakit, p.ciri_ciri, IF (dp.prioritas = '1','Primer','Sekunder') status "
+                        + "FROM diagnosa_pasien_inadrg dp INNER JOIN penyakit p ON p.kd_penyakit=dp.kd_penyakit "
+                        + "WHERE dp.no_rawat='" + norawat + "' ORDER BY dp.prioritas");
+                try {
+                    rs13 = ps13.executeQuery();
+                    while (rs13.next()) {
+                        diagnosaKlaimINADRG = diagnosaKlaimINADRG + rs13.getString("kd_penyakit") + "#";
+                        if (mbak_eka.ngecekDiagnosaINADRG(rs13.getString("kd_penyakit")) == true) {
+                            hasilVerifDiag2 = "Sesuai";
+                        } else {
+                            hasilVerifDiag2 = "Belum Sesuai";
+                        }
+                        tabMode13.addRow(new Object[]{
+                            rs13.getString("kd_penyakit"),
+                            rs13.getString("ciri_ciri"),
+                            rs13.getString("status"),
+                            hasilVerifDiag2
+                        });
+                    }
+                } catch (Exception e) {
+                    System.out.println("Notifikasi : " + e);
+                } finally {
+                    if (rs13 != null) {
+                        rs13.close();
+                    }
+                    if (ps13 != null) {
+                        ps13.close();
+                    }
+                }
+            } catch (SQLException e) {
+                System.out.println("Notifikasi : " + e);
+            }
 
         } else {
+            //diagnosa v5 -----------------------------------------
             Valid.tabelKosong(tabMode5);
             try {
                 ps1 = koneksi.prepareStatement("SELECT dp.kd_penyakit, p.ciri_ciri, IF (dp.prioritas = '1','Primer','Sekunder') status "
@@ -5432,15 +5815,15 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
                     while (rs1.next()) {
                         diagnosaKlaim = diagnosaKlaim + rs1.getString("kd_penyakit") + "#";
                         if (mbak_eka.ngecekDiagnosa(rs1.getString("kd_penyakit")) == true) {
-                            hasilVerifDiag = "Sesuai";
+                            hasilVerifDiag3 = "Sesuai";
                         } else {
-                            hasilVerifDiag = "Belum Sesuai";
+                            hasilVerifDiag3 = "Belum Sesuai";
                         }
                         tabMode5.addRow(new Object[]{
                             rs1.getString("kd_penyakit"),
                             rs1.getString("ciri_ciri"),
                             rs1.getString("status"),
-                            hasilVerifDiag
+                            hasilVerifDiag3
                         });
                     }
                 } catch (Exception e) {
@@ -5451,6 +5834,42 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
                     }
                     if (ps1 != null) {
                         ps1.close();
+                    }
+                }
+            } catch (SQLException e) {
+                System.out.println("Notifikasi : " + e);
+            }
+            
+            //diagnosa v6 -----------------------------------------
+            Valid.tabelKosong(tabMode14);
+            try {
+                ps14 = koneksi.prepareStatement("SELECT dp.kd_penyakit, p.ciri_ciri, IF (dp.prioritas = '1','Primer','Sekunder') status "
+                        + "FROM diagnosa_pasien_inadrg dp INNER JOIN penyakit p ON p.kd_penyakit=dp.kd_penyakit "
+                        + "WHERE dp.no_rawat='" + norawat + "' ORDER BY dp.prioritas");
+                try {
+                    rs14 = ps14.executeQuery();
+                    while (rs14.next()) {
+                        diagnosaKlaimINADRG = diagnosaKlaimINADRG + rs14.getString("kd_penyakit") + "#";
+                        if (mbak_eka.ngecekDiagnosaINADRG(rs14.getString("kd_penyakit")) == true) {
+                            hasilVerifDiag4 = "Sesuai";
+                        } else {
+                            hasilVerifDiag4 = "Belum Sesuai";
+                        }
+                        tabMode14.addRow(new Object[]{
+                            rs14.getString("kd_penyakit"),
+                            rs14.getString("ciri_ciri"),
+                            rs14.getString("status"),
+                            hasilVerifDiag4
+                        });
+                    }
+                } catch (Exception e) {
+                    System.out.println("Notifikasi : " + e);
+                } finally {
+                    if (rs14 != null) {
+                        rs14.close();
+                    }
+                    if (ps14 != null) {
+                        ps14.close();
                     }
                 }
             } catch (SQLException e) {
@@ -5464,6 +5883,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         
         //kalau kode payor 3 adalah JKN
         if (kodePayor.equals("3")) {
+            //prosedur v5 ---------------------------------------
             Valid.tabelKosong(tabMode1);
             try {
                 ps2 = koneksi.prepareStatement("SELECT pp.kode, i.deskripsi_panjang FROM prosedur_pasien pp "
@@ -5479,7 +5899,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
                         
                         tabMode1.addRow(new Object[]{
                             rs2.getString("kode"),
-                            rs2.getString("deskripsi_panjang"),"1"
+                            rs2.getString("deskripsi_panjang")
                         });
                     }
                 } catch (Exception e) {
@@ -5495,9 +5915,38 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
             } catch (SQLException e) {
                 System.out.println("Notifikasi : " + e);
             }            
+            
+            //prosedur v6 ---------------------------------------
+            Valid.tabelKosong(tabMode15);
+            try {
+                ps15 = koneksi.prepareStatement("SELECT pp.kode, i.deskripsi_panjang, pp.qty FROM prosedur_pasien_inadrg pp "
+                        + "INNER JOIN icd9 i ON i.kode=pp.kode WHERE pp.no_rawat='" + norawat + "' ORDER BY pp.prioritas");
+                try {
+                    rs15 = ps15.executeQuery();
+                    while (rs15.next()) {
+                        tabMode15.addRow(new Object[]{
+                            rs15.getString("kode"),
+                            rs15.getString("deskripsi_panjang"),
+                            rs15.getString("qty")
+                        });
+                    }
+                } catch (Exception e) {
+                    System.out.println("Notifikasi : " + e);
+                } finally {
+                    if (rs15 != null) {
+                        rs15.close();
+                    }
+                    if (ps15 != null) {
+                        ps15.close();
+                    }
+                }
+            } catch (SQLException e) {
+                System.out.println("Notifikasi : " + e);
+            }            
             hasilJLHProsedur();
 
         } else {
+            //prosedur v5 ---------------------------------------
             Valid.tabelKosong(tabMode6);
             try {
                 ps2 = koneksi.prepareStatement("SELECT pp.kode, i.deskripsi_panjang FROM prosedur_pasien pp "
@@ -5513,7 +5962,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
                         
                         tabMode6.addRow(new Object[]{
                             rs2.getString("kode"),
-                            rs2.getString("deskripsi_panjang"),"1"
+                            rs2.getString("deskripsi_panjang")
                         });
                     }
                 } catch (Exception e) {
@@ -5528,7 +5977,35 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
                 }
             } catch (SQLException e) {
                 System.out.println("Notifikasi : " + e);
-            }
+            } 
+            
+            //prosedur v6 ---------------------------------------
+            Valid.tabelKosong(tabMode16);
+            try {
+                ps16 = koneksi.prepareStatement("SELECT pp.kode, i.deskripsi_panjang, pp.qty FROM prosedur_pasien_inadrg pp "
+                        + "INNER JOIN icd9 i ON i.kode=pp.kode WHERE pp.no_rawat='" + norawat + "' ORDER BY pp.prioritas");
+                try {
+                    rs16 = ps16.executeQuery();
+                    while (rs16.next()) {
+                        tabMode16.addRow(new Object[]{
+                            rs16.getString("kode"),
+                            rs16.getString("deskripsi_panjang"),
+                            rs16.getString("qty")
+                        });
+                    }
+                } catch (Exception e) {
+                    System.out.println("Notifikasi : " + e);
+                } finally {
+                    if (rs16 != null) {
+                        rs16.close();
+                    }
+                    if (ps16 != null) {
+                        ps16.close();
+                    }
+                }
+            } catch (SQLException e) {
+                System.out.println("Notifikasi : " + e);
+            } 
             hasilJLHProsedur();
         }
     }
@@ -7829,36 +8306,36 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
 
         //kalau kode payor 3 adalah JKN
         if (kodePayor.equals("3")) {
-            for (i = 0; i < tbProsedur.getRowCount(); i++) {
+            for (i = 0; i < tbTindakanPasien2.getRowCount(); i++) {
                 if (i == 0) {
-                    if (!tbProsedur.getValueAt(i, 2).toString().equals("") && Integer.parseInt(tbProsedur.getValueAt(i, 2).toString()) > 1) {
-                        prosedurINADRG1 = tbProsedur.getValueAt(i, 0).toString() + "+" + tbProsedur.getValueAt(i, 2).toString();
+                    if (!tbTindakanPasien2.getValueAt(i, 2).toString().equals("") && Integer.parseInt(tbTindakanPasien2.getValueAt(i, 2).toString()) > 1) {
+                        prosedurINADRG1 = tbTindakanPasien2.getValueAt(i, 0).toString() + "+" + tbTindakanPasien2.getValueAt(i, 2).toString();
                     } else {
-                        prosedurINADRG1 = tbProsedur.getValueAt(i, 0).toString();
+                        prosedurINADRG1 = tbTindakanPasien2.getValueAt(i, 0).toString();
                     }
                 } else {
-                    if (!tbProsedur.getValueAt(i, 2).toString().equals("") && Integer.parseInt(tbProsedur.getValueAt(i, 2).toString()) > 1) {
-                        prosedurINADRG1 = prosedurINADRG1 + "#" + tbProsedur.getValueAt(i, 0).toString() + "+" + tbProsedur.getValueAt(i, 2).toString();
+                    if (!tbTindakanPasien2.getValueAt(i, 2).toString().equals("") && Integer.parseInt(tbTindakanPasien2.getValueAt(i, 2).toString()) > 1) {
+                        prosedurINADRG1 = prosedurINADRG1 + "#" + tbTindakanPasien2.getValueAt(i, 0).toString() + "+" + tbTindakanPasien2.getValueAt(i, 2).toString();
                     } else {
-                        prosedurINADRG1 = prosedurINADRG1 + "#" + tbProsedur.getValueAt(i, 0).toString();
+                        prosedurINADRG1 = prosedurINADRG1 + "#" + tbTindakanPasien2.getValueAt(i, 0).toString();
                     }
                 }
             }
             pros_inadrg1.setText(prosedurINADRG1);
 
         } else {
-            for (i = 0; i < tbProsedur1.getRowCount(); i++) {
+            for (i = 0; i < tbTindakanPasien4.getRowCount(); i++) {
                 if (i == 0) {
-                    if (!tbProsedur1.getValueAt(i, 2).toString().equals("") && Integer.parseInt(tbProsedur1.getValueAt(i, 2).toString()) > 1) {
-                        prosedurINADRG2 = tbProsedur1.getValueAt(i, 0).toString() + "+" + tbProsedur1.getValueAt(i, 2).toString();
+                    if (!tbTindakanPasien4.getValueAt(i, 2).toString().equals("") && Integer.parseInt(tbTindakanPasien4.getValueAt(i, 2).toString()) > 1) {
+                        prosedurINADRG2 = tbTindakanPasien4.getValueAt(i, 0).toString() + "+" + tbTindakanPasien4.getValueAt(i, 2).toString();
                     } else {
-                        prosedurINADRG2 = tbProsedur1.getValueAt(i, 0).toString();
+                        prosedurINADRG2 = tbTindakanPasien4.getValueAt(i, 0).toString();
                     }
                 } else {
-                    if (!tbProsedur1.getValueAt(i, 2).toString().equals("") && Integer.parseInt(tbProsedur1.getValueAt(i, 2).toString()) > 1) {
-                        prosedurINADRG2 = prosedurINADRG2 + "#" + tbProsedur1.getValueAt(i, 0).toString() + "+" + tbProsedur1.getValueAt(i, 2).toString();
+                    if (!tbTindakanPasien4.getValueAt(i, 2).toString().equals("") && Integer.parseInt(tbTindakanPasien4.getValueAt(i, 2).toString()) > 1) {
+                        prosedurINADRG2 = prosedurINADRG2 + "#" + tbTindakanPasien4.getValueAt(i, 0).toString() + "+" + tbTindakanPasien4.getValueAt(i, 2).toString();
                     } else {
-                        prosedurINADRG2 = prosedurINADRG2 + "#" + tbProsedur1.getValueAt(i, 0).toString();
+                        prosedurINADRG2 = prosedurINADRG2 + "#" + tbTindakanPasien4.getValueAt(i, 0).toString();
                     }
                 }
             }
