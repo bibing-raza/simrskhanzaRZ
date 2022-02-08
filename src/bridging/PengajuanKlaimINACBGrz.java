@@ -3969,76 +3969,19 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         } else if (wktMasuk.getText().trim().equals("") || dpjp.getText().trim().equals("")) {
             setKlaim(norawat, noSEP.getText(), "JKN", "3","-");
         } else if (cmbcrPulang.getSelectedItem().equals("-")) {
-            JOptionPane.showMessageDialog(null, "Pilihlah cara pulang pasien dengan benar...!!!!");
-        } else if (jpel.equals("2")) {
-            if (tabMode.getRowCount() == 0) {
-                JOptionPane.showMessageDialog(null, "Diagnosa ICD-10 masih kosong...!!!!");
-            }
-        } else if (jpel.equals("1")) {
-            if (tabMode.getRowCount() == 0 || tabMode13.getRowCount() == 0) {
-                JOptionPane.showMessageDialog(null, "Untuk kasus rawat inap Diagnosa ICD-10 V5 & V6 harus terisi...!!!!");
-            }
+            JOptionPane.showMessageDialog(null, "Pilihlah cara pulang pasien dengan benar...!!!!");        
         } else {
-            cekDATA();
-            tampilDiagnosa();
-            tampilProsedur();
-
-            diag = 0;
             if (jpel.equals("2")) {
-                for (i = 0; i < tbDiagnosaPasien1.getRowCount(); i++) {
-                    if (tbDiagnosaPasien1.getValueAt(i, 3).toString().equals("Belum Sesuai")) {
-                        diag++;
-                    }
-                }
-            } else {
-                for (i = 0; i < tbDiagnosaPasien1.getRowCount(); i++) {
-                    if (tbDiagnosaPasien1.getValueAt(i, 3).toString().equals("Belum Sesuai")) {
-                        diag++;
-                    }
-                }
-                
-                for (i = 0; i < tbDiagnosaPasien2.getRowCount(); i++) {
-                    if (tbDiagnosaPasien2.getValueAt(i, 3).toString().equals("Belum Sesuai")) {
-                        diag++;
-                    }
-                }
-            }
-            
-
-            if (diag > 0) {
-                JOptionPane.showMessageDialog(null, "Masih ada diagnosa yg. blm. sesuai utk. diklaimkan, Silahkan perbaiki dulu.!!!");
-                tbDiagnosaPasien1.requestFocus();
-            } else {
-                if (mbak_eka.menggrouper(noSEP.getText(), noPeserta.getText(), tglmsk, tglplg, jpel, kls, subakut.getText(), kronik.getText(), icuindikator,
-                        losIntensif.getText(), ventilator.getText(), naikTurunkls, nilaiKP, losNaikKls.getText(), persenNaikKls, brtlhr.getText(),
-                        kdPulang, diagnosaKlaim, prosedurKlaim, nilaiPNB, nilaiPB, nilaiKON, ta.getText(), nilaiKEP, pen.getText(), nilaiRAD, nilaiLAB,
-                        pd.getText(), nilaiREH, nilaiKAM, nilaiRI, nilaiOBAT, okr.getText(), oke.getText(), alkes.getText(), bmhp.getText(), sa.getText(),
-                        "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", trfPoliEx, dpjp.getText(),
-                        kodePayor, "JKN", cmbCOB.getSelectedItem().toString(), nikPetugas.getText(), "0", "#", "0", "0", pros_inadrg1.getText(), diagnosaKlaimINADRG) == true) {
-                    
-                    labelhasilG.setText("Hasil Grouper : " + Sequel.cariIsi("select if(klaim_final='Belum','',klaim_final) from eklaim_new_claim where no_sep='" + noSEP.getText() + "'"));
-                    labeltambahan.setText("Tambahan biaya yang dibayar pasien naik kelas : Rp. "
-                            + Sequel.cariIsi("SELECT format(ifnull(add_payment_amt,'0'),0) tambhn_biaya FROM eklaim_grouping WHERE no_sep='" + noSEP.getText() + "'"));
-                    tampilHG1();
-                    tampilHG2();
-                    tampilRespon();
-                    if (tabMode3.getRowCount() == 0) {
-                        BtnGruperStage.setEnabled(false);
-                    } else {
-                        BtnGruperStage.setEnabled(true);
-                    }
+                if (tabMode.getRowCount() == 0) {
+                    JOptionPane.showMessageDialog(null, "Diagnosa ICD-10 masih kosong...!!!!");
                 } else {
-                    labelhasilG.setText("Hasil Grouper : " + Sequel.cariIsi("select if(klaim_final='Belum','',klaim_final) from eklaim_new_claim where no_sep='" + noSEP.getText() + "'"));
-                    labeltambahan.setText("Tambahan biaya yang dibayar pasien naik kelas : Rp. "
-                            + Sequel.cariIsi("SELECT format(ifnull(add_payment_amt,'0'),0) tambhn_biaya FROM eklaim_grouping WHERE no_sep='" + noSEP.getText() + "'"));
-                    tampilHG1();
-                    tampilHG2();
-                    tampilRespon();
-                    if (tabMode3.getRowCount() == 0) {
-                        BtnGruperStage.setEnabled(false);
-                    } else {
-                        BtnGruperStage.setEnabled(true);
-                    }
+                    simpanGroupingJKN();
+                }
+            } else {
+                if (tabMode.getRowCount() == 0 || tabMode13.getRowCount() == 0) {
+                    JOptionPane.showMessageDialog(null, "Untuk kasus rawat inap Diagnosa ICD-10 V5 & V6 harus terisi...!!!!");
+                } else {
+                    simpanGroupingJKN();
                 }
             }
         }
@@ -4371,73 +4314,18 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
             setKlaim(norawat, noKlaim.getText(), nmJaminan.getText(), kodePayor, ibunya);
         } else if (cmbcrPulang1.getSelectedItem().equals("-")) {
             JOptionPane.showMessageDialog(null, "Pilihlah cara pulang pasien dengan benar...!!!!");
-        } else if (jpel.equals("2")) {
-            if (tabMode5.getRowCount() == 0) {
-                JOptionPane.showMessageDialog(null, "Diagnosa ICD-10 masih kosong...!!!!");
-            }
-        } else if (jpel.equals("1")) {
-            if (tabMode5.getRowCount() == 0 || tabMode14.getRowCount() == 0) {
-                JOptionPane.showMessageDialog(null, "Untuk kasus rawat inap Diagnosa ICD-10 V5 & V6 harus terisi...!!!!");
-            }
         } else {
-            cekDATA();
-            tampilDiagnosa();
-            tampilProsedur();
-
-            diag = 0;
             if (jpel.equals("2")) {
-                for (i = 0; i < tbDiagnosaPasie3.getRowCount(); i++) {
-                    if (tbDiagnosaPasie3.getValueAt(i, 3).toString().equals("Belum Sesuai")) {
-                        diag++;
-                    }
-                }
-            } else {
-                for (i = 0; i < tbDiagnosaPasie3.getRowCount(); i++) {
-                    if (tbDiagnosaPasie3.getValueAt(i, 3).toString().equals("Belum Sesuai")) {
-                        diag++;
-                    }
-                }
-
-                for (i = 0; i < tbDiagnosaPasie4.getRowCount(); i++) {
-                    if (tbDiagnosaPasie4.getValueAt(i, 3).toString().equals("Belum Sesuai")) {
-                        diag++;
-                    }
-                }
-            }
-
-            if (diag > 0) {
-                JOptionPane.showMessageDialog(null, "Masih ada diagnosa yg. blm. sesuai utk. diklaimkan, Silahkan perbaiki dulu.!!!");
-                tbDiagnosaPasie3.requestFocus();
-            } else {
-                if (mbak_eka.menggrouper(noKlaim.getText(), noID.getText(), tglmsk, tglplg, jpel, kls, subakut1.getText(), kronik1.getText(), icuindikator,
-                        losIntensif1.getText(), ventilator1.getText(), "0", "", "0", "0", brtlhr1.getText(), kdPulang, diagnosaKlaim, prosedurKlaim, nilaiPNB, 
-                        nilaiPB, nilaiKON, ta1.getText(), nilaiKEP, pen1.getText(), nilaiRAD, nilaiLAB, pd1.getText(), nilaiREH, nilaiKAM, nilaiRI, nilaiOBAT, 
-                        okr1.getText(), oke1.getText(), alkes1.getText(), bmhp1.getText(), sa1.getText(), cekPEMU, cekKAN, cekPET, cekPLAS, cekDESJEN, cekTRA, 
-                        cekDESMOB, cekSTATUS, cekID, kirimEPISOD, cekKOM, cekRS, cekCI, cekASAM, cekPRO, cekCRP, cekKUL, cekDIM, cekPT, cekAPTT, cekWAK, 
-                        cekANT, cekANAL, cekALBU, cekTHO, "0", dpjp1.getText(), kodePayor, nmJaminan.getText(), "#", nikPetugas1.getText(), trfPlasma,
-                        nilaiKriteria, nilaiIsolasi, nilaiKelainan, pros_inadrg2.getText(), diagnosaKlaimINADRG) == true) {
-
-                    labelhasilG2.setText("Hasil Grouper : " + Sequel.cariIsi("select if(klaim_final='Belum','',klaim_final) from eklaim_new_claim "
-                            + "where no_sep='" + Sequel.cariIsi("SELECT claim_number FROM eklaim_generate_claim where no_rawat='" + norawat + "'") + "'"));
-                    tampilHG1();
-                    tampilHG2();
-                    tampilRespon();
-                    if (tabMode8.getRowCount() == 0) {
-                        BtnGruperStage1.setEnabled(false);
-                    } else {
-                        BtnGruperStage1.setEnabled(true);
-                    }
+                if (tabMode5.getRowCount() == 0) {
+                    JOptionPane.showMessageDialog(null, "Diagnosa ICD-10 masih kosong...!!!!");
                 } else {
-                    labelhasilG2.setText("Hasil Grouper : " + Sequel.cariIsi("select if(klaim_final='Belum','',klaim_final) from eklaim_new_claim "
-                            + "where no_sep='" + Sequel.cariIsi("SELECT claim_number FROM eklaim_generate_claim where no_rawat='" + norawat + "'") + "'"));
-                    tampilHG1();
-                    tampilHG2();
-                    tampilRespon();
-                    if (tabMode8.getRowCount() == 0) {
-                        BtnGruperStage1.setEnabled(false);
-                    } else {
-                        BtnGruperStage1.setEnabled(true);
-                    }
+                    simpanGrouperLAINNYA();
+                }
+            } else {
+                if (tabMode5.getRowCount() == 0 || tabMode14.getRowCount() == 0) {
+                    JOptionPane.showMessageDialog(null, "Untuk kasus rawat inap Diagnosa ICD-10 V5 & V6 harus terisi...!!!!");
+                } else {
+                    simpanGrouperLAINNYA();
                 }
             }
         }
@@ -8376,5 +8264,132 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         hitungOBAT();
         hitungPB();
         hitungTOTAL();
+    }
+    
+    private void simpanGroupingJKN() {
+        cekDATA();
+        tampilDiagnosa();
+        tampilProsedur();
+
+        diag = 0;
+        if (jpel.equals("2")) {
+            for (i = 0; i < tbDiagnosaPasien1.getRowCount(); i++) {
+                if (tbDiagnosaPasien1.getValueAt(i, 3).toString().equals("Belum Sesuai")) {
+                    diag++;
+                }
+            }
+        } else {
+            for (i = 0; i < tbDiagnosaPasien1.getRowCount(); i++) {
+                if (tbDiagnosaPasien1.getValueAt(i, 3).toString().equals("Belum Sesuai")) {
+                    diag++;
+                }
+            }
+
+            for (i = 0; i < tbDiagnosaPasien2.getRowCount(); i++) {
+                if (tbDiagnosaPasien2.getValueAt(i, 3).toString().equals("Belum Sesuai")) {
+                    diag++;
+                }
+            }
+        }
+
+        if (diag > 0) {
+            JOptionPane.showMessageDialog(null, "Masih ada diagnosa yg. blm. sesuai utk. diklaimkan, Silahkan perbaiki dulu.!!!");
+            tbDiagnosaPasien1.requestFocus();
+        } else {
+            if (mbak_eka.menggrouper(noSEP.getText(), noPeserta.getText(), tglmsk, tglplg, jpel, kls, subakut.getText(), kronik.getText(), icuindikator,
+                    losIntensif.getText(), ventilator.getText(), naikTurunkls, nilaiKP, losNaikKls.getText(), persenNaikKls, brtlhr.getText(),
+                    kdPulang, diagnosaKlaim, prosedurKlaim, nilaiPNB, nilaiPB, nilaiKON, ta.getText(), nilaiKEP, pen.getText(), nilaiRAD, nilaiLAB,
+                    pd.getText(), nilaiREH, nilaiKAM, nilaiRI, nilaiOBAT, okr.getText(), oke.getText(), alkes.getText(), bmhp.getText(), sa.getText(),
+                    "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", trfPoliEx, dpjp.getText(),
+                    kodePayor, "JKN", cmbCOB.getSelectedItem().toString(), nikPetugas.getText(), "0", "#", "0", "0", pros_inadrg1.getText(), diagnosaKlaimINADRG) == true) {
+
+                labelhasilG.setText("Hasil Grouper : " + Sequel.cariIsi("select if(klaim_final='Belum','',klaim_final) from eklaim_new_claim where no_sep='" + noSEP.getText() + "'"));
+                labeltambahan.setText("Tambahan biaya yang dibayar pasien naik kelas : Rp. "
+                        + Sequel.cariIsi("SELECT format(ifnull(add_payment_amt,'0'),0) tambhn_biaya FROM eklaim_grouping WHERE no_sep='" + noSEP.getText() + "'"));
+                tampilHG1();
+                tampilHG2();
+                tampilRespon();
+                if (tabMode3.getRowCount() == 0) {
+                    BtnGruperStage.setEnabled(false);
+                } else {
+                    BtnGruperStage.setEnabled(true);
+                }
+            } else {
+                labelhasilG.setText("Hasil Grouper : " + Sequel.cariIsi("select if(klaim_final='Belum','',klaim_final) from eklaim_new_claim where no_sep='" + noSEP.getText() + "'"));
+                labeltambahan.setText("Tambahan biaya yang dibayar pasien naik kelas : Rp. "
+                        + Sequel.cariIsi("SELECT format(ifnull(add_payment_amt,'0'),0) tambhn_biaya FROM eklaim_grouping WHERE no_sep='" + noSEP.getText() + "'"));
+                tampilHG1();
+                tampilHG2();
+                tampilRespon();
+                if (tabMode3.getRowCount() == 0) {
+                    BtnGruperStage.setEnabled(false);
+                } else {
+                    BtnGruperStage.setEnabled(true);
+                }
+            }
+        }
+    }
+    
+    private void simpanGrouperLAINNYA() {
+        cekDATA();
+        tampilDiagnosa();
+        tampilProsedur();
+
+        diag = 0;
+        if (jpel.equals("2")) {
+            for (i = 0; i < tbDiagnosaPasie3.getRowCount(); i++) {
+                if (tbDiagnosaPasie3.getValueAt(i, 3).toString().equals("Belum Sesuai")) {
+                    diag++;
+                }
+            }
+        } else {
+            for (i = 0; i < tbDiagnosaPasie3.getRowCount(); i++) {
+                if (tbDiagnosaPasie3.getValueAt(i, 3).toString().equals("Belum Sesuai")) {
+                    diag++;
+                }
+            }
+
+            for (i = 0; i < tbDiagnosaPasie4.getRowCount(); i++) {
+                if (tbDiagnosaPasie4.getValueAt(i, 3).toString().equals("Belum Sesuai")) {
+                    diag++;
+                }
+            }
+        }
+
+        if (diag > 0) {
+            JOptionPane.showMessageDialog(null, "Masih ada diagnosa yg. blm. sesuai utk. diklaimkan, Silahkan perbaiki dulu.!!!");
+            tbDiagnosaPasie3.requestFocus();
+        } else {
+            if (mbak_eka.menggrouper(noKlaim.getText(), noID.getText(), tglmsk, tglplg, jpel, kls, subakut1.getText(), kronik1.getText(), icuindikator,
+                    losIntensif1.getText(), ventilator1.getText(), "0", "", "0", "0", brtlhr1.getText(), kdPulang, diagnosaKlaim, prosedurKlaim, nilaiPNB,
+                    nilaiPB, nilaiKON, ta1.getText(), nilaiKEP, pen1.getText(), nilaiRAD, nilaiLAB, pd1.getText(), nilaiREH, nilaiKAM, nilaiRI, nilaiOBAT,
+                    okr1.getText(), oke1.getText(), alkes1.getText(), bmhp1.getText(), sa1.getText(), cekPEMU, cekKAN, cekPET, cekPLAS, cekDESJEN, cekTRA,
+                    cekDESMOB, cekSTATUS, cekID, kirimEPISOD, cekKOM, cekRS, cekCI, cekASAM, cekPRO, cekCRP, cekKUL, cekDIM, cekPT, cekAPTT, cekWAK,
+                    cekANT, cekANAL, cekALBU, cekTHO, "0", dpjp1.getText(), kodePayor, nmJaminan.getText(), "#", nikPetugas1.getText(), trfPlasma,
+                    nilaiKriteria, nilaiIsolasi, nilaiKelainan, pros_inadrg2.getText(), diagnosaKlaimINADRG) == true) {
+
+                labelhasilG2.setText("Hasil Grouper : " + Sequel.cariIsi("select if(klaim_final='Belum','',klaim_final) from eklaim_new_claim "
+                        + "where no_sep='" + Sequel.cariIsi("SELECT claim_number FROM eklaim_generate_claim where no_rawat='" + norawat + "'") + "'"));
+                tampilHG1();
+                tampilHG2();
+                tampilRespon();
+                if (tabMode8.getRowCount() == 0) {
+                    BtnGruperStage1.setEnabled(false);
+                } else {
+                    BtnGruperStage1.setEnabled(true);
+                }
+            } else {
+                labelhasilG2.setText("Hasil Grouper : " + Sequel.cariIsi("select if(klaim_final='Belum','',klaim_final) from eklaim_new_claim "
+                        + "where no_sep='" + Sequel.cariIsi("SELECT claim_number FROM eklaim_generate_claim where no_rawat='" + norawat + "'") + "'"));
+                tampilHG1();
+                tampilHG2();
+                tampilRespon();
+                if (tabMode8.getRowCount() == 0) {
+                    BtnGruperStage1.setEnabled(false);
+                } else {
+                    BtnGruperStage1.setEnabled(true);
+                }
+            }
+        }
     }
 }
