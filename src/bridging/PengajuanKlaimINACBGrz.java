@@ -2187,6 +2187,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         internalFrame4.setName("internalFrame4"); // NOI18N
         internalFrame4.setLayout(new java.awt.BorderLayout(1, 1));
 
+        Scroll7.setComponentPopupMenu(Popup1);
         Scroll7.setName("Scroll7"); // NOI18N
         Scroll7.setOpaque(true);
 
@@ -2204,6 +2205,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         internalFrame5.setName("internalFrame5"); // NOI18N
         internalFrame5.setLayout(new java.awt.BorderLayout(1, 1));
 
+        Scroll8.setComponentPopupMenu(Popup1);
         Scroll8.setName("Scroll8"); // NOI18N
         Scroll8.setOpaque(true);
 
@@ -2234,6 +2236,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         internalFrame8.setName("internalFrame8"); // NOI18N
         internalFrame8.setLayout(new java.awt.BorderLayout(1, 1));
 
+        Scroll2.setComponentPopupMenu(Popup1);
         Scroll2.setName("Scroll2"); // NOI18N
         Scroll2.setOpaque(true);
 
@@ -2251,6 +2254,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         internalFrame9.setName("internalFrame9"); // NOI18N
         internalFrame9.setLayout(new java.awt.BorderLayout(1, 1));
 
+        Scroll10.setComponentPopupMenu(Popup1);
         Scroll10.setName("Scroll10"); // NOI18N
         Scroll10.setOpaque(true);
 
@@ -3770,6 +3774,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         internalFrame6.setName("internalFrame6"); // NOI18N
         internalFrame6.setLayout(new java.awt.BorderLayout(1, 1));
 
+        Scroll.setComponentPopupMenu(Popup1);
         Scroll.setName("Scroll"); // NOI18N
         Scroll.setOpaque(true);
 
@@ -3787,6 +3792,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         internalFrame7.setName("internalFrame7"); // NOI18N
         internalFrame7.setLayout(new java.awt.BorderLayout(1, 1));
 
+        Scroll9.setComponentPopupMenu(Popup1);
         Scroll9.setName("Scroll9"); // NOI18N
         Scroll9.setOpaque(true);
 
@@ -3817,6 +3823,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         internalFrame10.setName("internalFrame10"); // NOI18N
         internalFrame10.setLayout(new java.awt.BorderLayout(1, 1));
 
+        Scroll1.setComponentPopupMenu(Popup1);
         Scroll1.setName("Scroll1"); // NOI18N
         Scroll1.setOpaque(true);
 
@@ -3834,6 +3841,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         internalFrame11.setName("internalFrame11"); // NOI18N
         internalFrame11.setLayout(new java.awt.BorderLayout(1, 1));
 
+        Scroll11.setComponentPopupMenu(Popup1);
         Scroll11.setName("Scroll11"); // NOI18N
         Scroll11.setOpaque(true);
 
@@ -3962,8 +3970,14 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
             setKlaim(norawat, noSEP.getText(), "JKN", "3","-");
         } else if (cmbcrPulang.getSelectedItem().equals("-")) {
             JOptionPane.showMessageDialog(null, "Pilihlah cara pulang pasien dengan benar...!!!!");
-        } else if (tabMode.getRowCount() == 0 || tabMode13.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(null, "Diagnosa ICD-10 masih kosong...!!!!");
+        } else if (jpel.equals("2")) {
+            if (tabMode.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(null, "Diagnosa ICD-10 masih kosong...!!!!");
+            }
+        } else if (jpel.equals("1")) {
+            if (tabMode.getRowCount() == 0 || tabMode13.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(null, "Untuk kasus rawat inap Diagnosa ICD-10 V5 & V6 harus terisi...!!!!");
+            }
         } else {
             cekDATA();
             tampilDiagnosa();
@@ -4357,8 +4371,14 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
             setKlaim(norawat, noKlaim.getText(), nmJaminan.getText(), kodePayor, ibunya);
         } else if (cmbcrPulang1.getSelectedItem().equals("-")) {
             JOptionPane.showMessageDialog(null, "Pilihlah cara pulang pasien dengan benar...!!!!");
-        } else if (tabMode5.getRowCount() == 0 || tabMode14.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(null, "Diagnosa ICD-10 masih kosong...!!!!");
+        } else if (jpel.equals("2")) {
+            if (tabMode5.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(null, "Diagnosa ICD-10 masih kosong...!!!!");
+            }
+        } else if (jpel.equals("1")) {
+            if (tabMode5.getRowCount() == 0 || tabMode14.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(null, "Untuk kasus rawat inap Diagnosa ICD-10 V5 & V6 harus terisi...!!!!");
+            }
         } else {
             cekDATA();
             tampilDiagnosa();

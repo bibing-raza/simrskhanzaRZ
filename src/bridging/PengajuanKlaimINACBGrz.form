@@ -2290,6 +2290,9 @@
                               <SubComponents>
                                 <Container class="widget.ScrollPane" name="Scroll7">
                                   <Properties>
+                                    <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                                      <ComponentRef name="Popup1"/>
+                                    </Property>
                                     <Property name="name" type="java.lang.String" value="Scroll7" noResource="true"/>
                                     <Property name="opaque" type="boolean" value="true"/>
                                   </Properties>
@@ -2337,6 +2340,9 @@
                               <SubComponents>
                                 <Container class="widget.ScrollPane" name="Scroll8">
                                   <Properties>
+                                    <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                                      <ComponentRef name="Popup1"/>
+                                    </Property>
                                     <Property name="name" type="java.lang.String" value="Scroll8" noResource="true"/>
                                     <Property name="opaque" type="boolean" value="true"/>
                                   </Properties>
@@ -2413,6 +2419,9 @@
                               <SubComponents>
                                 <Container class="widget.ScrollPane" name="Scroll2">
                                   <Properties>
+                                    <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                                      <ComponentRef name="Popup1"/>
+                                    </Property>
                                     <Property name="name" type="java.lang.String" value="Scroll2" noResource="true"/>
                                     <Property name="opaque" type="boolean" value="true"/>
                                   </Properties>
@@ -2460,6 +2469,9 @@
                               <SubComponents>
                                 <Container class="widget.ScrollPane" name="Scroll10">
                                   <Properties>
+                                    <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                                      <ComponentRef name="Popup1"/>
+                                    </Property>
                                     <Property name="name" type="java.lang.String" value="Scroll10" noResource="true"/>
                                     <Property name="opaque" type="boolean" value="true"/>
                                   </Properties>
@@ -5705,6 +5717,9 @@
                               <SubComponents>
                                 <Container class="widget.ScrollPane" name="Scroll">
                                   <Properties>
+                                    <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                                      <ComponentRef name="Popup1"/>
+                                    </Property>
                                     <Property name="name" type="java.lang.String" value="Scroll" noResource="true"/>
                                     <Property name="opaque" type="boolean" value="true"/>
                                   </Properties>
@@ -5752,6 +5767,9 @@
                               <SubComponents>
                                 <Container class="widget.ScrollPane" name="Scroll9">
                                   <Properties>
+                                    <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                                      <ComponentRef name="Popup1"/>
+                                    </Property>
                                     <Property name="name" type="java.lang.String" value="Scroll9" noResource="true"/>
                                     <Property name="opaque" type="boolean" value="true"/>
                                   </Properties>
@@ -5828,6 +5846,9 @@
                               <SubComponents>
                                 <Container class="widget.ScrollPane" name="Scroll1">
                                   <Properties>
+                                    <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                                      <ComponentRef name="Popup1"/>
+                                    </Property>
                                     <Property name="name" type="java.lang.String" value="Scroll1" noResource="true"/>
                                     <Property name="opaque" type="boolean" value="true"/>
                                   </Properties>
@@ -5875,6 +5896,9 @@
                               <SubComponents>
                                 <Container class="widget.ScrollPane" name="Scroll11">
                                   <Properties>
+                                    <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                                      <ComponentRef name="Popup1"/>
+                                    </Property>
                                     <Property name="name" type="java.lang.String" value="Scroll11" noResource="true"/>
                                     <Property name="opaque" type="boolean" value="true"/>
                                   </Properties>
