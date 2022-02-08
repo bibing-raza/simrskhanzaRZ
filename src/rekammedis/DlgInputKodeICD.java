@@ -751,7 +751,7 @@ public class DlgInputKodeICD extends javax.swing.JDialog {
         panelGlass8.add(jLabel15);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "25-01-2022" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-02-2022" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -766,7 +766,7 @@ public class DlgInputKodeICD extends javax.swing.JDialog {
         panelGlass8.add(jLabel17);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "25-01-2022" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-02-2022" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -1123,6 +1123,7 @@ public class DlgInputKodeICD extends javax.swing.JDialog {
 
         cmbDiagPro.setForeground(new java.awt.Color(0, 0, 0));
         cmbDiagPro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Semua", "STATISTIK", "INADRG" }));
+        cmbDiagPro.setSelectedIndex(1);
         cmbDiagPro.setName("cmbDiagPro"); // NOI18N
         cmbDiagPro.setOpaque(false);
         cmbDiagPro.setPreferredSize(new java.awt.Dimension(308, 23));
@@ -1423,7 +1424,7 @@ public class DlgInputKodeICD extends javax.swing.JDialog {
 
         internalFrame2.add(Scroll3, java.awt.BorderLayout.CENTER);
 
-        TabICD.addTab("Riwayat Diagnosa", internalFrame2);
+        TabICD.addTab("Diagnosa Statistik", internalFrame2);
 
         internalFrame3.setBorder(null);
         internalFrame3.setName("internalFrame3"); // NOI18N
@@ -1449,7 +1450,7 @@ public class DlgInputKodeICD extends javax.swing.JDialog {
 
         internalFrame3.add(Scroll5, java.awt.BorderLayout.CENTER);
 
-        TabICD.addTab("Prosedur/Tindakan", internalFrame3);
+        TabICD.addTab("Prosedur/Tindakan Statistik", internalFrame3);
 
         internalFrame4.setBorder(null);
         internalFrame4.setName("internalFrame4"); // NOI18N
@@ -2130,7 +2131,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     }
 
     public void emptTeks() {  
-        cmbDiagPro.setSelectedIndex(0);
+        cmbDiagPro.setSelectedIndex(1);
         labelPasien.setText("-");
         labelPoliklinik.setText("-");
         labelJnsPasien.setText("-");

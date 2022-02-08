@@ -2122,6 +2122,12 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         DTPCari2.setDate(tgl2);
         ChkInput.setSelected(true);
         isForm();
+        
+        if (Status.getSelectedIndex() == 0) {
+            cmbDiagPro.setSelectedIndex(1);
+        } else {
+            cmbDiagPro.setSelectedIndex(0);
+        }
     }
 
     private void isForm() {

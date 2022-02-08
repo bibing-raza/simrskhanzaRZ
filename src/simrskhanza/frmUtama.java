@@ -321,6 +321,7 @@ import presensi.DlgTemporaryPresensi;
 import rekammedis.DlgAssesmenGiziHarian;
 import rekammedis.DlgAssesmenGiziUlang;
 import rekammedis.DlgInputKodeICD;
+import rekammedis.DlgMasterDTD;
 import rekammedis.DlgMonevAsuhanGizi;
 import rekammedis.MasterMasalahKeperawatan;
 import rekammedis.MasterTriaseMacamKasus;
@@ -864,6 +865,7 @@ public class frmUtama extends javax.swing.JFrame {
         btnCekReferensiPendaftaranMobileJKNBPJS = new widget.ButtonBig();
         btnCekReferensiBatalDaftarMobileJKNBPJS = new widget.ButtonBig();
         btnKemenkesSITB = new widget.ButtonBig();
+        btnMasterDTD = new widget.ButtonBig();
         tanggal = new widget.Tanggal();
         btnDataPenjualan = new widget.ButtonBig();
         btnInputPenjualan = new widget.ButtonBig();
@@ -5767,6 +5769,19 @@ public class frmUtama extends javax.swing.JFrame {
         });
         Panelmenu.add(btnKemenkesSITB);
 
+        btnMasterDTD.setForeground(new java.awt.Color(0, 0, 0));
+        btnMasterDTD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/icd_10.png"))); // NOI18N
+        btnMasterDTD.setText("Daftar Tabulasi Diagnosa (DTD)");
+        btnMasterDTD.setIconTextGap(0);
+        btnMasterDTD.setName("btnMasterDTD"); // NOI18N
+        btnMasterDTD.setPreferredSize(new java.awt.Dimension(200, 90));
+        btnMasterDTD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMasterDTDActionPerformed(evt);
+            }
+        });
+        Panelmenu.add(btnMasterDTD);
+
         scrollPane2.setViewportView(Panelmenu);
 
         panelMenu.add(scrollPane2, java.awt.BorderLayout.CENTER);
@@ -5775,7 +5790,7 @@ public class frmUtama extends javax.swing.JFrame {
 
         tanggal.setEditable(false);
         tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22/12/2021" }));
+        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09/01/2022" }));
         tanggal.setDisplayFormat("dd/MM/yyyy");
         tanggal.setName("tanggal"); // NOI18N
         tanggal.setOpaque(false);
@@ -11849,6 +11864,22 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_btnKemenkesSITBActionPerformed
 
+    private void btnMasterDTDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMasterDTDActionPerformed
+        isTutup();
+        DlgHome.dispose();
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        DlgMasterDTD dtd = new DlgMasterDTD(this, false);
+        dtd.emptTeks();
+        dtd.isCek();
+        dtd.ChkInput.setSelected(false);
+        dtd.isForm();
+        dtd.TabStatus.setSelectedIndex(0);
+        dtd.setSize(PanelUtama.getWidth(), PanelUtama.getHeight());
+        dtd.setLocationRelativeTo(PanelUtama);
+        dtd.setVisible(true);
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnMasterDTDActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -12072,6 +12103,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
     private widget.ButtonBig btnListSaranaRujukanBPJS;
     private widget.ButtonBig btnListSpesialistikRujukanBPJS;
     private widget.ButtonBig btnMasterCaraBayar;
+    private widget.ButtonBig btnMasterDTD;
     private widget.ButtonBig btnMasterFaskes;
     private widget.ButtonBig btnMasterMasalahKeperawatan;
     private widget.ButtonBig btnMasterTriaseMacamKasus;
@@ -13112,6 +13144,11 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
 
             if (var.getpenyakit() == true) {
                 Panelmenu.add(btnICD);
+                jmlmenu++;
+            }
+            
+            if (var.getpenyakit() == true) {
+                Panelmenu.add(btnMasterDTD);
                 jmlmenu++;
             }
 
@@ -15246,6 +15283,11 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
 
         if (var.getpenyakit() == true) {
             Panelmenu.add(btnICD);
+            jmlmenu++;
+        }
+        
+        if (var.getpenyakit() == true) {
+            Panelmenu.add(btnMasterDTD);
             jmlmenu++;
         }
 
@@ -17438,6 +17480,13 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
         if (var.getpenyakit() == true) {
             if (btnICD.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())) {
                 Panelmenu.add(btnICD);
+                jmlmenu++;
+            }
+        }
+        
+        if (var.getpenyakit() == true) {
+            if (btnMasterDTD.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())) {
+                Panelmenu.add(btnMasterDTD);
                 jmlmenu++;
             }
         }
