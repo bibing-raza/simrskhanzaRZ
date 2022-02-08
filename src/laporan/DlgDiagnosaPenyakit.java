@@ -1355,7 +1355,6 @@ public class DlgDiagnosaPenyakit extends javax.swing.JDialog {
 }//GEN-LAST:event_BtnSimpanKeyPressed
 
     private void BtnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBatalActionPerformed
-        cmbDiagPro.setSelectedIndex(0);
         Diagnosa.setText("");
         Diagnosa1.setText("");
         kdpoli.setText("");
@@ -1371,6 +1370,12 @@ public class DlgDiagnosaPenyakit extends javax.swing.JDialog {
         }
         for (i = 0; i < tbProsedur.getRowCount(); i++) {
             tbProsedur.setValueAt(false, i, 0);
+        }
+        
+        if (Status.getSelectedIndex() == 0) {
+            cmbDiagPro.setSelectedIndex(1);
+        } else {
+            cmbDiagPro.setSelectedIndex(0);
         }
         
         ChkInput.setSelected(true);
