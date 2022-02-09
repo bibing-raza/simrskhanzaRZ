@@ -29,7 +29,7 @@ public class INACBGjknBelumDiklaim extends javax.swing.JDialog {
     private validasi Valid = new validasi();
     private PreparedStatement ps;
     private ResultSet rs;
-    private String jnsRWT = "", tglKosong = "", norawat = "", noSEPnya = "";
+    private String jnsRWT = "", tglRanap = "", norawat = "", noSEPnya = "", tglRalan = "";
     private Date tgl = new Date();
 
     /**
@@ -466,7 +466,12 @@ public class INACBGjknBelumDiklaim extends javax.swing.JDialog {
 
     public void tampil() {
         jnsRWT = "";
-        tglKosong = "IF (rp.status_lanjut = 'Ralan', DATE_FORMAT(rp.tgl_registrasi,'%d-%m-%Y'),(SELECT DATE_FORMAT(ki1.tgl_keluar, '%d-%m-%Y') FROM kamar_inap ki1 WHERE ki1.no_rawat = rp.no_rawat AND ki1.stts_pulang <> 'Pindah Kamar'))<>'00-00-0000'";
+        tglRalan = "";
+        tglRanap = "";
+//        tglKosong = "IF (rp.status_lanjut = 'Ralan', DATE_FORMAT(rp.tgl_registrasi,'%d-%m-%Y'),(SELECT DATE_FORMAT(ki1.tgl_keluar, '%d-%m-%Y') FROM kamar_inap ki1 WHERE ki1.no_rawat = rp.no_rawat AND ki1.stts_pulang <> 'Pindah Kamar'))<>'00-00-0000'";
+        
+        tglRalan = "rp.tgl_registrasi between '" + Valid.SetTgl(tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(tgl2.getSelectedItem() + "") + "' ";
+        tglRanap = "(SELECT ki1.tgl_keluar FROM kamar_inap ki1 inner join reg_periksa rp1 on rp1.no_rawat=ki1.no_rawat WHERE ki1.stts_pulang <> 'Pindah Kamar')";
         Valid.tabelKosong(tabMode);
         
         if (cmbJnsRawat.getSelectedItem().equals("INAP")) {
@@ -477,20 +482,52 @@ public class INACBGjknBelumDiklaim extends javax.swing.JDialog {
             jnsRWT = "%%";
         }
         
+        // query nya masih salah hrs dicek lagi
         try {
-            ps = koneksi.prepareStatement("SELECT bs.no_sep, bs.no_rawat, ps.no_rkm_medis, ps.nm_pasien, IF (rp.status_lanjut = 'Ralan',CONCAT('Inst./Poli ', p.nm_poli), CONCAT('Rg. ',(SELECT b.nm_bangsal FROM kamar_inap ki "
-                    + "INNER JOIN kamar k ON k.kd_kamar = ki.kd_kamar INNER JOIN bangsal b ON b.kd_bangsal = k.kd_bangsal WHERE ki.no_rawat = rp.no_rawat AND ki.stts_pulang <> 'Pindah Kamar'))) unit, "
-                    + "DATE_FORMAT(rp.tgl_registrasi, '%d-%m-%Y') tglRegMsk, IF (rp.status_lanjut = 'Ralan', DATE_FORMAT(rp.tgl_registrasi,'%d-%m-%Y'),(SELECT DATE_FORMAT(ki1.tgl_keluar, '%d-%m-%Y') FROM kamar_inap ki1 "
-                    + "WHERE ki1.no_rawat = rp.no_rawat AND ki1.stts_pulang <> 'Pindah Kamar')) tglPlg, rp.status_lanjut FROM bridging_sep bs INNER JOIN reg_periksa rp ON rp.no_rawat = bs.no_rawat "
-                    + "INNER JOIN poliklinik p ON p.kd_poli = rp.kd_poli INNER JOIN pasien ps ON ps.no_rkm_medis = rp.no_rkm_medis LEFT JOIN eklaim_new_claim enc ON enc.no_sep = bs.no_sep WHERE "
-                    + "rp.status_lanjut like '" + jnsRWT + "' and " + tglKosong + " and bs.tglsep BETWEEN ? AND ? AND enc.no_sep IS NULL and bs.no_sep like ? or "
-                    + "rp.status_lanjut like '" + jnsRWT + "' and " + tglKosong + " and bs.tglsep BETWEEN ? AND ? AND enc.no_sep IS NULL and bs.no_rawat like ? or "
-                    + "rp.status_lanjut like '" + jnsRWT + "' and " + tglKosong + " and bs.tglsep BETWEEN ? AND ? AND enc.no_sep IS NULL and ps.no_rkm_medis like ? or "
-                    + "rp.status_lanjut like '" + jnsRWT + "' and " + tglKosong + " and bs.tglsep BETWEEN ? AND ? AND enc.no_sep IS NULL and ps.nm_pasien like ? or "
-                    + "rp.status_lanjut like '" + jnsRWT + "' and " + tglKosong + " and bs.tglsep BETWEEN ? AND ? AND enc.no_sep IS NULL and IF (rp.status_lanjut = 'Ralan',CONCAT('Inst./Poli ', p.nm_poli), CONCAT('Rg. ',(SELECT b.nm_bangsal FROM kamar_inap ki "
-                    + "INNER JOIN kamar k ON k.kd_kamar = ki.kd_kamar INNER JOIN bangsal b ON b.kd_bangsal = k.kd_bangsal WHERE ki.no_rawat = rp.no_rawat AND ki.stts_pulang <> 'Pindah Kamar'))) like ? "
-                    + "ORDER BY IF (rp.status_lanjut = 'Ralan', CONCAT('Inst./Poli ', p.nm_poli), CONCAT('Rg. ', (SELECT b.nm_bangsal FROM kamar_inap ki INNER JOIN kamar k ON k.kd_kamar = ki.kd_kamar "
-                    + "INNER JOIN bangsal b ON b.kd_bangsal = k.kd_bangsal WHERE ki.no_rawat = rp.no_rawat AND ki.stts_pulang <> 'Pindah Kamar')))");
+            if (cmbJnsRawat.getSelectedIndex() == 0) {
+                ps = koneksi.prepareStatement("SELECT bs.no_sep, bs.no_rawat, ps.no_rkm_medis, ps.nm_pasien, IF (rp.status_lanjut = 'Ralan',CONCAT('Inst./Poli ', p.nm_poli), CONCAT('Rg. ',(SELECT b.nm_bangsal FROM kamar_inap ki "
+                        + "INNER JOIN kamar k ON k.kd_kamar = ki.kd_kamar INNER JOIN bangsal b ON b.kd_bangsal = k.kd_bangsal WHERE ki.no_rawat = rp.no_rawat AND ki.stts_pulang <> 'Pindah Kamar'))) unit, "
+                        + "DATE_FORMAT(rp.tgl_registrasi, '%d-%m-%Y') tglRegMsk, IF (rp.status_lanjut = 'Ralan', DATE_FORMAT(rp.tgl_registrasi,'%d-%m-%Y'),(SELECT DATE_FORMAT(ki1.tgl_keluar, '%d-%m-%Y') FROM kamar_inap ki1 "
+                        + "WHERE ki1.no_rawat = rp.no_rawat AND ki1.stts_pulang <> 'Pindah Kamar')) tglPlg, rp.status_lanjut FROM bridging_sep bs INNER JOIN reg_periksa rp ON rp.no_rawat = bs.no_rawat "
+                        + "INNER JOIN poliklinik p ON p.kd_poli = rp.kd_poli INNER JOIN pasien ps ON ps.no_rkm_medis = rp.no_rkm_medis LEFT JOIN eklaim_new_claim enc ON enc.no_sep = bs.no_sep WHERE "
+                        + "rp.status_lanjut like '" + jnsRWT + "' and bs.tglsep BETWEEN ? AND ? AND enc.no_sep IS NULL and bs.no_sep like ? or "
+                        + "rp.status_lanjut like '" + jnsRWT + "' and bs.tglsep BETWEEN ? AND ? AND enc.no_sep IS NULL and bs.no_rawat like ? or "
+                        + "rp.status_lanjut like '" + jnsRWT + "' and bs.tglsep BETWEEN ? AND ? AND enc.no_sep IS NULL and ps.no_rkm_medis like ? or "
+                        + "rp.status_lanjut like '" + jnsRWT + "' and bs.tglsep BETWEEN ? AND ? AND enc.no_sep IS NULL and ps.nm_pasien like ? or "
+                        + "rp.status_lanjut like '" + jnsRWT + "' and bs.tglsep BETWEEN ? AND ? AND enc.no_sep IS NULL and IF (rp.status_lanjut = 'Ralan',CONCAT('Inst./Poli ', p.nm_poli), CONCAT('Rg. ',(SELECT b.nm_bangsal FROM kamar_inap ki "
+                        + "INNER JOIN kamar k ON k.kd_kamar = ki.kd_kamar INNER JOIN bangsal b ON b.kd_bangsal = k.kd_bangsal WHERE ki.no_rawat = rp.no_rawat AND ki.stts_pulang <> 'Pindah Kamar'))) like ? "
+                        + "ORDER BY IF (rp.status_lanjut = 'Ralan', CONCAT('Inst./Poli ', p.nm_poli), CONCAT('Rg. ', (SELECT b.nm_bangsal FROM kamar_inap ki INNER JOIN kamar k ON k.kd_kamar = ki.kd_kamar "
+                        + "INNER JOIN bangsal b ON b.kd_bangsal = k.kd_bangsal WHERE ki.no_rawat = rp.no_rawat AND ki.stts_pulang <> 'Pindah Kamar')))");
+            } else if (cmbJnsRawat.getSelectedIndex() == 1) {
+                ps = koneksi.prepareStatement("SELECT bs.no_sep, bs.no_rawat, ps.no_rkm_medis, ps.nm_pasien, IF (rp.status_lanjut = 'Ralan',CONCAT('Inst./Poli ', p.nm_poli), CONCAT('Rg. ',(SELECT b.nm_bangsal FROM kamar_inap ki "
+                        + "INNER JOIN kamar k ON k.kd_kamar = ki.kd_kamar INNER JOIN bangsal b ON b.kd_bangsal = k.kd_bangsal WHERE ki.no_rawat = rp.no_rawat AND ki.stts_pulang <> 'Pindah Kamar'))) unit, "
+                        + "DATE_FORMAT(rp.tgl_registrasi, '%d-%m-%Y') tglRegMsk, IF (rp.status_lanjut = 'Ralan', DATE_FORMAT(rp.tgl_registrasi,'%d-%m-%Y'),(SELECT DATE_FORMAT(ki1.tgl_keluar, '%d-%m-%Y') FROM kamar_inap ki1 "
+                        + "WHERE ki1.no_rawat = rp.no_rawat AND ki1.stts_pulang <> 'Pindah Kamar')) tglPlg, rp.status_lanjut FROM bridging_sep bs INNER JOIN reg_periksa rp ON rp.no_rawat = bs.no_rawat "
+                        + "INNER JOIN poliklinik p ON p.kd_poli = rp.kd_poli INNER JOIN pasien ps ON ps.no_rkm_medis = rp.no_rkm_medis LEFT JOIN eklaim_new_claim enc ON enc.no_sep = bs.no_sep WHERE "
+                        + "rp.status_lanjut like '" + jnsRWT + "' and " + tglRalan + " and bs.tglsep BETWEEN ? AND ? AND enc.no_sep IS NULL and bs.no_sep like ? or "
+                        + "rp.status_lanjut like '" + jnsRWT + "' and " + tglRalan + " and bs.tglsep BETWEEN ? AND ? AND enc.no_sep IS NULL and bs.no_rawat like ? or "
+                        + "rp.status_lanjut like '" + jnsRWT + "' and " + tglRalan + " and bs.tglsep BETWEEN ? AND ? AND enc.no_sep IS NULL and ps.no_rkm_medis like ? or "
+                        + "rp.status_lanjut like '" + jnsRWT + "' and " + tglRalan + " and bs.tglsep BETWEEN ? AND ? AND enc.no_sep IS NULL and ps.nm_pasien like ? or "
+                        + "rp.status_lanjut like '" + jnsRWT + "' and " + tglRalan + " and bs.tglsep BETWEEN ? AND ? AND enc.no_sep IS NULL and IF (rp.status_lanjut = 'Ralan',CONCAT('Inst./Poli ', p.nm_poli), CONCAT('Rg. ',(SELECT b.nm_bangsal FROM kamar_inap ki "
+                        + "INNER JOIN kamar k ON k.kd_kamar = ki.kd_kamar INNER JOIN bangsal b ON b.kd_bangsal = k.kd_bangsal WHERE ki.no_rawat = rp.no_rawat AND ki.stts_pulang <> 'Pindah Kamar'))) like ? "
+                        + "ORDER BY IF (rp.status_lanjut = 'Ralan', CONCAT('Inst./Poli ', p.nm_poli), CONCAT('Rg. ', (SELECT b.nm_bangsal FROM kamar_inap ki INNER JOIN kamar k ON k.kd_kamar = ki.kd_kamar "
+                        + "INNER JOIN bangsal b ON b.kd_bangsal = k.kd_bangsal WHERE ki.no_rawat = rp.no_rawat AND ki.stts_pulang <> 'Pindah Kamar')))");
+            } else if (cmbJnsRawat.getSelectedIndex() == 2) {
+                ps = koneksi.prepareStatement("SELECT bs.no_sep, bs.no_rawat, ps.no_rkm_medis, ps.nm_pasien, IF (rp.status_lanjut = 'Ralan',CONCAT('Inst./Poli ', p.nm_poli), CONCAT('Rg. ',(SELECT b.nm_bangsal FROM kamar_inap ki "
+                        + "INNER JOIN kamar k ON k.kd_kamar = ki.kd_kamar INNER JOIN bangsal b ON b.kd_bangsal = k.kd_bangsal WHERE ki.no_rawat = rp.no_rawat AND ki.stts_pulang <> 'Pindah Kamar'))) unit, "
+                        + "DATE_FORMAT(rp.tgl_registrasi, '%d-%m-%Y') tglRegMsk, IF (rp.status_lanjut = 'Ralan', DATE_FORMAT(rp.tgl_registrasi,'%d-%m-%Y'),(SELECT DATE_FORMAT(ki1.tgl_keluar, '%d-%m-%Y') FROM kamar_inap ki1 "
+                        + "WHERE ki1.no_rawat = rp.no_rawat AND ki1.stts_pulang <> 'Pindah Kamar')) tglPlg, rp.status_lanjut FROM bridging_sep bs INNER JOIN reg_periksa rp ON rp.no_rawat = bs.no_rawat "
+                        + "INNER JOIN poliklinik p ON p.kd_poli = rp.kd_poli INNER JOIN pasien ps ON ps.no_rkm_medis = rp.no_rkm_medis LEFT JOIN eklaim_new_claim enc ON enc.no_sep = bs.no_sep WHERE "
+                        + "rp.status_lanjut like '" + jnsRWT + "' and " + tglRanap + " and bs.tglsep BETWEEN ? AND ? AND enc.no_sep IS NULL and bs.no_sep like ? or "
+                        + "rp.status_lanjut like '" + jnsRWT + "' and " + tglRanap + " and bs.tglsep BETWEEN ? AND ? AND enc.no_sep IS NULL and bs.no_rawat like ? or "
+                        + "rp.status_lanjut like '" + jnsRWT + "' and " + tglRanap + " and bs.tglsep BETWEEN ? AND ? AND enc.no_sep IS NULL and ps.no_rkm_medis like ? or "
+                        + "rp.status_lanjut like '" + jnsRWT + "' and " + tglRanap + " and bs.tglsep BETWEEN ? AND ? AND enc.no_sep IS NULL and ps.nm_pasien like ? or "
+                        + "rp.status_lanjut like '" + jnsRWT + "' and " + tglRanap + " and bs.tglsep BETWEEN ? AND ? AND enc.no_sep IS NULL and IF (rp.status_lanjut = 'Ralan',CONCAT('Inst./Poli ', p.nm_poli), CONCAT('Rg. ',(SELECT b.nm_bangsal FROM kamar_inap ki "
+                        + "INNER JOIN kamar k ON k.kd_kamar = ki.kd_kamar INNER JOIN bangsal b ON b.kd_bangsal = k.kd_bangsal WHERE ki.no_rawat = rp.no_rawat AND ki.stts_pulang <> 'Pindah Kamar'))) like ? "
+                        + "ORDER BY IF (rp.status_lanjut = 'Ralan', CONCAT('Inst./Poli ', p.nm_poli), CONCAT('Rg. ', (SELECT b.nm_bangsal FROM kamar_inap ki INNER JOIN kamar k ON k.kd_kamar = ki.kd_kamar "
+                        + "INNER JOIN bangsal b ON b.kd_bangsal = k.kd_bangsal WHERE ki.no_rawat = rp.no_rawat AND ki.stts_pulang <> 'Pindah Kamar')))");
+            }
+            
             try {
                 ps.setString(1, Valid.SetTgl(tgl1.getSelectedItem() + ""));
                 ps.setString(2, Valid.SetTgl(tgl2.getSelectedItem() + ""));

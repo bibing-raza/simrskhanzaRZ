@@ -2171,7 +2171,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         tglSEP.setText("tglSEP");
         tglSEP.setName("tglSEP"); // NOI18N
         FormInput.add(tglSEP);
-        tglSEP.setBounds(490, 53, 200, 23);
+        tglSEP.setBounds(490, 53, 230, 23);
 
         TabDiagnosa1.setBackground(new java.awt.Color(250, 255, 245));
         TabDiagnosa1.setForeground(new java.awt.Color(0, 0, 0));
@@ -3967,7 +3967,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         } else if (!tglREG.equals(tglSEP.getText())) {
             JOptionPane.showMessageDialog(null, "Tgl. SEP & Tgl. Registrasi berbeda, perbaikilah terlebih dulu...!!!!");
         } else if (wktMasuk.getText().trim().equals("") || dpjp.getText().trim().equals("")) {
-            setKlaim(norawat, noSEP.getText(), "JKN", "3","-");
+            setKlaim(norawat, noSEP.getText(), "JKN", "3","-", tglSEP.getText());
         } else if (cmbcrPulang.getSelectedItem().equals("-")) {
             JOptionPane.showMessageDialog(null, "Pilihlah cara pulang pasien dengan benar...!!!!");        
         } else {
@@ -4311,7 +4311,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         if (norawat.equals("") || noKlaim.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(null, "Pilih dulu salah satu data pasiennya...!!!!");
         } else if (wktMasuk1.getText().trim().equals("") || dpjp1.getText().trim().equals("")) {
-            setKlaim(norawat, noKlaim.getText(), nmJaminan.getText(), kodePayor, ibunya);
+            setKlaim(norawat, noKlaim.getText(), nmJaminan.getText(), kodePayor, ibunya, Sequel.cariIsi("select tgl_registrasi from reg_periksa where no_rawat='" + norawat + "'"));
         } else if (cmbcrPulang1.getSelectedItem().equals("-")) {
             JOptionPane.showMessageDialog(null, "Pilihlah cara pulang pasien dengan benar...!!!!");
         } else {
@@ -5441,7 +5441,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         }
     }
 
-    public void setKlaim(String norw, String nosep, String jnsKlaim, String payor, String nmIbu) {
+    public void setKlaim(String norw, String nosep, String jnsKlaim, String payor, String nmIbu, String tglsep) {
         norawat = norw;
         noSEP.setText(nosep);
         jknya = "";
@@ -5461,7 +5461,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
                 ps = koneksi.prepareStatement("select bs.nomr, bs.nama_pasien, p.jk jkel, bs.tanggal_lahir, "
                         + "UPPER(DATE_FORMAT(bs.tanggal_lahir,'%d %b %Y')) tgllhr, bs.tglsep, "
                         + "bs.no_kartu, bs.jnspelayanan, bs.klsrawat from bridging_sep bs "
-                        + "INNER JOIN pasien p ON p.no_rkm_medis=bs.nomr where bs.no_sep='" + nosep + "'");
+                        + "INNER JOIN pasien p ON p.no_rkm_medis=bs.nomr where bs.no_sep='" + nosep + "' and bs.tglsep='" + tglsep + "'");
 
             } else {
                 ps = koneksi.prepareStatement("SELECT rp.no_rawat, rp.tgl_registrasi, p.no_ktp, p.no_peserta, p.no_rkm_medis, "
@@ -5577,7 +5577,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
                 BtnGruperStage1.setEnabled(true);
             }
         }
-        SetDataKlaim("baru");
+        SetDataKlaim("baru", tglsep);
         tampilDiagnosa();
         tampilProsedur();
         BtnGruperStage.setEnabled(false);
@@ -5587,7 +5587,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         tampilRespon();
     }
 
-    private void SetDataKlaim(String status) {
+    private void SetDataKlaim(String status, String tglsep) {
         datanya = status;
         //kalau kode payor 3 adalah JKN
         if (kodePayor.equals("3")) {
@@ -5630,7 +5630,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
             }
 
         } else if (datanya.equals("lama")) {
-            dataKlaimLama();
+            dataKlaimLama(tglsep);
         }
     }
 
@@ -6728,7 +6728,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         }
     }
 
-    public void setKlaimAda(String norW, String noseP, String jnsKlaim, String payor, String nmIbu) {
+    public void setKlaimAda(String norW, String noseP, String jnsKlaim, String payor, String nmIbu, String tglsep) {
         norawat = norW;
         noSEP.setText(noseP);
         jknya = "";
@@ -6744,7 +6744,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         try {
             if (kodePayor.equals("3")) {
                 ps5 = koneksi.prepareStatement("select nomr, nama_pasien, jkel, tanggal_lahir, tglsep, "
-                        + "UPPER(DATE_FORMAT(tanggal_lahir,'%d %b %Y')) tgllhr from bridging_sep where no_sep='" + noseP + "'");
+                        + "UPPER(DATE_FORMAT(tanggal_lahir,'%d %b %Y')) tgllhr from bridging_sep where no_sep='" + noseP + "' and tglsep='" + tglsep + "'");
 
             } else {
                 ps5 = koneksi.prepareStatement("SELECT rp.tgl_registrasi, p.no_ktp, p.no_peserta, p.no_rkm_medis, "
@@ -6855,7 +6855,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
 
         tampilDiagnosa();
         tampilProsedur();
-        SetDataKlaim("lama");
+        SetDataKlaim("lama", tglsep);
         BtnGruperStage.setEnabled(false);
         BtnGruperStage1.setEnabled(false);
         tampilHG1();
@@ -7302,13 +7302,13 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
         }
     }
 
-    private void dataKlaimLama() {
+    private void dataKlaimLama(String tglsep) {
         //kalau kode payor 3 adalah JKN
         if (kodePayor.equals("3")) {
             try {
                 ps6 = koneksi.prepareStatement("SELECT enc.no_rawat, ifnull(DATE_FORMAT(esc.tgl_masuk,'%d %b %Y %h:%i'),'') tglMasuk, DATE_FORMAT(esc.tgl_pulang,'%d %b %Y %h:%i') tglPulang, "
                         + "DATEDIFF(esc.tgl_pulang,esc.tgl_masuk)+1 los, esc.* FROM eklaim_set_claim esc "
-                        + "INNER JOIN eklaim_new_claim enc ON enc.no_sep = esc.no_sep where esc.no_sep='" + noSEP.getText() + "'");
+                        + "INNER JOIN eklaim_new_claim enc ON enc.no_sep = esc.no_sep where esc.no_sep='" + noSEP.getText() + "' and esc.tgl_masuk='" + tglsep + "'");
                 try {
                     rs6 = ps6.executeQuery();
                     while (rs6.next()) {

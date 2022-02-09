@@ -1161,6 +1161,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             TKeterangan.setText(tbPenyakit.getValueAt(row,4).toString());
             TKtg.setText(tbPenyakit.getValueAt(row,5).toString());
             kd_dtd.setText(tbPenyakit.getValueAt(row,8).toString());
+            gol_sebb_penyakit.setText(Sequel.cariIsi("select golongan_sbb_penyakit from master_dtd where kode_dtd='" + kd_dtd.getText() + "'"));
             Sequel.cariIsi("select kd_ktg from penyakit where kd_penyakit=?", kd_ktg,tbPenyakit.getValueAt(row,1).toString());
             cmbStatus.setSelectedItem(tbPenyakit.getValueAt(row,6).toString());
         }
