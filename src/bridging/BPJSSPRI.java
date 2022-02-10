@@ -1621,9 +1621,14 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     
     public void isCek(){
         BtnSimpan.setEnabled(var.getSPRIJKN());
-        BtnHapus.setEnabled(var.getSPRIJKN());
         BtnPrint.setEnabled(var.getSPRIJKN());
         BtnEdit.setEnabled(var.getSPRIJKN());
+        
+        if (var.getkode().equals("Admin Utama") || var.getHapusSEP() == true) {
+            BtnHapus.setEnabled(true);
+        } else {
+            BtnHapus.setEnabled(false);
+        }
     }
 
     public JTable getTable(){
