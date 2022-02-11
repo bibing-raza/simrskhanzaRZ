@@ -1732,8 +1732,8 @@ public class DlgUpdateUser extends javax.swing.JDialog {
                         tabMode.addRow(new Object[]{false, "[K]SPRI JKN", rs.getBoolean("spri_jkn")});
                     }
                     
-                    if ("[L]Penilaian Awal Kebidanan & Kandungan Ralan".toLowerCase().contains(TCari.getText().toLowerCase())) {
-                        tabMode.addRow(new Object[]{false, "[L]Penilaian Awal Kebidanan & Kandungan Ralan", rs.getBoolean("penilaian_awal_medis_ralan_kebidanan")});
+                    if ("[L]Penilaian Awal Medis Kebidanan & Kandungan Ralan".toLowerCase().contains(TCari.getText().toLowerCase())) {
+                        tabMode.addRow(new Object[]{false, "[L]Penilaian Awal Medis Kebidanan & Kandungan Ralan", rs.getBoolean("penilaian_awal_medis_ralan_kebidanan")});
                     }
 
                     if ("[L]Berkas Digital Perawatan".toLowerCase().contains(TCari.getText().toLowerCase())) {
@@ -3199,7 +3199,7 @@ public class DlgUpdateUser extends javax.swing.JDialog {
                 Sequel.mengedit("user","id_user=AES_ENCRYPT('"+TKd.getText()+"','nur')","bpjs_sep_internal='"+tbUser.getValueAt(i,2).toString()+"'");
             }
             
-            if("[L]Penilaian Awal Kebidanan & Kandungan Ralan".equals(tbUser.getValueAt(i,1).toString())){
+            if("[L]Penilaian Awal Medis Kebidanan & Kandungan Ralan".equals(tbUser.getValueAt(i,1).toString())){
                 Sequel.mengedit("user","id_user=AES_ENCRYPT('"+TKd.getText()+"','nur')","penilaian_awal_medis_ralan_kebidanan='"+tbUser.getValueAt(i,2).toString()+"'");
             }
             

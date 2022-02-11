@@ -867,7 +867,7 @@ public class frmUtama extends javax.swing.JFrame {
         btnCekReferensiBatalDaftarMobileJKNBPJS = new widget.ButtonBig();
         btnKemenkesSITB = new widget.ButtonBig();
         btnMasterDTD = new widget.ButtonBig();
-        btnPenilaianAwalKebidananRalan = new widget.ButtonBig();
+        btnPenilaianAwalMedisKebidananRalan = new widget.ButtonBig();
         tanggal = new widget.Tanggal();
         btnDataPenjualan = new widget.ButtonBig();
         btnInputPenjualan = new widget.ButtonBig();
@@ -5784,18 +5784,18 @@ public class frmUtama extends javax.swing.JFrame {
         });
         Panelmenu.add(btnMasterDTD);
 
-        btnPenilaianAwalKebidananRalan.setForeground(new java.awt.Color(0, 0, 0));
-        btnPenilaianAwalKebidananRalan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/pregnant_woman.png"))); // NOI18N
-        btnPenilaianAwalKebidananRalan.setText("Penilaian Awal Kebidanan Ralan");
-        btnPenilaianAwalKebidananRalan.setIconTextGap(0);
-        btnPenilaianAwalKebidananRalan.setName("btnPenilaianAwalKebidananRalan"); // NOI18N
-        btnPenilaianAwalKebidananRalan.setPreferredSize(new java.awt.Dimension(200, 90));
-        btnPenilaianAwalKebidananRalan.addActionListener(new java.awt.event.ActionListener() {
+        btnPenilaianAwalMedisKebidananRalan.setForeground(new java.awt.Color(0, 0, 0));
+        btnPenilaianAwalMedisKebidananRalan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/pregnant_woman.png"))); // NOI18N
+        btnPenilaianAwalMedisKebidananRalan.setText("Penilaian Awal Medis Kebidanan Ralan");
+        btnPenilaianAwalMedisKebidananRalan.setIconTextGap(0);
+        btnPenilaianAwalMedisKebidananRalan.setName("btnPenilaianAwalMedisKebidananRalan"); // NOI18N
+        btnPenilaianAwalMedisKebidananRalan.setPreferredSize(new java.awt.Dimension(200, 90));
+        btnPenilaianAwalMedisKebidananRalan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPenilaianAwalKebidananRalanActionPerformed(evt);
+                btnPenilaianAwalMedisKebidananRalanActionPerformed(evt);
             }
         });
-        Panelmenu.add(btnPenilaianAwalKebidananRalan);
+        Panelmenu.add(btnPenilaianAwalMedisKebidananRalan);
 
         scrollPane2.setViewportView(Panelmenu);
 
@@ -5805,7 +5805,7 @@ public class frmUtama extends javax.swing.JFrame {
 
         tanggal.setEditable(false);
         tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08/02/2022" }));
+        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "11/02/2022" }));
         tanggal.setDisplayFormat("dd/MM/yyyy");
         tanggal.setName("tanggal"); // NOI18N
         tanggal.setOpaque(false);
@@ -11895,7 +11895,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_btnMasterDTDActionPerformed
 
-    private void btnPenilaianAwalKebidananRalanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPenilaianAwalKebidananRalanActionPerformed
+    private void btnPenilaianAwalMedisKebidananRalanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPenilaianAwalMedisKebidananRalanActionPerformed
         isTutup();
         DlgHome.dispose();
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -11907,7 +11907,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
         aplikasi.setLocationRelativeTo(PanelUtama);
         aplikasi.setVisible(true);
         this.setCursor(Cursor.getDefaultCursor());
-    }//GEN-LAST:event_btnPenilaianAwalKebidananRalanActionPerformed
+    }//GEN-LAST:event_btnPenilaianAwalMedisKebidananRalanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -12176,8 +12176,8 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
     private widget.ButtonBig btnPengeluaran;
     private widget.ButtonBig btnPengeluaranIpsrs;
     private widget.ButtonBig btnPenggajian;
-    private widget.ButtonBig btnPenilaianAwalKebidananRalan;
     private widget.ButtonBig btnPenilaianAwalKeperawatanRalan;
+    private widget.ButtonBig btnPenilaianAwalMedisKebidananRalan;
     private widget.ButtonBig btnPenjualan;
     private widget.ButtonBig btnPenjualanPerTanggal;
     private widget.ButtonBig btnPenyakitPD3I;
@@ -13963,7 +13963,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
             }
             
             if (var.getpenilaian_awal_medis_ralan_kebidanan() == true) {
-                Panelmenu.add(btnPenilaianAwalKebidananRalan);
+                Panelmenu.add(btnPenilaianAwalMedisKebidananRalan);
                 jmlmenu++;
             }
 
@@ -14330,7 +14330,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
         }
         
         if (var.getpenilaian_awal_medis_ralan_kebidanan() == true) {
-            Panelmenu.add(btnPenilaianAwalKebidananRalan);
+            Panelmenu.add(btnPenilaianAwalMedisKebidananRalan);
             jmlmenu++;
         }
         
@@ -16152,8 +16152,8 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
         }
         
         if (var.getpenilaian_awal_medis_ralan_kebidanan() == true) {
-            if (btnPenilaianAwalKebidananRalan.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())) {
-                Panelmenu.add(btnPenilaianAwalKebidananRalan);
+            if (btnPenilaianAwalMedisKebidananRalan.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())) {
+                Panelmenu.add(btnPenilaianAwalMedisKebidananRalan);
                 jmlmenu++;
             }
         }

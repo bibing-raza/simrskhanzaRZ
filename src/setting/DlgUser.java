@@ -116,7 +116,7 @@ public class DlgUser extends javax.swing.JDialog {
                     "[L]Review RM Laporan","[A]Assesment Gizi Harian","[A]Assesment Gizi Ulang","[O]Tombol Nota Billing","[O]Tombol Simpan Hasil Rad.","[A]Monitoring Evaluasi Asuhan Gizi",
                     "[K]Bridging Eklaim INACBG RAZA","[K]Pengajuan Klaim INACBG RAZA","[A]Copy Pemeriksaan Dokter Ke Perawat/Bidan","[K]INACBG JKN Belum Diklaim","[L]Input Kode ICD",
                     "[L]Indikator Mutu Unit","[K]Kendali Mutu Kendali Biaya INACBG","[D]Dashboard e-Resep","[K]Cek SEP Internal BPJS","[K]Kemenkes SITB","[K]Rencana Kontrol JKN","[K]SPRI JKN",
-                    "[K]Hapus SEP","[L]Penilaian Awal Kebidanan & Kandungan Ralan"
+                    "[K]Hapus SEP","[L]Penilaian Awal Medis Kebidanan & Kandungan Ralan"
         };
         
         tabMode=new DefaultTableModel(null,row){
@@ -596,7 +596,7 @@ public class DlgUser extends javax.swing.JDialog {
             } else if (i == 362) {
                 column.setPreferredWidth(75);
             } else if (i == 363) {
-                column.setPreferredWidth(250);
+                column.setPreferredWidth(280);
             } else {
                 column.setPreferredWidth(130);
             }
