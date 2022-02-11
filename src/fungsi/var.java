@@ -77,7 +77,7 @@ public final class var {
             status_kerja_dokter = false, pasien_corona = false, diagnosa_pasien_corona = false, perawatan_pasien_corona = false, inacbg_klaim_baru_manual2 = false, assesmen_gizi_harian = false, assesmen_gizi_ulang = false,
             tombol_nota_billing = false, tombol_simpan_hasil_rad = false, monev_asuhan_gizi = false, inacbg_klaim_raza=false,pengajuan_klaim_inacbg_raza=false,
             copy_pemeriksaan_dokter_kepetugas_ralan=false, jkn_belum_diproses_klaim=false, input_kode_icd=false, kendali_Mutu_kendali_Biaya_INACBG=false, dashboard_eResep=false, bpjs_sep_internal=false,
-            kemenkes_sitt=false, rencana_kontrol_jkn=false, spri_jkn=false, hapus_sep=false;
+            kemenkes_sitt=false, rencana_kontrol_jkn=false, spri_jkn=false, hapus_sep=false,penilaian_awal_medis_ralan_kebidanan=false;
 
     public static void setData(String user, String pass) {
         try {
@@ -455,6 +455,7 @@ public final class var {
                     var.rencana_kontrol_jkn=true;
                     var.spri_jkn=true;
                     var.hapus_sep=true;
+                    var.penilaian_awal_medis_ralan_kebidanan=true;
                 } else if (rs.getRow() >= 1) {
                     var.kode = "Admin Utama";
                     var.penyakit = true;
@@ -812,6 +813,7 @@ public final class var {
                     var.rencana_kontrol_jkn = true;
                     var.spri_jkn = true;
                     var.hapus_sep = true;
+                    var.penilaian_awal_medis_ralan_kebidanan = true;
                 } else if (rs2.getRow() >= 1) {
                     rs2.beforeFirst();
                     rs2.next();
@@ -1172,6 +1174,7 @@ public final class var {
                     var.rencana_kontrol_jkn = rs2.getBoolean("rencana_kontrol_jkn");
                     var.spri_jkn = rs2.getBoolean("spri_jkn");
                     var.hapus_sep = rs2.getBoolean("hapus_sep");
+                    var.penilaian_awal_medis_ralan_kebidanan = rs2.getBoolean("penilaian_awal_medis_ralan_kebidanan");
                 } else if ((rs.getRow() == 0) && (rs2.getRow() == 0)) {
                     var.kode = "";
                     var.penyakit = false;
@@ -1530,6 +1533,7 @@ public final class var {
                     var.rencana_kontrol_jkn = false;
                     var.spri_jkn = false;
                     var.hapus_sep = false;
+                    var.penilaian_awal_medis_ralan_kebidanan = false;
                 }
             } catch (Exception e) {
                 System.out.println("Notifikasi : " + e);
@@ -2825,4 +2829,5 @@ public final class var {
         public static boolean getRencanaKontrolJKN(){return var.rencana_kontrol_jkn;}
         public static boolean getSPRIJKN(){return var.spri_jkn;}
         public static boolean getHapusSEP(){return var.hapus_sep;}
+        public static boolean getpenilaian_awal_medis_ralan_kebidanan(){return var.penilaian_awal_medis_ralan_kebidanan;}
 }
