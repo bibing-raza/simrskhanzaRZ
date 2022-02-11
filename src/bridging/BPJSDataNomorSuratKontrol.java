@@ -152,6 +152,7 @@ public final class BPJSDataNomorSuratKontrol extends javax.swing.JDialog {
 
         jPopupMenu = new javax.swing.JPopupMenu();
         MnHapus = new javax.swing.JMenuItem();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         internalFrame1 = new widget.InternalFrame();
         Scroll = new widget.ScrollPane();
         tbSurat = new widget.Table();
@@ -236,31 +237,23 @@ public final class BPJSDataNomorSuratKontrol extends javax.swing.JDialog {
 
         tglRencana.setBackground(new java.awt.Color(240, 250, 230));
         tglRencana.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.pink));
+        buttonGroup1.add(tglRencana);
         tglRencana.setSelected(true);
         tglRencana.setText("Tgl. Rencana Kontrol");
         tglRencana.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         tglRencana.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         tglRencana.setName("tglRencana"); // NOI18N
         tglRencana.setPreferredSize(new java.awt.Dimension(130, 23));
-        tglRencana.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tglRencanaActionPerformed(evt);
-            }
-        });
         panelGlass6.add(tglRencana);
 
         tglEntri.setBackground(new java.awt.Color(240, 250, 230));
         tglEntri.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.pink));
+        buttonGroup1.add(tglEntri);
         tglEntri.setText("Tgl. Entri");
         tglEntri.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         tglEntri.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         tglEntri.setName("tglEntri"); // NOI18N
         tglEntri.setPreferredSize(new java.awt.Dimension(80, 23));
-        tglEntri.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tglEntriActionPerformed(evt);
-            }
-        });
         panelGlass6.add(tglEntri);
 
         jLabel20.setForeground(new java.awt.Color(0, 0, 0));
@@ -392,18 +385,6 @@ public final class BPJSDataNomorSuratKontrol extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_TCariKeyPressed
 
-    private void tglEntriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tglEntriActionPerformed
-        if (tglEntri.isSelected() == true) {
-            tglRencana.setSelected(false);
-        }
-    }//GEN-LAST:event_tglEntriActionPerformed
-
-    private void tglRencanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tglRencanaActionPerformed
-        if (tglRencana.isSelected() == true) {
-            tglEntri.setSelected(false);
-        }
-    }//GEN-LAST:event_tglRencanaActionPerformed
-
     private void MnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnHapusActionPerformed
         if (tbSurat.getSelectedRow() != -1) {
             this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -470,6 +451,7 @@ public final class BPJSDataNomorSuratKontrol extends javax.swing.JDialog {
     private javax.swing.JPanel PanelInput;
     private widget.ScrollPane Scroll;
     public widget.TextBox TCari;
+    private javax.swing.ButtonGroup buttonGroup1;
     private widget.InternalFrame internalFrame1;
     private widget.Label jLabel17;
     private widget.Label jLabel18;
@@ -668,7 +650,7 @@ public final class BPJSDataNomorSuratKontrol extends javax.swing.JDialog {
     }
     
     public void isCek() {
-        if (var.getkode().equals("Admin Utama")) {
+        if (var.getkode().equals("Admin Utama") || var.getHapusSEP() == true) {
             MnHapus.setEnabled(true);
         } else {
             MnHapus.setEnabled(false);

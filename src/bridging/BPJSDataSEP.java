@@ -4177,7 +4177,8 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                                 "no_rawat='" + TNoRw.getText() + "', "
                                 + "perujuk='" + NmPpkRujukan.getText() + "',"
                                 + "no_rujuk='" + NoRujukan.getText() + "', "
-                                + "kd_rujukan='" + kode_rujukanya.getText() + "'");
+                                + "kd_rujukan='" + Sequel.cariIsi("select kd_rujukan from master_nama_rujukan "
+                                        + "where status='1' and kode_faskes_bpjs='" + KdPpkRujukan.getText() + "'") + "'");
                         
                         emptTeks();
                         tampil();
