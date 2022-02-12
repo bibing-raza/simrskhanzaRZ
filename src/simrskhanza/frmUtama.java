@@ -331,6 +331,7 @@ import rekammedis.MasterTriaseSkala2;
 import rekammedis.MasterTriaseSkala3;
 import rekammedis.MasterTriaseSkala4;
 import rekammedis.MasterTriaseSkala5;
+import rekammedis.RMPenilaianAwalKeperawatanKebidanan;
 import rekammedis.RMPenilaianAwalKeperawatanRalan;
 import rekammedis.RMPenilaianAwalMedisRalanKandungan;
 import rekammedis.RMTriaseIGD;
@@ -868,6 +869,7 @@ public class frmUtama extends javax.swing.JFrame {
         btnKemenkesSITB = new widget.ButtonBig();
         btnMasterDTD = new widget.ButtonBig();
         btnPenilaianAwalMedisKebidananRalan = new widget.ButtonBig();
+        btnPenilaianAwalKeperawatanKebidananRalan = new widget.ButtonBig();
         tanggal = new widget.Tanggal();
         btnDataPenjualan = new widget.ButtonBig();
         btnInputPenjualan = new widget.ButtonBig();
@@ -5796,6 +5798,19 @@ public class frmUtama extends javax.swing.JFrame {
             }
         });
         Panelmenu.add(btnPenilaianAwalMedisKebidananRalan);
+
+        btnPenilaianAwalKeperawatanKebidananRalan.setForeground(new java.awt.Color(0, 0, 0));
+        btnPenilaianAwalKeperawatanKebidananRalan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/pregnant_woman.png"))); // NOI18N
+        btnPenilaianAwalKeperawatanKebidananRalan.setText("Penilaian Awal Keperawatan Kebidanan Ralan");
+        btnPenilaianAwalKeperawatanKebidananRalan.setIconTextGap(0);
+        btnPenilaianAwalKeperawatanKebidananRalan.setName("btnPenilaianAwalKeperawatanKebidananRalan"); // NOI18N
+        btnPenilaianAwalKeperawatanKebidananRalan.setPreferredSize(new java.awt.Dimension(200, 90));
+        btnPenilaianAwalKeperawatanKebidananRalan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPenilaianAwalKeperawatanKebidananRalanActionPerformed(evt);
+            }
+        });
+        Panelmenu.add(btnPenilaianAwalKeperawatanKebidananRalan);
 
         scrollPane2.setViewportView(Panelmenu);
 
@@ -11909,6 +11924,20 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_btnPenilaianAwalMedisKebidananRalanActionPerformed
 
+    private void btnPenilaianAwalKeperawatanKebidananRalanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPenilaianAwalKeperawatanKebidananRalanActionPerformed
+        isTutup();
+        DlgHome.dispose();
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        RMPenilaianAwalKeperawatanKebidanan aplikasi = new RMPenilaianAwalKeperawatanKebidanan(this, false);
+        aplikasi.isCek();
+        aplikasi.emptTeks();
+        aplikasi.setTampil();
+        aplikasi.setSize(PanelUtama.getWidth(), PanelUtama.getHeight());
+        aplikasi.setLocationRelativeTo(PanelUtama);
+        aplikasi.setVisible(true);
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnPenilaianAwalKeperawatanKebidananRalanActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -12176,6 +12205,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
     private widget.ButtonBig btnPengeluaran;
     private widget.ButtonBig btnPengeluaranIpsrs;
     private widget.ButtonBig btnPenggajian;
+    private widget.ButtonBig btnPenilaianAwalKeperawatanKebidananRalan;
     private widget.ButtonBig btnPenilaianAwalKeperawatanRalan;
     private widget.ButtonBig btnPenilaianAwalMedisKebidananRalan;
     private widget.ButtonBig btnPenjualan;
@@ -13966,6 +13996,11 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
                 Panelmenu.add(btnPenilaianAwalMedisKebidananRalan);
                 jmlmenu++;
             }
+            
+            if (var.getpenilaian_awal_keperawatan_kebidanan() == true) {
+                Panelmenu.add(btnPenilaianAwalKeperawatanKebidananRalan);
+                jmlmenu++;
+            }
 
             if (var.getmaster_triase_skala1() == true) {
                 Panelmenu.add(btnMasterTriaseSkala1);
@@ -14331,6 +14366,11 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
         
         if (var.getpenilaian_awal_medis_ralan_kebidanan() == true) {
             Panelmenu.add(btnPenilaianAwalMedisKebidananRalan);
+            jmlmenu++;
+        }
+        
+        if (var.getpenilaian_awal_keperawatan_kebidanan() == true) {
+            Panelmenu.add(btnPenilaianAwalKeperawatanKebidananRalan);
             jmlmenu++;
         }
         
@@ -16154,6 +16194,13 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
         if (var.getpenilaian_awal_medis_ralan_kebidanan() == true) {
             if (btnPenilaianAwalMedisKebidananRalan.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())) {
                 Panelmenu.add(btnPenilaianAwalMedisKebidananRalan);
+                jmlmenu++;
+            }
+        }
+        
+        if (var.getpenilaian_awal_keperawatan_kebidanan() == true) {
+            if (btnPenilaianAwalKeperawatanKebidananRalan.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())) {
+                Panelmenu.add(btnPenilaianAwalKeperawatanKebidananRalan);
                 jmlmenu++;
             }
         }

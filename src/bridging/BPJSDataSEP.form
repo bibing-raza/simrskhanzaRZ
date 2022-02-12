@@ -724,7 +724,7 @@
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="1">
-                    <StringItem index="0" value="11-02-2022"/>
+                    <StringItem index="0" value="12-02-2022"/>
                   </StringArray>
                 </Property>
                 <Property name="displayFormat" type="java.lang.String" value="dd-MM-yyyy"/>
@@ -760,7 +760,7 @@
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="1">
-                    <StringItem index="0" value="11-02-2022"/>
+                    <StringItem index="0" value="12-02-2022"/>
                   </StringArray>
                 </Property>
                 <Property name="displayFormat" type="java.lang.String" value="dd-MM-yyyy"/>
@@ -952,7 +952,7 @@
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="1">
-                    <StringItem index="0" value="11-02-2022"/>
+                    <StringItem index="0" value="12-02-2022"/>
                   </StringArray>
                 </Property>
                 <Property name="displayFormat" type="java.lang.String" value="dd-MM-yyyy"/>
@@ -1369,7 +1369,7 @@
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="1">
-                    <StringItem index="0" value="11-02-2022"/>
+                    <StringItem index="0" value="12-02-2022"/>
                   </StringArray>
                 </Property>
                 <Property name="displayFormat" type="java.lang.String" value="dd-MM-yyyy"/>
@@ -1899,20 +1899,6 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="widget.Label" name="jLabel35">
-              <Properties>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="0" red="0" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="No.SEP VClaim :"/>
-                <Property name="name" type="java.lang.String" value="jLabel35" noResource="true"/>
-              </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="25" width="102" height="23"/>
-                </Constraint>
-              </Constraints>
-            </Component>
             <Component class="widget.TextBox" name="NoSEP">
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -1926,7 +1912,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="106" y="25" width="240" height="23"/>
+                  <AbsoluteConstraints x="126" y="25" width="220" height="23"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -1938,8 +1924,9 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/picture/accept.png"/>
                 </Property>
-                <Property name="mnemonic" type="int" value="51"/>
-                <Property name="toolTipText" type="java.lang.String" value="Alt+3"/>
+                <Property name="mnemonic" type="int" value="67"/>
+                <Property name="text" type="java.lang.String" value="Cek"/>
+                <Property name="toolTipText" type="java.lang.String" value="Alt+C"/>
                 <Property name="name" type="java.lang.String" value="BtnCari1" noResource="true"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[28, 23]"/>
@@ -1950,7 +1937,35 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="350" y="25" width="-1" height="-1"/>
+                  <AbsoluteConstraints x="350" y="25" width="65" height="-1"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="widget.CekBox" name="ChkNoSEP">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="fa" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="null"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="0" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="No. SEP VClaim :"/>
+                <Property name="borderPainted" type="boolean" value="true"/>
+                <Property name="borderPaintedFlat" type="boolean" value="true"/>
+                <Property name="horizontalAlignment" type="int" value="4"/>
+                <Property name="horizontalTextPosition" type="int" value="2"/>
+                <Property name="name" type="java.lang.String" value="ChkNoSEP" noResource="true"/>
+                <Property name="opaque" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ChkNoSEPActionPerformed"/>
+              </Events>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="0" y="25" width="120" height="23"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -2590,7 +2605,7 @@
                             <Property name="editable" type="boolean" value="false"/>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                               <StringArray count="1">
-                                <StringItem index="0" value="11-02-2022"/>
+                                <StringItem index="0" value="12-02-2022"/>
                               </StringArray>
                             </Property>
                             <Property name="displayFormat" type="java.lang.String" value="dd-MM-yyyy"/>
@@ -2631,7 +2646,7 @@
                             <Property name="editable" type="boolean" value="false"/>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                               <StringArray count="1">
-                                <StringItem index="0" value="11-02-2022"/>
+                                <StringItem index="0" value="12-02-2022"/>
                               </StringArray>
                             </Property>
                             <Property name="displayFormat" type="java.lang.String" value="dd-MM-yyyy"/>
@@ -2760,9 +2775,6 @@
                             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="0" green="0" red="0" type="rgb"/>
                             </Property>
-                            <Property name="highlighter" type="javax.swing.text.Highlighter" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                              <ComponentRef name="null"/>
-                            </Property>
                             <Property name="name" type="java.lang.String" value="NmPpkRujukan" noResource="true"/>
                           </Properties>
                           <Constraints>
@@ -2793,9 +2805,6 @@
                             </Property>
                             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="0" green="0" red="0" type="rgb"/>
-                            </Property>
-                            <Property name="highlighter" type="javax.swing.text.Highlighter" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                              <ComponentRef name="null"/>
                             </Property>
                             <Property name="name" type="java.lang.String" value="NmPenyakit" noResource="true"/>
                           </Properties>
@@ -2858,9 +2867,6 @@
                             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="0" green="0" red="0" type="rgb"/>
                             </Property>
-                            <Property name="highlighter" type="javax.swing.text.Highlighter" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                              <ComponentRef name="null"/>
-                            </Property>
                             <Property name="name" type="java.lang.String" value="NmPoli" noResource="true"/>
                           </Properties>
                           <Constraints>
@@ -2877,9 +2883,6 @@
                             </Property>
                             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="0" green="0" red="0" type="rgb"/>
-                            </Property>
-                            <Property name="highlighter" type="javax.swing.text.Highlighter" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                              <ComponentRef name="null"/>
                             </Property>
                             <Property name="name" type="java.lang.String" value="KdPoli" noResource="true"/>
                           </Properties>
@@ -3326,7 +3329,7 @@
                             <Property name="editable" type="boolean" value="false"/>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                               <StringArray count="1">
-                                <StringItem index="0" value="11-02-2022"/>
+                                <StringItem index="0" value="12-02-2022"/>
                               </StringArray>
                             </Property>
                             <Property name="displayFormat" type="java.lang.String" value="dd-MM-yyyy"/>
@@ -3726,9 +3729,6 @@
                             </Property>
                             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="0" green="0" red="0" type="rgb"/>
-                            </Property>
-                            <Property name="highlighter" type="javax.swing.text.Highlighter" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                              <ComponentRef name="null"/>
                             </Property>
                             <Property name="name" type="java.lang.String" value="NmDPJP" noResource="true"/>
                           </Properties>
@@ -4280,9 +4280,6 @@
                             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="0" green="0" red="0" type="rgb"/>
                             </Property>
-                            <Property name="highlighter" type="javax.swing.text.Highlighter" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                              <ComponentRef name="null"/>
-                            </Property>
                             <Property name="name" type="java.lang.String" value="KddpjpLayan" noResource="true"/>
                           </Properties>
                           <Constraints>
@@ -4551,7 +4548,7 @@
                             <Property name="editable" type="boolean" value="false"/>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                               <StringArray count="1">
-                                <StringItem index="0" value="11-02-2022"/>
+                                <StringItem index="0" value="12-02-2022"/>
                               </StringArray>
                             </Property>
                             <Property name="displayFormat" type="java.lang.String" value="dd-MM-yyyy"/>
@@ -4583,7 +4580,7 @@
                             <Property name="editable" type="boolean" value="false"/>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                               <StringArray count="1">
-                                <StringItem index="0" value="11-02-2022"/>
+                                <StringItem index="0" value="12-02-2022"/>
                               </StringArray>
                             </Property>
                             <Property name="displayFormat" type="java.lang.String" value="dd-MM-yyyy"/>

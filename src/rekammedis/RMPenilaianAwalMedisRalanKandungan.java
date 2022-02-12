@@ -2425,17 +2425,17 @@ public final class RMPenilaianAwalMedisRalanKandungan extends javax.swing.JDialo
             param.put("propinsirs", var.getpropinsirs());
             param.put("kontakrs", var.getkontakrs());
             param.put("emailrs", var.getemailrs());
-            param.put("logo", Sequel.cariGambar("select logo from setting"));            
+            param.put("logo", Sequel.cariGambar("select logo from setting"));
             Valid.MyReport("rptCetakPenilaianAwalMedisRalanKebidanan.jrxml", "report", "::[ Laporan Penilaian Awal Medis Rawat Jalan Kebidanan & Kandungan ]::",
-                    "select reg_periksa.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,if(pasien.jk='L','Laki-Laki','Perempuan') as jk,pasien.tgl_lahir,penilaian_medis_ralan_kandungan.tanggal,"
-                    + "penilaian_medis_ralan_kandungan.kd_dokter,penilaian_medis_ralan_kandungan.anamnesis,penilaian_medis_ralan_kandungan.hubungan,penilaian_medis_ralan_kandungan.keluhan_utama,penilaian_medis_ralan_kandungan.rps,penilaian_medis_ralan_kandungan.rpk,penilaian_medis_ralan_kandungan.rpd,penilaian_medis_ralan_kandungan.rpo,penilaian_medis_ralan_kandungan.alergi,"
-                    + "penilaian_medis_ralan_kandungan.keadaan,penilaian_medis_ralan_kandungan.gcs,penilaian_medis_ralan_kandungan.kesadaran,penilaian_medis_ralan_kandungan.td,penilaian_medis_ralan_kandungan.nadi,penilaian_medis_ralan_kandungan.rr,penilaian_medis_ralan_kandungan.suhu,penilaian_medis_ralan_kandungan.spo,penilaian_medis_ralan_kandungan.bb,penilaian_medis_ralan_kandungan.tb,"
-                    + "penilaian_medis_ralan_kandungan.kepala,penilaian_medis_ralan_kandungan.mata,penilaian_medis_ralan_kandungan.gigi,penilaian_medis_ralan_kandungan.tht,penilaian_medis_ralan_kandungan.thoraks,penilaian_medis_ralan_kandungan.abdomen,penilaian_medis_ralan_kandungan.ekstremitas,"
-                    + "penilaian_medis_ralan_kandungan.genital,penilaian_medis_ralan_kandungan.kulit,penilaian_medis_ralan_kandungan.ket_fisik,penilaian_medis_ralan_kandungan.tfu,penilaian_medis_ralan_kandungan.tbj,penilaian_medis_ralan_kandungan.his,penilaian_medis_ralan_kandungan.kontraksi,penilaian_medis_ralan_kandungan.djj,penilaian_medis_ralan_kandungan.inspeksi,"
-                    + "penilaian_medis_ralan_kandungan.inspekulo,penilaian_medis_ralan_kandungan.vt,penilaian_medis_ralan_kandungan.rt,penilaian_medis_ralan_kandungan.ultra,penilaian_medis_ralan_kandungan.kardio,penilaian_medis_ralan_kandungan.lab,penilaian_medis_ralan_kandungan.diagnosis,penilaian_medis_ralan_kandungan.tata,penilaian_medis_ralan_kandungan.konsul,dokter.nm_dokter "
-                    + "from reg_periksa inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "
-                    + "inner join penilaian_medis_ralan_kandungan on reg_periksa.no_rawat=penilaian_medis_ralan_kandungan.no_rawat "
-                    + "inner join dokter on penilaian_medis_ralan_kandungan.kd_dokter=dokter.kd_dokter where penilaian_medis_ralan_kandungan.no_rawat='" + tbObat.getValueAt(tbObat.getSelectedRow(), 0).toString() + "'", param);
+                    "SELECT rp.no_rawat,p.no_rkm_medis,p.nm_pasien,IF(p.jk='L','Laki-Laki','Perempuan') jk,p.tgl_lahir,pm.tanggal,"
+                    + "pm.kd_dokter,pm.anamnesis,pm.hubungan,pm.keluhan_utama,pm.rps,pm.rpk,pm.rpd,pm.rpo,pm.alergi,"
+                    + "pm.keadaan,pm.gcs,pm.kesadaran,pm.td,pm.nadi,pm.rr,pm.suhu,pm.spo,pm.bb,pm.tb,"
+                    + "pm.kepala,pm.mata,pm.gigi,pm.tht,pm.thoraks,pm.abdomen,pm.ekstremitas,"
+                    + "pm.genital,pm.kulit,pm.ket_fisik,pm.tfu,pm.tbj,pm.his,pm.kontraksi,pm.djj,pm.inspeksi,"
+                    + "pm.inspekulo,pm.vt,pm.rt,pm.ultra,pm.kardio,pm.lab,pm.diagnosis,pm.tata,pm.konsul,d.nm_dokter "
+                    + "FROM reg_periksa rp INNER JOIN pasien p ON rp.no_rkm_medis = p.no_rkm_medis "
+                    + "INNER JOIN penilaian_medis_ralan_kandungan pm ON rp.no_rawat = pm.no_rawat "
+                    + "INNER JOIN dokter d ON pm.kd_dokter=d.kd_dokter WHERE pm.no_rawat='" + tbObat.getValueAt(tbObat.getSelectedRow(), 0).toString() + "'", param);
         }
     }//GEN-LAST:event_MnPenilaianMedisActionPerformed
 

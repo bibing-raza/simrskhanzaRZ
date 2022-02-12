@@ -635,6 +635,7 @@ public final class DlgPenyakit extends javax.swing.JDialog {
 
         cmbStatus.setForeground(new java.awt.Color(0, 0, 0));
         cmbStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Menular", "Tidak Menular" }));
+        cmbStatus.setSelectedIndex(1);
         cmbStatus.setLightWeightPopupEnabled(false);
         cmbStatus.setName("cmbStatus"); // NOI18N
         cmbStatus.addKeyListener(new java.awt.event.KeyAdapter() {

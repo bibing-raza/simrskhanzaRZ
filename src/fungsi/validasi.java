@@ -104,6 +104,7 @@ public final class validasi {
     private final DecimalFormat df4 = new DecimalFormat("###,###,###,###,###,###,###.#################");
     private final DecimalFormat df5 = new DecimalFormat("###,###,###,###,###,###,###.##");
     private final DecimalFormat df3 = new DecimalFormat("######");
+    private final DecimalFormat df7 = new DecimalFormat("######.#");
     private PreparedStatement ps, ps1, ps2;
     private ResultSet rs, rs1, rs2;
     private final Calendar now = Calendar.getInstance();
@@ -1963,6 +1964,10 @@ public final class validasi {
         }else if(evt.getKeyCode()==KeyEvent.VK_PAGE_UP){
             kiri.requestFocus();
         }
+    }
+    
+    public double SetAngka7(double nilai){        
+       return Double.parseDouble(df7.format(nilai));
     }
 }
   
