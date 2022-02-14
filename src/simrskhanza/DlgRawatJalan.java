@@ -2884,7 +2884,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         FormInput2.setBackground(new java.awt.Color(255, 255, 255));
         FormInput2.setBorder(null);
         FormInput2.setName("FormInput2"); // NOI18N
-        FormInput2.setPreferredSize(new java.awt.Dimension(100, 315));
+        FormInput2.setPreferredSize(new java.awt.Dimension(1100, 315));
         FormInput2.setLayout(null);
 
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
@@ -3326,7 +3326,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         FormInput3.setBackground(new java.awt.Color(255, 255, 255));
         FormInput3.setBorder(null);
         FormInput3.setName("FormInput3"); // NOI18N
-        FormInput3.setPreferredSize(new java.awt.Dimension(100, 300));
+        FormInput3.setPreferredSize(new java.awt.Dimension(1100, 300));
         FormInput3.setLayout(null);
 
         jLabel19.setForeground(new java.awt.Color(0, 0, 0));
