@@ -6201,7 +6201,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
         MnDataHAIs.setEnabled(var.getdata_HAIs());
         MnPenilaianAwalKeperawatanRalan.setEnabled(var.getpenilaian_awal_keperawatan_ralan());
         MnPenilaianAwalMedisKebidananRalan.setEnabled(var.getpenilaian_awal_medis_ralan_kebidanan());
-        MnPenilaianAwalKeperawatanKebidanan.setEnabled(var.getpenilaian_awal_medis_ralan_kebidanan());
+        MnPenilaianAwalKeperawatanKebidanan.setEnabled(var.getpenilaian_awal_keperawatan_kebidanan());
         MnStatusPasienAllKunjungan.setEnabled(var.getpenilaian_awal_keperawatan_ralan());
         MnSuratTindakanDokter.setEnabled(var.getdiagnosa_pasien());
         MnDataTriaseIGD.setEnabled(var.getdata_triase_igd());

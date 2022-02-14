@@ -764,13 +764,13 @@ public final class DlgStatusGizi extends javax.swing.JDialog {
         } else {
             try {
                 Sequel.queryu2("delete from temporary");
-                ps1 = koneksi.prepareStatement("select distinct p.no_rkm_medis from kamar_inap ki "
+                ps1 = koneksi.prepareStatement("select distinct ki.no_rawat from kamar_inap ki "
                         + "inner join reg_periksa rp on rp.no_rawat=ki.no_rawat inner join pasien p on p.no_rkm_medis=rp.no_rkm_medis "
                         + "inner join kamar k on k.kd_kamar=ki.kd_kamar inner join bangsal b on b.kd_bangsal=k.kd_bangsal "
                         + "left join status_gizi_inap sgi on sgi.no_rawat=ki.no_rawat left join detail_beri_diet bd on bd.no_rawat=ki.no_rawat "
                         + "left join diet d on d.kd_diet=bd.kd_diet where "
                         + "rp.tgl_registrasi between '" + Valid.SetTgl(tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(tgl2.getSelectedItem() + "") + "' "
-                        + "and (bd.waktu='Siang' or ifnull(bd.waktu,'') = '') AND b.nm_gedung='" + cmbGedung.getSelectedItem() + "' order by rp.no_rkm_medis, bd.tanggal");
+                        + "and (bd.waktu='Siang' or ifnull(bd.waktu,'') = '') AND b.nm_gedung='" + cmbGedung.getSelectedItem() + "' and ki.stts_pulang<>'Pindah Kamar' order by rp.no_rkm_medis, bd.tanggal");
                 rs1 = ps1.executeQuery();
                 while (rs1.next()) {
                     ps2 = koneksi.prepareStatement("select p.no_rkm_medis, p.nm_pasien, concat(ifnull(p.tmp_lahir,'-'),', ',date_format(p.tgl_lahir,'%d-%m-%Y')) ttl, "
@@ -780,7 +780,7 @@ public final class DlgStatusGizi extends javax.swing.JDialog {
                             + "left join status_gizi_inap sgi on sgi.no_rawat=ki.no_rawat left join detail_beri_diet bd on bd.no_rawat=ki.no_rawat "
                             + "left join diet d on d.kd_diet=bd.kd_diet where "
                             + "rp.tgl_registrasi between '" + Valid.SetTgl(tgl1.getSelectedItem() + "") + "' AND '" + Valid.SetTgl(tgl2.getSelectedItem() + "") + "' "
-                            + "and (bd.waktu='Siang' or ifnull(bd.waktu,'') = '') and p.no_rkm_medis = '" + rs1.getString("no_rkm_medis") + "' "
+                            + "and (bd.waktu='Siang' or ifnull(bd.waktu,'') = '') and ki.no_rawat = '" + rs1.getString("no_rawat") + "' "
                             + "AND b.nm_gedung='" + cmbGedung.getSelectedItem() + "' order by rp.no_rkm_medis, bd.tanggal");
                     rs2 = ps2.executeQuery();
                     z = 0;

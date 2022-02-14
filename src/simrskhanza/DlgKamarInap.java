@@ -11759,7 +11759,7 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
                     + "AND r.tgl_registrasi BETWEEN  '" + Valid.SetTgl(DTPCari1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(DTPCari2.getSelectedItem() + "") + "' AND b.nm_bangsal LIKE '%Bedah%' GROUP BY b.nm_gedung UNION ALL "
                     + "SELECT 'Anak' AS nm_kmr, count(- 1 ) total FROM kamar_inap k INNER JOIN reg_periksa r ON k.no_rawat = r.no_rawat  "
                     + "INNER JOIN kamar km ON km.kd_kamar = k.kd_kamar INNER JOIN bangsal b ON b.kd_bangsal = km.kd_bangsal WHERE k.stts_pulang <> 'Pindah Kamar'  "
-                    + "AND r.tgl_registrasi BETWEEN  '" + Valid.SetTgl(DTPCari1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(DTPCari2.getSelectedItem() + "") + "' AND b.nm_bangsal LIKE '%Ar-Rahman%' OR b.nm_bangsal LIKE '%Ext Bed Anak%' UNION ALL "
+                    + "AND r.tgl_registrasi BETWEEN  '" + Valid.SetTgl(DTPCari1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(DTPCari2.getSelectedItem() + "") + "' AND ( b.nm_bangsal LIKE '%Ar-Rahman%' OR b.nm_bangsal LIKE '%Ext Bed Anak%' ) UNION ALL "
                     + "SELECT 'Al-Hakim' AS nm_kmr, count( b.nm_gedung ) total FROM kamar_inap k INNER JOIN reg_periksa r ON k.no_rawat = r.no_rawat "
                     + "INNER JOIN kamar km ON km.kd_kamar = k.kd_kamar INNER JOIN bangsal b ON b.kd_bangsal = km.kd_bangsal WHERE k.stts_pulang <> 'Pindah Kamar'  "
                     + "AND r.tgl_registrasi BETWEEN  '" + Valid.SetTgl(DTPCari1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(DTPCari2.getSelectedItem() + "") + "' AND b.nm_bangsal LIKE '%Al-Hakim%' GROUP BY b.nm_gedung UNION ALL "
