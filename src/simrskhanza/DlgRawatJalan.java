@@ -3005,7 +3005,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         jLabel15.setText("Terapi :");
         jLabel15.setName("jLabel15"); // NOI18N
         FormInput2.add(jLabel15);
-        jLabel15.setBounds(0, 147, 95, 23);
+        jLabel15.setBounds(0, 206, 95, 23);
 
         jLabel20.setForeground(new java.awt.Color(0, 0, 0));
         jLabel20.setText("Respirasi(/menit) :");
@@ -3049,7 +3049,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         jLabel26.setText("Diagnosa :");
         jLabel26.setName("jLabel26"); // NOI18N
         FormInput2.add(jLabel26);
-        jLabel26.setBounds(0, 235, 95, 23);
+        jLabel26.setBounds(0, 147, 95, 23);
 
         jLabel28.setForeground(new java.awt.Color(0, 0, 0));
         jLabel28.setText("Rencana Follow Up :");
@@ -3071,7 +3071,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         Scroll6.setViewportView(TDiagnosa);
 
         FormInput2.add(Scroll6);
-        Scroll6.setBounds(100, 235, 430, 55);
+        Scroll6.setBounds(100, 147, 430, 55);
 
         Scroll7.setName("Scroll7"); // NOI18N
         Scroll7.setOpaque(true);
@@ -3179,7 +3179,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         Scroll28.setViewportView(TTerapi);
 
         FormInput2.add(Scroll28);
-        Scroll28.setBounds(100, 147, 430, 55);
+        Scroll28.setBounds(100, 206, 430, 55);
 
         ChkPemeriksaan.setBackground(new java.awt.Color(255, 255, 250));
         ChkPemeriksaan.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 250)));
@@ -3205,7 +3205,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         jLabel67.setFont(new java.awt.Font("Tahoma", 2, 12)); // NOI18N
         jLabel67.setName("jLabel67"); // NOI18N
         FormInput2.add(jLabel67);
-        jLabel67.setBounds(100, 207, 430, 23);
+        jLabel67.setBounds(100, 265, 430, 23);
 
         ChkCopyPemeriksaanDR.setBackground(new java.awt.Color(255, 255, 250));
         ChkCopyPemeriksaanDR.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 250)));
@@ -3447,7 +3447,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         jLabel37.setText("Alergi :");
         jLabel37.setName("jLabel37"); // NOI18N
         FormInput3.add(jLabel37);
-        jLabel37.setBounds(0, 122, 95, 23);
+        jLabel37.setBounds(0, 182, 95, 23);
 
         jLabel38.setForeground(new java.awt.Color(0, 0, 0));
         jLabel38.setText("Respirasi(/menit) :");
@@ -3491,7 +3491,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         jLabel40.setText("Diagnosa :");
         jLabel40.setName("jLabel40"); // NOI18N
         FormInput3.add(jLabel40);
-        jLabel40.setBounds(0, 182, 95, 23);
+        jLabel40.setBounds(0, 122, 95, 23);
 
         jLabel41.setForeground(new java.awt.Color(0, 0, 0));
         jLabel41.setText("Rencana Follow Up :");
@@ -3513,7 +3513,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         Scroll11.setViewportView(TDiagnosa1);
 
         FormInput3.add(Scroll11);
-        Scroll11.setBounds(100, 182, 430, 55);
+        Scroll11.setBounds(100, 122, 430, 55);
 
         Scroll12.setName("Scroll12"); // NOI18N
         Scroll12.setOpaque(true);
@@ -3561,7 +3561,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         Scroll14.setViewportView(TAlergi1);
 
         FormInput3.add(Scroll14);
-        Scroll14.setBounds(100, 122, 430, 55);
+        Scroll14.setBounds(100, 182, 430, 55);
 
         jLabel42.setForeground(new java.awt.Color(0, 0, 0));
         jLabel42.setText("Petugas :");
