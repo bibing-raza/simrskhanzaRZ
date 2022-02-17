@@ -3948,8 +3948,8 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
             try {
                 x = JOptionPane.showConfirmDialog(rootPane, "Yakin data mau dihapus..??", "Konfirmasi", JOptionPane.YES_NO_OPTION);
                 if (x == JOptionPane.YES_OPTION) {
-                    if (!Sequel.cariIsi("select urutan_sep from bridging_sep where no_rawat='" + TNoRw.getText() + "'").equals("1")) {
-                        Sequel.meghapus("bridging_sep", "no_rawat", TNoRw.getText());
+                    if (!Sequel.cariIsi("select urutan_sep from bridging_sep where no_rawat='" + TNoRw.getText() + "'").equals("1")) {                        
+                        Sequel.queryu("delete from bridging_sep where no_rawat='" + TNoRw.getText() + "' and no_sep='" + tbSEP.getValueAt(tbSEP.getSelectedRow(), 0).toString() + "'");
                         tampil();
                         emptTeks();
                     } else {
@@ -6554,6 +6554,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         NmPoli.setText(namapoli);
         LakaLantas.setSelectedIndex(0);
         Valid.SetTgl(TanggalSEP, Sequel.cariIsi("select tgl_registrasi from reg_periksa where no_rawat='" + norwt + "'"));
+        Valid.SetTgl(TanggalRujuk, Sequel.cariIsi("select tgl_registrasi from reg_periksa where no_rawat='" + norwt + "'"));
         JenisPelayanan.setSelectedItem(status);
         JenisPelayananItemStateChanged(null);
         isRawat();

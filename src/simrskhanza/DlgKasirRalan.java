@@ -89,6 +89,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
     public DlgKamarInap statusgizi = new DlgKamarInap(null, false);
     public DlgPemberianDiet dietRalan = new DlgPemberianDiet(null, false);
     public RMPenilaianAwalMedisRalanKandungan bid = new RMPenilaianAwalMedisRalanKandungan(null, false);
+    public DlgRawatJalan dlgrwjl2 = new DlgRawatJalan(null, false);
     private Date cal = new Date();
     private DlgRujukanPoliInternal dlgrjk = new DlgRujukanPoliInternal(null, false);
     private String umur = "0", sttsumur = "Th", cekSEPboking = "", tglklaim = "", drdpjp = "", poli = "", crBayar = "", diagnosa_ok = "",
@@ -6899,7 +6900,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
                         + "and (IFNULL(d.no_rawat,'-') = '-' and IFNULL(s.no_rawat,'-') = '-' and IFNULL(p.no_rawat,'-') = '-')");
 
                 if (cekDiag == 0) {
-                    DlgRawatJalan dlgrwjl2 = new DlgRawatJalan(null, false);
+                    var.setform("DlgKasirRalan");
                     dlgrwjl2.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
                     dlgrwjl2.setLocationRelativeTo(internalFrame1);
                     dlgrwjl2.setNoRm(TNoRw.getText(), DTPCari1.getDate(), DTPCari2.getDate());
@@ -6920,7 +6921,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
                     tbRiwayatKunj.requestFocus();
                 }
             } else {
-                DlgRawatJalan dlgrwjl2 = new DlgRawatJalan(null, false);
+                var.setform("DlgKasirRalan");
                 dlgrwjl2.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
                 dlgrwjl2.setLocationRelativeTo(internalFrame1);
                 dlgrwjl2.setNoRm(TNoRw.getText(), DTPCari1.getDate(), DTPCari2.getDate());
@@ -6932,7 +6933,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
                 dlgrwjl2.isCek();
             }
         } else {
-            DlgRawatJalan dlgrwjl2 = new DlgRawatJalan(null, false);
+            var.setform("DlgKasirRalan");
             dlgrwjl2.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
             dlgrwjl2.setLocationRelativeTo(internalFrame1);
             dlgrwjl2.setNoRm(TNoRw.getText(), DTPCari1.getDate(), DTPCari2.getDate());
