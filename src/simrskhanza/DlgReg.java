@@ -7040,7 +7040,7 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
             emptTeks();
             JOptionPane.showMessageDialog(null, "Silakan klik dulu nama pasiennya pada tabel..!!");
             tbregistrasiRalan.requestFocus();
-        } else if (nmpnj.getText().equals("JAMKESDA (PBI)")) {
+        } else if (kdpnj.getText().equals("D01")) {
             DlgJamkesda.setSize(490, 125);
             DlgJamkesda.setLocationRelativeTo(internalFrame1);
             DlgJamkesda.setVisible(true);
@@ -7136,7 +7136,7 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
                     + " INNER JOIN poliklinik ON reg_periksa.kd_poli = poliklinik.kd_poli "
                     + " INNER JOIN bridging_jamkesda ON bridging_jamkesda.no_rawat = reg_periksa.no_rawat "
                     + " INNER JOIN penjab ON reg_periksa.kd_pj = penjab.kd_pj "
-                    + " WHERE bridging_jamkesda.no_sep='" + sepJkd.getText() + "' AND bridging_jamkesda.jns_rawat='Jalan' AND penjab.png_jawab LIKE '%jamkesda%'", param);
+                    + " WHERE bridging_jamkesda.no_sep='" + sepJkd.getText() + "' AND bridging_jamkesda.jns_rawat='Jalan' AND reg_periksa.kd_pj='D01'", param);
             this.setCursor(Cursor.getDefaultCursor());
             DlgJamkesda.dispose();
             emptTeks();

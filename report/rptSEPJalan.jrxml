@@ -3,7 +3,7 @@
 	<property name="ireport.zoom" value="1.3660269107301417"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="parameter" class="java.lang.String">
+	<parameter name="nmPenjab" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="namars" class="java.lang.String"/>
@@ -90,13 +90,19 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{namars}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Transparent" x="341" y="4" width="117" height="34" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="335" y="21" width="220" height="18" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
 					<font fontName="Arial" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
 				</textElement>
-				<text><![CDATA[JAMKESDA
-RAWAT JALAN]]></text>
+				<text><![CDATA[RAWAT JALAN]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="335" y="4" width="220" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{nmPenjab}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
