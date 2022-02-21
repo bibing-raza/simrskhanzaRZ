@@ -10339,7 +10339,7 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         sepJKD = Sequel.cariIsi("SELECT no_sep FROM bridging_jamkesda WHERE no_rawat='" + norawat.getText() + "' AND jns_rawat='Inap'");
 
         if (noSrt.getText().trim().equals("")) {
-            Valid.textKosong(noSrt, "No. Surat Keterangan Peserta "+nmpenjab.getText());
+            Valid.textKosong(noSrt, "No. Surat Keterangan Peserta " + nmpenjab.getText());
         } else if (sepJKD.equals("")) {
             JOptionPane.showMessageDialog(null, "No. SEP " + nmpenjab.getText() + " tidak boleh kosong....");
         } else {
