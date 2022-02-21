@@ -7114,9 +7114,9 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
         sepJkd.setText(Sequel.cariIsi("SELECT no_sep FROM bridging_jamkesda WHERE no_rawat='" + TNoRw.getText() + "' AND jns_rawat='Jalan' "));
 
         if (noSrt.getText().trim().equals("")) {
-            Valid.textKosong(noSrt, "No. Surat Keterangan Peserta Jamkesda");
+            Valid.textKosong(noSrt, "No. Surat Keterangan Peserta " + TPngJwb.getText());
         } else if (sepJkd.getText().equals("")) {
-            Valid.textKosong(sepJkd, "No. SEP Jamkesda");
+            Valid.textKosong(sepJkd, "No. SEP " + TPngJwb.getText());
         } else {
             this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
             Map<String, Object> param = new HashMap<>();
@@ -7127,7 +7127,8 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
             param.put("kontakrs", var.getkontakrs());
             param.put("emailrs", var.getemailrs());
             param.put("logo", Sequel.cariGambar("select logo from setting"));
-            Valid.MyReport("rptSEPJalan.jrxml", "report", "::[ Cetak SEP Pasien JAMKESDA Rawat Jalan ]::",
+            param.put("nmPenjab", TPngJwb.getText());
+            Valid.MyReport("rptSEPJalan.jrxml", "report", "::[ Cetak SEP Pasien " + TPngJwb.getText() + " Rawat Jalan ]::",
                     " SELECT pasien.no_rkm_medis, bridging_jamkesda.no_sep, reg_periksa.tgl_registrasi, pasien.no_ktp, "
                     + " pasien.nm_pasien, pasien.tgl_lahir, IF(pasien.jk='L','Laki-laki','Perempuan') as jk, "
                     + " poliklinik.nm_poli, reg_periksa.no_rawat, bridging_jamkesda.no_surat, bridging_jamkesda.jns_rawat, "
