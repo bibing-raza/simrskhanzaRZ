@@ -5114,6 +5114,7 @@ private void btnTindakanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                         Valid.textKosong(kdptg, "petugas/perawat/bidan");
                     } else {
                         if (var.getkode().equals("Admin Utama")) {
+                            var.setform("DlgRawatJalan");
                             perawatan.setNoRm(TNoRw.getText(), KdDok.getText(), TDokter.getText(), "rawat_jl_drpr", TSuhu.getText(), TTensi.getText(), TKeluhan.getText(), TPemeriksaan.getText(), "", "", kdptg.getText(), TPerawat.getText(),
                                     TBerat.getText(), TTinggi.getText(), TNadi.getText(), TRespirasi.getText(), TGCS.getText(), TAlergi.getText());
                             perawatan.isCek();
@@ -5122,6 +5123,7 @@ private void btnTindakanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                             perawatan.setLocationRelativeTo(internalFrame1);
                             perawatan.setVisible(true);                            
                         } else {
+                            var.setform("DlgRawatJalan");
                             perawatan.setNoRm(TNoRw.getText(), KdDok.getText(), TDokter.getText(), "rawat_jl_drpr", TSuhu.getText(), TTensi.getText(), TKeluhan.getText(), TPemeriksaan.getText(), "", "", kdptg.getText(), TPerawat.getText(),
                                     TBerat.getText(), TTinggi.getText(), TNadi.getText(), TRespirasi.getText(), TGCS.getText(), TAlergi.getText());
                             perawatan.isCek();
@@ -5142,6 +5144,7 @@ private void btnTindakanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                     TPerawat1.setText(Sequel.cariIsi("select nama from petugas where nip='" + kdptg1.getText() + "'"));
                 } else {
                     if (var.getkode().equals("Admin Utama")) {
+                        var.setform("DlgRawatJalan");
                         perawatan.setNoRm(TNoRw.getText(), KdDok.getText(), TDokter.getText(), "rawat_jl_drpr", TSuhu.getText(), TTensi.getText(), TKeluhan.getText(), TPemeriksaan.getText(), "", "", kdptg.getText(), TPerawat.getText(),
                                 TBerat.getText(), TTinggi.getText(), TNadi.getText(), TRespirasi.getText(), TGCS.getText(), TAlergi.getText());
                         perawatan.isCek();
@@ -5150,6 +5153,7 @@ private void btnTindakanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                         perawatan.setLocationRelativeTo(internalFrame1);
                         perawatan.setVisible(true);
                     } else {
+                        var.setform("DlgRawatJalan");
                         perawatan.setNoRm(TNoRw.getText(), KdDok.getText(), TDokter.getText(), "rawat_jl_drpr", TSuhu.getText(), TTensi.getText(), TKeluhan.getText(), TPemeriksaan.getText(), "", "", kdptg.getText(), TPerawat.getText(),
                                 TBerat.getText(), TTinggi.getText(), TNadi.getText(), TRespirasi.getText(), TGCS.getText(), TAlergi.getText());
                         perawatan.isCek();
