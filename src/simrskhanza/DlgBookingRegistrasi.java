@@ -60,13 +60,13 @@ import simrskhanza.DlgRujukMasuk;
  * @author dosen
  */
 public class DlgBookingRegistrasi extends javax.swing.JDialog {
-    private final DefaultTableModel tabMode, tabMode1, tabMode2, tabMode3, tabMode4;
+    private final DefaultTableModel tabMode, tabMode1, tabMode2, tabMode3, tabMode4, tabMode5;
     private Connection koneksi = koneksiDB.condb();
     private sekuel Sequel = new sekuel();
     private validasi Valid = new validasi();
     private Properties prop = new Properties();
-    private PreparedStatement ps, pskelengkapanBPJS, psPasien;
-    private ResultSet rs, rskelengkapanBPJS, rsPasien;
+    private PreparedStatement ps, pskelengkapanBPJS, psPasien, ps3;
+    private ResultSet rs, rskelengkapanBPJS, rsPasien, rs3;
     private int i = 0, pilihan = 1;
     private BPJSApi api = new BPJSApi();
     public DlgCariDokter2 dokter = new DlgCariDokter2(null, false);
@@ -86,7 +86,7 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
     public DlgBahasa bahasa = new DlgBahasa(null, false);
     public DlgSuku suku = new DlgSuku(null, false);
     private String URUTNOREG = "", status = "", no_rawat = "", umur = "", sttsumur = "", no_peserta = "", user = "", 
-            tglkkl = "0000-00-00", URL = "", utc = "", pembi = "", kdpnjg = "",
+            tglkkl = "0000-00-00", URL = "", utc = "", pembi = "", kdpnjg = "", SEPkontrol = "",
             flag = "", asesmen = "", jkel = "", cekPembi = "", cekFlag = "", cekKDpen = "", cekAses = "";
     private LocalDate date1, date2;
 //    private Date date = new Date();
@@ -194,6 +194,68 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
             }
         }
         tbBoking.setDefaultRenderer(Object.class, new WarnaTable());
+        
+        //tabel 10 riwayat kunjungan terakhir
+        tabMode5=new DefaultTableModel(null,new String[]{"No.","No. RM","Tgl. Kunjungan","Jns. Rawat",
+                "Poliklinik","Cara Bayar","No. SEP","No. Rujukan","No. Surat Kontrol/SPRI","Urutan SEP","kdpj","jk",
+                "norawat","nokartu","nmpasien","tgllahir","diagnosa"
+        }) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;
+            }
+        };
+        
+        tbRiwayat.setModel(tabMode5);
+        tbRiwayat.setPreferredScrollableViewportSize(new Dimension(500,500));
+        tbRiwayat.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        for (int i = 0; i < 17; i++) {
+            TableColumn column = tbRiwayat.getColumnModel().getColumn(i);
+            if (i == 0) {
+                column.setPreferredWidth(35);
+            } else if (i == 1) {
+                column.setPreferredWidth(65);
+            } else if (i == 2) {
+                column.setPreferredWidth(90);
+            } else if (i == 3) {
+                column.setPreferredWidth(80);
+            } else if (i == 4) {
+                column.setPreferredWidth(220);
+            } else if (i == 5) {
+                column.setPreferredWidth(150);
+            } else if (i == 6) {
+                column.setPreferredWidth(150);
+            } else if (i == 7) {
+                column.setPreferredWidth(150);
+            } else if (i == 8) {
+                column.setPreferredWidth(150);
+            } else if (i == 9) {
+                column.setPreferredWidth(75);
+            } else if (i == 10) {
+                column.setMinWidth(0);
+                column.setMaxWidth(0);
+            } else if (i == 11) {
+                column.setMinWidth(0);
+                column.setMaxWidth(0);
+            } else if (i == 12) {
+                column.setMinWidth(0);
+                column.setMaxWidth(0);
+            } else if (i == 13) {
+                column.setMinWidth(0);
+                column.setMaxWidth(0);
+            } else if (i == 14) {
+                column.setMinWidth(0);
+                column.setMaxWidth(0);
+            } else if (i == 15) {
+                column.setMinWidth(0);
+                column.setMaxWidth(0);
+            } else if (i == 16) {
+                column.setMinWidth(0);
+                column.setMaxWidth(0);
+            }
+        }
+        tbRiwayat.setDefaultRenderer(Object.class, new WarnaTable());
 
         //tabel riwayat rujukan faskes 1
         tabMode1 = new DefaultTableModel(null, new String[]{"No.", "No. Rujukan", "Tgl. Rujukan",
@@ -1228,9 +1290,11 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
                         if (var.getkode().equals("Admin Utama") || (kdpnj.getText().equals("B01") || (kdpnj.getText().equals("A03")))) {
                             FormInput.setEnabledAt(1, true);
                             FormInput.setEnabledAt(2, true);
+                            FormInput.setEnabledAt(3, true);
                         } else if ((!kdpnj.getText().equals("B01") || (!kdpnj.getText().equals("A03")))) {
                             FormInput.setEnabledAt(1, false);
                             FormInput.setEnabledAt(2, false);
+                            FormInput.setEnabledAt(3, false);
                             FormInput.setSelectedIndex(0);
                             emptKelengkapanSEP();
                         }
@@ -1318,6 +1382,8 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         Mnsudah = new javax.swing.JMenuItem();
         Mnbelum = new javax.swing.JMenuItem();
         Mngagal = new javax.swing.JMenuItem();
+        Popup1 = new javax.swing.JPopupMenu();
+        ppRencanaKontrollagi1 = new javax.swing.JMenuItem();
         TanggalBooking = new widget.Tanggal();
         WindowCariNoRujuk = new javax.swing.JDialog();
         internalFrame8 = new widget.InternalFrame();
@@ -1512,6 +1578,9 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         suplesi = new widget.ComboBox();
         LabNoSup = new widget.Label();
         NoSEPSuplesi = new widget.TextBox();
+        internalFrame10 = new widget.InternalFrame();
+        scrollInput2 = new widget.ScrollPane();
+        tbRiwayat = new widget.Table();
 
         Popup.setName("Popup"); // NOI18N
         Popup.setPreferredSize(new java.awt.Dimension(200, 145));
@@ -1641,8 +1710,27 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
 
         Popup.add(MnSttsCetakSEP);
 
+        Popup1.setName("Popup1"); // NOI18N
+
+        ppRencanaKontrollagi1.setBackground(new java.awt.Color(242, 242, 242));
+        ppRencanaKontrollagi1.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        ppRencanaKontrollagi1.setForeground(new java.awt.Color(0, 0, 0));
+        ppRencanaKontrollagi1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        ppRencanaKontrollagi1.setText("Penjadwalan Rencana Kontrol");
+        ppRencanaKontrollagi1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        ppRencanaKontrollagi1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        ppRencanaKontrollagi1.setIconTextGap(8);
+        ppRencanaKontrollagi1.setName("ppRencanaKontrollagi1"); // NOI18N
+        ppRencanaKontrollagi1.setPreferredSize(new java.awt.Dimension(200, 25));
+        ppRencanaKontrollagi1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppRencanaKontrollagi1ActionPerformed(evt);
+            }
+        });
+        Popup1.add(ppRencanaKontrollagi1);
+
         TanggalBooking.setEditable(false);
-        TanggalBooking.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-01-2022" }));
+        TanggalBooking.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "05-02-2022" }));
         TanggalBooking.setDisplayFormat("dd-MM-yyyy");
         TanggalBooking.setName("TanggalBooking"); // NOI18N
         TanggalBooking.setOpaque(false);
@@ -2176,7 +2264,7 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         panelCari.add(R2);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-01-2022" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "05-02-2022" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -2201,7 +2289,7 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         panelCari.add(jLabel22);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-01-2022" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "05-02-2022" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -2224,7 +2312,7 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         panelCari.add(R3);
 
         DTPCari3.setEditable(false);
-        DTPCari3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-01-2022" }));
+        DTPCari3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "05-02-2022" }));
         DTPCari3.setDisplayFormat("dd-MM-yyyy");
         DTPCari3.setName("DTPCari3"); // NOI18N
         DTPCari3.setOpaque(false);
@@ -2249,7 +2337,7 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         panelCari.add(jLabel25);
 
         DTPCari4.setEditable(false);
-        DTPCari4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-01-2022" }));
+        DTPCari4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "05-02-2022" }));
         DTPCari4.setDisplayFormat("dd-MM-yyyy");
         DTPCari4.setName("DTPCari4"); // NOI18N
         DTPCari4.setOpaque(false);
@@ -2419,7 +2507,7 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         jLabel14.setBounds(0, 66, 115, 23);
 
         TanggalPeriksa.setEditable(false);
-        TanggalPeriksa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-01-2022" }));
+        TanggalPeriksa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "05-02-2022" }));
         TanggalPeriksa.setDisplayFormat("dd-MM-yyyy");
         TanggalPeriksa.setName("TanggalPeriksa"); // NOI18N
         TanggalPeriksa.setOpaque(false);
@@ -2803,7 +2891,7 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         jLabel28.setBounds(0, 67, 95, 23);
 
         TanggalRujuk.setEditable(false);
-        TanggalRujuk.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-01-2022" }));
+        TanggalRujuk.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "05-02-2022" }));
         TanggalRujuk.setDisplayFormat("dd-MM-yyyy");
         TanggalRujuk.setName("TanggalRujuk"); // NOI18N
         TanggalRujuk.setOpaque(false);
@@ -3383,7 +3471,7 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         LabTglkll.setBounds(0, 38, 90, 23);
 
         TanggalKejadian.setEditable(false);
-        TanggalKejadian.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-01-2022" }));
+        TanggalKejadian.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "05-02-2022" }));
         TanggalKejadian.setDisplayFormat("dd-MM-yyyy");
         TanggalKejadian.setName("TanggalKejadian"); // NOI18N
         TanggalKejadian.setOpaque(false);
@@ -3581,6 +3669,31 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         internalFrame7.add(panelisi4, java.awt.BorderLayout.CENTER);
 
         FormInput.addTab(".: Laka Lantas BPJS", internalFrame7);
+
+        internalFrame10.setName("internalFrame10"); // NOI18N
+        internalFrame10.setLayout(new java.awt.BorderLayout());
+
+        scrollInput2.setName("scrollInput2"); // NOI18N
+        scrollInput2.setPreferredSize(new java.awt.Dimension(102, 1200));
+
+        tbRiwayat.setToolTipText("");
+        tbRiwayat.setComponentPopupMenu(Popup1);
+        tbRiwayat.setName("tbRiwayat"); // NOI18N
+        tbRiwayat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbRiwayatMouseClicked(evt);
+            }
+        });
+        tbRiwayat.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tbRiwayatKeyPressed(evt);
+            }
+        });
+        scrollInput2.setViewportView(tbRiwayat);
+
+        internalFrame10.add(scrollInput2, java.awt.BorderLayout.CENTER);
+
+        FormInput.addTab(".: 10 Riwayat Kunjungan Terakhir", internalFrame10);
 
         PanelInput.add(FormInput, java.awt.BorderLayout.CENTER);
 
@@ -3902,6 +4015,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         autoNomorBooking();
         FormInput.setEnabledAt(1, false);
         FormInput.setEnabledAt(2, false);
+        FormInput.setEnabledAt(3, false);
     }//GEN-LAST:event_formWindowOpened
 
     private void DTPCari1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_DTPCari1ItemStateChanged
@@ -3970,6 +4084,13 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         } else if (FormInput.getSelectedIndex() == 1) {
             cekBPJS();
             tampil();
+        } else if (FormInput.getSelectedIndex() == 3) {
+            if (TNoRM.getText().trim().equals("")) {
+                Valid.tabelKosong(tabMode5);
+            } else {
+                SEPkontrol = "";
+                tampilKunjungan();
+            }
         }
     }//GEN-LAST:event_FormInputMouseClicked
 
@@ -4784,6 +4905,60 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         }
     }//GEN-LAST:event_ChkNoTelpActionPerformed
 
+    private void tbRiwayatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbRiwayatMouseClicked
+        if (tabMode5.getRowCount() != 0) {
+            try {
+                getDataKunjungan();
+            } catch (java.lang.NullPointerException e) {
+            }
+        }
+    }//GEN-LAST:event_tbRiwayatMouseClicked
+
+    private void tbRiwayatKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbRiwayatKeyPressed
+        if (tabMode5.getRowCount() != 0) {
+            if ((evt.getKeyCode() == KeyEvent.VK_ENTER) || (evt.getKeyCode() == KeyEvent.VK_UP) || (evt.getKeyCode() == KeyEvent.VK_DOWN)) {
+                try {
+                    getDataKunjungan();
+                } catch (java.lang.NullPointerException e) {
+                }
+            } else if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
+                try {
+                    getDataKunjungan();
+                } catch (java.lang.NullPointerException e) {
+                }
+            }
+        }
+    }//GEN-LAST:event_tbRiwayatKeyPressed
+
+    private void ppRencanaKontrollagi1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppRencanaKontrollagi1ActionPerformed
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        if (tabMode5.getRowCount() < 0) {
+            JOptionPane.showMessageDialog(null, "Maaf, Silahkan anda pilih dulu pasiennya...!!!");
+        } else if (SEPkontrol.equals("") || SEPkontrol.equals("-")) {
+            JOptionPane.showMessageDialog(null, "No. SEP utk. rencana kontrol blm. dipilih, Silahkan klik salah satu data kunjungan pada tabel..!!");
+            FormInput.setSelectedIndex(3);
+            FormInput.setEnabled(true);
+            tbRiwayat.requestFocus();            
+        } else if (!tbRiwayat.getValueAt(tbRiwayat.getSelectedRow(), 10).toString().equals("B01")) {
+            JOptionPane.showMessageDialog(null, "Data kunjungan yg. dipilih bukan dg. cara bayar BPJS Kesehatan...!!!");
+            tbRiwayat.requestFocus();
+        } else {
+            surat_suratan.setNoRm(tbRiwayat.getValueAt(tbRiwayat.getSelectedRow(), 12).toString(), SEPkontrol,
+                tbRiwayat.getValueAt(tbRiwayat.getSelectedRow(), 13).toString(), tbRiwayat.getValueAt(tbRiwayat.getSelectedRow(), 1).toString(),
+                tbRiwayat.getValueAt(tbRiwayat.getSelectedRow(), 14).toString(), tbRiwayat.getValueAt(tbRiwayat.getSelectedRow(), 15).toString(),
+                tbRiwayat.getValueAt(tbRiwayat.getSelectedRow(), 11).toString(), tbRiwayat.getValueAt(tbRiwayat.getSelectedRow(), 16).toString());
+            surat_suratan.setSize(internalFrame1.getWidth(), internalFrame1.getHeight());
+            surat_suratan.setLocationRelativeTo(internalFrame1);
+            surat_suratan.ChkInput.setSelected(true);
+            surat_suratan.TCari.setText(tbRiwayat.getValueAt(tbRiwayat.getSelectedRow(), 13).toString());
+            surat_suratan.tampil();
+            surat_suratan.isForm();
+            surat_suratan.isCek();
+            surat_suratan.setVisible(true);
+        }
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_ppRencanaKontrollagi1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -4881,6 +5056,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.TextBox NoTelp;
     private javax.swing.JPanel PanelInput;
     private javax.swing.JPopupMenu Popup;
+    private javax.swing.JPopupMenu Popup1;
     private widget.RadioButton R2;
     private widget.RadioButton R3;
     private widget.ScrollPane Scroll;
@@ -4914,6 +5090,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.ComboBox flagPro;
     private widget.ComboBox hakKelas;
     private widget.InternalFrame internalFrame1;
+    private widget.InternalFrame internalFrame10;
     private widget.InternalFrame internalFrame2;
     private widget.InternalFrame internalFrame3;
     private widget.InternalFrame internalFrame4;
@@ -4988,8 +5165,10 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.panelisi panelisi3;
     private widget.panelisi panelisi4;
     private widget.TextBox pngjawab;
+    private javax.swing.JMenuItem ppRencanaKontrollagi1;
     private widget.TextBox rmMati;
     private widget.Label rujukanSEP;
+    private widget.ScrollPane scrollInput2;
     private widget.ScrollPane scrollPane1;
     private widget.ScrollPane scrollPane2;
     private widget.ScrollPane scrollPane3;
@@ -5002,6 +5181,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.Table tbFaskes2;
     private widget.Table tbFaskes3;
     private widget.Table tbFaskes4;
+    public widget.Table tbRiwayat;
     private widget.TextBox tglMati;
     private widget.ComboBox tujuanKun;
     private widget.ComboBox verif_data;
@@ -5095,6 +5275,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         FormInput.setSelectedIndex(0);
         FormInput.setEnabledAt(1, false);
         FormInput.setEnabledAt(2, false);
+        FormInput.setEnabledAt(3, false);
         TNoRM.requestFocus();
         KdDokter.setText("");
         NmDokter.setText("");
@@ -5170,11 +5351,20 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             if (var.getkode().equals("Admin Utama") || (kdpnj.getText().equals("B01") || (kdpnj.getText().equals("A03")))) {
                 FormInput.setEnabledAt(1, true);
                 FormInput.setEnabledAt(2, true);
+                FormInput.setEnabledAt(3, true);
             } else if ((!kdpnj.getText().equals("B01") || (!kdpnj.getText().equals("A03")))) {
                 FormInput.setEnabledAt(1, false);
                 FormInput.setEnabledAt(2, false);
+                FormInput.setEnabledAt(3, false);
                 FormInput.setSelectedIndex(0);
                 emptKelengkapanSEP();
+            }
+            
+            if (TNoRM.getText().trim().equals("")) {
+                Valid.tabelKosong(tabMode5);
+            } else {
+                SEPkontrol = "";
+                tampilKunjungan();
             }
 
             cekDataKelengkapan();
@@ -6161,6 +6351,65 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             }
         } catch (Exception e) {
             System.out.println(e);
+        }
+    }
+    
+    private void getDataKunjungan() {
+        SEPkontrol = "";        
+        if (tbRiwayat.getSelectedRow() != -1) {
+            SEPkontrol = tbRiwayat.getValueAt(tbRiwayat.getSelectedRow(), 6).toString();            
+        }
+    }
+    
+    public void tampilKunjungan() {
+        Valid.tabelKosong(tabMode5);
+        try {
+            ps3 = koneksi.prepareStatement("SELECT r.no_rkm_medis, date_format(r.tgl_registrasi,'%d-%m-%Y') tglReg, if(r.status_lanjut='Ralan','R. Jalan','R. Inap') status_lanjut, "
+                    + "p.nm_poli, pj.png_jawab, ifnull(bs.no_sep,'-') no_sep, ifnull(bs.no_rujukan,'-') no_rujukan, r.kd_pj, ifnull(bs.jkel,'-') jkel, "
+                    + "ifnull(bs.noskdp,'-') noskdp, ifnull(bs.urutan_sep,'-') urutan_sep, r.no_rawat, bs.no_kartu,bs.nama_pasien, bs.tanggal_lahir, bs.diagawal, "
+                    + "bs.nmdiagnosaawal FROM reg_periksa r INNER JOIN poliklinik p ON p.kd_poli=r.kd_poli INNER JOIN penjab pj ON pj.kd_pj=r.kd_pj "
+                    + "LEFT JOIN bridging_sep bs ON bs.no_rawat=r.no_rawat WHERE r.no_rkm_medis ='" + TNoRM.getText() + "' ORDER BY r.tgl_registrasi DESC LIMIT 10");
+            try {
+                rs3 = ps3.executeQuery();
+                i = 1;
+                while (rs3.next()) {
+                    tabMode5.addRow(new String[]{
+                        i + ".",
+                        rs3.getString("no_rkm_medis"),
+                        rs3.getString("tglReg"),
+                        rs3.getString("status_lanjut"),
+                        rs3.getString("nm_poli"),
+                        rs3.getString("png_jawab"),
+                        rs3.getString("no_sep"),
+                        rs3.getString("no_rujukan"),
+                        rs3.getString("noskdp"),
+                        rs3.getString("urutan_sep"),
+                        rs3.getString("kd_pj"),
+                        rs3.getString("jkel"),                        
+                        rs3.getString("no_rawat"),
+                        rs3.getString("no_kartu"),
+                        rs3.getString("nama_pasien"),
+                        rs3.getString("tanggal_lahir"),
+                        rs3.getString("nmdiagnosaawal")
+                    });
+                    i++;
+                }
+            } catch (Exception e) {
+                System.out.println("Notifikasi : " + e);
+            } finally {
+                if (rs3 != null) {
+                    rs3.close();
+                }
+                if (ps3 != null) {
+                    ps3.close();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Notifikasi : " + e);
+        }        
+
+        if (TNoRM.getText().trim().equals("") || tabMode5.getRowCount() < 1) {
+            JOptionPane.showMessageDialog(rootPane, "Periksa lagi No. RM pasien & harus terisi dengan benar...!!!");
         }
     }
 }
