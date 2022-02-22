@@ -4854,7 +4854,7 @@ private void KabupatenMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
 
     private void MnViaBPJSNoKartuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnViaBPJSNoKartuActionPerformed
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        cekViaBPJSKartu.tampil(TNoPeserta.getText());
+        cekViaBPJSKartu.tampil(TNoPeserta.getText(), Sequel.cariIsi("SELECT DATE(NOW())"));
         TNm.setText(Strings.toUpperCase(cekViaBPJSKartu.nama));
         Valid.SetTgl(DTPLahir, cekViaBPJSKartu.tglLahir);
         TNoPeserta.setText(cekViaBPJSKartu.noKartu);

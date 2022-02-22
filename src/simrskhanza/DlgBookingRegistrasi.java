@@ -4872,6 +4872,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         dpjp.setVisible(true);
         dpjp.fokus();
         dpjp.poliklinik(KdPoli.getText(), NmPoli.getText());
+        dpjp.tglLayan(TanggalPeriksa.getDate());
     }//GEN-LAST:event_btnDPJPlayanActionPerformed
 
     private void cmbPembiayaanItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbPembiayaanItemStateChanged
@@ -5775,7 +5776,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             JOptionPane.showMessageDialog(null, "Pasien tidak mempunyai kepesertaan BPJS");
             BtnBatal.requestFocus();
         } else {
-            cekViaBPJSKartu.tampil(no_peserta);
+            cekViaBPJSKartu.tampil(no_peserta, Valid.SetTgl(TanggalPeriksa.getSelectedItem() + ""));
             if (cekViaBPJSKartu.informasi.equals("OK")) {
                 if (cekViaBPJSKartu.statusPesertaketerangan.equals("AKTIF")) {
                     KdPPK.setText(Sequel.cariIsi("select kode_ppk from setting"));

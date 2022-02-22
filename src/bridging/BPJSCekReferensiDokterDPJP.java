@@ -30,6 +30,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.FileInputStream;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -574,5 +575,9 @@ public final class BPJSCekReferensiDokterDPJP extends javax.swing.JDialog {
     public void poliklinik(String kode_poli, String nm_poli) {
         KdSep.setText(kode_poli);
         NmSep.setText(nm_poli);
+    }
+    
+    public void tglLayan(Date tgl) {
+        DTPCari1.setDate(tgl);
     }
 }

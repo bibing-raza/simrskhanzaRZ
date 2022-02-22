@@ -537,7 +537,7 @@ public final class BPJSCekKartu extends javax.swing.JDialog {
 
     public void tampil(String nomorpeserta) {
         try {
-            cekViaBPJSKartu.tampil(nomorpeserta);
+            cekViaBPJSKartu.tampil(nomorpeserta, Sequel.cariIsi("SELECT DATE(NOW())"));
             if(cekViaBPJSKartu.informasi.equals("OK")){
                 Valid.tabelKosong(tabMode);             
                 tabMode.addRow(new Object[]{

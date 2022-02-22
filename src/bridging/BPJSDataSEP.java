@@ -4539,7 +4539,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(null, "Pasien tidak mempunyai kepesertaan BPJS");
                 dispose();
             } else {
-                cekViaBPJSKartu.tampil(no_peserta);
+                cekViaBPJSKartu.tampil(no_peserta, Sequel.cariIsi("SELECT DATE(NOW())"));
                 if (cekViaBPJSKartu.informasi.equals("OK")) {
                     if (cekViaBPJSKartu.statusPesertaketerangan.equals("AKTIF")) {
                         TPasien.setText(Strings.toUpperCase(cekViaBPJSKartu.nama));

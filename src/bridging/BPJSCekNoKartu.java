@@ -42,10 +42,10 @@ public class BPJSCekNoKartu {
         super();
     }
     
-    public void tampil(String nokartu) {
+    public void tampil(String nokartu, String tglnya) {
         try {
             prop.loadFromXML(new FileInputStream("setting/database.xml"));
-            URL = prop.getProperty("URLAPIBPJS") + "/Peserta/nokartu/" + nokartu + "/tglSEP/" + dateFormat.format(date);
+            URL = prop.getProperty("URLAPIBPJS") + "/Peserta/nokartu/" + nokartu + "/tglSEP/" + tglnya;
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);

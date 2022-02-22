@@ -216,7 +216,7 @@ public final class BPJSPeserta extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     public void tampil(String nomorpeserta) {
-        cekViaBPJSKartu.tampil(nomorpeserta);
+        cekViaBPJSKartu.tampil(nomorpeserta, Sequel.cariIsi("SELECT DATE(NOW())"));
         if(cekViaBPJSKartu.informasi.equals("OK")){
             Valid.tabelKosong(tabMode);             
             tabMode.addRow(new Object[]{
