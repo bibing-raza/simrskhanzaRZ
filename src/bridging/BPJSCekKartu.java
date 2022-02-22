@@ -481,6 +481,9 @@ public final class BPJSCekKartu extends javax.swing.JDialog {
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));    
         if (NoKartu.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(null, "Silahkan isi dulu no. kartu BPJS nya dengan benar...!!!!");
+            Valid.tabelKosong(tabMode);
+            Valid.tabelKosong(tabMode1);
+            Valid.tabelKosong(tabMode2);
         } else {
             tampil(NoKartu.getText());            
         }
