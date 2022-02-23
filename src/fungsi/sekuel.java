@@ -1972,7 +1972,7 @@ public void menyimpan3(String table,String value,int i,String[] a,String acuan_f
                 rs1 = ps.executeQuery();
                 while(rs1.next()){
                     menyimpan("stok_bulanan", "'"+ rs1.getString("kode_brng") +"','"+ rs1.getString("periode") +"','"+ rs1.getString("kd_bangsal") +"',0,"
-                            + "'"+ rs1.getString("tgl_input") +"','"+ rs1.getString("stok_akhir") +"','"+ rs1.getString("tgl_akhir") +"'", "stok_akhir = '"+rs1.getString("stok_awal")+"',tgl_input_akhir = DATE_FORMAT(now(),'%Y-%m-%d')", "kode_brng = '"+rs1.getString("kode_brng")+"' and kd_bangsal = '"+rs1.getString("kd_bangsal")+"' and periode = '"+rs1.getString("periode")+"'");
+                            + "'"+ rs1.getString("tgl_input") +"','"+ rs1.getString("stok_awal") +"','"+ rs1.getString("tgl_akhir") +"'", "stok_akhir = '"+rs1.getString("stok_awal")+"',tgl_input_akhir = DATE_FORMAT(now(),'%Y-%m-%d')", "kode_brng = '"+rs1.getString("kode_brng")+"' and kd_bangsal = '"+rs1.getString("kd_bangsal")+"' and periode = '"+rs1.getString("periode")+"'");
                 }
                 
                 ps1 = connect.prepareStatement("insert into stok_bulanan (select kode_brng,DATE_FORMAT(now(),'%Y-%m'),kd_bangsal,stok,DATE_FORMAT(now(),'%Y-%m-%d'),0,'0000-00-00' from gudangbarang)");
@@ -1987,11 +1987,13 @@ public void menyimpan3(String table,String value,int i,String[] a,String acuan_f
                         ps.close();
                     }
                 }
-//                updateClosingStok();
+                
             } catch (Exception e) {
                 System.out.println("Notifikasi : " + e);
             }
+            
         }
+        insertClosingStokHarian();
     }
 
     public void updateClosingStok() {
@@ -2318,6 +2320,37 @@ public void menyimpan3(String table,String value,int i,String[] a,String acuan_f
             SimpanTrack("delete from "+table+" where "+field+"='"+nilai_field+"' and "+field2+"='"+nilai_field2+"'");
         } catch (Exception e) {
             System.out.println("Notifikasi : "+e);
+        }
+    }
+    
+    public void insertClosingStokHarian() {
+        cekData = cariInteger("select count(-1) from stok_harian where tanggal = DATE_FORMAT(now(),'%Y-%m-%d')");        
+        if (cekData == 0) {
+            JOptionPane.showMessageDialog(null, "Closing Stok Harian Belum dilakukan, proses closing stok, klik OK");
+            try {
+                ps = connect.prepareStatement("select kode_brng,DATE_FORMAT(SUBDATE(now(), INTERVAL 1 DAY),'%Y-%m-%d') 'tanggal',kd_bangsal,stok as 'stok_awal',DATE_FORMAT(now(),'%Y-%m-%d') 'tgl_input',0 as 'stok_akhir','0000-00-00' as 'tgl_akhir' from gudangbarang");
+                rs1 = ps.executeQuery();
+                while(rs1.next()){
+                    menyimpan("stok_harian", "'"+ rs1.getString("kode_brng") +"','"+ rs1.getString("tanggal") +"','"+ rs1.getString("kd_bangsal") +"',0,"
+                            + "'"+ rs1.getString("tgl_input") +"','"+ rs1.getString("stok_awal") +"','"+ rs1.getString("tgl_akhir") +"'", "stok_akhir = '"+rs1.getString("stok_awal")+"',tgl_input_akhir = DATE_FORMAT(now(),'%Y-%m-%d')", "kode_brng = '"+rs1.getString("kode_brng")+"' and kd_bangsal = '"+rs1.getString("kd_bangsal")+"' and tanggal = '"+rs1.getString("tanggal")+"'");
+                }
+                
+                ps1 = connect.prepareStatement("insert into stok_harian (select kode_brng,DATE_FORMAT(now(),'%Y-%m-%d'),kd_bangsal,stok,DATE_FORMAT(now(),'%Y-%m-%d'),0,'0000-00-00' from gudangbarang)");
+                try {
+                    ps1.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Berhasil menyimpan data closing harian");
+                } catch (Exception e) {
+                    System.out.println("Notifikasi : " + e);
+                    JOptionPane.showMessageDialog(null, "Maaf, gagal menyimpan data closing harian. Hubungi ADMIN");
+                } finally {
+                    if (ps != null) {
+                        ps.close();
+                    }
+                }
+//                updateClosingStok();
+            } catch (Exception e) {
+                System.out.println("Notifikasi : " + e);
+            }
         }
     }
 }
