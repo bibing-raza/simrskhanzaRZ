@@ -1972,7 +1972,7 @@ public void menyimpan3(String table,String value,int i,String[] a,String acuan_f
                 rs1 = ps.executeQuery();
                 while(rs1.next()){
                     menyimpan("stok_bulanan", "'"+ rs1.getString("kode_brng") +"','"+ rs1.getString("periode") +"','"+ rs1.getString("kd_bangsal") +"',0,"
-                            + "'"+ rs1.getString("tgl_input") +"','"+ rs1.getString("stok_awal") +"','"+ rs1.getString("tgl_akhir") +"'", "stok_akhir = '"+rs1.getString("stok_awal")+"',tgl_input_akhir = DATE_FORMAT(now(),'%Y-%m-%d')", "kode_brng = '"+rs1.getString("kode_brng")+"' and kd_bangsal = '"+rs1.getString("kd_bangsal")+"' and periode = '"+rs1.getString("periode")+"'");
+                            + "'"+ rs1.getString("tgl_input") +"','"+ rs1.getString("stok_awal") +"','"+ rs1.getString("tgl_input") +"'", "stok_akhir = '"+rs1.getString("stok_awal")+"',tgl_input_akhir = DATE_FORMAT(now(),'%Y-%m-%d')", "kode_brng = '"+rs1.getString("kode_brng")+"' and kd_bangsal = '"+rs1.getString("kd_bangsal")+"' and periode = '"+rs1.getString("periode")+"'");
                 }
                 
                 ps1 = connect.prepareStatement("insert into stok_bulanan (select kode_brng,DATE_FORMAT(now(),'%Y-%m'),kd_bangsal,stok,DATE_FORMAT(now(),'%Y-%m-%d'),0,'0000-00-00' from gudangbarang)");
@@ -2332,7 +2332,7 @@ public void menyimpan3(String table,String value,int i,String[] a,String acuan_f
                 rs1 = ps.executeQuery();
                 while(rs1.next()){
                     menyimpan("stok_harian", "'"+ rs1.getString("kode_brng") +"','"+ rs1.getString("tanggal") +"','"+ rs1.getString("kd_bangsal") +"',0,"
-                            + "'"+ rs1.getString("tgl_input") +"','"+ rs1.getString("stok_awal") +"','"+ rs1.getString("tgl_akhir") +"'", "stok_akhir = '"+rs1.getString("stok_awal")+"',tgl_input_akhir = DATE_FORMAT(now(),'%Y-%m-%d')", "kode_brng = '"+rs1.getString("kode_brng")+"' and kd_bangsal = '"+rs1.getString("kd_bangsal")+"' and tanggal = '"+rs1.getString("tanggal")+"'");
+                            + "'"+ rs1.getString("tgl_input") +"','"+ rs1.getString("stok_awal") +"','"+ rs1.getString("tgl_input") +"'", "stok_akhir = '"+rs1.getString("stok_awal")+"',tgl_input_akhir = DATE_FORMAT(now(),'%Y-%m-%d')", "kode_brng = '"+rs1.getString("kode_brng")+"' and kd_bangsal = '"+rs1.getString("kd_bangsal")+"' and tanggal = '"+rs1.getString("tanggal")+"'");
                 }
                 
                 ps1 = connect.prepareStatement("insert into stok_harian (select kode_brng,DATE_FORMAT(now(),'%Y-%m-%d'),kd_bangsal,stok,DATE_FORMAT(now(),'%Y-%m-%d'),0,'0000-00-00' from gudangbarang)");

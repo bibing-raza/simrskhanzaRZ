@@ -7561,6 +7561,9 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
             label_rehab.setVisible(true);
             label_rehab.setText("Jenis Rehabilitasi Medik : " + Sequel.cariIsi("select jns_rehabmedik from data_rehab_medik where no_rawat='" + norwt + "'"));
         }
+        
+        emptText();
+        Valid.tabelKosong(tabModePemeriksaanDr);
     }
     
     private void cekRehabMedik() {
