@@ -96,7 +96,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
             namaVclaim = "", nokaVclaim = "", nomrVclaim = "", tglLhrVclaim = "", poliVclaim = "", poliEksVclaim = "", tglSEPVclaim = "",
             nilaiJP = "", nilaiKR = "", nilaiEKS = "", utc = "", pembi = "", kdpnjg = "", flag = "", asesmen = "", kdSttsPlg = "",
             cekstsPulang = "", tglJiun = "", noLPJiun = "", desSttsPlg = "", norujukan = "", kddiagSekun = "", nmdiagSekun = "",
-            kdprosedur = "", nmprosedur = "", diagSekunderKirim = "", prosedurKirim = "", diagSekunderSimpan = "", prosedurSimpan = "",
+            kdprosedur = "", nmprosedur = "", diagSekunderKirim = "", prosedurKirim = "", diagSekunderSimpan = "", prosedurSimpan = "", respons = "",
             tglPulangInap = "", cekLaka = "", SEPkontrol = "";
 
     /** Creates new form DlgRujuk
@@ -6561,6 +6561,9 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     public void tampil() {
+        //menghapus data di tabel bridging_sep_backup 3 bulan mundur
+        Sequel.queryu("delete from bridging_sep_backup where tglsep < DATE_FORMAT(date_sub(now(), interval 90 day),'%Y-%m-%d')");
+        //----------------------------------------------------------------------
         Valid.tabelKosong(tabMode);
         try {
             ps = koneksi.prepareStatement("SELECT no_sep, tglsep, no_rawat, nomr, nama_pasien, no_rujukan, tglrujukan, asal_rujukan, "
@@ -7061,23 +7064,8 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                 KddpjpLayan.setText("");
                 nmdpjpLayan.setText("");
             }
+
             //-----------------------------------------------------------------------------------------------
-                        
-            Sequel.menyimpantf("bridging_sep_backup", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "SEP", 58, new String[]{
-                "-", TNoRw.getText(), Valid.SetTgl(TanggalSEP.getSelectedItem() + ""), Valid.SetTgl(TanggalRujuk.getSelectedItem() + ""),
-                NoRujukan.getText(), KdPpkRujukan.getText(), rujukanSEP.getText(), KdPPK.getText(), NmPPK.getText(),
-                JenisPelayanan.getSelectedItem().toString().substring(0, 1), Catatan.getText(), KdPenyakit.getText(),
-                NmPenyakit.getText(), KdPoli.getText(), NmPoli.getText(), hakKelas.getSelectedItem().toString().substring(0, 1),
-                LakaLantas.getSelectedItem().toString().substring(0, 1), LokasiLaka.getText(), user,
-                TNoRM.getText(), TPasien.getText(), TglLahir.getText(), JenisPeserta.getText(), jkel, NoKartu.getText(),
-                "0000-00-00 00:00:00", AsalRujukan.getSelectedItem().toString(), Eksekutif.getSelectedItem().toString(),
-                COB.getSelectedItem().toString(), "", NoTelp.getText(), "XXX", "PETUGAS MENGIRIM",
-                KasusKatarak.getSelectedItem().toString().substring(0, 1), tglkkl, Ket.getText(), suplesi.getSelectedItem().toString(),
-                NoSEPSuplesi.getText(), KdProv.getText(), NmProv.getText(), KdKab.getText(), NmKab.getText(),
-                KdKec.getText(), NmKec.getText(), noSurat.getText(), Kddpjp.getText(), NmDPJP.getText(), "", hakKelas.getSelectedItem().toString().substring(0, 1),
-                kdNaikKls.getText(), pembi, pngJwb.getText(), tujuanKun.getSelectedItem().toString(), flag, kdpnjg, asesmen, KddpjpLayan.getText(), nmdpjpLayan.getText()
-            });
-            
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
             headers.add("X-Cons-ID", Sequel.decXML2(prop.getProperty("CONSIDAPIBPJS"), prop.getProperty("KEY")));
@@ -7161,17 +7149,18 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.POST, requestEntity, String.class).getBody());
             JsonNode nameNode = root.path("metaData");
+            respons = nameNode.toString();
             System.out.println("code : " + nameNode.path("code").asText());
             System.out.println("message : " + nameNode.path("message").asText());
             JOptionPane.showMessageDialog(rootPane, "Notifikasi WS VClaim 2.0 : Kode " + nameNode.path("code").asText() + ", Pesan : " + nameNode.path("message").asText());   
 
 //ini yang baru -----------            
-            JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc)).path("sep").path("noSep");
+//            JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc)).path("sep").path("noSep");
 //sampai sini -------------
-            System.out.println("ini responya : " + mapper.readTree(api.Decrypt(root.path("response").asText(), utc)));
+//            System.out.println("ini responya : " + mapper.readTree(api.Decrypt(root.path("response").asText(), utc)));
             
             //Simpan Ke tabel bridging_sep_backup
-            if (Sequel.menyimpantf("bridging_sep_backup", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "SEP", 58, new String[]{
+            if (Sequel.menyimpantf("bridging_sep_backup", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "SEP", 59, new String[]{
                 "-", TNoRw.getText(), Valid.SetTgl(TanggalSEP.getSelectedItem() + ""), Valid.SetTgl(TanggalRujuk.getSelectedItem() + ""),
                 NoRujukan.getText(), KdPpkRujukan.getText(), rujukanSEP.getText(), KdPPK.getText(), NmPPK.getText(),
                 JenisPelayanan.getSelectedItem().toString().substring(0, 1), Catatan.getText(), KdPenyakit.getText(),
@@ -7183,9 +7172,9 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                 KasusKatarak.getSelectedItem().toString().substring(0, 1), tglkkl, Ket.getText(), suplesi.getSelectedItem().toString(),
                 NoSEPSuplesi.getText(), KdProv.getText(), NmProv.getText(), KdKab.getText(), NmKab.getText(),
                 KdKec.getText(), NmKec.getText(), noSurat.getText(), Kddpjp.getText(), NmDPJP.getText(), "", hakKelas.getSelectedItem().toString().substring(0, 1),
-                kdNaikKls.getText(), pembi, pngJwb.getText(), tujuanKun.getSelectedItem().toString(), flag, kdpnjg, asesmen, KddpjpLayan.getText(), nmdpjpLayan.getText()
+                kdNaikKls.getText(), pembi, pngJwb.getText(), tujuanKun.getSelectedItem().toString(), flag, kdpnjg, asesmen, KddpjpLayan.getText(), nmdpjpLayan.getText(), requestJson
             }) == false) {
-                Sequel.menyimpantf("bridging_sep_backup", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "SEP", 58, new String[]{
+                Sequel.menyimpantf("bridging_sep_backup", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "SEP", 59, new String[]{
                     "-", TNoRw.getText(), Valid.SetTgl(TanggalSEP.getSelectedItem() + ""), Valid.SetTgl(TanggalRujuk.getSelectedItem() + ""),
                     NoRujukan.getText(), KdPpkRujukan.getText(), rujukanSEP.getText(), KdPPK.getText(), NmPPK.getText(),
                     JenisPelayanan.getSelectedItem().toString().substring(0, 1), Catatan.getText(), KdPenyakit.getText(),
@@ -7197,11 +7186,14 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                     KasusKatarak.getSelectedItem().toString().substring(0, 1), tglkkl, Ket.getText(), suplesi.getSelectedItem().toString(),
                     NoSEPSuplesi.getText(), KdProv.getText(), NmProv.getText(), KdKab.getText(), NmKab.getText(),
                     KdKec.getText(), NmKec.getText(), noSurat.getText(), Kddpjp.getText(), NmDPJP.getText(), "", hakKelas.getSelectedItem().toString().substring(0, 1),
-                    kdNaikKls.getText(), pembi, pngJwb.getText(), tujuanKun.getSelectedItem().toString(), flag, kdpnjg, asesmen, KddpjpLayan.getText(), nmdpjpLayan.getText()
+                    kdNaikKls.getText(), pembi, pngJwb.getText(), tujuanKun.getSelectedItem().toString(), flag, kdpnjg, asesmen, KddpjpLayan.getText(), nmdpjpLayan.getText(),requestJson
                 });
             }
 
             if (nameNode.path("code").asText().equals("200")) {
+                
+                JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc)).path("sep").path("noSep");
+                System.out.println("ini responya : " + mapper.readTree(api.Decrypt(root.path("response").asText(), utc)));
                 System.out.println("No. SEP : " + response.asText());
                 cekSEP = Sequel.cariInteger("select count(-1) from bridging_sep where no_sep='" + response.asText() + "' and urutan_sep='1'");
                 if (cekSEP > 0) {
@@ -7229,7 +7221,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                     }
 
                     //Simpan Ke tabel bridging_sep_backup
-                    if (Sequel.menyimpantf("bridging_sep_backup", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "SEP", 58, new String[]{
+                    if (Sequel.menyimpantf("bridging_sep_backup", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "SEP", 59, new String[]{
                         response.asText(), TNoRw.getText(), Valid.SetTgl(TanggalSEP.getSelectedItem() + ""), Valid.SetTgl(TanggalRujuk.getSelectedItem() + ""),
                         NoRujukan.getText(), KdPpkRujukan.getText(), rujukanSEP.getText(), KdPPK.getText(), NmPPK.getText(),
                         JenisPelayanan.getSelectedItem().toString().substring(0, 1), Catatan.getText(), KdPenyakit.getText(),
@@ -7241,9 +7233,9 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                         KasusKatarak.getSelectedItem().toString().substring(0, 1), tglkkl, Ket.getText(), suplesi.getSelectedItem().toString(),
                         NoSEPSuplesi.getText(), KdProv.getText(), NmProv.getText(), KdKab.getText(), NmKab.getText(),
                         KdKec.getText(), NmKec.getText(), noSurat.getText(), Kddpjp.getText(), NmDPJP.getText(), "", hakKelas.getSelectedItem().toString().substring(0, 1),
-                        kdNaikKls.getText(), pembi, pngJwb.getText(), tujuanKun.getSelectedItem().toString(), flag, kdpnjg, asesmen, KddpjpLayan.getText(), nmdpjpLayan.getText()
+                        kdNaikKls.getText(), pembi, pngJwb.getText(), tujuanKun.getSelectedItem().toString(), flag, kdpnjg, asesmen, KddpjpLayan.getText(), api.Decrypt(root.path("response").asText(), utc)
                     }) == false) {
-                        Sequel.menyimpantf("bridging_sep_backup", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "SEP", 58, new String[]{
+                        Sequel.menyimpantf("bridging_sep_backup", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "SEP", 59, new String[]{
                             response.asText(), TNoRw.getText(), Valid.SetTgl(TanggalSEP.getSelectedItem() + ""), Valid.SetTgl(TanggalRujuk.getSelectedItem() + ""),
                             NoRujukan.getText(), KdPpkRujukan.getText(), rujukanSEP.getText(), KdPPK.getText(), NmPPK.getText(),
                             JenisPelayanan.getSelectedItem().toString().substring(0, 1), Catatan.getText(), KdPenyakit.getText(),
@@ -7255,7 +7247,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                             KasusKatarak.getSelectedItem().toString().substring(0, 1), tglkkl, Ket.getText(), suplesi.getSelectedItem().toString(),
                             NoSEPSuplesi.getText(), KdProv.getText(), NmProv.getText(), KdKab.getText(), NmKab.getText(),
                             KdKec.getText(), NmKec.getText(), noSurat.getText(), Kddpjp.getText(), NmDPJP.getText(), "", hakKelas.getSelectedItem().toString().substring(0, 1),
-                            kdNaikKls.getText(), pembi, pngJwb.getText(), tujuanKun.getSelectedItem().toString(), flag, kdpnjg, asesmen, KddpjpLayan.getText(), nmdpjpLayan.getText()
+                            kdNaikKls.getText(), pembi, pngJwb.getText(), tujuanKun.getSelectedItem().toString(), flag, kdpnjg, asesmen, KddpjpLayan.getText(), nmdpjpLayan.getText(),api.Decrypt(root.path("response").asText(), utc)
                         });
                     }
                     emptTeks();
@@ -7286,7 +7278,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                     }
                     
                     //Simpan Ke tabel bridging_sep_backup
-                    if (Sequel.menyimpantf("bridging_sep_backup", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "SEP", 58, new String[]{
+                    if (Sequel.menyimpantf("bridging_sep_backup", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "SEP", 59, new String[]{
                         response.asText(), TNoRw.getText(), Valid.SetTgl(TanggalSEP.getSelectedItem() + ""), Valid.SetTgl(TanggalRujuk.getSelectedItem() + ""),
                         NoRujukan.getText(), KdPpkRujukan.getText(), rujukanSEP.getText(), KdPPK.getText(), NmPPK.getText(),
                         JenisPelayanan.getSelectedItem().toString().substring(0, 1), Catatan.getText(), KdPenyakit.getText(),
@@ -7298,9 +7290,9 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                         KasusKatarak.getSelectedItem().toString().substring(0, 1), tglkkl, Ket.getText(), suplesi.getSelectedItem().toString(),
                         NoSEPSuplesi.getText(), KdProv.getText(), NmProv.getText(), KdKab.getText(), NmKab.getText(),
                         KdKec.getText(), NmKec.getText(), noSurat.getText(), Kddpjp.getText(), NmDPJP.getText(), "", hakKelas.getSelectedItem().toString().substring(0, 1),
-                        kdNaikKls.getText(), pembi, pngJwb.getText(), tujuanKun.getSelectedItem().toString(), flag, kdpnjg, asesmen, KddpjpLayan.getText(), nmdpjpLayan.getText()
+                        kdNaikKls.getText(), pembi, pngJwb.getText(), tujuanKun.getSelectedItem().toString(), flag, kdpnjg, asesmen, KddpjpLayan.getText(), nmdpjpLayan.getText(),api.Decrypt(root.path("response").asText(), utc)
                     }) == false) {
-                        Sequel.menyimpantf("bridging_sep_backup", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "SEP", 58, new String[]{
+                        Sequel.menyimpantf("bridging_sep_backup", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "SEP", 59, new String[]{
                             response.asText(), TNoRw.getText(), Valid.SetTgl(TanggalSEP.getSelectedItem() + ""), Valid.SetTgl(TanggalRujuk.getSelectedItem() + ""),
                             NoRujukan.getText(), KdPpkRujukan.getText(), rujukanSEP.getText(), KdPPK.getText(), NmPPK.getText(),
                             JenisPelayanan.getSelectedItem().toString().substring(0, 1), Catatan.getText(), KdPenyakit.getText(),
@@ -7312,7 +7304,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                             KasusKatarak.getSelectedItem().toString().substring(0, 1), tglkkl, Ket.getText(), suplesi.getSelectedItem().toString(),
                             NoSEPSuplesi.getText(), KdProv.getText(), NmProv.getText(), KdKab.getText(), NmKab.getText(),
                             KdKec.getText(), NmKec.getText(), noSurat.getText(), Kddpjp.getText(), NmDPJP.getText(), "", hakKelas.getSelectedItem().toString().substring(0, 1),
-                            kdNaikKls.getText(), pembi, pngJwb.getText(), tujuanKun.getSelectedItem().toString(), flag, kdpnjg, asesmen, KddpjpLayan.getText(), nmdpjpLayan.getText()
+                            kdNaikKls.getText(), pembi, pngJwb.getText(), tujuanKun.getSelectedItem().toString(), flag, kdpnjg, asesmen, KddpjpLayan.getText(), nmdpjpLayan.getText(),api.Decrypt(root.path("response").asText(), utc)
                         });
                     }
                     emptTeks();
@@ -7365,9 +7357,8 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
 //                        }
 //                     }
             } else {
-                JOptionPane.showMessageDialog(null, nameNode.path("message").asText());
-                //Simpan Ke tabel bridging_sep_backup
-                if (Sequel.menyimpantf("bridging_sep_backup", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "SEP", 58, new String[]{
+                //Simpan Ke tabel bridging_sep_backup jika gagal membuat sep
+                if (Sequel.menyimpantf("bridging_sep_backup", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "SEP", 59, new String[]{
                     "-", TNoRw.getText(), Valid.SetTgl(TanggalSEP.getSelectedItem() + ""), Valid.SetTgl(TanggalRujuk.getSelectedItem() + ""),
                     NoRujukan.getText(), KdPpkRujukan.getText(), rujukanSEP.getText(), KdPPK.getText(), NmPPK.getText(),
                     JenisPelayanan.getSelectedItem().toString().substring(0, 1), Catatan.getText(), KdPenyakit.getText(),
@@ -7379,9 +7370,9 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                     KasusKatarak.getSelectedItem().toString().substring(0, 1), tglkkl, Ket.getText(), suplesi.getSelectedItem().toString(),
                     NoSEPSuplesi.getText(), KdProv.getText(), NmProv.getText(), KdKab.getText(), NmKab.getText(),
                     KdKec.getText(), NmKec.getText(), noSurat.getText(), Kddpjp.getText(), NmDPJP.getText(), "", hakKelas.getSelectedItem().toString().substring(0, 1),
-                    kdNaikKls.getText(), pembi, pngJwb.getText(), tujuanKun.getSelectedItem().toString(), flag, kdpnjg, asesmen, KddpjpLayan.getText(), nmdpjpLayan.getText()
+                    kdNaikKls.getText(), pembi, pngJwb.getText(), tujuanKun.getSelectedItem().toString(), flag, kdpnjg, asesmen, KddpjpLayan.getText(), nmdpjpLayan.getText(),respons
                 }) == false) {
-                    Sequel.menyimpantf("bridging_sep_backup", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "SEP", 58, new String[]{
+                    Sequel.menyimpantf("bridging_sep_backup", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "SEP", 59, new String[]{
                         "-", TNoRw.getText(), Valid.SetTgl(TanggalSEP.getSelectedItem() + ""), Valid.SetTgl(TanggalRujuk.getSelectedItem() + ""),
                         NoRujukan.getText(), KdPpkRujukan.getText(), rujukanSEP.getText(), KdPPK.getText(), NmPPK.getText(),
                         JenisPelayanan.getSelectedItem().toString().substring(0, 1), Catatan.getText(), KdPenyakit.getText(),
@@ -7393,7 +7384,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                         KasusKatarak.getSelectedItem().toString().substring(0, 1), tglkkl, Ket.getText(), suplesi.getSelectedItem().toString(),
                         NoSEPSuplesi.getText(), KdProv.getText(), NmProv.getText(), KdKab.getText(), NmKab.getText(),
                         KdKec.getText(), NmKec.getText(), noSurat.getText(), Kddpjp.getText(), NmDPJP.getText(), "", hakKelas.getSelectedItem().toString().substring(0, 1),
-                        kdNaikKls.getText(), pembi, pngJwb.getText(), tujuanKun.getSelectedItem().toString(), flag, kdpnjg, asesmen, KddpjpLayan.getText(), nmdpjpLayan.getText()
+                        kdNaikKls.getText(), pembi, pngJwb.getText(), tujuanKun.getSelectedItem().toString(), flag, kdpnjg, asesmen, KddpjpLayan.getText(), nmdpjpLayan.getText(),respons
                     });
                 }                
             }

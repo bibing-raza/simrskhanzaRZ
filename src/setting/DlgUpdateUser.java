@@ -607,7 +607,7 @@ public class DlgUpdateUser extends javax.swing.JDialog {
                     + "assesmen_gizi_ulang,tombol_nota_billing,tombol_simpan_hasil_radiologi,monev_asuhan_gizi,inacbg_klaim_raza,"
                     + "pengajuan_klaim_inacbg_raza,copy_pemeriksaan_dokter_kepetugas_ralan,jkn_belum_diproses_klaim,input_kode_icd,indikator_mutu_unit,"
                     + "kendali_Mutu_kendali_Biaya_INACBG,dashboard_eResep,bpjs_sep_internal,kemenkes_sitt,rencana_kontrol_jkn,spri_jkn,hapus_sep,"
-                    + "penilaian_awal_medis_ralan_kebidanan,penilaian_awal_keperawatan_kebidanan from user where id_user=AES_ENCRYPT(?,'nur')");
+                    + "penilaian_awal_medis_ralan_kebidanan,penilaian_awal_keperawatan_kebidanan,ikhtisar_perawatan_hiv,survey_kepuasan from user where id_user=AES_ENCRYPT(?,'nur')");
             try {
                 ps.setString(1, user);
                 rs = ps.executeQuery();
@@ -1730,6 +1730,14 @@ public class DlgUpdateUser extends javax.swing.JDialog {
                     
                     if ("[K]SPRI JKN".toLowerCase().contains(TCari.getText().toLowerCase())) {
                         tabMode.addRow(new Object[]{false, "[K]SPRI JKN", rs.getBoolean("spri_jkn")});
+                    }
+                    
+                    if ("[L]Survey Kepuasan".toLowerCase().contains(TCari.getText().toLowerCase())) {
+                        tabMode.addRow(new Object[]{false, "[L]Survey Kepuasan", rs.getBoolean("survey_kepuasan")});
+                    }
+                    
+                    if ("[L]Ikhtisar Perawatan HIV & Terapi ART".toLowerCase().contains(TCari.getText().toLowerCase())) {
+                        tabMode.addRow(new Object[]{false, "[L]Ikhtisar Perawatan HIV & Terapi ART", rs.getBoolean("ikhtisar_perawatan_hiv")});
                     }
                     
                     if ("[L]Penilaian Awal Keperawatan Kebidanan Ralan".toLowerCase().contains(TCari.getText().toLowerCase())) {
@@ -3201,6 +3209,14 @@ public class DlgUpdateUser extends javax.swing.JDialog {
             
             if("[K]Cek SEP Internal BPJS".equals(tbUser.getValueAt(i,1).toString())){
                 Sequel.mengedit("user","id_user=AES_ENCRYPT('"+TKd.getText()+"','nur')","bpjs_sep_internal='"+tbUser.getValueAt(i,2).toString()+"'");
+            }
+            
+            if("[L]Survey Kepuasan".equals(tbUser.getValueAt(i,1).toString())){
+                Sequel.mengedit("user","id_user=AES_ENCRYPT('"+TKd.getText()+"','nur')","survey_kepuasan='"+tbUser.getValueAt(i,2).toString()+"'");
+            }
+            
+            if("[L]Ikhtisar Perawatan HIV & Terapi ART".equals(tbUser.getValueAt(i,1).toString())){
+                Sequel.mengedit("user","id_user=AES_ENCRYPT('"+TKd.getText()+"','nur')","ikhtisar_perawatan_hiv='"+tbUser.getValueAt(i,2).toString()+"'");
             }
             
             if("[L]Penilaian Awal Keperawatan Kebidanan Ralan".equals(tbUser.getValueAt(i,1).toString())){

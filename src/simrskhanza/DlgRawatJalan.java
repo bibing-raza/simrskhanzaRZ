@@ -2342,7 +2342,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         });
 
         TglKunRwt.setEditable(false);
-        TglKunRwt.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "14-02-2022" }));
+        TglKunRwt.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "16-02-2022" }));
         TglKunRwt.setDisplayFormat("dd-MM-yyyy");
         TglKunRwt.setName("TglKunRwt"); // NOI18N
         TglKunRwt.setOpaque(false);
@@ -2572,7 +2572,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         panelGlass9.add(ChkTanggal);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "14-02-2022" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "16-02-2022" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -2587,7 +2587,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "14-02-2022" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "16-02-2022" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -2773,24 +2773,24 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         panelGlass11.setLayout(null);
 
         jLabel14.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel14.setText("Petugas :");
+        jLabel14.setText("Petugas : ");
         jLabel14.setName("jLabel14"); // NOI18N
         panelGlass11.add(jLabel14);
-        jLabel14.setBounds(533, 10, 50, 23);
+        jLabel14.setBounds(428, 10, 60, 23);
 
         kdptg.setEditable(false);
         kdptg.setForeground(new java.awt.Color(0, 0, 0));
         kdptg.setName("kdptg"); // NOI18N
         kdptg.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                kdptgKeyPressed(evt);
-            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 kdptgKeyTyped(evt);
             }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                kdptgKeyPressed(evt);
+            }
         });
         panelGlass11.add(kdptg);
-        kdptg.setBounds(590, 10, 80, 23);
+        kdptg.setBounds(490, 10, 80, 23);
 
         BtnSeekPetugas2.setForeground(new java.awt.Color(0, 0, 0));
         BtnSeekPetugas2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/download24.png"))); // NOI18N
@@ -2803,14 +2803,14 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
             }
         });
         panelGlass11.add(BtnSeekPetugas2);
-        BtnSeekPetugas2.setBounds(1020, 10, 28, 23);
+        BtnSeekPetugas2.setBounds(830, 10, 28, 23);
 
         TPerawat.setEditable(false);
         TPerawat.setBackground(new java.awt.Color(202, 202, 202));
         TPerawat.setForeground(new java.awt.Color(0, 0, 0));
         TPerawat.setName("TPerawat"); // NOI18N
         panelGlass11.add(TPerawat);
-        TPerawat.setBounds(675, 10, 340, 23);
+        TPerawat.setBounds(573, 10, 250, 23);
 
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Dokter :");
@@ -2836,7 +2836,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         TDokter.setForeground(new java.awt.Color(0, 0, 0));
         TDokter.setName("TDokter"); // NOI18N
         panelGlass11.add(TDokter);
-        TDokter.setBounds(140, 10, 360, 23);
+        TDokter.setBounds(140, 10, 250, 23);
 
         BtnSeekDokter2.setForeground(new java.awt.Color(0, 0, 0));
         BtnSeekDokter2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/download24.png"))); // NOI18N
@@ -2849,7 +2849,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
             }
         });
         panelGlass11.add(BtnSeekDokter2);
-        BtnSeekDokter2.setBounds(500, 10, 28, 23);
+        BtnSeekDokter2.setBounds(395, 10, 28, 23);
 
         jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setText("Total Biaya Pemeriksaan/Tindakan : ");
@@ -3730,7 +3730,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         jLabel43.setBounds(0, 5, 95, 23);
 
         DTPCari3.setEditable(false);
-        DTPCari3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "14-02-2022" }));
+        DTPCari3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "16-02-2022" }));
         DTPCari3.setDisplayFormat("dd-MM-yyyy");
         DTPCari3.setName("DTPCari3"); // NOI18N
         DTPCari3.setOpaque(false);
@@ -4349,7 +4349,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         jLabel23.setBounds(645, 34, 60, 23);
 
         DTPTgl.setEditable(false);
-        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "14-02-2022" }));
+        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "16-02-2022" }));
         DTPTgl.setDisplayFormat("dd-MM-yyyy");
         DTPTgl.setName("DTPTgl"); // NOI18N
         DTPTgl.setOpaque(false);
@@ -7553,6 +7553,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         ChkInput.setSelected(true);
         isForm();
         Sequel.cariIsi("select tinggi_badan from pasien where no_rkm_medis = '" + TNoRM.getText() + "'", TTinggi);
+        Valid.SetTgl(DTPTgl, Sequel.cariIsi("select tgl_registrasi from reg_periksa where no_rawat='" + norwt + "'"));
         
         if (cekPilihanRehab == 0) {
             label_rehab.setVisible(false);
