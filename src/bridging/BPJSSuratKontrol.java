@@ -65,7 +65,7 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
     private HttpEntity requestEntity;
     private ObjectMapper mapper = new ObjectMapper();    
     private String requestJson = "", URL = "", user = "", utc = "", diagnosa = "", kdICD10 = "";
-//    private ApiBPJS api = new ApiBPJS();
+    public JsonNode respon_lagi;
     private BPJSApi api = new BPJSApi();
 
     /** Creates new form DlgPemberianInfus
@@ -248,6 +248,8 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPopupMenu1 = new javax.swing.JPopupMenu();
         MnSurat = new javax.swing.JMenuItem();
+        jPopupMenu2 = new javax.swing.JPopupMenu();
+        MnAmbilSuratKontrolVCLAIM = new javax.swing.JMenuItem();
         internalFrame1 = new widget.InternalFrame();
         Scroll = new widget.ScrollPane();
         tbSuratKontrol = new widget.Table();
@@ -321,6 +323,24 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
             }
         });
         jPopupMenu1.add(MnSurat);
+
+        jPopupMenu2.setName("jPopupMenu2"); // NOI18N
+
+        MnAmbilSuratKontrolVCLAIM.setBackground(new java.awt.Color(255, 255, 254));
+        MnAmbilSuratKontrolVCLAIM.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnAmbilSuratKontrolVCLAIM.setForeground(new java.awt.Color(0, 0, 0));
+        MnAmbilSuratKontrolVCLAIM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnAmbilSuratKontrolVCLAIM.setText("Ambil Surat Kontrol VClaim");
+        MnAmbilSuratKontrolVCLAIM.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnAmbilSuratKontrolVCLAIM.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnAmbilSuratKontrolVCLAIM.setName("MnAmbilSuratKontrolVCLAIM"); // NOI18N
+        MnAmbilSuratKontrolVCLAIM.setPreferredSize(new java.awt.Dimension(200, 26));
+        MnAmbilSuratKontrolVCLAIM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnAmbilSuratKontrolVCLAIMActionPerformed(evt);
+            }
+        });
+        jPopupMenu2.add(MnAmbilSuratKontrolVCLAIM);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -570,7 +590,7 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         panelCari.add(R1);
 
         tglSurat1.setEditable(false);
-        tglSurat1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-01-2022" }));
+        tglSurat1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "03-02-2022" }));
         tglSurat1.setDisplayFormat("dd-MM-yyyy");
         tglSurat1.setName("tglSurat1"); // NOI18N
         tglSurat1.setOpaque(false);
@@ -590,7 +610,7 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         panelCari.add(jLabel22);
 
         tglSurat2.setEditable(false);
-        tglSurat2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-01-2022" }));
+        tglSurat2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "03-02-2022" }));
         tglSurat2.setDisplayFormat("dd-MM-yyyy");
         tglSurat2.setName("tglSurat2"); // NOI18N
         tglSurat2.setOpaque(false);
@@ -613,7 +633,7 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         panelCari.add(R2);
 
         tglKontrol1.setEditable(false);
-        tglKontrol1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-01-2022" }));
+        tglKontrol1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "03-02-2022" }));
         tglKontrol1.setDisplayFormat("dd-MM-yyyy");
         tglKontrol1.setName("tglKontrol1"); // NOI18N
         tglKontrol1.setOpaque(false);
@@ -633,7 +653,7 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         panelCari.add(jLabel25);
 
         tglKontrol2.setEditable(false);
-        tglKontrol2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-01-2022" }));
+        tglKontrol2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "03-02-2022" }));
         tglKontrol2.setDisplayFormat("dd-MM-yyyy");
         tglKontrol2.setName("tglKontrol2"); // NOI18N
         tglKontrol2.setOpaque(false);
@@ -706,6 +726,7 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
 
         NoSEP.setEditable(false);
         NoSEP.setForeground(new java.awt.Color(0, 0, 0));
+        NoSEP.setComponentPopupMenu(jPopupMenu2);
         NoSEP.setName("NoSEP"); // NOI18N
         FormInput.add(NoSEP);
         NoSEP.setBounds(310, 10, 150, 23);
@@ -780,7 +801,7 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         label_rencana.setBounds(295, 70, 120, 23);
 
         TanggalKontrol.setEditable(false);
-        TanggalKontrol.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-01-2022" }));
+        TanggalKontrol.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "03-02-2022" }));
         TanggalKontrol.setDisplayFormat("dd-MM-yyyy");
         TanggalKontrol.setName("TanggalKontrol"); // NOI18N
         TanggalKontrol.setOpaque(false);
@@ -1265,6 +1286,72 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         // TODO add your handling code here:
     }//GEN-LAST:event_ScrollMouseClicked
 
+    private void MnAmbilSuratKontrolVCLAIMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnAmbilSuratKontrolVCLAIMActionPerformed
+        if (NoRawat.getText().equals("") || NoSEP.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, No. Rawat & No. SEP harus terisi dg. benar...!!!");
+        } else {
+            try {
+                prop.loadFromXML(new FileInputStream("setting/database.xml"));
+                URL = prop.getProperty("URLAPIBPJS") + "/RencanaKontrol/ListRencanaKontrol/tglAwal/" + Valid.SetTgl(TanggalKontrol.getSelectedItem() + "") + "/tglAkhir/" + Valid.SetTgl(TanggalKontrol.getSelectedItem() + "") + "/filter/2";
+
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.APPLICATION_JSON);
+                headers.add("X-Cons-ID", Sequel.decXML2(prop.getProperty("CONSIDAPIBPJS"), prop.getProperty("KEY")));
+                utc = String.valueOf(api.GetUTCdatetimeAsString());
+                headers.add("X-Timestamp", utc);
+                headers.add("X-Signature", api.getHmac(utc));
+                headers.add("user_key", koneksiDB.USERKEYAPIBPJS());
+
+                HttpEntity requestEntity = new HttpEntity(headers);
+                ObjectMapper mapper = new ObjectMapper();
+                JsonNode root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.GET, requestEntity, String.class).getBody());
+                JsonNode nameNode = root.path("metaData");
+                System.out.println("code : " + nameNode.path("code").asText());
+                System.out.println("message : " + nameNode.path("message").asText());
+
+                if (nameNode.path("code").asText().equals("200")) {
+//ini yang baru -----------                
+                    JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc));
+                    if (response.path("list").isArray()) {
+                        for (JsonNode list : response.path("list")) {
+                            if (list.path("noSepAsalKontrol").asText().toLowerCase().contains(NoSEP.getText().toLowerCase())) {
+                                Sequel.menyimpan("bridging_surat_kontrol_bpjs",
+                                        "'" + NoSEP.getText() + "',"
+                                        + "'" + list.path("tglTerbitKontrol").asText() + "',"
+                                        + "'" + list.path("noSuratKontrol").asText() + "',"
+                                        + "'" + list.path("tglRencanaKontrol").asText() + "',"
+                                        + "'" + list.path("kodeDokter").asText() + "',"
+                                        + "'" + list.path("namaDokter").asText().toUpperCase() + "',"
+                                        + "'" + list.path("poliTujuan").asText() + "',"
+                                        + "'" + list.path("namaPoliTujuan").asText() + "',"
+                                        + "'2: Rencana Kontrol',"
+                                        + "'" + NoRawat.getText() + "'");
+
+                                JOptionPane.showMessageDialog(rootPane, "Surat Rencana Kontrol dari VClaim berhasil disimpan..!!");
+                                emptTeks();
+                                tampil();
+                                break;
+                            }
+                        }
+                    }
+
+                    if (tabMode.getRowCount() <= 0) {
+                        JOptionPane.showMessageDialog(rootPane, "Surat Rencana Kontrol dari VClaim tdk. ditemukan, periksa kembali tgl. rencana kontrol..!!");
+                        TanggalKontrol.requestFocus();
+                    }
+//sampai sini -------------
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Notifikasi WS VClaim 2.0 : Kode " + nameNode.path("code").asText() + ", Pesan : " + nameNode.path("message").asText());
+                }
+            } catch (Exception ex) {
+                System.out.println("Notifikasi Peserta : " + ex);
+                if (ex.toString().contains("UnknownHostException")) {
+                    JOptionPane.showMessageDialog(null, "Koneksi ke server BPJS terputus...!");
+                }
+            }
+        }
+    }//GEN-LAST:event_MnAmbilSuratKontrolVCLAIMActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -1298,6 +1385,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.TextBox KdDokter;
     private widget.TextBox KdPoli;
     private widget.Label LCount;
+    private javax.swing.JMenuItem MnAmbilSuratKontrolVCLAIM;
     private javax.swing.JMenuItem MnSurat;
     private widget.TextBox NmDokter;
     private widget.TextBox NmPasien;
@@ -1331,6 +1419,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.Label jLabel9;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JPopupMenu jPopupMenu2;
     private widget.Label label_rencana;
     private widget.panelisi panelCari;
     private widget.panelisi panelGlass10;
