@@ -330,7 +330,7 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         MnAmbilSuratKontrolVCLAIM.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         MnAmbilSuratKontrolVCLAIM.setForeground(new java.awt.Color(0, 0, 0));
         MnAmbilSuratKontrolVCLAIM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
-        MnAmbilSuratKontrolVCLAIM.setText("Ambil Surat Kontrol VClaim");
+        MnAmbilSuratKontrolVCLAIM.setText("Ambil Surat Kontrol dari VClaim");
         MnAmbilSuratKontrolVCLAIM.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MnAmbilSuratKontrolVCLAIM.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         MnAmbilSuratKontrolVCLAIM.setName("MnAmbilSuratKontrolVCLAIM"); // NOI18N
@@ -590,7 +590,7 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         panelCari.add(R1);
 
         tglSurat1.setEditable(false);
-        tglSurat1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "03-02-2022" }));
+        tglSurat1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-03-2022" }));
         tglSurat1.setDisplayFormat("dd-MM-yyyy");
         tglSurat1.setName("tglSurat1"); // NOI18N
         tglSurat1.setOpaque(false);
@@ -610,7 +610,7 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         panelCari.add(jLabel22);
 
         tglSurat2.setEditable(false);
-        tglSurat2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "03-02-2022" }));
+        tglSurat2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-03-2022" }));
         tglSurat2.setDisplayFormat("dd-MM-yyyy");
         tglSurat2.setName("tglSurat2"); // NOI18N
         tglSurat2.setOpaque(false);
@@ -633,7 +633,7 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         panelCari.add(R2);
 
         tglKontrol1.setEditable(false);
-        tglKontrol1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "03-02-2022" }));
+        tglKontrol1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-03-2022" }));
         tglKontrol1.setDisplayFormat("dd-MM-yyyy");
         tglKontrol1.setName("tglKontrol1"); // NOI18N
         tglKontrol1.setOpaque(false);
@@ -653,7 +653,7 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         panelCari.add(jLabel25);
 
         tglKontrol2.setEditable(false);
-        tglKontrol2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "03-02-2022" }));
+        tglKontrol2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-03-2022" }));
         tglKontrol2.setDisplayFormat("dd-MM-yyyy");
         tglKontrol2.setName("tglKontrol2"); // NOI18N
         tglKontrol2.setOpaque(false);
@@ -801,7 +801,7 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         label_rencana.setBounds(295, 70, 120, 23);
 
         TanggalKontrol.setEditable(false);
-        TanggalKontrol.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "03-02-2022" }));
+        TanggalKontrol.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-03-2022" }));
         TanggalKontrol.setDisplayFormat("dd-MM-yyyy");
         TanggalKontrol.setName("TanggalKontrol"); // NOI18N
         TanggalKontrol.setOpaque(false);
@@ -1329,7 +1329,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
                                 JOptionPane.showMessageDialog(rootPane, "Surat Rencana Kontrol dari VClaim berhasil disimpan..!!");
                                 emptTeks();
-                                tampil();
+                                tampil();                                                                
                                 break;
                             }
                         }

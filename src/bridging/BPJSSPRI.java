@@ -52,6 +52,7 @@ import org.springframework.web.client.RestTemplate;
 public class BPJSSPRI extends javax.swing.JDialog {
     private final DefaultTableModel tabMode;
     private Connection koneksi = koneksiDB.condb();
+    private final Properties prop = new Properties();
     private sekuel Sequel = new sekuel();
     private validasi Valid = new validasi();
     private PreparedStatement ps;
@@ -230,7 +231,8 @@ public class BPJSSPRI extends javax.swing.JDialog {
             public void windowClosing(WindowEvent e) {}
             @Override
             public void windowClosed(WindowEvent e) {
-                if(penyakit.getTable().getSelectedRow()!= -1){   
+                if(penyakit.getTable().getSelectedRow()!= -1){
+                    kdICD10 = "";
                     kdICD10 = penyakit.getTable().getValueAt(penyakit.getTable().getSelectedRow(),1).toString();
                     Diagnosa.setText(penyakit.getTable().getValueAt(penyakit.getTable().getSelectedRow(),2).toString());                    
                 }                      
@@ -283,6 +285,8 @@ public class BPJSSPRI extends javax.swing.JDialog {
 
         jPopupMenu1 = new javax.swing.JPopupMenu();
         MnSurat = new javax.swing.JMenuItem();
+        jPopupMenu2 = new javax.swing.JPopupMenu();
+        MnAmbilSPRIVCLAIM = new javax.swing.JMenuItem();
         buttonGroup1 = new javax.swing.ButtonGroup();
         internalFrame1 = new widget.InternalFrame();
         Scroll = new widget.ScrollPane();
@@ -361,6 +365,24 @@ public class BPJSSPRI extends javax.swing.JDialog {
             }
         });
         jPopupMenu1.add(MnSurat);
+
+        jPopupMenu2.setName("jPopupMenu2"); // NOI18N
+
+        MnAmbilSPRIVCLAIM.setBackground(new java.awt.Color(255, 255, 254));
+        MnAmbilSPRIVCLAIM.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnAmbilSPRIVCLAIM.setForeground(new java.awt.Color(0, 0, 0));
+        MnAmbilSPRIVCLAIM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnAmbilSPRIVCLAIM.setText("Ambil SPRI dari VClaim");
+        MnAmbilSPRIVCLAIM.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnAmbilSPRIVCLAIM.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnAmbilSPRIVCLAIM.setName("MnAmbilSPRIVCLAIM"); // NOI18N
+        MnAmbilSPRIVCLAIM.setPreferredSize(new java.awt.Dimension(170, 26));
+        MnAmbilSPRIVCLAIM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnAmbilSPRIVCLAIMActionPerformed(evt);
+            }
+        });
+        jPopupMenu2.add(MnAmbilSPRIVCLAIM);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -605,7 +627,7 @@ public class BPJSSPRI extends javax.swing.JDialog {
         panelCari.add(R1);
 
         DTPTanggalSurat1.setEditable(false);
-        DTPTanggalSurat1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "13-01-2022" }));
+        DTPTanggalSurat1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-02-2022" }));
         DTPTanggalSurat1.setDisplayFormat("dd-MM-yyyy");
         DTPTanggalSurat1.setName("DTPTanggalSurat1"); // NOI18N
         DTPTanggalSurat1.setOpaque(false);
@@ -630,7 +652,7 @@ public class BPJSSPRI extends javax.swing.JDialog {
         panelCari.add(jLabel22);
 
         DTPTanggalSurat2.setEditable(false);
-        DTPTanggalSurat2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "13-01-2022" }));
+        DTPTanggalSurat2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-02-2022" }));
         DTPTanggalSurat2.setDisplayFormat("dd-MM-yyyy");
         DTPTanggalSurat2.setName("DTPTanggalSurat2"); // NOI18N
         DTPTanggalSurat2.setOpaque(false);
@@ -659,7 +681,7 @@ public class BPJSSPRI extends javax.swing.JDialog {
         panelCari.add(R2);
 
         tglRencana1.setEditable(false);
-        tglRencana1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "13-01-2022" }));
+        tglRencana1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-02-2022" }));
         tglRencana1.setDisplayFormat("dd-MM-yyyy");
         tglRencana1.setName("tglRencana1"); // NOI18N
         tglRencana1.setOpaque(false);
@@ -684,7 +706,7 @@ public class BPJSSPRI extends javax.swing.JDialog {
         panelCari.add(jLabel25);
 
         tglRencana2.setEditable(false);
-        tglRencana2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "13-01-2022" }));
+        tglRencana2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-02-2022" }));
         tglRencana2.setDisplayFormat("dd-MM-yyyy");
         tglRencana2.setName("tglRencana2"); // NOI18N
         tglRencana2.setOpaque(false);
@@ -761,6 +783,7 @@ public class BPJSSPRI extends javax.swing.JDialog {
 
         NoKartu.setEditable(false);
         NoKartu.setForeground(new java.awt.Color(0, 0, 0));
+        NoKartu.setComponentPopupMenu(jPopupMenu2);
         NoKartu.setName("NoKartu"); // NOI18N
         FormInput.add(NoKartu);
         NoKartu.setBounds(291, 10, 110, 23);
@@ -832,7 +855,7 @@ public class BPJSSPRI extends javax.swing.JDialog {
         jLabel14.setBounds(268, 70, 100, 23);
 
         TglRencanaInap.setEditable(false);
-        TglRencanaInap.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "13-01-2022" }));
+        TglRencanaInap.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-02-2022" }));
         TglRencanaInap.setDisplayFormat("dd-MM-yyyy");
         TglRencanaInap.setName("TglRencanaInap"); // NOI18N
         TglRencanaInap.setOpaque(false);
@@ -1348,6 +1371,78 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         }
     }//GEN-LAST:event_BtnHapusKeyPressed
 
+    private void MnAmbilSPRIVCLAIMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnAmbilSPRIVCLAIMActionPerformed
+        if (NoRawat.getText().equals("") && NoKartu.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, No. Rawat & No. Kartu harus terisi dg. benar...!!!");
+        } else if (Diagnosa.getText().trim().equals("")) {
+            Valid.textKosong(btnDiagnosa, "Diagnosa");
+        } else {
+            try {
+                prop.loadFromXML(new FileInputStream("setting/database.xml"));
+                URL = prop.getProperty("URLAPIBPJS") + "/RencanaKontrol/ListRencanaKontrol/tglAwal/" + Valid.SetTgl(TglRencanaInap.getSelectedItem() + "") + "/tglAkhir/" + Valid.SetTgl(TglRencanaInap.getSelectedItem() + "") + "/filter/2";
+
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.APPLICATION_JSON);
+                headers.add("X-Cons-ID", Sequel.decXML2(prop.getProperty("CONSIDAPIBPJS"), prop.getProperty("KEY")));
+                utc = String.valueOf(api.GetUTCdatetimeAsString());
+                headers.add("X-Timestamp", utc);
+                headers.add("X-Signature", api.getHmac(utc));
+                headers.add("user_key", koneksiDB.USERKEYAPIBPJS());
+
+                HttpEntity requestEntity = new HttpEntity(headers);
+                ObjectMapper mapper = new ObjectMapper();
+                JsonNode root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.GET, requestEntity, String.class).getBody());
+                JsonNode nameNode = root.path("metaData");
+                System.out.println("code : " + nameNode.path("code").asText());
+                System.out.println("message : " + nameNode.path("message").asText());
+
+                if (nameNode.path("code").asText().equals("200")) {
+                    //ini yang baru -----------
+                    JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc));
+                    if (response.path("list").isArray()) {
+                        for (JsonNode list : response.path("list")) {
+                            if (list.path("noKartu").asText().toLowerCase().contains(NoKartu.getText().toLowerCase())
+                                    && list.path("tglRencanaKontrol").asText().toLowerCase().contains(Valid.SetTgl(TglRencanaInap.getSelectedItem() + ""))
+                                    && (list.path("namaJnsKontrol").asText().toLowerCase().contains("SPRI") || list.path("jnsKontrol").asText().toLowerCase().contains("1"))) {                                
+                                Sequel.menyimpan("bridging_surat_pri_bpjs",
+                                        "'" + NoRawat.getText() + "',"
+                                        + "'" + NoKartu.getText() + "',"
+                                        + "'" + list.path("tglTerbitKontrol").asText() + "',"
+                                        + "'" + list.path("noSuratKontrol").asText() + "',"
+                                        + "'" + list.path("tglRencanaKontrol").asText() + "',"
+                                        + "'" + list.path("kodeDokter").asText() + "',"
+                                        + "'" + list.path("namaDokter").asText().toUpperCase() + "',"                                        
+                                        + "'" + list.path("poliTujuan").asText() + "',"
+                                        + "'" + list.path("namaPoliTujuan").asText() + "',"
+                                        + "'" + Diagnosa.getText() + "',"
+                                        + "'" + kdICD10 + "'");
+
+                                Valid.SetTgl(DTPTanggalSurat1, Valid.SetTgl(TglRencanaInap.getSelectedItem() + ""));
+                                tampil();
+                                JOptionPane.showMessageDialog(rootPane, "Surat Perintah Rawat Inap (SPRI) dari VClaim berhasil disimpan..!!");
+                                emptTeks();                                                                                                
+                                break;
+                            }
+                        }
+                    }
+
+                    if (tabMode.getRowCount() <= 0) {
+                        JOptionPane.showMessageDialog(rootPane, "Surat Perintah Rawat Inap (SPRI) dari VClaim tdk. ditemukan, periksa kembali tgl. rencana inap..!!");
+                        TglRencanaInap.requestFocus();
+                    }
+                    //sampai sini -------------
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Notifikasi WS VClaim 2.0 : Kode " + nameNode.path("code").asText() + ", Pesan : " + nameNode.path("message").asText());
+                }
+            } catch (Exception ex) {
+                System.out.println("Notifikasi Peserta : " + ex);
+                if (ex.toString().contains("UnknownHostException")) {
+                    JOptionPane.showMessageDialog(null, "Koneksi ke server BPJS terputus...!");
+                }
+            }
+        }
+    }//GEN-LAST:event_MnAmbilSPRIVCLAIMActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -1385,6 +1480,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.TextBox KdPoli;
     private widget.Label LCount;
     private widget.Label LCount1;
+    private javax.swing.JMenuItem MnAmbilSPRIVCLAIM;
     private javax.swing.JMenuItem MnSurat;
     private widget.TextBox NmDokter;
     private widget.TextBox NmPasien;
@@ -1421,6 +1517,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.Label jLabel9;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JPopupMenu jPopupMenu2;
     private widget.panelisi panelCari;
     private widget.panelisi panelGlass10;
     private widget.panelisi panelGlass8;
