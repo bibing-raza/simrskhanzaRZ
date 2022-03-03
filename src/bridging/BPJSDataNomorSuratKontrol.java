@@ -641,11 +641,17 @@ public final class BPJSDataNomorSuratKontrol extends javax.swing.JDialog {
         if (kdICD.getText().trim().equals("")) {
             Valid.textKosong(kdICD, "Diagnosa");
             btnDiagnosa.requestFocus();
+        } else if (Sequel.cariInteger("SELECT count(-1) FROM kamar_inap ki INNER JOIN reg_periksa rp ON rp.no_rawat=ki.no_rawat "
+                + "INNER JOIN pasien p ON p.no_rkm_medis=rp.no_rkm_medis "
+                + "WHERE ki.tgl_masuk='" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 5).toString() + "' "
+                + "AND p.no_peserta='" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 15).toString() + "' AND ki.stts_pulang='-'") <= 0) {
+            WindowDiagnosa.dispose();
+            JOptionPane.showMessageDialog(rootPane, "Proses simpan data gagal, tgl. rencana inap berbeda dg. tgl. masuk inap...!");
         } else {
             Sequel.menyimpan("bridging_surat_pri_bpjs",
                     "'" + Sequel.cariIsi("SELECT ki.no_rawat FROM kamar_inap ki INNER JOIN reg_periksa rp ON rp.no_rawat=ki.no_rawat "
                             + "INNER JOIN pasien p ON p.no_rkm_medis=rp.no_rkm_medis "
-                            + "WHERE ki.tgl_masuk='" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 12).toString() + "' "
+                            + "WHERE ki.tgl_masuk='" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 5).toString() + "' "
                             + "AND p.no_peserta='" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 15).toString() +"' AND ki.stts_pulang='-'") + "',"
                     + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 15).toString() + "',"
                     + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 6).toString() + "',"
@@ -658,6 +664,7 @@ public final class BPJSDataNomorSuratKontrol extends javax.swing.JDialog {
                     + "'" + nmDiagnosa.getText() + "',"
                     + "'" + kdICD.getText() + "'");
 
+            WindowDiagnosa.dispose();
             JOptionPane.showMessageDialog(rootPane, "Data berhasil tersimpan ke tabel bridging_surat_pri_bpjs...!");
         }
     }//GEN-LAST:event_BtnSimpan4ActionPerformed
