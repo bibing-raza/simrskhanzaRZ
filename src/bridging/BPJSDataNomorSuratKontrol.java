@@ -227,7 +227,7 @@ public final class BPJSDataNomorSuratKontrol extends javax.swing.JDialog {
         MnHapus.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         MnHapus.setIconTextGap(5);
         MnHapus.setName("MnHapus"); // NOI18N
-        MnHapus.setPreferredSize(new java.awt.Dimension(240, 26));
+        MnHapus.setPreferredSize(new java.awt.Dimension(210, 26));
         MnHapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MnHapusActionPerformed(evt);
@@ -243,7 +243,7 @@ public final class BPJSDataNomorSuratKontrol extends javax.swing.JDialog {
         MnSimpanSPRI.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         MnSimpanSPRI.setIconTextGap(5);
         MnSimpanSPRI.setName("MnSimpanSPRI"); // NOI18N
-        MnSimpanSPRI.setPreferredSize(new java.awt.Dimension(240, 26));
+        MnSimpanSPRI.setPreferredSize(new java.awt.Dimension(210, 26));
         MnSimpanSPRI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MnSimpanSPRIActionPerformed(evt);
@@ -259,7 +259,7 @@ public final class BPJSDataNomorSuratKontrol extends javax.swing.JDialog {
         MnSimpanSURKON.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         MnSimpanSURKON.setIconTextGap(5);
         MnSimpanSURKON.setName("MnSimpanSURKON"); // NOI18N
-        MnSimpanSURKON.setPreferredSize(new java.awt.Dimension(240, 26));
+        MnSimpanSURKON.setPreferredSize(new java.awt.Dimension(210, 26));
         MnSimpanSURKON.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MnSimpanSURKONActionPerformed(evt);
@@ -412,7 +412,7 @@ public final class BPJSDataNomorSuratKontrol extends javax.swing.JDialog {
         panelGlass6.add(jLabel20);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "03-03-2022" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-03-2022" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -427,7 +427,7 @@ public final class BPJSDataNomorSuratKontrol extends javax.swing.JDialog {
         panelGlass6.add(jLabel21);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "03-03-2022" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-03-2022" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -578,15 +578,14 @@ public final class BPJSDataNomorSuratKontrol extends javax.swing.JDialog {
     private void MnSimpanSPRIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnSimpanSPRIActionPerformed
         if (tbSurat.getSelectedRow() != -1) {
             this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-            x = JOptionPane.showConfirmDialog(rootPane, "Yakin data SPRI mau disimpan ke database..??", "Konfirmasi", JOptionPane.YES_NO_OPTION);
-            if (x == JOptionPane.YES_OPTION) {
-                if (tbSurat.getValueAt(tbSurat.getSelectedRow(), 3).toString().equals("2")) {
-                    JOptionPane.showMessageDialog(null, "Yang akan disimpan bukan data SPRI, anda salah memilih data...!");
-                    tbSurat.requestFocus();
-                } else if (Sequel.cariInteger("SELECT COUNT(-1) FROM bridging_sep bs INNER JOIN kamar_inap ki ON ki.no_rawat=bs.no_rawat "
-                        + "WHERE bs.no_kartu='" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 15).toString() + "' ORDER BY bs.tglsep DESC LIMIT 1") > 0) {
-                    JOptionPane.showMessageDialog(null, "Data SEP sudah tersimpan, data SPRI tgl. inap " + tbSurat.getValueAt(tbSurat.getSelectedRow(), 5).toString() + " tdk. diperlukan lagi...!");
-                } else {
+            if (tbSurat.getValueAt(tbSurat.getSelectedRow(), 3).toString().equals("2")) {
+                JOptionPane.showMessageDialog(null, "Yang akan disimpan bukan data SPRI, anda salah memilih data...!");
+                tbSurat.requestFocus();
+            } else if (Sequel.cariInteger("SELECT COUNT(-1) FROM bridging_sep bs INNER JOIN kamar_inap ki ON ki.no_rawat=bs.no_rawat "
+                    + "WHERE bs.no_kartu='" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 15).toString() + "' ORDER BY bs.tglsep DESC LIMIT 1") > 0) {
+                x = JOptionPane.showConfirmDialog(rootPane, "Data SEP sdh. tersimpan, data SPRI tgl. inap "
+                        + tbSurat.getValueAt(tbSurat.getSelectedRow(), 5).toString() + " tdk. diperlukan lagi. Apakah tetap akan disimpan..??", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+                if (x == JOptionPane.YES_OPTION) {
                     kdICD.setText("");
                     nmDiagnosa.setText("");
                     WindowDiagnosa.setSize(848, 86);
@@ -606,7 +605,10 @@ public final class BPJSDataNomorSuratKontrol extends javax.swing.JDialog {
             this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
             x = JOptionPane.showConfirmDialog(rootPane, "Yakin data Surat Rencana Kontrol mau disimpan ke database..??", "Konfirmasi", JOptionPane.YES_NO_OPTION);
             if (x == JOptionPane.YES_OPTION) {
-                if (Sequel.cariInteger("select count(-1) from bridging_sep where no_sep='" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 7).toString() + "' and urutan_sep='1'") <= 0) {
+                if (tbSurat.getValueAt(tbSurat.getSelectedRow(), 3).toString().equals("1")) {
+                    JOptionPane.showMessageDialog(null, "Yang akan disimpan bukan data Surat Rencana Kontrol, anda salah memilih data...!");
+                    tbSurat.requestFocus();
+                } else if (Sequel.cariInteger("select count(-1) from bridging_sep where no_sep='" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 7).toString() + "' and urutan_sep='1'") <= 0) {
                     JOptionPane.showMessageDialog(null, "Data SEP tidak ditemukan, proses tdk. bisa dilanjutkan...!");
                 } else {
                     Sequel.menyimpan("bridging_surat_kontrol_bpjs",
