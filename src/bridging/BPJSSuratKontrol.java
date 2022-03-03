@@ -1327,6 +1327,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                                         + "'2: Rencana Kontrol',"
                                         + "'" + NoRawat.getText() + "'");
 
+                                Valid.SetTgl(tglSurat1, list.path("tglTerbitKontrol").asText());
                                 JOptionPane.showMessageDialog(rootPane, "Surat Rencana Kontrol dari VClaim berhasil disimpan..!!");
                                 emptTeks();
                                 tampil();                                                                

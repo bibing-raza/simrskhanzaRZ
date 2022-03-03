@@ -258,8 +258,7 @@ public class BPJSSPRI extends javax.swing.JDialog {
             }
             @Override
             public void keyReleased(KeyEvent e) {}
-        });  
-        
+        });
         
         try {
             user = var.getkode().replace(" ", "").substring(0, 9);
@@ -1417,7 +1416,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                                         + "'" + Diagnosa.getText() + "',"
                                         + "'" + kdICD10 + "'");
 
-                                Valid.SetTgl(DTPTanggalSurat1, Valid.SetTgl(TglRencanaInap.getSelectedItem() + ""));
+                                Valid.SetTgl(DTPTanggalSurat1, list.path("tglTerbitKontrol").asText());
                                 tampil();
                                 JOptionPane.showMessageDialog(rootPane, "Surat Perintah Rawat Inap (SPRI) dari VClaim berhasil disimpan..!!");
                                 emptTeks();                                                                                                

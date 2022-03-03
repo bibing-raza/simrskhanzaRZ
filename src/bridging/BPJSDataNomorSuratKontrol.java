@@ -67,6 +67,7 @@ public final class BPJSDataNomorSuratKontrol extends javax.swing.JDialog {
     private validasi Valid = new validasi();
     private Connection koneksi = koneksiDB.condb();
     private BPJSApi api = new BPJSApi();    
+    private BPJSCekReferensiPenyakit penyakit = new BPJSCekReferensiPenyakit(null, false);
     private String utc = "", URL = "", requestJson = "", kode = "", pesan = "", filterDong = "", nosurat = "";
     private PreparedStatement ps;
     private ResultSet rs;
@@ -134,6 +135,41 @@ public final class BPJSDataNomorSuratKontrol extends javax.swing.JDialog {
         }        
         tbSurat.setDefaultRenderer(Object.class, new WarnaTable());
         
+        penyakit.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {}
+            @Override
+            public void windowClosing(WindowEvent e) {}
+            @Override
+            public void windowClosed(WindowEvent e) {
+                if(penyakit.getTable().getSelectedRow()!= -1){
+                    kdICD.setText(penyakit.getTable().getValueAt(penyakit.getTable().getSelectedRow(),1).toString());
+                    nmDiagnosa.setText(penyakit.getTable().getValueAt(penyakit.getTable().getSelectedRow(),2).toString());                    
+                }                      
+            }
+            @Override
+            public void windowIconified(WindowEvent e) {}
+            @Override
+            public void windowDeiconified(WindowEvent e) {}
+            @Override
+            public void windowActivated(WindowEvent e) {}
+            @Override
+            public void windowDeactivated(WindowEvent e) {}
+        });
+        
+        penyakit.getTable().addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {}
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode()==KeyEvent.VK_SPACE){
+                    penyakit.dispose();
+                }
+            }
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
+        
         try {
             prop.loadFromXML(new FileInputStream("setting/database.xml"));
         } catch (Exception e) {
@@ -155,6 +191,14 @@ public final class BPJSDataNomorSuratKontrol extends javax.swing.JDialog {
         MnSimpanSPRI = new javax.swing.JMenuItem();
         MnSimpanSURKON = new javax.swing.JMenuItem();
         buttonGroup1 = new javax.swing.ButtonGroup();
+        WindowDiagnosa = new javax.swing.JDialog();
+        internalFrame5 = new widget.InternalFrame();
+        BtnCloseIn4 = new widget.Button();
+        BtnSimpan4 = new widget.Button();
+        jLabel22 = new widget.Label();
+        kdICD = new widget.TextBox();
+        nmDiagnosa = new widget.TextBox();
+        btnDiagnosa = new widget.Button();
         internalFrame1 = new widget.InternalFrame();
         Scroll = new widget.ScrollPane();
         tbSurat = new widget.Table();
@@ -222,6 +266,77 @@ public final class BPJSDataNomorSuratKontrol extends javax.swing.JDialog {
             }
         });
         jPopupMenu.add(MnSimpanSURKON);
+
+        WindowDiagnosa.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        WindowDiagnosa.setName("WindowDiagnosa"); // NOI18N
+        WindowDiagnosa.setUndecorated(true);
+        WindowDiagnosa.setResizable(false);
+
+        internalFrame5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255), 3), "::[ Diagnosa ICD-10 Data SPRI ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
+        internalFrame5.setName("internalFrame5"); // NOI18N
+        internalFrame5.setWarnaBawah(new java.awt.Color(245, 250, 240));
+        internalFrame5.setLayout(null);
+
+        BtnCloseIn4.setForeground(new java.awt.Color(0, 0, 0));
+        BtnCloseIn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/cross.png"))); // NOI18N
+        BtnCloseIn4.setMnemonic('U');
+        BtnCloseIn4.setText("Tutup");
+        BtnCloseIn4.setToolTipText("Alt+U");
+        BtnCloseIn4.setName("BtnCloseIn4"); // NOI18N
+        BtnCloseIn4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCloseIn4ActionPerformed(evt);
+            }
+        });
+        internalFrame5.add(BtnCloseIn4);
+        BtnCloseIn4.setBounds(720, 28, 100, 30);
+
+        BtnSimpan4.setForeground(new java.awt.Color(0, 0, 0));
+        BtnSimpan4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/save-16x16.png"))); // NOI18N
+        BtnSimpan4.setMnemonic('S');
+        BtnSimpan4.setText("Simpan");
+        BtnSimpan4.setToolTipText("Alt+S");
+        BtnSimpan4.setName("BtnSimpan4"); // NOI18N
+        BtnSimpan4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSimpan4ActionPerformed(evt);
+            }
+        });
+        internalFrame5.add(BtnSimpan4);
+        BtnSimpan4.setBounds(610, 28, 100, 30);
+
+        jLabel22.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel22.setText("Diagnosa :");
+        jLabel22.setName("jLabel22"); // NOI18N
+        internalFrame5.add(jLabel22);
+        jLabel22.setBounds(0, 32, 77, 23);
+
+        kdICD.setEditable(false);
+        kdICD.setForeground(new java.awt.Color(0, 0, 0));
+        kdICD.setName("kdICD"); // NOI18N
+        internalFrame5.add(kdICD);
+        kdICD.setBounds(81, 32, 60, 23);
+
+        nmDiagnosa.setEditable(false);
+        nmDiagnosa.setForeground(new java.awt.Color(0, 0, 0));
+        nmDiagnosa.setName("nmDiagnosa"); // NOI18N
+        internalFrame5.add(nmDiagnosa);
+        nmDiagnosa.setBounds(144, 32, 420, 23);
+
+        btnDiagnosa.setForeground(new java.awt.Color(0, 0, 0));
+        btnDiagnosa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/190.png"))); // NOI18N
+        btnDiagnosa.setMnemonic('7');
+        btnDiagnosa.setToolTipText("ALt+7");
+        btnDiagnosa.setName("btnDiagnosa"); // NOI18N
+        btnDiagnosa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDiagnosaActionPerformed(evt);
+            }
+        });
+        internalFrame5.add(btnDiagnosa);
+        btnDiagnosa.setBounds(567, 32, 28, 23);
+
+        WindowDiagnosa.getContentPane().add(internalFrame5, java.awt.BorderLayout.CENTER);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setIconImage(null);
@@ -463,32 +578,20 @@ public final class BPJSDataNomorSuratKontrol extends javax.swing.JDialog {
     private void MnSimpanSPRIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnSimpanSPRIActionPerformed
         if (tbSurat.getSelectedRow() != -1) {
             this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-            try {
-                x = JOptionPane.showConfirmDialog(rootPane, "Yakin data SPRI mau disimpan ke database..??", "Konfirmasi", JOptionPane.YES_NO_OPTION);
-                if (x == JOptionPane.YES_OPTION) {
-                    if (Sequel.cariInteger("select count(-1) from bridging_sep where no_kartu='" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 15).toString() + "' order by tglsep desc limit 1") <= 0) {
-                        JOptionPane.showMessageDialog(null, "Data SEP tidak ditemukan, proses tdk. bisa dilanjutkan...!");
-                    } else {
-                        Sequel.menyimpan("bridging_surat_pri_bpjs",
-                                "'" + Sequel.cariIsi("SELECT no_rawat FROM bridging_sep WHERE no_kartu='" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 15).toString() + "' ORDER BY tglsep DESC LIMIT 1") + "',"
-                                + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 15).toString() + "',"
-                                + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 6).toString() + "',"
-                                + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 1).toString() + "',"
-                                + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 5).toString() + "',"
-                                + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 13).toString() + "',"
-                                + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 14).toString() + "',"
-                                + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 10).toString() + "',"
-                                + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 11).toString() + "',"
-                                + "'" + Sequel.cariIsi("select nmdiagnosaawal from bridging_sep where no_kartu='" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 15).toString() + "' order by tglsep desc limit 1") + "',"
-                                + "'" + Sequel.cariIsi("select diagawal from bridging_sep where no_kartu='" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 15).toString() + "' order by tglsep desc limit 1") + "'");
-
-                        JOptionPane.showMessageDialog(rootPane, "Data berhasil tersimpan ke tabel bridging_surat_pri_bpjs...!");
-                    }
-                }
-            } catch (Exception ex) {
-                System.out.println("Notifikasi Bridging : " + ex);
-                if (ex.toString().contains("UnknownHostException")) {
-                    JOptionPane.showMessageDialog(null, "Koneksi ke server BPJS terputus...!");
+            x = JOptionPane.showConfirmDialog(rootPane, "Yakin data SPRI mau disimpan ke database..??", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+            if (x == JOptionPane.YES_OPTION) {
+                if (tbSurat.getValueAt(tbSurat.getSelectedRow(), 3).toString().equals("2")) {
+                    JOptionPane.showMessageDialog(null, "Yang akan disimpan bukan data SPRI, anda salah memilih data...!");
+                    tbSurat.requestFocus();
+                } else if (Sequel.cariInteger("SELECT COUNT(-1) FROM bridging_sep bs INNER JOIN kamar_inap ki ON ki.no_rawat=bs.no_rawat "
+                        + "WHERE bs.no_kartu='" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 15).toString() + "' ORDER BY bs.tglsep DESC LIMIT 1") > 0) {
+                    JOptionPane.showMessageDialog(null, "Data SEP sudah tersimpan, data SPRI tgl. inap " + tbSurat.getValueAt(tbSurat.getSelectedRow(), 5).toString() + " tdk. diperlukan lagi...!");
+                } else {
+                    kdICD.setText("");
+                    nmDiagnosa.setText("");
+                    WindowDiagnosa.setSize(848, 86);
+                    WindowDiagnosa.setLocationRelativeTo(internalFrame1);
+                    WindowDiagnosa.setVisible(true);
                 }
             }
             this.setCursor(Cursor.getDefaultCursor());
@@ -501,31 +604,24 @@ public final class BPJSDataNomorSuratKontrol extends javax.swing.JDialog {
     private void MnSimpanSURKONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnSimpanSURKONActionPerformed
         if (tbSurat.getSelectedRow() != -1) {
             this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-            try {
-                x = JOptionPane.showConfirmDialog(rootPane, "Yakin data Surat Rencana Kontrol mau disimpan ke database..??", "Konfirmasi", JOptionPane.YES_NO_OPTION);
-                if (x == JOptionPane.YES_OPTION) {
-                    if (Sequel.cariInteger("select count(-1) from bridging_sep where no_sep='" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 7).toString() + "' and urutan_sep='1'") <= 0) {
-                        JOptionPane.showMessageDialog(null, "Data SEP tidak ditemukan, proses tdk. bisa dilanjutkan...!");
-                    } else {
-                        Sequel.menyimpan("bridging_surat_kontrol_bpjs",
-                                "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 7).toString() + "',"
-                                + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 6).toString() + "',"
-                                + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 1).toString() + "',"
-                                + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 5).toString() + "',"
-                                + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 13).toString() + "',"
-                                + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 14).toString() + "',"
-                                + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 10).toString() + "',"
-                                + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 11).toString() + "',"
-                                + "'2: Rencana Kontrol',"
-                                + "'" + Sequel.cariIsi("select no_rawat from bridging_sep where no_sep='" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 7).toString() + "'") + "' and urutan_sep='1'");
+            x = JOptionPane.showConfirmDialog(rootPane, "Yakin data Surat Rencana Kontrol mau disimpan ke database..??", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+            if (x == JOptionPane.YES_OPTION) {
+                if (Sequel.cariInteger("select count(-1) from bridging_sep where no_sep='" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 7).toString() + "' and urutan_sep='1'") <= 0) {
+                    JOptionPane.showMessageDialog(null, "Data SEP tidak ditemukan, proses tdk. bisa dilanjutkan...!");
+                } else {
+                    Sequel.menyimpan("bridging_surat_kontrol_bpjs",
+                            "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 7).toString() + "',"
+                            + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 6).toString() + "',"
+                            + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 1).toString() + "',"
+                            + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 5).toString() + "',"
+                            + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 13).toString() + "',"
+                            + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 14).toString() + "',"
+                            + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 10).toString() + "',"
+                            + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 11).toString() + "',"
+                            + "'2: Rencana Kontrol',"
+                            + "'" + Sequel.cariIsi("select no_rawat from bridging_sep where no_sep='" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 7).toString() + "'") + "' and urutan_sep='1'");
 
-                        JOptionPane.showMessageDialog(rootPane, "Data berhasil tersimpan ke tabel bridging_surat_kontrol_bpjs...!");
-                    }
-                }
-            } catch (Exception ex) {
-                System.out.println("Notifikasi Bridging : " + ex);
-                if (ex.toString().contains("UnknownHostException")) {
-                    JOptionPane.showMessageDialog(null, "Koneksi ke server BPJS terputus...!");
+                    JOptionPane.showMessageDialog(rootPane, "Data berhasil tersimpan ke tabel bridging_surat_kontrol_bpjs...!");
                 }
             }
             this.setCursor(Cursor.getDefaultCursor());
@@ -534,6 +630,43 @@ public final class BPJSDataNomorSuratKontrol extends javax.swing.JDialog {
             tbSurat.requestFocus();
         }
     }//GEN-LAST:event_MnSimpanSURKONActionPerformed
+
+    private void BtnCloseIn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCloseIn4ActionPerformed
+        WindowDiagnosa.dispose();        
+    }//GEN-LAST:event_BtnCloseIn4ActionPerformed
+
+    private void BtnSimpan4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSimpan4ActionPerformed
+        if (kdICD.getText().trim().equals("")) {
+            Valid.textKosong(kdICD, "Diagnosa");
+            btnDiagnosa.requestFocus();
+        } else {
+            Sequel.menyimpan("bridging_surat_pri_bpjs",
+                    "'" + Sequel.cariIsi("SELECT ki.no_rawat FROM kamar_inap ki INNER JOIN reg_periksa rp ON rp.no_rawat=ki.no_rawat "
+                            + "INNER JOIN pasien p ON p.no_rkm_medis=rp.no_rkm_medis "
+                            + "WHERE ki.tgl_masuk='" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 12).toString() + "' "
+                            + "AND p.no_peserta='" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 15).toString() +"' AND ki.stts_pulang='-'") + "',"
+                    + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 15).toString() + "',"
+                    + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 6).toString() + "',"
+                    + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 1).toString() + "',"
+                    + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 5).toString() + "',"
+                    + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 13).toString() + "',"
+                    + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 14).toString() + "',"
+                    + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 10).toString() + "',"
+                    + "'" + tbSurat.getValueAt(tbSurat.getSelectedRow(), 11).toString() + "',"
+                    + "'" + nmDiagnosa.getText() + "',"
+                    + "'" + kdICD.getText() + "'");
+
+            JOptionPane.showMessageDialog(rootPane, "Data berhasil tersimpan ke tabel bridging_surat_pri_bpjs...!");
+        }
+    }//GEN-LAST:event_BtnSimpan4ActionPerformed
+
+    private void btnDiagnosaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiagnosaActionPerformed
+        var.setform("BPJSDataNomorSuratKontrol");
+        penyakit.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
+        penyakit.setLocationRelativeTo(internalFrame1);
+        penyakit.setVisible(true);
+        penyakit.diagnosa.requestFocus();
+    }//GEN-LAST:event_btnDiagnosaActionPerformed
 
     /**
     * @param args the command line arguments
@@ -553,7 +686,9 @@ public final class BPJSDataNomorSuratKontrol extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private widget.Button BtnCari;
+    private widget.Button BtnCloseIn4;
     private widget.Button BtnKeluar;
+    private widget.Button BtnSimpan4;
     private widget.Tanggal DTPCari1;
     private widget.Tanggal DTPCari2;
     private javax.swing.JMenuItem MnHapus;
@@ -562,14 +697,20 @@ public final class BPJSDataNomorSuratKontrol extends javax.swing.JDialog {
     private javax.swing.JPanel PanelInput;
     private widget.ScrollPane Scroll;
     public widget.TextBox TCari;
+    private javax.swing.JDialog WindowDiagnosa;
+    private widget.Button btnDiagnosa;
     private javax.swing.ButtonGroup buttonGroup1;
     private widget.InternalFrame internalFrame1;
+    private widget.InternalFrame internalFrame5;
     private widget.Label jLabel17;
     private widget.Label jLabel18;
     private widget.Label jLabel19;
     private widget.Label jLabel20;
     private widget.Label jLabel21;
+    private widget.Label jLabel22;
     private javax.swing.JPopupMenu jPopupMenu;
+    private widget.TextBox kdICD;
+    private widget.TextBox nmDiagnosa;
     private widget.panelisi panelGlass6;
     private widget.Table tbSurat;
     private widget.RadioButton tglEntri;
