@@ -289,7 +289,7 @@ public final class BPJSDataNomorSuratKontrol extends javax.swing.JDialog {
             }
         });
         internalFrame5.add(BtnCloseIn4);
-        BtnCloseIn4.setBounds(720, 28, 100, 30);
+        BtnCloseIn4.setBounds(640, 28, 100, 30);
 
         BtnSimpan4.setForeground(new java.awt.Color(0, 0, 0));
         BtnSimpan4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/save-16x16.png"))); // NOI18N
@@ -303,7 +303,7 @@ public final class BPJSDataNomorSuratKontrol extends javax.swing.JDialog {
             }
         });
         internalFrame5.add(BtnSimpan4);
-        BtnSimpan4.setBounds(610, 28, 100, 30);
+        BtnSimpan4.setBounds(530, 28, 100, 30);
 
         jLabel22.setForeground(new java.awt.Color(0, 0, 0));
         jLabel22.setText("Diagnosa :");
@@ -321,7 +321,7 @@ public final class BPJSDataNomorSuratKontrol extends javax.swing.JDialog {
         nmDiagnosa.setForeground(new java.awt.Color(0, 0, 0));
         nmDiagnosa.setName("nmDiagnosa"); // NOI18N
         internalFrame5.add(nmDiagnosa);
-        nmDiagnosa.setBounds(144, 32, 420, 23);
+        nmDiagnosa.setBounds(144, 32, 350, 23);
 
         btnDiagnosa.setForeground(new java.awt.Color(0, 0, 0));
         btnDiagnosa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/190.png"))); // NOI18N
@@ -334,7 +334,7 @@ public final class BPJSDataNomorSuratKontrol extends javax.swing.JDialog {
             }
         });
         internalFrame5.add(btnDiagnosa);
-        btnDiagnosa.setBounds(567, 32, 28, 23);
+        btnDiagnosa.setBounds(495, 32, 28, 23);
 
         WindowDiagnosa.getContentPane().add(internalFrame5, java.awt.BorderLayout.CENTER);
 
@@ -588,10 +588,16 @@ public final class BPJSDataNomorSuratKontrol extends javax.swing.JDialog {
                 if (x == JOptionPane.YES_OPTION) {
                     kdICD.setText("");
                     nmDiagnosa.setText("");
-                    WindowDiagnosa.setSize(848, 86);
+                    WindowDiagnosa.setSize(763, 86);
                     WindowDiagnosa.setLocationRelativeTo(internalFrame1);
                     WindowDiagnosa.setVisible(true);
                 }
+            } else {
+                kdICD.setText("");
+                nmDiagnosa.setText("");
+                WindowDiagnosa.setSize(763, 86);
+                WindowDiagnosa.setLocationRelativeTo(internalFrame1);
+                WindowDiagnosa.setVisible(true);
             }
             this.setCursor(Cursor.getDefaultCursor());
         } else {
