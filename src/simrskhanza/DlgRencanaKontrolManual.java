@@ -330,7 +330,7 @@ public final class DlgRencanaKontrolManual extends javax.swing.JDialog {
             param.put("logo", Sequel.cariGambar("select bpjs from gambar"));
             param.put("poli", nmpoli.getText());
             param.put("dokter", nmdokter.getText());
-            param.put("nokartu", Sequel.cariIsi("select no_peserta from pasien where no_rkm_medis='" + noRM + "'"));
+            param.put("nokartu", Sequel.cariIsi("select no_peserta from pasien where no_rkm_medis='" + noRM + "'") + " (No. RM : " + noRM + ")");
             param.put("nmpasien", Sequel.cariIsi("select nm_pasien from pasien where no_rkm_medis='" + noRM + "'"));
             param.put("tgllahir", Valid.SetTglINDONESIA(Sequel.cariIsi("select tgl_lahir from pasien where no_rkm_medis='" + noRM + "'")));
             param.put("diagnosa", diagnosa.getText());

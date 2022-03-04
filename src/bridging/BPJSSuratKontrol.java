@@ -1254,7 +1254,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             Valid.MyReport("rptBridgingSuratKontrol2.jrxml", "report", "::[ Cetak Surat Rencana Kontrol ]::",
                     " SELECT bsk.no_surat, bsk.nm_dokter_bpjs, bsk.nm_poli_bpjs, bs.no_kartu, "
                     + "CONCAT(bs.nama_pasien,' (',IF(bs.jkel='L','Laki-laki','Perempuan'),')') peserta, "
-                    + "CONCAT(bs.diagawal,' - ',bs.nmdiagnosaawal) diagnosa FROM bridging_surat_kontrol_bpjs bsk "
+                    + "CONCAT(bs.diagawal,' - ',bs.nmdiagnosaawal) diagnosa, bs.nomr FROM bridging_surat_kontrol_bpjs bsk "
                     + "INNER JOIN bridging_sep bs ON bs.no_rawat=bsk.no_rawat WHERE bsk.no_surat='" + tbSuratKontrol.getValueAt(tbSuratKontrol.getSelectedRow(), 9).toString() + "'", param);
             this.setCursor(Cursor.getDefaultCursor());
         } else {

@@ -24,7 +24,7 @@
 	<queryString>
 		<![CDATA[SELECT bsk.no_surat, bsk.nm_dokter_bpjs, bsk.nm_poli_bpjs, bs.no_kartu, 
 CONCAT(bs.nama_pasien,' (',IF(bs.jkel='L','Laki-laki','Perempuan'),')') peserta, 
-CONCAT(bs.diagawal,' - ',bs.nmdiagnosaawal) diagnosa FROM bridging_surat_kontrol_bpjs  bsk 
+CONCAT(bs.diagawal,' - ',bs.nmdiagnosaawal) diagnosa, bs.nomr FROM bridging_surat_kontrol_bpjs  bsk 
 INNER JOIN bridging_sep bs ON bs.no_rawat=bsk.no_rawat WHERE bsk.no_surat='1704R0041121K000017']]>
 	</queryString>
 	<field name="no_surat" class="java.lang.String">
@@ -55,6 +55,9 @@ INNER JOIN bridging_sep bs ON bs.no_rawat=bsk.no_rawat WHERE bsk.no_surat='1704R
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="diagnosa" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomr" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<background>
@@ -99,7 +102,7 @@ INNER JOIN bridging_sep bs ON bs.no_rawat=bsk.no_rawat WHERE bsk.no_surat='1704R
 				<textElement lineSpacing="Single">
 					<font fontName="Arial" size="11"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{no_kartu}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{no_kartu}+" (No. RM : "+$F{nomr}+")"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="104" width="97" height="14">
@@ -128,7 +131,7 @@ INNER JOIN bridging_sep bs ON bs.no_rawat=bsk.no_rawat WHERE bsk.no_surat='1704R
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
-			<textField isStretchWithOverflow="true" pattern="">
+			<textField pattern="">
 				<reportElement mode="Transparent" x="102" y="121" width="437" height="16">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
