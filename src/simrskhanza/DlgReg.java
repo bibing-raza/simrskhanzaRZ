@@ -5324,7 +5324,7 @@ private void MnRujukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
         dlgrjk.emptTeks();
         dlgrjk.isCek();
         dlgrjk.setNoRm(TNoRw.getText(), DTPCari1.getDate(), DTPCari2.getDate());
-        dlgrjk.tampil();
+        dlgrjk.tampilLain();
         dlgrjk.setVisible(true);
         dlgrjk.btnFaskes.requestFocus();
         this.setCursor(Cursor.getDefaultCursor());

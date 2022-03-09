@@ -7253,7 +7253,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
         isTutup();
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         DlgRujuk rujuk = new DlgRujuk(this, false);
-        rujuk.tampil();
+        rujuk.tampilLain();
         rujuk.emptTeks();
         rujuk.isCek();
         rujuk.setSize(PanelUtama.getWidth(), PanelUtama.getHeight());

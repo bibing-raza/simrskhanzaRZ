@@ -4300,7 +4300,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
             dlgrjk.emptTeks();
             dlgrjk.isCek();
             dlgrjk.setNoRm(TNoRw.getText(), DTPCari1.getDate(), DTPCari2.getDate());
-            dlgrjk.tampil();
+            dlgrjk.tampilLain();
             dlgrjk.setVisible(true);
             this.setCursor(Cursor.getDefaultCursor());
         }

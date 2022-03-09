@@ -7306,7 +7306,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                     dlgrjk.emptTeks();
                                     dlgrjk.isCek();
                                     dlgrjk.setNoRm(norawat.getText(), DTPCari1.getDate(), DTPCari2.getDate());
-                                    dlgrjk.tampil();
+                                    dlgrjk.tampilLain();
                                     dlgrjk.setVisible(true);
                                     dlgrjk.btnFaskes.requestFocus();
 
@@ -7358,7 +7358,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 dlgrjk.emptTeks();
                                 dlgrjk.isCek();
                                 dlgrjk.setNoRm(norawat.getText(), DTPCari1.getDate(), DTPCari2.getDate());
-                                dlgrjk.tampil();
+                                dlgrjk.tampilLain();
                                 dlgrjk.setVisible(true);
                                 dlgrjk.btnFaskes.requestFocus();
 
@@ -7924,7 +7924,7 @@ private void MnRujukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                     dlgrjk.emptTeks();
                     dlgrjk.isCek();
                     dlgrjk.setNoRm(rs2.getString("no_rawat2"), DTPCari1.getDate(), DTPCari2.getDate());
-                    dlgrjk.tampil();
+                    dlgrjk.tampilLain();
                     dlgrjk.setVisible(true);
                     dlgrjk.btnFaskes.requestFocus();
                 } else {
@@ -7951,7 +7951,7 @@ private void MnRujukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
         dlgrjk.emptTeks();
         dlgrjk.isCek();
         dlgrjk.setNoRm(norawat.getText(), DTPCari1.getDate(), DTPCari2.getDate());
-        dlgrjk.tampil();
+        dlgrjk.tampilLain();
         dlgrjk.setVisible(true);
         dlgrjk.btnFaskes.requestFocus();
     }
@@ -11970,7 +11970,7 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
             dlgrjk.emptTeks();
             dlgrjk.isCek();
             dlgrjk.setNoRm(norawat.getText(), DTPCari1.getDate(), DTPCari2.getDate());
-            dlgrjk.tampil();
+            dlgrjk.tampilLain();
             dlgrjk.setVisible(true);
             dlgrjk.btnFaskes.requestFocus();
 

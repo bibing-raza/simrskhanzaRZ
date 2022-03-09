@@ -4017,7 +4017,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                             dlgrjk.emptTeks();
                             dlgrjk.isCek();
                             dlgrjk.setNoRm(TNoRw.getText(), DTPCari1.getDate(), DTPCari2.getDate());
-                            dlgrjk.tampil();
+                            dlgrjk.tampilLain();
                             dlgrjk.setVisible(true);
                         }
                         Sequel.mengedit("kamar", "kd_kamar='" + kdkamar.getText() + "'", "status='KOSONG'");
