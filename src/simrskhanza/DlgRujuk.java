@@ -1161,7 +1161,7 @@ private void btnDokterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                         + "CONCAT(p.alamat,', Kel. ',kl.nm_kel,', Kec. ',nm_kec,', ',nm_kab) alamat, d.nm_dokter, "
                         + "rp.no_rkm_medis, IF(p.jk='L','Laki-laki','Perempuan') jk,p.keluarga,p.namakeluarga, "
                         + "DATE_FORMAT(p.tgl_lahir,'%d-%m-%Y') tglLhr,p.nm_pasien, "
-                        + "CONCAT(rp.umurdaftar,' ',rp.sttsumur,'.') umur "
+                        + "CONCAT(rp.umurdaftar,' ',rp.sttsumur,'.') umur, r.keterangan "
                         + "FROM reg_periksa rp INNER JOIN pasien p ON rp.no_rkm_medis = p.no_rkm_medis "
                         + "INNER JOIN kelurahan kl ON p.kd_kel = kl.kd_kel INNER JOIN kecamatan kc ON p.kd_kec = kc.kd_kec "
                         + "INNER JOIN kabupaten kb ON p.kd_kab = kb.kd_kab INNER JOIN rujuk r ON rp.no_rawat = r.no_rawat "
