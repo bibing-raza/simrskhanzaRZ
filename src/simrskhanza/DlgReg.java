@@ -7018,19 +7018,15 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
             this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
             Map<String, Object> param = new HashMap<>();
             param.put("namars", var.getnamars());
-            param.put("alamatrs", var.getalamatrs());
-            param.put("kotars", var.getkabupatenrs());
-            param.put("propinsirs", var.getpropinsirs());
-            param.put("kontakrs", var.getkontakrs());
-            param.put("emailrs", var.getemailrs());
             param.put("logo", Sequel.cariGambar("select bpjs from gambar"));
             Valid.MyReport("rptManualSEPJalan.jrxml", "report", "::[ Cetak Manual SEP Pasien BPJS Rawat Jalan ]::",
-                    " SELECT DATE_FORMAT(reg_periksa.tgl_registrasi,'%Y-%m-%d') tgl_sep, CONCAT(pasien.no_peserta,' ( MR. ',reg_periksa.no_rkm_medis,' )') no_kartu, "
-                    + " pasien.nm_pasien, CONCAT(DATE_FORMAT(pasien.tgl_lahir,'%Y-%m-%d'),' Kelamin : ',IF(pasien.jk='L','Laki-laki','Perempuan')) tgl_lahir, "
-                    + " IFNULL(pasien.no_tlp,'-') no_telpon, poliklinik.nm_poli, penjab.png_jawab, IF(reg_periksa.status_lanjut='Ralan','R. Jalan','R. Inap') jns_rawat "
-                    + " FROM reg_periksa INNER JOIN pasien ON reg_periksa.no_rkm_medis = pasien.no_rkm_medis "
-                    + " INNER JOIN poliklinik ON reg_periksa.kd_poli = poliklinik.kd_poli INNER JOIN penjab ON reg_periksa.kd_pj = penjab.kd_pj "
-                    + " WHERE reg_periksa.status_lanjut='Ralan' AND penjab.png_jawab LIKE '%bpjs%' AND reg_periksa.no_rawat='" + TNoRw.getText() + "'", param);
+                    " SELECT DATE_FORMAT(reg_periksa.tgl_registrasi,'%Y-%m-%d') tgl_sep, CONCAT(pasien.no_peserta,' (MR. ',reg_periksa.no_rkm_medis,')') no_kartu, "
+                    + "pasien.nm_pasien, CONCAT(DATE_FORMAT(pasien.tgl_lahir,'%Y-%m-%d'),' Kelamin : ',IF(pasien.jk='L','Laki-laki','Perempuan')) tgl_lahir, "
+                    + "IFNULL(pasien.no_tlp,'-') no_telpon, poliklinik.nm_poli, penjab.png_jawab, IF(reg_periksa.status_lanjut='Ralan','R. Jalan','R. Inap') jns_rawat, d.nm_dokter "
+                    + "FROM reg_periksa INNER JOIN pasien ON reg_periksa.no_rkm_medis = pasien.no_rkm_medis "
+                    + "INNER JOIN poliklinik ON reg_periksa.kd_poli = poliklinik.kd_poli INNER JOIN penjab ON reg_periksa.kd_pj = penjab.kd_pj "
+                    + "INNER JOIN dokter d ON d.kd_dokter=reg_periksa.kd_dokter WHERE reg_periksa.status_lanjut='Ralan' AND penjab.png_jawab LIKE '%bpjs%' "
+                    + "AND reg_periksa.no_rawat='" + TNoRw.getText() + "'", param);
             this.setCursor(Cursor.getDefaultCursor());
         }
     }//GEN-LAST:event_MnManualSEPBPJSActionPerformed
