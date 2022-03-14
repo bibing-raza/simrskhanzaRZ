@@ -3964,9 +3964,11 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
     private void BtnGruperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGruperActionPerformed
         if (norawat.equals("") || noSEP.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(null, "Pilih dulu salah satu No. SEP...!!!!");
-        } else if (!tglREG.equals(tglSEP.getText())) {
-            JOptionPane.showMessageDialog(null, "Tgl. SEP & Tgl. Registrasi berbeda, perbaikilah terlebih dulu...!!!!");
-        } else if (wktMasuk.getText().trim().equals("") || dpjp.getText().trim().equals("")) {
+        } 
+//        else if (!tglREG.equals(tglSEP.getText())) {
+//            JOptionPane.showMessageDialog(null, "Tgl. SEP & Tgl. Registrasi berbeda, perbaikilah terlebih dulu...!!!!");
+//        } 
+        else if (wktMasuk.getText().trim().equals("") || dpjp.getText().trim().equals("")) {
             setKlaim(norawat, noSEP.getText(), "JKN", "3","-", tglSEP.getText());
         } else if (cmbcrPulang.getSelectedItem().equals("-")) {
             JOptionPane.showMessageDialog(null, "Pilihlah cara pulang pasien dengan benar...!!!!");        
@@ -5481,7 +5483,8 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
                         tglLhr.setText(rs.getString("tgllhr"));
                         noPeserta.setText(rs.getString("no_kartu"));
                         jpel = rs.getString("jnspelayanan");
-                        tglREG = Sequel.cariIsi("select tgl_registrasi from reg_periksa where no_rawat='" + norw + "'");
+//                        tglREG = Sequel.cariIsi("select tgl_registrasi from reg_periksa where no_rawat='" + norw + "'");
+                        tglREG = rs.getString("tglsep");
                         tglSEP.setText(rs.getString("tglsep"));
                       
                         if (jpel.equals("2")) {
@@ -6763,7 +6766,8 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
                         jknya = rs5.getString("jkel");
                         tgllhrnya = rs5.getString("tanggal_lahir");
                         tglLhr.setText(rs5.getString("tgllhr"));
-                        tglREG = Sequel.cariIsi("select tgl_registrasi from reg_periksa where no_rawat='" + norW + "'");
+//                        tglREG = Sequel.cariIsi("select tgl_registrasi from reg_periksa where no_rawat='" + norW + "'");
+                        tglREG = rs5.getString("tglsep");
                         tglSEP.setText(rs5.getString("tglsep"));
 
                     } else {
