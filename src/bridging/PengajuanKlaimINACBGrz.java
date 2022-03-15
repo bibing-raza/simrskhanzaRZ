@@ -6902,7 +6902,8 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
                 wktMasuk.setText(Sequel.cariIsi("select ifnull(concat(date_format(tgl_registrasi,'%d %b %Y'),' ',date_format(jam_reg,'%h:%i')),'') from reg_periksa where no_rawat='" + norawat + "'"));
                 wktPulang.setText(Sequel.cariIsi("select concat(date_format(ki.tgl_keluar,'%d %b %Y'),' ',date_format(ki.jam_keluar,'%h:%i')) from kamar_inap ki "
                         + "inner join reg_periksa rp on rp.no_rawat=ki.no_rawat where ki.no_rawat='" + norawat + "' and ki.stts_pulang not in ('-','pindah kamar')"));
-                tglmsk = Sequel.cariIsi("select concat(tgl_registrasi,' ',jam_reg) from reg_periksa where no_rawat='" + norawat + "'");
+                tglmsk = Sequel.cariIsi("SELECT CONCAT(bs.tglsep,' ',rp.jam_reg) FROM reg_periksa rp "
+                        + "INNER JOIN bridging_sep bs ON bs.no_rawat=rp.no_rawat WHERE bs.no_rawat='" + norawat + "'");
                 tglplg = Sequel.cariIsi("select concat(ki.tgl_keluar,' ',ki.jam_keluar) from kamar_inap ki inner join reg_periksa rp on rp.no_rawat=ki.no_rawat where "
                         + "ki.no_rawat='" + norawat + "' and ki.stts_pulang not in ('-','pindah kamar')");
                 dpjp.setText(Sequel.cariIsi("select d.nm_dokter from dpjp_ranap dr inner join dokter d on d.kd_dokter=dr.kd_dokter where dr.no_rawat='" + norawat + "'"));
@@ -6940,7 +6941,8 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
                 ventilator.setEnabled(false);
                 wktMasuk.setText(Sequel.cariIsi("select ifnull(concat(date_format(tgl_registrasi,'%d %b %Y'),' ',date_format(jam_reg,'%h:%i')),'') from reg_periksa where no_rawat='" + norawat + "'"));
                 wktPulang.setText(wktMasuk.getText());
-                tglmsk = Sequel.cariIsi("select concat(tgl_registrasi,' ',jam_reg) from reg_periksa where no_rawat='" + norawat + "'");
+                tglmsk = Sequel.cariIsi("SELECT CONCAT(bs.tglsep,' ',rp.jam_reg) FROM reg_periksa rp "
+                        + "INNER JOIN bridging_sep bs ON bs.no_rawat=rp.no_rawat WHERE bs.no_rawat='" + norawat + "'");
                 tglplg = tglmsk;
                 kdPulang = "1";
                 cmbcrPulang.setSelectedIndex(4);
