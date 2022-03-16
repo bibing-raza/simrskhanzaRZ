@@ -4821,7 +4821,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                                 + TNoRw.getText() + "','" + nmfaskes_keluar.getText() + "','"
                                 + Valid.SetTgl(TanggalRujukKeluar.getSelectedItem() + "") + "','"
                                 + NmPenyakit1.getText() + "','" + Sequel.cariIsi("select kd_dokter from reg_periksa where no_rawat=?", TNoRw.getText())
-                                + "','-','-','" + Catatan1.getText() + "','12:00:01','" + kode_rujukanya.getText() + "'", "No.Rujuk");
+                                + "','-','-','" + Catatan1.getText() + "','12:00:01','" + kode_rujukanya.getText() + "','" + NmPoli1.getText() + "'", "No.Rujuk");
 
                         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                         LocalDate tgldirujuk = LocalDate.parse(Valid.SetTgl(TanggalRujukKeluar.getSelectedItem() + ""));
@@ -5634,7 +5634,8 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                             + "tgl_rujuk='" + Valid.SetTgl(TanggalRujukKeluar.getSelectedItem() + "") + "', "
                             + "keterangan_diagnosa='" + NmPenyakit1.getText() + "', "
                             + "keterangan='" + Catatan1.getText() + "',"
-                            + "kd_rujukan='" + kode_rujukanya.getText() + "'");
+                            + "kd_rujukan='" + kode_rujukanya.getText() + "',"
+                            + "poliklinik_tujuan='" + NmPoli1.getText() + "'");
 
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     LocalDate tgldirujuk = LocalDate.parse(Valid.SetTgl(TanggalRujukKeluar.getSelectedItem() + ""));
