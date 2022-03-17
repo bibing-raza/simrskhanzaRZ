@@ -114,6 +114,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         WindowRujukanKhusus.setSize(660, 379);
         WindowCariSEP.setSize(444, 115);
         WindowCariNoRujuk.setSize(874, 250);
+        WindowCariRujukanVClaim.setSize(409, 127);
 
         tabMode = new DefaultTableModel(null, new Object[]{
             "No.SEP", "Tanggal SEP", "No.Rawat", "No.RM", "Nama Pasien", "No.Rujukan", "Tgl. Rujukan", "Asal Rujukan",
@@ -1210,6 +1211,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
 
         Popup = new javax.swing.JPopupMenu();
         ppSEP = new javax.swing.JMenuItem();
+        ppDetailSEPvclaim = new javax.swing.JMenuItem();
         ppSEPinternal = new javax.swing.JMenuItem();
         ppUpdateSEPdariVclaim = new javax.swing.JMenuItem();
         ppPulang = new javax.swing.JMenuItem();
@@ -1218,6 +1220,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         ppDataRujukanKeluar = new javax.swing.JMenuItem();
         ppMembuatRujukan = new javax.swing.JMenu();
         ppRujukanBiasa = new javax.swing.JMenuItem();
+        ppAmbilRujukanBiasaVclaim = new javax.swing.JMenuItem();
         ppRujukanKhusus = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         MnRekapSEPRanap = new javax.swing.JMenuItem();
@@ -1327,6 +1330,12 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         tbFaskes4 = new widget.Table();
         panelisi1 = new widget.panelisi();
         BtnKeluar1 = new widget.Button();
+        WindowCariRujukanVClaim = new javax.swing.JDialog();
+        internalFrame14 = new widget.InternalFrame();
+        BtnCloseIn8 = new widget.Button();
+        BtnSimpan8 = new widget.Button();
+        NoRujukanVclaim = new widget.TextBox();
+        jLabel9 = new widget.Label();
         NoBalasan = new widget.TextBox();
         LokasiLaka = new widget.TextBox();
         kode_rujukanya = new widget.TextBox();
@@ -1489,6 +1498,22 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         });
         Popup.add(ppSEP);
 
+        ppDetailSEPvclaim.setBackground(new java.awt.Color(242, 242, 242));
+        ppDetailSEPvclaim.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        ppDetailSEPvclaim.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        ppDetailSEPvclaim.setText("Detail SEP Pasien di VClaim");
+        ppDetailSEPvclaim.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        ppDetailSEPvclaim.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        ppDetailSEPvclaim.setIconTextGap(8);
+        ppDetailSEPvclaim.setName("ppDetailSEPvclaim"); // NOI18N
+        ppDetailSEPvclaim.setPreferredSize(new java.awt.Dimension(200, 25));
+        ppDetailSEPvclaim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppDetailSEPvclaimBtnPrintActionPerformed(evt);
+            }
+        });
+        Popup.add(ppDetailSEPvclaim);
+
         ppSEPinternal.setBackground(new java.awt.Color(242, 242, 242));
         ppSEPinternal.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         ppSEPinternal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
@@ -1539,7 +1564,6 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
 
         ppProgramPRB.setBackground(new java.awt.Color(242, 242, 242));
         ppProgramPRB.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        ppProgramPRB.setForeground(new java.awt.Color(0, 0, 0));
         ppProgramPRB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
         ppProgramPRB.setText("Program PRB BPJS");
         ppProgramPRB.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -1556,7 +1580,6 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
 
         ppRencanaKontrollagi.setBackground(new java.awt.Color(242, 242, 242));
         ppRencanaKontrollagi.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        ppRencanaKontrollagi.setForeground(new java.awt.Color(0, 0, 0));
         ppRencanaKontrollagi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
         ppRencanaKontrollagi.setText("Penjadwalan Rencana Kontrol");
         ppRencanaKontrollagi.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -1573,7 +1596,6 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
 
         ppDataRujukanKeluar.setBackground(new java.awt.Color(242, 242, 242));
         ppDataRujukanKeluar.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        ppDataRujukanKeluar.setForeground(new java.awt.Color(0, 0, 0));
         ppDataRujukanKeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
         ppDataRujukanKeluar.setText("Data Rujukan Keluar");
         ppDataRujukanKeluar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -1607,13 +1629,29 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         ppRujukanBiasa.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ppRujukanBiasa.setIconTextGap(8);
         ppRujukanBiasa.setName("ppRujukanBiasa"); // NOI18N
-        ppRujukanBiasa.setPreferredSize(new java.awt.Dimension(150, 25));
+        ppRujukanBiasa.setPreferredSize(new java.awt.Dimension(210, 25));
         ppRujukanBiasa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ppRujukanBiasaBtnPrintActionPerformed(evt);
             }
         });
         ppMembuatRujukan.add(ppRujukanBiasa);
+
+        ppAmbilRujukanBiasaVclaim.setBackground(new java.awt.Color(242, 242, 242));
+        ppAmbilRujukanBiasaVclaim.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        ppAmbilRujukanBiasaVclaim.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        ppAmbilRujukanBiasaVclaim.setText("Ambil Rujukan Biasa dari VClaim");
+        ppAmbilRujukanBiasaVclaim.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        ppAmbilRujukanBiasaVclaim.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        ppAmbilRujukanBiasaVclaim.setIconTextGap(8);
+        ppAmbilRujukanBiasaVclaim.setName("ppAmbilRujukanBiasaVclaim"); // NOI18N
+        ppAmbilRujukanBiasaVclaim.setPreferredSize(new java.awt.Dimension(210, 25));
+        ppAmbilRujukanBiasaVclaim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppAmbilRujukanBiasaVclaimBtnPrintActionPerformed(evt);
+            }
+        });
+        ppMembuatRujukan.add(ppAmbilRujukanBiasaVclaim);
 
         ppRujukanKhusus.setBackground(new java.awt.Color(242, 242, 242));
         ppRujukanKhusus.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -1623,7 +1661,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         ppRujukanKhusus.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ppRujukanKhusus.setIconTextGap(8);
         ppRujukanKhusus.setName("ppRujukanKhusus"); // NOI18N
-        ppRujukanKhusus.setPreferredSize(new java.awt.Dimension(150, 25));
+        ppRujukanKhusus.setPreferredSize(new java.awt.Dimension(210, 25));
         ppRujukanKhusus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ppRujukanKhususBtnPrintActionPerformed(evt);
@@ -1830,7 +1868,6 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
 
         ppRencanaKontrollagi1.setBackground(new java.awt.Color(242, 242, 242));
         ppRencanaKontrollagi1.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        ppRencanaKontrollagi1.setForeground(new java.awt.Color(0, 0, 0));
         ppRencanaKontrollagi1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
         ppRencanaKontrollagi1.setText("Penjadwalan Rencana Kontrol");
         ppRencanaKontrollagi1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -1850,7 +1887,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         WindowUpdatePulang.setUndecorated(true);
         WindowUpdatePulang.setResizable(false);
 
-        internalFrame5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255), 3), "::[ Update Tanggal Pulang ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        internalFrame5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255), 3), "::[ Update Tanggal Pulang ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
         internalFrame5.setName("internalFrame5"); // NOI18N
         internalFrame5.setWarnaBawah(new java.awt.Color(245, 250, 240));
         internalFrame5.setLayout(null);
@@ -1903,7 +1940,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         noSrtMati.setBounds(130, 62, 280, 23);
 
         tglMati.setEditable(false);
-        tglMati.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-02-2022" }));
+        tglMati.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-03-2022" }));
         tglMati.setDisplayFormat("dd-MM-yyyy");
         tglMati.setName("tglMati"); // NOI18N
         tglMati.setOpaque(false);
@@ -1919,7 +1956,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         jLabel48.setBounds(220, 91, 90, 23);
 
         noLP.setEditable(false);
-        noLP.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-02-2022" }));
+        noLP.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-03-2022" }));
         noLP.setDisplayFormat("dd-MM-yyyy");
         noLP.setName("noLP"); // NOI18N
         noLP.setOpaque(false);
@@ -1969,7 +2006,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         WindowRujukanBiasa.setUndecorated(true);
         WindowRujukanBiasa.setResizable(false);
 
-        internalFrame6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255), 3), "::[ Membuat Rujukan Keluar VClaim (BIASA) ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        internalFrame6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255), 3), "::[ Membuat Rujukan Keluar VClaim (BIASA) ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
         internalFrame6.setName("internalFrame6"); // NOI18N
         internalFrame6.setWarnaBawah(new java.awt.Color(245, 250, 240));
         internalFrame6.setLayout(null);
@@ -2009,7 +2046,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         jLabel30.setBounds(0, 25, 160, 23);
 
         TanggalRujukKeluar.setEditable(false);
-        TanggalRujukKeluar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-02-2022" }));
+        TanggalRujukKeluar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-03-2022" }));
         TanggalRujukKeluar.setDisplayFormat("dd-MM-yyyy");
         TanggalRujukKeluar.setName("TanggalRujukKeluar"); // NOI18N
         TanggalRujukKeluar.setOpaque(false);
@@ -2231,7 +2268,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         jLabel49.setBounds(0, 54, 160, 23);
 
         tglRencanaKunjungan.setEditable(false);
-        tglRencanaKunjungan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-02-2022" }));
+        tglRencanaKunjungan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-03-2022" }));
         tglRencanaKunjungan.setDisplayFormat("dd-MM-yyyy");
         tglRencanaKunjungan.setName("tglRencanaKunjungan"); // NOI18N
         tglRencanaKunjungan.setOpaque(false);
@@ -2260,7 +2297,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         WindowRujukanKhusus.setUndecorated(true);
         WindowRujukanKhusus.setResizable(false);
 
-        internalFrame10.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255), 3), "::[ Membuat Rujukan Keluar VClaim (KHUSUS) ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        internalFrame10.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255), 3), "::[ Membuat Rujukan Keluar VClaim (KHUSUS) ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
         internalFrame10.setName("internalFrame10"); // NOI18N
         internalFrame10.setWarnaBawah(new java.awt.Color(245, 250, 240));
         internalFrame10.setLayout(null);
@@ -2470,7 +2507,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         WindowCariSEP.setUndecorated(true);
         WindowCariSEP.setResizable(false);
 
-        internalFrame7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255), 3), "::[ Ambil SEP di VClaim ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        internalFrame7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255), 3), "::[ Ambil SEP di VClaim ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
         internalFrame7.setName("internalFrame7"); // NOI18N
         internalFrame7.setWarnaBawah(new java.awt.Color(245, 250, 240));
         internalFrame7.setLayout(null);
@@ -2557,12 +2594,11 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         WindowCariNoRujuk.setResizable(false);
         WindowCariNoRujuk.getContentPane().setLayout(new java.awt.BorderLayout(1, 1));
 
-        internalFrame8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255), 3), "::[ Cek Riwayat Rujukan Faskes ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        internalFrame8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255), 3), "::[ Cek Riwayat Rujukan Faskes ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
         internalFrame8.setName("internalFrame8"); // NOI18N
         internalFrame8.setWarnaBawah(new java.awt.Color(245, 250, 240));
         internalFrame8.setLayout(new java.awt.BorderLayout(1, 1));
 
-        TabRujukan.setForeground(new java.awt.Color(0, 0, 0));
         TabRujukan.setToolTipText("");
         TabRujukan.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         TabRujukan.setName("TabRujukan"); // NOI18N
@@ -2698,6 +2734,65 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
 
         WindowCariNoRujuk.getContentPane().add(internalFrame8, java.awt.BorderLayout.CENTER);
 
+        WindowCariRujukanVClaim.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        WindowCariRujukanVClaim.setName("WindowCariRujukanVClaim"); // NOI18N
+        WindowCariRujukanVClaim.setUndecorated(true);
+        WindowCariRujukanVClaim.setResizable(false);
+
+        internalFrame14.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255), 3), "::[ Ambil Rujukan Biasa di VClaim ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
+        internalFrame14.setName("internalFrame14"); // NOI18N
+        internalFrame14.setWarnaBawah(new java.awt.Color(245, 250, 240));
+        internalFrame14.setLayout(null);
+
+        BtnCloseIn8.setForeground(new java.awt.Color(0, 0, 0));
+        BtnCloseIn8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/cross.png"))); // NOI18N
+        BtnCloseIn8.setMnemonic('U');
+        BtnCloseIn8.setText("Tutup");
+        BtnCloseIn8.setToolTipText("Alt+U");
+        BtnCloseIn8.setName("BtnCloseIn8"); // NOI18N
+        BtnCloseIn8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCloseIn8ActionPerformed(evt);
+            }
+        });
+        internalFrame14.add(BtnCloseIn8);
+        BtnCloseIn8.setBounds(270, 70, 100, 30);
+
+        BtnSimpan8.setForeground(new java.awt.Color(0, 0, 0));
+        BtnSimpan8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/save-16x16.png"))); // NOI18N
+        BtnSimpan8.setMnemonic('S');
+        BtnSimpan8.setText("Simpan");
+        BtnSimpan8.setToolTipText("Alt+S");
+        BtnSimpan8.setName("BtnSimpan8"); // NOI18N
+        BtnSimpan8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSimpan8ActionPerformed(evt);
+            }
+        });
+        internalFrame14.add(BtnSimpan8);
+        BtnSimpan8.setBounds(20, 70, 100, 30);
+
+        NoRujukanVclaim.setForeground(new java.awt.Color(0, 0, 0));
+        NoRujukanVclaim.setName("NoRujukanVclaim"); // NOI18N
+        NoRujukanVclaim.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                NoRujukanVclaimKeyTyped(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                NoRujukanVclaimKeyPressed(evt);
+            }
+        });
+        internalFrame14.add(NoRujukanVclaim);
+        NoRujukanVclaim.setBounds(95, 25, 280, 23);
+
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("No. Rujukan :");
+        jLabel9.setName("jLabel9"); // NOI18N
+        internalFrame14.add(jLabel9);
+        jLabel9.setBounds(0, 25, 90, 23);
+
+        WindowCariRujukanVClaim.getContentPane().add(internalFrame14, java.awt.BorderLayout.CENTER);
+
         NoBalasan.setHighlighter(null);
         NoBalasan.setName("NoBalasan"); // NOI18N
 
@@ -2748,7 +2843,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
             }
         });
 
-        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255), 3), "::[ Bridging SEP VClaim BPJS ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255), 3), "::[ Bridging SEP VClaim BPJS ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
         internalFrame1.setFont(new java.awt.Font("Tahoma", 2, 12)); // NOI18N
         internalFrame1.setName("internalFrame1"); // NOI18N
         internalFrame1.setLayout(new java.awt.BorderLayout(1, 1));
@@ -2830,7 +2925,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         jLabel20.setBounds(183, 102, 53, 23);
 
         TanggalSEP.setEditable(false);
-        TanggalSEP.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-02-2022" }));
+        TanggalSEP.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-03-2022" }));
         TanggalSEP.setDisplayFormat("dd-MM-yyyy");
         TanggalSEP.setName("TanggalSEP"); // NOI18N
         TanggalSEP.setOpaque(false);
@@ -2851,7 +2946,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         jLabel22.setBounds(0, 102, 90, 23);
 
         TanggalRujuk.setEditable(false);
-        TanggalRujuk.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-02-2022" }));
+        TanggalRujuk.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-03-2022" }));
         TanggalRujuk.setDisplayFormat("dd-MM-yyyy");
         TanggalRujuk.setName("TanggalRujuk"); // NOI18N
         TanggalRujuk.setOpaque(false);
@@ -3209,7 +3304,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         jLabel36.setBounds(806, 12, 93, 23);
 
         TanggalKejadian.setEditable(false);
-        TanggalKejadian.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-02-2022" }));
+        TanggalKejadian.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-03-2022" }));
         TanggalKejadian.setDisplayFormat("dd-MM-yyyy");
         TanggalKejadian.setName("TanggalKejadian"); // NOI18N
         TanggalKejadian.setOpaque(false);
@@ -3861,7 +3956,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         panelGlass11.add(jLabel19);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-02-2022" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-03-2022" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -3881,7 +3976,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         panelGlass11.add(jLabel21);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-02-2022" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-03-2022" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -4849,7 +4944,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                     }
                     Sequel.menyimpan("history_user", "Now(),'" + TNoRw.getText() + "','" + var.getkode() + "','Rujukan Keluar VClaim','Simpan'");
                 } else {
-                    JOptionPane.showMessageDialog(null, nameNode.path("message").asText());
+                    JOptionPane.showMessageDialog(rootPane, "Notifikasi WS VClaim 2.0 : Kode " + nameNode.path("code").asText() + ", Pesan : " + nameNode.path("message").asText()); 
                 }
             } catch (Exception ex) {
                 System.out.println("Notifikasi Bridging : " + ex);
@@ -6280,6 +6375,141 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         this.setCursor(Cursor.getDefaultCursor());        
     }//GEN-LAST:event_ppRencanaKontrollagi1ActionPerformed
 
+    private void ppAmbilRujukanBiasaVclaimBtnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppAmbilRujukanBiasaVclaimBtnPrintActionPerformed
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        if (tbSEP.getSelectedRow() != -1) {
+            if (Sequel.cariInteger("select count(-1) from bridging_rujukan_bpjs where no_rawat='" + TNoRw.getText() + "'") == 0) {
+                WindowCariRujukanVClaim.setLocationRelativeTo(internalFrame1);
+                WindowCariRujukanVClaim.setVisible(true);
+                NoRujukanVclaim.setText("");
+                NoRujukanVclaim.requestFocus();         
+            } else if (Sequel.cariInteger("select count(-1) from bridging_rujukan_bpjs where no_rawat='" + TNoRw.getText() + "'") > 0) {
+                JOptionPane.showMessageDialog(rootPane, "No. Rujukan VClaim : " + Sequel.cariIsi("select no_rujukan from bridging_rujukan_bpjs where no_rawat='" + TNoRw.getText() + "'") + ", "
+                        + "utk. pasien ini sdh. tersimpan didatabase...!!!!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Maaf, silahkan pilih data SEP yang mau dibuatkan rujukan...!!!!");
+            BtnBatal.requestFocus();
+        }
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_ppAmbilRujukanBiasaVclaimBtnPrintActionPerformed
+
+    private void BtnCloseIn8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCloseIn8ActionPerformed
+        WindowCariRujukanVClaim.dispose();
+    }//GEN-LAST:event_BtnCloseIn8ActionPerformed
+
+    private void BtnSimpan8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSimpan8ActionPerformed
+        if (NoRujukanVclaim.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "No. Rujukan dari VClaim harus diisi dulu...!");
+            NoRujukanVclaim.requestFocus();
+        } else {
+            try {
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+                headers.add("X-Cons-ID", Sequel.decXML2(prop.getProperty("CONSIDAPIBPJS"), prop.getProperty("KEY")));
+                utc = String.valueOf(api.GetUTCdatetimeAsString());
+                headers.add("X-Timestamp", utc);
+                headers.add("X-Signature", api.getHmac(utc));
+                headers.add("user_key", koneksiDB.USERKEYAPIBPJS());
+                URL = prop.getProperty("URLAPIBPJS") + "/Rujukan/Keluar/" + NoRujukanVclaim.getText();
+
+                HttpEntity requestEntity = new HttpEntity(headers);
+                ObjectMapper mapper = new ObjectMapper();
+                JsonNode root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.GET, requestEntity, String.class).getBody());
+                JsonNode nameNode = root.path("metaData");
+                System.out.println("code : " + nameNode.path("code").asText());
+                System.out.println("message : " + nameNode.path("message").asText());
+                JOptionPane.showMessageDialog(rootPane, "Notifikasi WS VClaim 2.0 : Kode " + nameNode.path("code").asText() + ", Isi Pesan : " + nameNode.path("message").asText());
+
+                if (nameNode.path("code").asText().equals("200")) {
+//ini yang baru -----------            
+                    JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc)).path("rujukan");
+                    System.out.println("ini responnya : " + mapper.readTree(api.Decrypt(root.path("response").asText(), utc)));
+//sampai sini -------------
+                    if (Sequel.menyimpantf2("bridging_rujukan_bpjs", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "No. Rujukan", 15, new String[]{
+                        response.path("noSep").asText(), response.path("tglRujukan").asText(),
+                        response.path("ppkDirujuk").asText(), response.path("namaPpkDirujuk").asText(), response.path("jnsPelayanan").asText(),
+                        response.path("catatan").asText(), response.path("diagRujukan").asText(), response.path("namaDiagRujukan").asText(),
+                        response.path("tipeRujukan").asText(), response.path("poliRujukan").asText(),
+                        response.path("namaPoliRujukan").asText(), response.path("noRujukan").asText(), user, 
+                        response.path("tglRencanaKunjungan").asText(), TNoRw.getText()
+                    }) == true) {
+
+                        Sequel.cariIsi("select nama_rujukan from master_nama_rujukan where kode_faskes_bpjs=? ", nmfaskes_keluar, response.path("ppkDirujuk").asText());
+                        Sequel.cariIsi("select kd_rujukan from master_nama_rujukan where kode_faskes_bpjs=? ", kode_rujukanya, response.path("ppkDirujuk").asText());
+
+                        Sequel.menyimpan("rujuk", "'" + response.asText() + "','"
+                                + TNoRw.getText() + "','" + nmfaskes_keluar.getText() + "','"
+                                + response.path("tglRujukan").asText() + "','"
+                                + response.path("namaDiagRujukan").asText() + "','" + Sequel.cariIsi("select kd_dokter from reg_periksa where no_rawat=?", TNoRw.getText())
+                                + "','-','-','" + response.path("catatan").asText() + "','12:00:01','" + kode_rujukanya.getText() + "','" +response.path("namaPoliRujukan").asText() + "'", "No.Rujuk");
+
+                        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                        LocalDate tgldirujuk = LocalDate.parse(response.path("tglRujukan").asText());
+                        LocalDate habisBerlaku = tgldirujuk.plusDays(90);
+
+                        Map<String, Object> param = new HashMap<>();
+                        param.put("namars", var.getnamars());
+                        param.put("alamatrs", var.getalamatrs());
+                        param.put("kotars", var.getkabupatenrs());
+                        param.put("propinsirs", var.getpropinsirs());
+                        param.put("kontakrs", var.getkontakrs());
+                        param.put("norujuk", response.asText());
+                        param.put("logo", Sequel.cariGambar("select bpjs from gambar"));
+                        param.put("tglRujukan", Valid.SetTglINDONESIA(response.path("tglRujukan").asText()));
+                        param.put("tglLahir", Valid.SetTglINDONESIA(Sequel.cariIsi("select p.tgl_lahir from reg_periksa rp "
+                                + "inner join pasien p on p.no_rkm_medis=rp.no_rkm_medis where rp.no_rawat='" + TNoRw.getText() + "'")));
+                        param.put("berlakuSampai", Valid.SetTglINDONESIA(habisBerlaku));
+                        Valid.MyReport("rptBridgingRujukanBPJS.jrxml", "report", "::[ Surat Rujukan Keluar VClaim ]::",
+                                " SELECT br.no_sep, bs.no_rawat, bs.nomr,bs.nama_pasien,br.tglRujukan, br.no_rujukan,br.ppkDirujuk, br.nm_ppkDirujuk, "
+                                + "IF(br.jnsPelayanan='1','Rawat Inap','Rawat Jalan')  jenis, br.tipeRujukan,br.catatan, br.diagRujukan,br.nama_diagRujukan, "
+                                + "br.poliRujukan,br.nama_poliRujukan,bs.no_kartu, IF(bs.jkel='L','Laki-Laki','Perempuan') jkel "
+                                + "FROM bridging_sep bs LEFT JOIN bridging_rujukan_bpjs br ON br.no_rawat=bs.no_rawat "
+                                + "WHERE br.no_rujukan='" + response.path("noRujukan").asText() + "'", param);
+                        WindowCariRujukanVClaim.dispose();
+                        this.setCursor(Cursor.getDefaultCursor());
+                    }
+                    Sequel.menyimpan("history_user", "Now(),'" + TNoRw.getText() + "','" + var.getkode() + "','Rujukan Keluar dari VClaim','Simpan'");
+                }
+            } catch (Exception ex) {
+                System.out.println("Notifikasi Peserta : " + ex);
+                if (ex.toString().contains("UnknownHostException")) {
+                    JOptionPane.showMessageDialog(rootPane, "Koneksi ke server BPJS terputus...!");
+                    dispose();
+                }
+            }
+        }
+    }//GEN-LAST:event_BtnSimpan8ActionPerformed
+
+    private void NoRujukanVclaimKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NoRujukanVclaimKeyTyped
+        evt.setKeyChar(Character.toUpperCase(evt.getKeyChar()));
+    }//GEN-LAST:event_NoRujukanVclaimKeyTyped
+
+    private void NoRujukanVclaimKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NoRujukanVclaimKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            BtnSimpan8ActionPerformed(null);
+        } else if (evt.getKeyCode() == KeyEvent.VK_PAGE_DOWN) {
+            BtnSimpan8.requestFocus();
+        } else if (evt.getKeyCode() == KeyEvent.VK_PAGE_UP) {
+            BtnSimpan8.requestFocus();
+        }
+    }//GEN-LAST:event_NoRujukanVclaimKeyPressed
+
+    private void ppDetailSEPvclaimBtnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppDetailSEPvclaimBtnPrintActionPerformed
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        if (tbSEP.getSelectedRow() != -1) {
+            BPJSCekDetailSEP detail = new BPJSCekDetailSEP(null, false);
+            detail.tampil(tbSEP.getValueAt(tbSEP.getSelectedRow(), 0).toString());
+            detail.setSize(720, internalFrame1.getHeight() - 40);
+            detail.setLocationRelativeTo(internalFrame1);
+            detail.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Maaf, silahkan pilih data SEP ...!!!!");
+            tbSEP.requestFocus();
+        }
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_ppDetailSEPvclaimBtnPrintActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -6306,6 +6536,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
     private widget.Button BtnCloseIn5;
     private widget.Button BtnCloseIn6;
     private widget.Button BtnCloseIn7;
+    private widget.Button BtnCloseIn8;
     private widget.Button BtnEdit;
     private widget.Button BtnGantiRujukan;
     private widget.Button BtnHapus;
@@ -6321,6 +6552,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
     private widget.Button BtnSimpan5;
     private widget.Button BtnSimpan6;
     private widget.Button BtnSimpan7;
+    private widget.Button BtnSimpan8;
     private widget.Button BtnUpdatePulang;
     private widget.ComboBox COB;
     public widget.TextArea Catatan;
@@ -6384,6 +6616,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
     private widget.TextBox NoBalasan;
     private widget.TextBox NoKartu;
     private widget.TextBox NoRujukan;
+    private widget.TextBox NoRujukanVclaim;
     private widget.TextBox NoSEP;
     private widget.TextBox NoSEPSuplesi;
     private widget.TextBox NoTelp;
@@ -6407,6 +6640,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
     private widget.TextBox TglLahir;
     private widget.ComboBox TipeRujukan;
     private javax.swing.JDialog WindowCariNoRujuk;
+    private javax.swing.JDialog WindowCariRujukanVClaim;
     private javax.swing.JDialog WindowCariSEP;
     private javax.swing.JDialog WindowRujukanBiasa;
     private javax.swing.JDialog WindowRujukanKhusus;
@@ -6439,6 +6673,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
     private widget.InternalFrame internalFrame11;
     private widget.InternalFrame internalFrame12;
     private widget.InternalFrame internalFrame13;
+    private widget.InternalFrame internalFrame14;
     private widget.InternalFrame internalFrame2;
     private widget.InternalFrame internalFrame3;
     private widget.InternalFrame internalFrame4;
@@ -6496,6 +6731,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
     private widget.Label jLabel6;
     private widget.Label jLabel7;
     private widget.Label jLabel8;
+    private widget.Label jLabel9;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -6519,10 +6755,12 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
     private widget.panelisi panelGlass12;
     private widget.panelisi panelisi1;
     private widget.TextBox pngJwb;
+    private javax.swing.JMenuItem ppAmbilRujukanBiasaVclaim;
     private javax.swing.JMenuItem ppAmbilSep;
     private javax.swing.JMenu ppAprovalSEP;
     private javax.swing.JMenuItem ppCekFingerPrin;
     private javax.swing.JMenuItem ppDataRujukanKeluar;
+    private javax.swing.JMenuItem ppDetailSEPvclaim;
     private javax.swing.JMenu ppMembuatRujukan;
     private javax.swing.JMenu ppPengajuan;
     private javax.swing.JMenuItem ppProgramPRB;
