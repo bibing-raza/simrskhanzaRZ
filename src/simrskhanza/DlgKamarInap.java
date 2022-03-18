@@ -13335,7 +13335,7 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
                                 if (var.getRencanaKontrolJKN() == true || var.getkode().equals("Admin Utama")) {
                                     BPJSSuratKontrol form = new BPJSSuratKontrol(null, false);
                                     form.setNoRm(norawat.getText(),
-                                            Sequel.cariIsi("select no_sep from bridging_sep where no_rawat='" + norawat.getText() + "'"),
+                                            Sequel.cariIsi("select no_sep from bridging_sep where jnspelayanan='1' and no_rawat='" + norawat.getText() + "'"),
                                             Sequel.cariIsi("select no_kartu from bridging_sep where no_rawat='" + norawat.getText() + "'"),
                                             TNoRM.getText(),
                                             TPasien.getText(),

@@ -8087,12 +8087,21 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
     private void ExportSEPRanap() {
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         dialog_simpan = Valid.openDialog();
-        Valid.MyReportToExcel("SELECT p.no_rkm_medis 'No. RM', p.nm_pasien 'Nama Pasien', bs.no_sep 'No. SEP', d.nm_dokter 'DPJP' FROM bridging_sep bs "
-                + "INNER JOIN reg_periksa rp on rp.no_rawat=bs.no_rawat INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                + "INNER JOIN dpjp_ranap dr on dr.no_rawat=bs.no_rawat INNER JOIN dokter d on d.kd_dokter=dr.kd_dokter "
-                + "WHERE bs.tglsep BETWEEN '" + Valid.SetTgl(DTPCari1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(DTPCari2.getSelectedItem() + "") + "' and bs.jnspelayanan='1' "
-                + "and rp.tgl_registrasi>='" + Valid.SetTgl(DTPCari1.getSelectedItem() + "") + "' and "
-                + "rp.tgl_registrasi<='" + Valid.SetTgl(DTPCari2.getSelectedItem() + "") + "'", dialog_simpan);
+        Valid.MyReportToExcel("SELECT p.no_rkm_medis 'No. RM', p.nm_pasien 'Nama Pasien', bs.no_sep 'No. SEP', d.nm_dokter 'DPJP', b.nm_bangsal 'Ruang Perawatan' "
+                + "FROM bridging_sep bs INNER JOIN reg_periksa rp ON rp.no_rawat = bs.no_rawat "
+                + "INNER JOIN pasien p ON p.no_rkm_medis = rp.no_rkm_medis INNER JOIN dpjp_ranap dr ON dr.no_rawat = bs.no_rawat "
+                + "INNER JOIN dokter d ON d.kd_dokter = dr.kd_dokter INNER JOIN kamar_inap ki ON ki.no_rawat=bs.no_rawat "
+                + "INNER JOIN kamar k ON k.kd_kamar=ki.kd_kamar INNER JOIN bangsal b ON b.kd_bangsal=k.kd_bangsal WHERE "
+                + "bs.tglsep BETWEEN '" + Valid.SetTgl(DTPCari1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(DTPCari2.getSelectedItem() + "") + "' AND bs.jnspelayanan='1' "
+                + "AND rp.tgl_registrasi>='" + Valid.SetTgl(DTPCari1.getSelectedItem() + "") + "' AND rp.tgl_registrasi<='" + Valid.SetTgl(DTPCari2.getSelectedItem() + "") + "' "
+                + "AND ki.stts_pulang NOT IN ('-','Pindah Kamar') ORDER BY b.nm_bangsal", dialog_simpan);
+        
+//        Valid.MyReportToExcel("SELECT p.no_rkm_medis 'No. RM', p.nm_pasien 'Nama Pasien', bs.no_sep 'No. SEP', d.nm_dokter 'DPJP' FROM bridging_sep bs "
+//                + "INNER JOIN reg_periksa rp on rp.no_rawat=bs.no_rawat INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+//                + "INNER JOIN dpjp_ranap dr on dr.no_rawat=bs.no_rawat INNER JOIN dokter d on d.kd_dokter=dr.kd_dokter "
+//                + "WHERE bs.tglsep BETWEEN '" + Valid.SetTgl(DTPCari1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(DTPCari2.getSelectedItem() + "") + "' and bs.jnspelayanan='1' "
+//                + "and rp.tgl_registrasi>='" + Valid.SetTgl(DTPCari1.getSelectedItem() + "") + "' and "
+//                + "rp.tgl_registrasi<='" + Valid.SetTgl(DTPCari2.getSelectedItem() + "") + "'", dialog_simpan);
 
         JOptionPane.showMessageDialog(null, "Data SEP Rawat Inap berhasil diexport menjadi file excel,..!!!");
         this.setCursor(Cursor.getDefaultCursor());
