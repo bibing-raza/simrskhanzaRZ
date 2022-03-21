@@ -7301,7 +7301,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                     //jika pulang dengan dirujuk
                                 } else if (cmbStatus.getSelectedItem().equals("Dirujuk")) {
                                     DlgRujuk dlgrjk = new DlgRujuk(null, false);
-                                    dlgrjk.setSize(863, 494);
+                                    dlgrjk.setSize(987, 547);
                                     dlgrjk.setLocationRelativeTo(internalFrame1);
                                     dlgrjk.emptTeks();
                                     dlgrjk.isCek();
@@ -7353,7 +7353,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 //jika pulang dengan dirujuk
                             } else if (cmbStatus.getSelectedItem().equals("Dirujuk")) {
                                 DlgRujuk dlgrjk = new DlgRujuk(null, false);
-                                dlgrjk.setSize(863, 494);
+                                dlgrjk.setSize(987, 547);
                                 dlgrjk.setLocationRelativeTo(internalFrame1);
                                 dlgrjk.emptTeks();
                                 dlgrjk.isCek();
@@ -7401,7 +7401,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
 //
 //                        } else if (cmbStatus.getSelectedItem().equals("Dirujuk")) {
 //                            DlgRujuk dlgrjk = new DlgRujuk(null, false);
-//                            dlgrjk.setSize(863, 494);
+//                            dlgrjk.setSize(987, 547);
 //                            dlgrjk.setLocationRelativeTo(internalFrame1);
 //                            dlgrjk.emptTeks();
 //                            dlgrjk.isCek();
@@ -7919,7 +7919,7 @@ private void MnRujukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                 rs2 = psanak.executeQuery();
                 if (rs2.next()) {
                     DlgRujuk dlgrjk = new DlgRujuk(null, false);
-                    dlgrjk.setSize(internalFrame1.getWidth(), internalFrame1.getHeight());
+                    dlgrjk.setSize(987, 547);
                     dlgrjk.setLocationRelativeTo(internalFrame1);
                     dlgrjk.emptTeks();
                     dlgrjk.isCek();
@@ -7946,7 +7946,7 @@ private void MnRujukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
         }
     } else {
         DlgRujuk dlgrjk = new DlgRujuk(null, false);
-        dlgrjk.setSize(internalFrame1.getWidth(), internalFrame1.getHeight());
+        dlgrjk.setSize(987, 547);
         dlgrjk.setLocationRelativeTo(internalFrame1);
         dlgrjk.emptTeks();
         dlgrjk.isCek();
@@ -11965,7 +11965,7 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
             Sequel.meghapus("ranap_aps", "no_rawat", norawat.getText());
 
             DlgRujuk dlgrjk = new DlgRujuk(null, false);
-            dlgrjk.setSize(863, 494);
+            dlgrjk.setSize(987, 547);
             dlgrjk.setLocationRelativeTo(internalFrame1);
             dlgrjk.emptTeks();
             dlgrjk.isCek();

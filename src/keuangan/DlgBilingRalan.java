@@ -91,8 +91,8 @@ public class DlgBilingRalan extends javax.swing.JDialog {
             sqlpscaripasien = "select p.nm_pasien, concat(r.umurdaftar,' ',r.sttsumur) umur from pasien p "
             + "inner join reg_periksa r on r.no_rkm_medis=p.no_rkm_medis where p.no_rkm_medis=? ",
             sqlpsreg = "select reg_periksa.no_rkm_medis,date_format(reg_periksa.tgl_registrasi,'%d-%m-%Y') tgl_registrasi,"
-            + "reg_periksa.no_rkm_medis,reg_periksa.kd_poli,reg_periksa.no_rawat,date_format(reg_periksa.jam_reg,'%H:%i:%s') jam "
-            + "from reg_periksa where reg_periksa.no_rawat=?",
+            + "reg_periksa.no_rkm_medis,reg_periksa.kd_poli,reg_periksa.no_rawat,date_format(reg_periksa.jam_reg,'%H:%i:%s') jam, "
+            + "reg_periksa.biaya_reg from reg_periksa where reg_periksa.no_rawat=?",
             sqlpscaripoli = "select nm_poli from poliklinik where kd_poli=?",
             sqlpscarialamat = "select concat(pasien.alamat,', ',kelurahan.nm_kel,', ',kecamatan.nm_kec,', ',kabupaten.nm_kab) from pasien "
             + "inner join kelurahan inner join kecamatan inner join kabupaten on pasien.kd_kel=kelurahan.kd_kel "
