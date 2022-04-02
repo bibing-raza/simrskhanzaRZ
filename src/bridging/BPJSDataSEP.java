@@ -4245,16 +4245,13 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                     flag = "";
                     asesmen = "";                    
 
+                    //tanggal kejadian untuk disimpan ke database
                     if (LakaLantas.getSelectedIndex() == 1 || LakaLantas.getSelectedIndex() == 2 || LakaLantas.getSelectedIndex() == 3) {
                         tglkkl = Valid.SetTgl(TanggalKejadian.getSelectedItem() + "");
+                        tglkkl_ok = tglkkl;
                     } else {
                         tglkkl = "0000-00-00";
-                    }
-
-                    if (tglkkl.equals("0000-00-00")) {
                         tglkkl_ok = "";
-                    } else {
-                        tglkkl_ok = tglkkl;
                     }
 
                     //-----------------------------------------------------------------------------------------------
@@ -7128,6 +7125,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
 //            LakaLantas.setSelectedItem(tbSEP.getValueAt(tbSEP.getSelectedRow(), 18).toString());            
 //            jkel = Sequel.cariIsi("select jkel from bridging_sep where no_sep='" + tbSEP.getValueAt(tbSEP.getSelectedRow(), 0).toString() + "'");
             
+            //tanggal kejadian untuk dikirim ke ws trusk mark
             if (tglkkl.equals("-")) {
                 tglkkl_ok = "";
                 TanggalKejadian.setDate(new Date());
