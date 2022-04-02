@@ -2342,7 +2342,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         });
 
         TglKunRwt.setEditable(false);
-        TglKunRwt.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "16-02-2022" }));
+        TglKunRwt.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15-03-2022" }));
         TglKunRwt.setDisplayFormat("dd-MM-yyyy");
         TglKunRwt.setName("TglKunRwt"); // NOI18N
         TglKunRwt.setOpaque(false);
@@ -2572,7 +2572,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         panelGlass9.add(ChkTanggal);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "16-02-2022" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15-03-2022" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -2587,7 +2587,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "16-02-2022" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15-03-2022" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -2884,7 +2884,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         FormInput2.setBackground(new java.awt.Color(255, 255, 255));
         FormInput2.setBorder(null);
         FormInput2.setName("FormInput2"); // NOI18N
-        FormInput2.setPreferredSize(new java.awt.Dimension(1100, 315));
+        FormInput2.setPreferredSize(new java.awt.Dimension(1087, 300));
         FormInput2.setLayout(null);
 
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
@@ -2930,7 +2930,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         jLabel16.setText("Berat Badan(Kg) :");
         jLabel16.setName("jLabel16"); // NOI18N
         FormInput2.add(jLabel16);
-        jLabel16.setBounds(860, 5, 92, 23);
+        jLabel16.setBounds(868, 5, 92, 23);
 
         TBerat.setForeground(new java.awt.Color(0, 0, 0));
         TBerat.setFocusTraversalPolicyProvider(true);
@@ -2941,7 +2941,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
             }
         });
         FormInput2.add(TBerat);
-        TBerat.setBounds(960, 5, 70, 23);
+        TBerat.setBounds(964, 5, 70, 23);
 
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Pemeriksaan :");
@@ -2988,7 +2988,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         jLabel18.setText("Nadi(/menit) :");
         jLabel18.setName("jLabel18"); // NOI18N
         FormInput2.add(jLabel18);
-        jLabel18.setBounds(860, 33, 92, 23);
+        jLabel18.setBounds(868, 33, 92, 23);
 
         TNadi.setForeground(new java.awt.Color(0, 0, 0));
         TNadi.setFocusTraversalPolicyProvider(true);
@@ -2999,7 +2999,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
             }
         });
         FormInput2.add(TNadi);
-        TNadi.setBounds(960, 33, 70, 23);
+        TNadi.setBounds(964, 33, 70, 23);
 
         jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("Terapi :");
@@ -3241,6 +3241,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
             }
         });
 
+        Scroll3.setForeground(new java.awt.Color(0, 0, 0));
         Scroll3.setComponentPopupMenu(jPopupMenu1);
         Scroll3.setName("Scroll3"); // NOI18N
         Scroll3.setOpaque(true);
@@ -3326,7 +3327,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         FormInput3.setBackground(new java.awt.Color(255, 255, 255));
         FormInput3.setBorder(null);
         FormInput3.setName("FormInput3"); // NOI18N
-        FormInput3.setPreferredSize(new java.awt.Dimension(1100, 300));
+        FormInput3.setPreferredSize(new java.awt.Dimension(1087, 282));
         FormInput3.setLayout(null);
 
         jLabel19.setForeground(new java.awt.Color(0, 0, 0));
@@ -3372,7 +3373,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         jLabel32.setText("Berat Badan(Kg) :");
         jLabel32.setName("jLabel32"); // NOI18N
         FormInput3.add(jLabel32);
-        jLabel32.setBounds(860, 5, 92, 23);
+        jLabel32.setBounds(868, 5, 92, 23);
 
         TBerat1.setForeground(new java.awt.Color(0, 0, 0));
         TBerat1.setFocusTraversalPolicyProvider(true);
@@ -3383,7 +3384,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
             }
         });
         FormInput3.add(TBerat1);
-        TBerat1.setBounds(960, 5, 70, 23);
+        TBerat1.setBounds(964, 5, 70, 23);
 
         jLabel33.setForeground(new java.awt.Color(0, 0, 0));
         jLabel33.setText("Pemeriksaan :");
@@ -3430,7 +3431,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         jLabel36.setText("Nadi(/menit) :");
         jLabel36.setName("jLabel36"); // NOI18N
         FormInput3.add(jLabel36);
-        jLabel36.setBounds(860, 33, 92, 23);
+        jLabel36.setBounds(868, 33, 92, 23);
 
         TNadi1.setForeground(new java.awt.Color(0, 0, 0));
         TNadi1.setFocusTraversalPolicyProvider(true);
@@ -3441,7 +3442,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
             }
         });
         FormInput3.add(TNadi1);
-        TNadi1.setBounds(960, 33, 70, 23);
+        TNadi1.setBounds(964, 33, 70, 23);
 
         jLabel37.setForeground(new java.awt.Color(0, 0, 0));
         jLabel37.setText("Alergi :");
@@ -3730,7 +3731,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         jLabel43.setBounds(0, 5, 95, 23);
 
         DTPCari3.setEditable(false);
-        DTPCari3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "16-02-2022" }));
+        DTPCari3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15-03-2022" }));
         DTPCari3.setDisplayFormat("dd-MM-yyyy");
         DTPCari3.setName("DTPCari3"); // NOI18N
         DTPCari3.setOpaque(false);
@@ -4005,7 +4006,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         jPanel1.setPreferredSize(new java.awt.Dimension(816, 102));
         jPanel1.setLayout(new java.awt.GridLayout(1, 2));
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(237, 242, 232)), ".: Item Obat/Resep yang diberikan ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(237, 242, 232)), ".: Item Obat/Resep yang diberikan ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
         jPanel4.setName("jPanel4"); // NOI18N
         jPanel4.setOpaque(false);
         jPanel4.setPreferredSize(new java.awt.Dimension(250, 102));
@@ -4099,7 +4100,8 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
 
         jPanel1.add(jPanel4);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(237, 242, 232)), ".: Daftar Obat/Alkes Farmasi", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(237, 242, 232)), ".: Daftar Obat/Alkes Farmasi", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        jPanel2.setForeground(new java.awt.Color(0, 0, 0));
         jPanel2.setName("jPanel2"); // NOI18N
         jPanel2.setOpaque(false);
         jPanel2.setPreferredSize(new java.awt.Dimension(350, 102));
@@ -4349,7 +4351,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         jLabel23.setBounds(645, 34, 60, 23);
 
         DTPTgl.setEditable(false);
-        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "16-02-2022" }));
+        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15-03-2022" }));
         DTPTgl.setDisplayFormat("dd-MM-yyyy");
         DTPTgl.setName("DTPTgl"); // NOI18N
         DTPTgl.setOpaque(false);

@@ -870,6 +870,7 @@ public class frmUtama extends javax.swing.JFrame {
         btnMasterDTD = new widget.ButtonBig();
         btnPenilaianAwalMedisKebidananRalan = new widget.ButtonBig();
         btnPenilaianAwalKeperawatanKebidananRalan = new widget.ButtonBig();
+        btnIkhtisarPerawatanHIV = new widget.ButtonBig();
         tanggal = new widget.Tanggal();
         btnDataPenjualan = new widget.ButtonBig();
         btnInputPenjualan = new widget.ButtonBig();
@@ -5812,6 +5813,19 @@ public class frmUtama extends javax.swing.JFrame {
         });
         Panelmenu.add(btnPenilaianAwalKeperawatanKebidananRalan);
 
+        btnIkhtisarPerawatanHIV.setForeground(new java.awt.Color(0, 0, 0));
+        btnIkhtisarPerawatanHIV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/hiv.png"))); // NOI18N
+        btnIkhtisarPerawatanHIV.setText("Ikhtisar Perawatan HIV & Terapi ART");
+        btnIkhtisarPerawatanHIV.setIconTextGap(0);
+        btnIkhtisarPerawatanHIV.setName("btnIkhtisarPerawatanHIV"); // NOI18N
+        btnIkhtisarPerawatanHIV.setPreferredSize(new java.awt.Dimension(200, 90));
+        btnIkhtisarPerawatanHIV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIkhtisarPerawatanHIVActionPerformed(evt);
+            }
+        });
+        Panelmenu.add(btnIkhtisarPerawatanHIV);
+
         scrollPane2.setViewportView(Panelmenu);
 
         panelMenu.add(scrollPane2, java.awt.BorderLayout.CENTER);
@@ -5820,7 +5834,7 @@ public class frmUtama extends javax.swing.JFrame {
 
         tanggal.setEditable(false);
         tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "11/02/2022" }));
+        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02/03/2022" }));
         tanggal.setDisplayFormat("dd/MM/yyyy");
         tanggal.setName("tanggal"); // NOI18N
         tanggal.setOpaque(false);
@@ -11938,6 +11952,19 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_btnPenilaianAwalKeperawatanKebidananRalanActionPerformed
 
+    private void btnIkhtisarPerawatanHIVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIkhtisarPerawatanHIVActionPerformed
+        isTutup();
+        DlgHome.dispose();
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        DlgIkhtisarPerawatanHIVart hiv = new DlgIkhtisarPerawatanHIVart(this, false);
+        hiv.isCek();
+        hiv.emptText();
+        hiv.setSize(PanelUtama.getWidth(), PanelUtama.getHeight());
+        hiv.setLocationRelativeTo(PanelUtama);
+        hiv.setVisible(true);
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnIkhtisarPerawatanHIVActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -12116,6 +12143,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
     private widget.ButtonBig btnICD9;
     private widget.ButtonBig btnIGD;
     private widget.ButtonBig btnINACBGjknBelumDiklaim;
+    private widget.ButtonBig btnIkhtisarPerawatanHIV;
     private widget.ButtonBig btnInaCBGCoderNIK;
     private widget.ButtonBig btnInaCBGKlaimBaruManual;
     private widget.ButtonBig btnInaCBGKlaimBaruManual2;
@@ -13986,6 +14014,11 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
                 Panelmenu.add(btnMasterMasalahKeperawatan);
                 jmlmenu++;
             }
+            
+            if (var.getikhtisar_perawatan_hiv() == true) {
+                Panelmenu.add(btnIkhtisarPerawatanHIV);
+                jmlmenu++;
+            }
 
             if (var.getpenilaian_awal_keperawatan_ralan() == true) {
                 Panelmenu.add(btnPenilaianAwalKeperawatanRalan);
@@ -14356,6 +14389,11 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
         
         if (var.getmaster_masalah_keperawatan() == true) {
             Panelmenu.add(btnMasterMasalahKeperawatan);
+            jmlmenu++;
+        }
+        
+        if (var.getikhtisar_perawatan_hiv() == true) {
+            Panelmenu.add(btnIkhtisarPerawatanHIV);
             jmlmenu++;
         }
         
@@ -16166,6 +16204,13 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
         if (var.getdashboard_eResep() == true) {
             if (btnDashboardeResep.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())) {
                 Panelmenu.add(btnDashboardeResep);
+                jmlmenu++;
+            }
+        }
+        
+        if (var.getikhtisar_perawatan_hiv() == true) {
+            if (btnIkhtisarPerawatanHIV.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())) {
+                Panelmenu.add(btnIkhtisarPerawatanHIV);
                 jmlmenu++;
             }
         }

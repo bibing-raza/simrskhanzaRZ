@@ -67,6 +67,9 @@ import permintaan.DlgCariPermintaanLab;
 import permintaan.DlgCariPermintaanRadiologi;
 import permintaan.DlgPermintaanLaboratorium;
 import permintaan.DlgPermintaanRadiologi;
+import rekammedis.DlgFollowUpPerawatanTerapiARThiv;
+import rekammedis.DlgPemeriksaanKlinisLabHIV;
+import rekammedis.DlgTerapiAntiretroviralHIV;
 import rekammedis.RMPenilaianAwalKeperawatanKebidanan;
 import rekammedis.RMPenilaianAwalKeperawatanRalan;
 import rekammedis.RMTriaseIGD;
@@ -90,6 +93,10 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
     public DlgPemberianDiet dietRalan = new DlgPemberianDiet(null, false);
     public RMPenilaianAwalMedisRalanKandungan bid = new RMPenilaianAwalMedisRalanKandungan(null, false);
     public DlgRawatJalan dlgrwjl2 = new DlgRawatJalan(null, false);
+    public DlgIkhtisarPerawatanHIVart hiv = new DlgIkhtisarPerawatanHIVart(null, false);
+    public DlgPemeriksaanKlinisLabHIV hiv1 = new DlgPemeriksaanKlinisLabHIV(null, false);
+    public DlgTerapiAntiretroviralHIV hiv2 = new DlgTerapiAntiretroviralHIV(null, false);
+    public DlgFollowUpPerawatanTerapiARThiv hiv3 = new DlgFollowUpPerawatanTerapiARThiv(null, false);
     private Date cal = new Date();
     private DlgRujukanPoliInternal dlgrjk = new DlgRujukanPoliInternal(null, false);
     private String umur = "0", sttsumur = "Th", cekSEPboking = "", tglklaim = "", drdpjp = "", poli = "", crBayar = "", diagnosa_ok = "",
@@ -593,6 +600,9 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         MnInputData = new javax.swing.JMenu();
         MnTeridentifikasiTB = new javax.swing.JMenuItem();
         ppProgramPRB = new javax.swing.JMenuItem();
+        MnPemeriksaanKlinisLabHIV = new javax.swing.JMenuItem();
+        MnTerapiAntiretroviralHIV = new javax.swing.JMenuItem();
+        MnFollowUPPerawatanTerapiHIV = new javax.swing.JMenuItem();
         ppPasienCorona = new javax.swing.JMenuItem();
         ppSuratKontrol = new javax.swing.JMenuItem();
         MnDiet = new javax.swing.JMenuItem();
@@ -600,6 +610,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         MnSensusParu = new javax.swing.JMenuItem();
         MnRekamMedis = new javax.swing.JMenu();
         MnSuratTindakanDokter = new javax.swing.JMenuItem();
+        MnIkhtisarPerawatanHIV = new javax.swing.JMenuItem();
         MnDataTriaseIGD = new javax.swing.JMenuItem();
         MnPenilaianAwalKeperawatanRalan = new javax.swing.JMenuItem();
         MnPenilaianAwalKeperawatanKebidanan = new javax.swing.JMenuItem();
@@ -1521,7 +1532,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         MnTeridentifikasiTB.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         MnTeridentifikasiTB.setIconTextGap(5);
         MnTeridentifikasiTB.setName("MnTeridentifikasiTB"); // NOI18N
-        MnTeridentifikasiTB.setPreferredSize(new java.awt.Dimension(190, 26));
+        MnTeridentifikasiTB.setPreferredSize(new java.awt.Dimension(230, 26));
         MnTeridentifikasiTB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MnTeridentifikasiTBBtnPrintActionPerformed(evt);
@@ -1537,13 +1548,61 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         ppProgramPRB.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ppProgramPRB.setIconTextGap(5);
         ppProgramPRB.setName("ppProgramPRB"); // NOI18N
-        ppProgramPRB.setPreferredSize(new java.awt.Dimension(190, 26));
+        ppProgramPRB.setPreferredSize(new java.awt.Dimension(230, 26));
         ppProgramPRB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ppProgramPRBBtnPrintActionPerformed(evt);
             }
         });
         MnInputData.add(ppProgramPRB);
+
+        MnPemeriksaanKlinisLabHIV.setBackground(new java.awt.Color(255, 255, 255));
+        MnPemeriksaanKlinisLabHIV.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnPemeriksaanKlinisLabHIV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnPemeriksaanKlinisLabHIV.setText("Pemeriksaan Klinis & Lab. HIV");
+        MnPemeriksaanKlinisLabHIV.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnPemeriksaanKlinisLabHIV.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnPemeriksaanKlinisLabHIV.setIconTextGap(5);
+        MnPemeriksaanKlinisLabHIV.setName("MnPemeriksaanKlinisLabHIV"); // NOI18N
+        MnPemeriksaanKlinisLabHIV.setPreferredSize(new java.awt.Dimension(230, 26));
+        MnPemeriksaanKlinisLabHIV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnPemeriksaanKlinisLabHIVBtnPrintActionPerformed(evt);
+            }
+        });
+        MnInputData.add(MnPemeriksaanKlinisLabHIV);
+
+        MnTerapiAntiretroviralHIV.setBackground(new java.awt.Color(255, 255, 255));
+        MnTerapiAntiretroviralHIV.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnTerapiAntiretroviralHIV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnTerapiAntiretroviralHIV.setText("Terapi Antiretroviral (ART) HIV");
+        MnTerapiAntiretroviralHIV.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnTerapiAntiretroviralHIV.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnTerapiAntiretroviralHIV.setIconTextGap(5);
+        MnTerapiAntiretroviralHIV.setName("MnTerapiAntiretroviralHIV"); // NOI18N
+        MnTerapiAntiretroviralHIV.setPreferredSize(new java.awt.Dimension(230, 26));
+        MnTerapiAntiretroviralHIV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnTerapiAntiretroviralHIVBtnPrintActionPerformed(evt);
+            }
+        });
+        MnInputData.add(MnTerapiAntiretroviralHIV);
+
+        MnFollowUPPerawatanTerapiHIV.setBackground(new java.awt.Color(255, 255, 255));
+        MnFollowUPPerawatanTerapiHIV.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnFollowUPPerawatanTerapiHIV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnFollowUPPerawatanTerapiHIV.setText("Follow-Up Perawatan & Terapi ART HIV");
+        MnFollowUPPerawatanTerapiHIV.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnFollowUPPerawatanTerapiHIV.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnFollowUPPerawatanTerapiHIV.setIconTextGap(5);
+        MnFollowUPPerawatanTerapiHIV.setName("MnFollowUPPerawatanTerapiHIV"); // NOI18N
+        MnFollowUPPerawatanTerapiHIV.setPreferredSize(new java.awt.Dimension(230, 26));
+        MnFollowUPPerawatanTerapiHIV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnFollowUPPerawatanTerapiHIVBtnPrintActionPerformed(evt);
+            }
+        });
+        MnInputData.add(MnFollowUPPerawatanTerapiHIV);
 
         ppPasienCorona.setBackground(new java.awt.Color(255, 255, 254));
         ppPasienCorona.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -1554,7 +1613,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         ppPasienCorona.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ppPasienCorona.setIconTextGap(5);
         ppPasienCorona.setName("ppPasienCorona"); // NOI18N
-        ppPasienCorona.setPreferredSize(new java.awt.Dimension(190, 26));
+        ppPasienCorona.setPreferredSize(new java.awt.Dimension(230, 26));
         ppPasienCorona.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ppPasienCoronaBtnPrintActionPerformed(evt);
@@ -1571,7 +1630,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         ppSuratKontrol.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ppSuratKontrol.setIconTextGap(5);
         ppSuratKontrol.setName("ppSuratKontrol"); // NOI18N
-        ppSuratKontrol.setPreferredSize(new java.awt.Dimension(190, 26));
+        ppSuratKontrol.setPreferredSize(new java.awt.Dimension(230, 26));
         ppSuratKontrol.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ppSuratKontrolBtnPrintActionPerformed(evt);
@@ -1587,7 +1646,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         MnDiet.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         MnDiet.setIconTextGap(5);
         MnDiet.setName("MnDiet"); // NOI18N
-        MnDiet.setPreferredSize(new java.awt.Dimension(190, 26));
+        MnDiet.setPreferredSize(new java.awt.Dimension(230, 26));
         MnDiet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MnDietActionPerformed(evt);
@@ -1603,7 +1662,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         MnDataHAIs.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         MnDataHAIs.setIconTextGap(5);
         MnDataHAIs.setName("MnDataHAIs"); // NOI18N
-        MnDataHAIs.setPreferredSize(new java.awt.Dimension(190, 26));
+        MnDataHAIs.setPreferredSize(new java.awt.Dimension(230, 26));
         MnDataHAIs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MnDataHAIsBtnPrintActionPerformed(evt);
@@ -1619,7 +1678,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         MnSensusParu.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         MnSensusParu.setIconTextGap(5);
         MnSensusParu.setName("MnSensusParu"); // NOI18N
-        MnSensusParu.setPreferredSize(new java.awt.Dimension(190, 26));
+        MnSensusParu.setPreferredSize(new java.awt.Dimension(230, 26));
         MnSensusParu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MnSensusParuBtnPrintActionPerformed(evt);
@@ -1655,6 +1714,22 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
             }
         });
         MnRekamMedis.add(MnSuratTindakanDokter);
+
+        MnIkhtisarPerawatanHIV.setBackground(new java.awt.Color(255, 255, 255));
+        MnIkhtisarPerawatanHIV.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnIkhtisarPerawatanHIV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnIkhtisarPerawatanHIV.setText("Ikhtisar Perawatan HIV & Terapi ART");
+        MnIkhtisarPerawatanHIV.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnIkhtisarPerawatanHIV.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnIkhtisarPerawatanHIV.setIconTextGap(5);
+        MnIkhtisarPerawatanHIV.setName("MnIkhtisarPerawatanHIV"); // NOI18N
+        MnIkhtisarPerawatanHIV.setPreferredSize(new java.awt.Dimension(300, 26));
+        MnIkhtisarPerawatanHIV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnIkhtisarPerawatanHIVActionPerformed(evt);
+            }
+        });
+        MnRekamMedis.add(MnIkhtisarPerawatanHIV);
 
         MnDataTriaseIGD.setBackground(new java.awt.Color(255, 255, 254));
         MnDataTriaseIGD.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -2327,7 +2402,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         norwBoking.setBounds(298, 110, 177, 23);
 
         tglPeriksa.setEditable(false);
-        tglPeriksa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-02-2022" }));
+        tglPeriksa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-03-2022" }));
         tglPeriksa.setDisplayFormat("dd-MM-yyyy");
         tglPeriksa.setName("tglPeriksa"); // NOI18N
         tglPeriksa.setOpaque(false);
@@ -3038,7 +3113,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         });
 
         TglKunRwt.setEditable(false);
-        TglKunRwt.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-02-2022" }));
+        TglKunRwt.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-03-2022" }));
         TglKunRwt.setDisplayFormat("dd-MM-yyyy");
         TglKunRwt.setName("TglKunRwt"); // NOI18N
         TglKunRwt.setOpaque(false);
@@ -3263,7 +3338,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         panelGlass8.add(jLabel15);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-02-2022" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-03-2022" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -3283,7 +3358,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         panelGlass8.add(jLabel17);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-02-2022" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-03-2022" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -5758,6 +5833,119 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
         }
     }//GEN-LAST:event_MnPenilaianAwalKeperawatanKebidananActionPerformed
 
+    private void MnIkhtisarPerawatanHIVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnIkhtisarPerawatanHIVActionPerformed
+        if (tabModekasir.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Maaf, tabel masih kosong...!!!!");
+        } else if (TNoRw.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, Silahkan anda pilih dulu dengan mengklik data pada tabel...!!!");
+            tbKasirRalan.requestFocus();
+        } else if (!kdpoli.getText().equals("HIV")) {
+            JOptionPane.showMessageDialog(null, "Fitur ini hanya utk. pasien yg. berkunjung ke poliklinik VCT saja...!!!");
+            tbKasirRalan.requestFocus();
+        } else {
+            if (tbKasirRalan.getSelectedRow() != -1) {
+                this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                var.setform("DlgKasirRalan");
+                hiv.isCek();
+                hiv.setNoRm(NoRM.getText());
+                hiv.tampil12();
+                hiv.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
+                hiv.setLocationRelativeTo(internalFrame1);
+                hiv.setVisible(true);
+                this.setCursor(Cursor.getDefaultCursor());  
+            }        
+        }
+    }//GEN-LAST:event_MnIkhtisarPerawatanHIVActionPerformed
+
+    private void MnPemeriksaanKlinisLabHIVBtnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnPemeriksaanKlinisLabHIVBtnPrintActionPerformed
+        if (tabModekasir.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Maaf, tabel masih kosong...!!!!");
+            TCari.requestFocus();
+        } else if (TNoRw.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, Silahkan anda pilih dulu dengan mengklik data pada tabel...!!!");
+            tbKasirRalan.requestFocus();
+        } else if (!kdpoli.getText().equals("HIV")) {
+            JOptionPane.showMessageDialog(null, "Maaf, Menu ini TIDAK utk. pasien yg. berobat kepoli " + tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(), 6).toString() + "...!!!");
+            tbKasirRalan.requestFocus();
+        } else if (Sequel.cariInteger("select count(-1) from pasien_mati where no_rkm_medis='" + NoRM.getText() + "'") > 0) {
+            JOptionPane.showMessageDialog(null, "Pasien ini sudah berpulang ke rahmatullah, semoga Husnul Khotimah...!!!");
+            tbKasirRalan.requestFocus();
+        } else {
+            var.setform("DlgKasirRalan");
+            hiv1.setData(NoRM.getText(), Sequel.cariIsi("select nm_pasien from pasien where no_rkm_medis='" + NoRM.getText() + "'"), 
+                    Sequel.cariIsi("select if(jk='L','Laki-laki','Perempuan') from pasien where no_rkm_medis='" + NoRM.getText() + "'"), 
+                    Sequel.cariIsi("select tgl_lahir from pasien where no_rkm_medis='" + NoRM.getText() + "'"));
+            hiv1.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
+            hiv1.setLocationRelativeTo(internalFrame1);
+            hiv1.ChkInput.setSelected(true);
+            hiv1.emptTeks();
+            hiv1.TCari.setText(NoRM.getText());
+            hiv1.tampil();
+            hiv1.isForm();
+            hiv1.isCek();
+            hiv1.setVisible(true);
+        }
+    }//GEN-LAST:event_MnPemeriksaanKlinisLabHIVBtnPrintActionPerformed
+
+    private void MnTerapiAntiretroviralHIVBtnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnTerapiAntiretroviralHIVBtnPrintActionPerformed
+        if (tabModekasir.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Maaf, tabel masih kosong...!!!!");
+            TCari.requestFocus();
+        } else if (TNoRw.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, Silahkan anda pilih dulu dengan mengklik data pada tabel...!!!");
+            tbKasirRalan.requestFocus();
+        } else if (!kdpoli.getText().equals("HIV")) {
+            JOptionPane.showMessageDialog(null, "Maaf, Menu ini TIDAK utk. pasien yg. berobat kepoli " + tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(), 6).toString() + "...!!!");
+            tbKasirRalan.requestFocus();
+        } else if (Sequel.cariInteger("select count(-1) from pasien_mati where no_rkm_medis='" + NoRM.getText() + "'") > 0) {
+            JOptionPane.showMessageDialog(null, "Pasien ini sudah berpulang ke rahmatullah, semoga Husnul Khotimah...!!!");
+            tbKasirRalan.requestFocus();
+        } else {
+            var.setform("DlgKasirRalan");
+            hiv2.setData(NoRM.getText(), Sequel.cariIsi("select nm_pasien from pasien where no_rkm_medis='" + NoRM.getText() + "'"), 
+                    Sequel.cariIsi("select if(jk='L','Laki-laki','Perempuan') from pasien where no_rkm_medis='" + NoRM.getText() + "'"), 
+                    Sequel.cariIsi("select tgl_lahir from pasien where no_rkm_medis='" + NoRM.getText() + "'"));
+            hiv2.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
+            hiv2.setLocationRelativeTo(internalFrame1);
+            hiv2.ChkInput.setSelected(true);
+            hiv2.emptTeks();
+            hiv2.TCari.setText(NoRM.getText());
+            hiv2.tampil();
+            hiv2.isForm();
+            hiv2.isCek();
+            hiv2.setVisible(true);
+        }
+    }//GEN-LAST:event_MnTerapiAntiretroviralHIVBtnPrintActionPerformed
+
+    private void MnFollowUPPerawatanTerapiHIVBtnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnFollowUPPerawatanTerapiHIVBtnPrintActionPerformed
+        if (tabModekasir.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Maaf, tabel masih kosong...!!!!");
+            TCari.requestFocus();
+        } else if (TNoRw.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, Silahkan anda pilih dulu dengan mengklik data pada tabel...!!!");
+            tbKasirRalan.requestFocus();
+        } else if (!kdpoli.getText().equals("HIV")) {
+            JOptionPane.showMessageDialog(null, "Maaf, Menu ini TIDAK utk. pasien yg. berobat kepoli " + tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(), 6).toString() + "...!!!");
+            tbKasirRalan.requestFocus();
+        } else if (Sequel.cariInteger("select count(-1) from pasien_mati where no_rkm_medis='" + NoRM.getText() + "'") > 0) {
+            JOptionPane.showMessageDialog(null, "Pasien ini sudah berpulang ke rahmatullah, semoga Husnul Khotimah...!!!");
+            tbKasirRalan.requestFocus();
+        } else {
+            var.setform("DlgKasirRalan");
+            hiv3.setData(NoRM.getText(), Sequel.cariIsi("select nm_pasien from pasien where no_rkm_medis='" + NoRM.getText() + "'"), 
+                    Sequel.cariIsi("select if(jk='L','Laki-laki','Perempuan') from pasien where no_rkm_medis='" + NoRM.getText() + "'"), 
+                    Sequel.cariIsi("select tgl_lahir from pasien where no_rkm_medis='" + NoRM.getText() + "'"));
+            hiv3.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
+            hiv3.setLocationRelativeTo(internalFrame1);
+            hiv3.ChkInput.setSelected(true);
+            hiv3.emptTeks();
+            hiv3.tampil();
+            hiv3.isForm();
+            hiv3.isCek();
+            hiv3.setVisible(true);
+        }
+    }//GEN-LAST:event_MnFollowUPPerawatanTerapiHIVBtnPrintActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -5829,9 +6017,11 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
     private javax.swing.JMenuItem MnDietMakanan;
     private javax.swing.JMenuItem MnDokter;
     private javax.swing.JMenu MnEklaimINACBG;
+    private javax.swing.JMenuItem MnFollowUPPerawatanTerapiHIV;
     private javax.swing.JMenuItem MnFormulirKlaim;
     private javax.swing.JMenu MnGanti;
     private javax.swing.JMenuItem MnHapusData;
+    private javax.swing.JMenuItem MnIkhtisarPerawatanHIV;
     private javax.swing.JMenu MnInputData;
     private javax.swing.JMenuItem MnKamarInap;
     private javax.swing.JMenuItem MnKlaimCOVID;
@@ -5842,6 +6032,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
     private javax.swing.JMenuItem MnNoResep;
     private javax.swing.JMenu MnObatRalan;
     private javax.swing.JMenuItem MnOperasi;
+    private javax.swing.JMenuItem MnPemeriksaanKlinisLabHIV;
     private javax.swing.JMenuItem MnPenilaianAwalKeperawatanKebidanan;
     private javax.swing.JMenuItem MnPenilaianAwalKeperawatanRalan;
     private javax.swing.JMenuItem MnPenilaianAwalMedisKebidananRalan;
@@ -5875,6 +6066,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
     private javax.swing.JMenuItem MnStatusPasienAllKunjungan;
     private javax.swing.JMenuItem MnSudah;
     private javax.swing.JMenuItem MnSuratTindakanDokter;
+    private javax.swing.JMenuItem MnTerapiAntiretroviralHIV;
     private javax.swing.JMenuItem MnTeridentifikasiTB;
     private javax.swing.JMenu MnTindakanRalan;
     private widget.TextBox NmDokter;
@@ -6219,6 +6411,9 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
         ChkAutoRefres.setSelected(false);
         MnTeridentifikasiTB.setEnabled(var.getkemenkes_sitt());
         MnRencanaKontrolManual.setEnabled(var.getRencanaKontrolJKN());
+        MnIkhtisarPerawatanHIV.setEnabled(var.getikhtisar_perawatan_hiv());
+        MnPemeriksaanKlinisLabHIV.setEnabled(var.getikhtisar_perawatan_hiv());
+        MnTerapiAntiretroviralHIV.setEnabled(var.getikhtisar_perawatan_hiv());
         
         if (var.getbpjs_sep() == true || var.getberi_obat() == true || var.getkode().equals("Admin Utama")) {
             ppProgramPRB.setEnabled(true);
