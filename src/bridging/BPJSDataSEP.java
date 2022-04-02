@@ -1940,7 +1940,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         noSrtMati.setBounds(130, 62, 280, 23);
 
         tglMati.setEditable(false);
-        tglMati.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-03-2022" }));
+        tglMati.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-04-2022" }));
         tglMati.setDisplayFormat("dd-MM-yyyy");
         tglMati.setName("tglMati"); // NOI18N
         tglMati.setOpaque(false);
@@ -1956,7 +1956,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         jLabel48.setBounds(220, 91, 90, 23);
 
         noLP.setEditable(false);
-        noLP.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-03-2022" }));
+        noLP.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-04-2022" }));
         noLP.setDisplayFormat("dd-MM-yyyy");
         noLP.setName("noLP"); // NOI18N
         noLP.setOpaque(false);
@@ -2046,7 +2046,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         jLabel30.setBounds(0, 25, 160, 23);
 
         TanggalRujukKeluar.setEditable(false);
-        TanggalRujukKeluar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-03-2022" }));
+        TanggalRujukKeluar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-04-2022" }));
         TanggalRujukKeluar.setDisplayFormat("dd-MM-yyyy");
         TanggalRujukKeluar.setName("TanggalRujukKeluar"); // NOI18N
         TanggalRujukKeluar.setOpaque(false);
@@ -2268,7 +2268,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         jLabel49.setBounds(0, 54, 160, 23);
 
         tglRencanaKunjungan.setEditable(false);
-        tglRencanaKunjungan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-03-2022" }));
+        tglRencanaKunjungan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-04-2022" }));
         tglRencanaKunjungan.setDisplayFormat("dd-MM-yyyy");
         tglRencanaKunjungan.setName("tglRencanaKunjungan"); // NOI18N
         tglRencanaKunjungan.setOpaque(false);
@@ -2925,7 +2925,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         jLabel20.setBounds(183, 102, 53, 23);
 
         TanggalSEP.setEditable(false);
-        TanggalSEP.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-03-2022" }));
+        TanggalSEP.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-04-2022" }));
         TanggalSEP.setDisplayFormat("dd-MM-yyyy");
         TanggalSEP.setName("TanggalSEP"); // NOI18N
         TanggalSEP.setOpaque(false);
@@ -2946,7 +2946,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         jLabel22.setBounds(0, 102, 90, 23);
 
         TanggalRujuk.setEditable(false);
-        TanggalRujuk.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-03-2022" }));
+        TanggalRujuk.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-04-2022" }));
         TanggalRujuk.setDisplayFormat("dd-MM-yyyy");
         TanggalRujuk.setName("TanggalRujuk"); // NOI18N
         TanggalRujuk.setOpaque(false);
@@ -3304,21 +3304,11 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         jLabel36.setBounds(806, 12, 93, 23);
 
         TanggalKejadian.setEditable(false);
-        TanggalKejadian.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-03-2022" }));
+        TanggalKejadian.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-04-2022" }));
         TanggalKejadian.setDisplayFormat("dd-MM-yyyy");
         TanggalKejadian.setName("TanggalKejadian"); // NOI18N
         TanggalKejadian.setOpaque(false);
         TanggalKejadian.setPreferredSize(new java.awt.Dimension(95, 23));
-        TanggalKejadian.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TanggalKejadianMouseClicked(evt);
-            }
-        });
-        TanggalKejadian.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                TanggalKejadianKeyPressed(evt);
-            }
-        });
         FormInput1.add(TanggalKejadian);
         TanggalKejadian.setBounds(904, 42, 90, 23);
 
@@ -3956,7 +3946,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         panelGlass11.add(jLabel19);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-03-2022" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-04-2022" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -3976,7 +3966,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         panelGlass11.add(jLabel21);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-03-2022" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-04-2022" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -5167,14 +5157,6 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
     private void BtnCari1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCari1ActionPerformed
         cekSEPVclaim();
     }//GEN-LAST:event_BtnCari1ActionPerformed
-
-    private void TanggalKejadianKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TanggalKejadianKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TanggalKejadianKeyPressed
-
-    private void TanggalKejadianMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TanggalKejadianMouseClicked
-        TanggalKejadian.setEditable(false);
-    }//GEN-LAST:event_TanggalKejadianMouseClicked
 
     private void KetKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_KetKeyPressed
         // TODO add your handling code here:
@@ -6812,7 +6794,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                     + "ifnull(klsRawatNaik,'') klsRawatNaik, IFNULL(nmKelasNaiknya,'') nmnaikkls, catatan, "
                     + "USER, tanggal_lahir, peserta, jkel, no_kartu, IFNULL(STATUS,'') stts, tglpulang, notelep, "
                     + "eksekutif, cob, katarak, ifnull(pembiayaan,'') pembiayaan, ifnull(penanggungJawab,'') penanggungJawab, "
-                    + "lakalantas, lokasilaka, tglkkl, keterangankkl, suplesi, no_sep_suplesi, kdprop, nmprop, kdkab, nmkab, kdkec, "
+                    + "lakalantas, lokasilaka, if(tglkkl='0000-00-00','-',tglkkl) tglcelaka, keterangankkl, suplesi, no_sep_suplesi, kdprop, nmprop, kdkab, nmkab, kdkec, "
                     + "nmkec, urutan_sep, kdppkrujukan, kdppkpelayanan, nmppkpelayanan, kddpjp, ifnull(dpjpLayan,'') dpjpLayan, diagawal FROM bridging_sep where "
                     + " tglsep between ? and ? and no_sep like ? or "
                     + " tglsep between ? and ? and nomr like ? or "
@@ -6931,7 +6913,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                                 replaceAll("2", "2. KLL dan KK").
                                 replaceAll("3", "3. KK"),
                         rs.getString("lokasilaka"),
-                        rs.getString("tglkkl"),
+                        rs.getString("tglcelaka"),
                         rs.getString("keterangankkl"),
                         rs.getString("suplesi"),
                         rs.getString("no_sep_suplesi"),
@@ -7121,7 +7103,6 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
             pngJwb.setText(tbSEP.getValueAt(tbSEP.getSelectedRow(), 37).toString());
             LakaLantas.setSelectedItem(tbSEP.getValueAt(tbSEP.getSelectedRow(), 38).toString());
             LokasiLaka.setText(tbSEP.getValueAt(tbSEP.getSelectedRow(), 39).toString());
-            Valid.SetTgl(TanggalKejadian, tbSEP.getValueAt(tbSEP.getSelectedRow(), 40).toString());
             tglkkl = tbSEP.getValueAt(tbSEP.getSelectedRow(), 40).toString();
             Ket.setText(tbSEP.getValueAt(tbSEP.getSelectedRow(), 41).toString());
             suplesi.setSelectedItem(tbSEP.getValueAt(tbSEP.getSelectedRow(), 42).toString());
@@ -7147,10 +7128,12 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
 //            LakaLantas.setSelectedItem(tbSEP.getValueAt(tbSEP.getSelectedRow(), 18).toString());            
 //            jkel = Sequel.cariIsi("select jkel from bridging_sep where no_sep='" + tbSEP.getValueAt(tbSEP.getSelectedRow(), 0).toString() + "'");
             
-            if (tglkkl.equals("0000-00-00")) {
+            if (tglkkl.equals("-")) {
                 tglkkl_ok = "";
+                TanggalKejadian.setDate(new Date());
             } else {
                 tglkkl_ok = tglkkl;
+                Valid.SetTgl(TanggalKejadian, tglkkl);
             }
         }
     }
