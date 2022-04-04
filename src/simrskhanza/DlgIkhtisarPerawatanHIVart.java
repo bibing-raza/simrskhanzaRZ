@@ -81,7 +81,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         setSize(885, 674);
 
         tabMode1 = new DefaultTableModel(null, new Object[]{
-            "No. RM", "Nama Pasien", "No. Reg. Nas.", "Jns. Kelamin", "Tgl. Lahir", "Riwayat Alergi Obat", "NIP/NR Pengawas",
+            "No. RM", "Nama Pasien", "No. Reg. Nas.", "Jns. Kelamin", "Tgl. Lahir", "Riwayat Alergi Obat", 
             "Nama Pengawas (PMO)", "Hub. dg. Pasien", "No. Telp. PMO", "Alamat (PMO)", "Tgl. Konf. Tes HIV", "Entry Point", "Entry Point (2. R. Jalan)",
             "Entry Point (5. Jangkauan)", "EP. (2. R. Jalan-Lainnya)", "EP. (5. Jangkauan-Lainnya)", "EP. (8. Lainnya-Uraikan)", "Dirujuk msk. dari klinik lain",
             "Pendidikan", "Nama Klinik Sebelumnya", "Status Pekerjaan", "Tgl. Rujuk Msk.", "Faktor Resiko", "FR. (Lainnya-Uraikan)", "kdrejimen", "nmrejimen",
@@ -101,7 +101,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
                 java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class,
                 java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class,
                 java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class,
-                java.lang.Object.class, java.lang.Object.class
+                java.lang.Object.class
             };
 
             @Override
@@ -113,7 +113,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         tb12.setPreferredScrollableViewportSize(new Dimension(500, 500));
         tb12.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (i = 0; i < 32; i++) {
+        for (i = 0; i < 31; i++) {
             TableColumn column = tb12.getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setPreferredWidth(60);
@@ -128,43 +128,45 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
             } else if (i == 5) {
                 column.setPreferredWidth(250);
             } else if (i == 6) {
-                column.setPreferredWidth(120);
+                column.setPreferredWidth(250);
             } else if (i == 7) {
-                column.setPreferredWidth(250);
+                column.setPreferredWidth(100);
             } else if (i == 8) {
-                column.setPreferredWidth(100);
-            } else if (i == 9) {
                 column.setPreferredWidth(90);
-            } else if (i == 10) {
+            } else if (i == 9) {
                 column.setPreferredWidth(250);
-            } else if (i == 11) {
+            } else if (i == 10) {
                 column.setPreferredWidth(100);
-            } else if (i == 12) {
+            } else if (i == 11) {
                 column.setPreferredWidth(110);
+            } else if (i == 12) {
+                column.setPreferredWidth(150);
             } else if (i == 13) {
                 column.setPreferredWidth(150);
             } else if (i == 14) {
-                column.setPreferredWidth(150);
+                column.setPreferredWidth(250);
             } else if (i == 15) {
                 column.setPreferredWidth(250);
             } else if (i == 16) {
                 column.setPreferredWidth(250);
             } else if (i == 17) {
-                column.setPreferredWidth(250);
-            } else if (i == 18) {
                 column.setPreferredWidth(170);
-            } else if (i == 19) {
+            } else if (i == 18) {
                 column.setPreferredWidth(120);
+            } else if (i == 19) {
+                column.setPreferredWidth(200);
             } else if (i == 20) {
-                column.setPreferredWidth(200);
+                column.setPreferredWidth(110);
             } else if (i == 21) {
-                column.setPreferredWidth(110);
-            } else if (i == 22) {
                 column.setPreferredWidth(90);
-            } else if (i == 23) {
+            } else if (i == 22) {
                 column.setPreferredWidth(110);
-            } else if (i == 24) {
+            } else if (i == 23) {
                 column.setPreferredWidth(200);
+            } else if (i == 24) {
+//                column.setPreferredWidth(200);
+                column.setMinWidth(0);
+                column.setMaxWidth(0);
             } else if (i == 25) {
 //                column.setPreferredWidth(200);
                 column.setMinWidth(0);
@@ -186,10 +188,6 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
                 column.setMinWidth(0);
                 column.setMaxWidth(0);
             } else if (i == 30) {
-//                column.setPreferredWidth(200);
-                column.setMinWidth(0);
-                column.setMaxWidth(0);
-            } else if (i == 31) {
 //                column.setPreferredWidth(200);
                 column.setMinWidth(0);
                 column.setMaxWidth(0);
@@ -680,7 +678,6 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
             public void windowClosed(WindowEvent e) {
                 if (var.getform().equals("DlgIkhtisarPerawatanHIVart")) {
                     if (pengawas.getTable().getSelectedRow() != -1) {
-                        TkdPengawas.setText(pengawas.getTable().getValueAt(pengawas.getTable().getSelectedRow(), 0).toString());
                         TnmPengawas.setText(pengawas.getTable().getValueAt(pengawas.getTable().getSelectedRow(), 1).toString());
                         btnPengawas.requestFocus();                        
                     }
@@ -797,7 +794,6 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         jLabel72 = new widget.Label();
         TRiwAlergiObat = new widget.TextBox();
         jLabel73 = new widget.Label();
-        TkdPengawas = new widget.TextBox();
         TnmPengawas = new widget.TextBox();
         jLabel74 = new widget.Label();
         jLabel75 = new widget.Label();
@@ -1103,7 +1099,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         btnPengawas.setBounds(660, 38, 28, 23);
 
         TglKonfirmasiTes.setEditable(false);
-        TglKonfirmasiTes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-04-2022" }));
+        TglKonfirmasiTes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-04-2022" }));
         TglKonfirmasiTes.setDisplayFormat("dd-MM-yyyy");
         TglKonfirmasiTes.setName("TglKonfirmasiTes"); // NOI18N
         TglKonfirmasiTes.setOpaque(false);
@@ -1150,17 +1146,10 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         FormInput3.add(jLabel73);
         jLabel73.setBounds(0, 38, 130, 23);
 
-        TkdPengawas.setEditable(false);
-        TkdPengawas.setForeground(new java.awt.Color(0, 0, 0));
-        TkdPengawas.setName("TkdPengawas"); // NOI18N
-        FormInput3.add(TkdPengawas);
-        TkdPengawas.setBounds(133, 38, 140, 23);
-
-        TnmPengawas.setEditable(false);
         TnmPengawas.setForeground(new java.awt.Color(0, 0, 0));
         TnmPengawas.setName("TnmPengawas"); // NOI18N
         FormInput3.add(TnmPengawas);
-        TnmPengawas.setBounds(277, 38, 380, 23);
+        TnmPengawas.setBounds(133, 38, 525, 23);
 
         jLabel74.setForeground(new java.awt.Color(0, 0, 0));
         jLabel74.setText("Hubungan dg. Pasien : ");
@@ -1356,7 +1345,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         jLabel88.setBounds(510, 318, 90, 23);
 
         TglRujukMsk.setEditable(false);
-        TglRujukMsk.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-04-2022" }));
+        TglRujukMsk.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-04-2022" }));
         TglRujukMsk.setDisplayFormat("dd-MM-yyyy");
         TglRujukMsk.setName("TglRujukMsk"); // NOI18N
         TglRujukMsk.setOpaque(false);
@@ -1786,7 +1775,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         jLabel18.setBounds(375, 66, 140, 23);
 
         TglDicatat.setEditable(false);
-        TglDicatat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-04-2022" }));
+        TglDicatat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-04-2022" }));
         TglDicatat.setDisplayFormat("dd-MM-yyyy");
         TglDicatat.setName("TglDicatat"); // NOI18N
         TglDicatat.setOpaque(false);
@@ -1856,7 +1845,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         panelGlass14.setLayout(null);
 
         tglPemeriksaan.setEditable(false);
-        tglPemeriksaan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-04-2022" }));
+        tglPemeriksaan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-04-2022" }));
         tglPemeriksaan.setDisplayFormat("dd-MM-yyyy");
         tglPemeriksaan.setName("tglPemeriksaan"); // NOI18N
         tglPemeriksaan.setOpaque(false);
@@ -2125,7 +2114,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         jLabel32.setBounds(475, 10, 130, 23);
 
         tglTerapi.setEditable(false);
-        tglTerapi.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-04-2022" }));
+        tglTerapi.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-04-2022" }));
         tglTerapi.setDisplayFormat("dd-MM-yyyy");
         tglTerapi.setName("tglTerapi"); // NOI18N
         tglTerapi.setOpaque(false);
@@ -2332,7 +2321,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         jLabel46.setBounds(0, 122, 140, 23);
 
         tglMulaitb.setEditable(false);
-        tglMulaitb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-04-2022" }));
+        tglMulaitb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-04-2022" }));
         tglMulaitb.setDisplayFormat("dd-MM-yyyy");
         tglMulaitb.setName("tglMulaitb"); // NOI18N
         tglMulaitb.setOpaque(false);
@@ -2340,7 +2329,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         tglMulaitb.setBounds(142, 94, 90, 23);
 
         tglSelesaitb.setEditable(false);
-        tglSelesaitb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-04-2022" }));
+        tglSelesaitb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-04-2022" }));
         tglSelesaitb.setDisplayFormat("dd-MM-yyyy");
         tglSelesaitb.setName("tglSelesaitb"); // NOI18N
         tglSelesaitb.setOpaque(false);
@@ -2405,7 +2394,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         jLabel48.setBounds(0, 38, 150, 23);
 
         tglMati.setEditable(false);
-        tglMati.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-04-2022" }));
+        tglMati.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-04-2022" }));
         tglMati.setDisplayFormat("dd-MM-yyyy");
         tglMati.setName("tglMati"); // NOI18N
         tglMati.setOpaque(false);
@@ -2419,7 +2408,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         jLabel49.setBounds(0, 66, 150, 23);
 
         tglKunAkhir.setEditable(false);
-        tglKunAkhir.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-04-2022" }));
+        tglKunAkhir.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-04-2022" }));
         tglKunAkhir.setDisplayFormat("dd-MM-yyyy");
         tglKunAkhir.setName("tglKunAkhir"); // NOI18N
         tglKunAkhir.setOpaque(false);
@@ -2433,7 +2422,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         jLabel50.setBounds(0, 94, 150, 23);
 
         tglRujukKeluar.setEditable(false);
-        tglRujukKeluar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-04-2022" }));
+        tglRujukKeluar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-04-2022" }));
         tglRujukKeluar.setDisplayFormat("dd-MM-yyyy");
         tglRujukKeluar.setName("tglRujukKeluar"); // NOI18N
         tglRujukKeluar.setOpaque(false);
@@ -2596,7 +2585,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         TobatARV.setBounds(717, 10, 240, 23);
 
         TglFollowup.setEditable(false);
-        TglFollowup.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-04-2022" }));
+        TglFollowup.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-04-2022" }));
         TglFollowup.setDisplayFormat("dd-MM-yyyy");
         TglFollowup.setName("TglFollowup"); // NOI18N
         TglFollowup.setOpaque(false);
@@ -2604,7 +2593,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         TglFollowup.setBounds(133, 10, 90, 23);
 
         TglRencKun.setEditable(false);
-        TglRencKun.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-04-2022" }));
+        TglRencKun.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-04-2022" }));
         TglRencKun.setDisplayFormat("dd-MM-yyyy");
         TglRencKun.setName("TglRencKun"); // NOI18N
         TglRencKun.setOpaque(false);
@@ -2979,7 +2968,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         panelGlass23.add(jLabel41);
 
         tgl1.setEditable(false);
-        tgl1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-04-2022" }));
+        tgl1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-04-2022" }));
         tgl1.setDisplayFormat("dd-MM-yyyy");
         tgl1.setName("tgl1"); // NOI18N
         tgl1.setOpaque(false);
@@ -2994,7 +2983,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         panelGlass23.add(jLabel42);
 
         tgl2.setEditable(false);
-        tgl2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-04-2022" }));
+        tgl2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-04-2022" }));
         tgl2.setDisplayFormat("dd-MM-yyyy");
         tgl2.setName("tgl2"); // NOI18N
         tgl2.setOpaque(false);
@@ -3087,7 +3076,6 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         panelGlass24.add(jLabel11);
         jLabel11.setBounds(0, 38, 130, 23);
 
-        TnoregNas.setEditable(false);
         TnoregNas.setForeground(new java.awt.Color(0, 0, 0));
         TnoregNas.setName("TnoregNas"); // NOI18N
         TnoregNas.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -3096,31 +3084,31 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
             }
         });
         panelGlass24.add(TnoregNas);
-        TnoregNas.setBounds(133, 38, 105, 23);
+        TnoregNas.setBounds(133, 38, 130, 23);
 
         jLabel70.setForeground(new java.awt.Color(0, 0, 0));
         jLabel70.setText("Jenis Kelamin : ");
         jLabel70.setName("jLabel70"); // NOI18N
         panelGlass24.add(jLabel70);
-        jLabel70.setBounds(238, 38, 90, 23);
+        jLabel70.setBounds(270, 38, 80, 23);
 
         Tjk.setEditable(false);
         Tjk.setForeground(new java.awt.Color(0, 0, 0));
         Tjk.setName("Tjk"); // NOI18N
         panelGlass24.add(Tjk);
-        Tjk.setBounds(330, 38, 80, 23);
+        Tjk.setBounds(350, 38, 80, 23);
 
         TtglLahir.setEditable(false);
         TtglLahir.setForeground(new java.awt.Color(0, 0, 0));
         TtglLahir.setName("TtglLahir"); // NOI18N
         panelGlass24.add(TtglLahir);
-        TtglLahir.setBounds(486, 38, 150, 23);
+        TtglLahir.setBounds(506, 38, 130, 23);
 
         jLabel71.setForeground(new java.awt.Color(0, 0, 0));
         jLabel71.setText("Tgl. Lahir : ");
         jLabel71.setName("jLabel71"); // NOI18N
         panelGlass24.add(jLabel71);
-        jLabel71.setBounds(410, 38, 76, 23);
+        jLabel71.setBounds(430, 38, 75, 23);
 
         internalFrame1.add(panelGlass24, java.awt.BorderLayout.PAGE_START);
 
@@ -3133,6 +3121,9 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         try {
             if (TNoRM.getText().trim().equals("") || TPasien.getText().trim().equals("")) {
                 Valid.textKosong(TNoRM, "Pasien");
+            } else if (TnoregNas.getText().equals("")) {
+                Valid.textKosong(TnoregNas, "No. Reg. Nasional");
+                TnoregNas.requestFocus();
             } else {
                 if (TabIkhtisar.getSelectedIndex() == 0) {
                     simpan12();
@@ -3167,7 +3158,6 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
 
     private void BtnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBatalActionPerformed
         if (TabIkhtisar.getSelectedIndex() == 0) {
-            AutoNomorRegNas();
             emptText12();
         } else if (TabIkhtisar.getSelectedIndex() == 1) {
             emptText3();
@@ -4095,7 +4085,6 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private widget.TextBox Tjk;
     private widget.TextBox Tkd;
     private widget.TextBox Tkd1;
-    private widget.TextBox TkdPengawas;
     private widget.TextBox TklasifikasiLokasi;
     private widget.TextBox TlamaGuna;
     private widget.TextBox TmetodeKB;
@@ -4305,39 +4294,38 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
             Tjk.setText(tb12.getValueAt(tb12.getSelectedRow(), 3).toString());
             TtglLahir.setText(tb12.getValueAt(tb12.getSelectedRow(), 4).toString());
             TRiwAlergiObat.setText(tb12.getValueAt(tb12.getSelectedRow(), 5).toString());
-            TkdPengawas.setText(tb12.getValueAt(tb12.getSelectedRow(), 6).toString());
-            TnmPengawas.setText(tb12.getValueAt(tb12.getSelectedRow(), 7).toString());
-            cmbHubPasien.setSelectedItem(tb12.getValueAt(tb12.getSelectedRow(), 8).toString());
-            TnoTelpPMO.setText(tb12.getValueAt(tb12.getSelectedRow(), 9).toString());
-            TAlamatPMO.setText(tb12.getValueAt(tb12.getSelectedRow(), 10).toString());
-            Valid.SetTgl(TglKonfirmasiTes, tb12.getValueAt(tb12.getSelectedRow(), 11).toString());
-            cmbEntriPoin.setSelectedItem(tb12.getValueAt(tb12.getSelectedRow(), 12).toString());
-            cmbEntriPoin2.setSelectedItem(tb12.getValueAt(tb12.getSelectedRow(), 13).toString());
-            cmbEntriPoin5.setSelectedItem(tb12.getValueAt(tb12.getSelectedRow(), 14).toString());
-            T2ralanlainya.setText(tb12.getValueAt(tb12.getSelectedRow(), 15).toString());
-            T5Jangkauan.setText(tb12.getValueAt(tb12.getSelectedRow(), 16).toString());
-            T8lainyaUraikan.setText(tb12.getValueAt(tb12.getSelectedRow(), 17).toString());
-            pasienDirujuk = tb12.getValueAt(tb12.getSelectedRow(), 18).toString();
-            cmbPndkn.setSelectedItem(tb12.getValueAt(tb12.getSelectedRow(), 19).toString());
-            TnmKlinikSblmnya.setText(tb12.getValueAt(tb12.getSelectedRow(), 20).toString());
-            sttsPekerjaan = tb12.getValueAt(tb12.getSelectedRow(), 21).toString();
-            tglrujukmasuk = tb12.getValueAt(tb12.getSelectedRow(), 22).toString();
-            cmbFaktorResiko.setSelectedItem(tb12.getValueAt(tb12.getSelectedRow(), 23).toString());
-            T7lainUraikan.setText(tb12.getValueAt(tb12.getSelectedRow(), 24).toString());
-            Tkd.setText(tb12.getValueAt(tb12.getSelectedRow(), 25).toString());
-            TnmRejimen.setText(tb12.getValueAt(tb12.getSelectedRow(), 26).toString());
-            Tkd1.setText(tb12.getValueAt(tb12.getSelectedRow(), 25).toString());
-            TnmRejimen1.setText(tb12.getValueAt(tb12.getSelectedRow(), 26).toString());
-            cmbRujukMasuk.setSelectedItem(tb12.getValueAt(tb12.getSelectedRow(), 27).toString());
-            cmbSttsNikah.setSelectedItem(tb12.getValueAt(tb12.getSelectedRow(), 28).toString());            
-            cmbTerimaART.setSelectedItem(tb12.getValueAt(tb12.getSelectedRow(), 29).toString());
-            cmbJikaYA.setSelectedItem(tb12.getValueAt(tb12.getSelectedRow(), 30).toString());
-            cmbTmpART.setSelectedItem(tb12.getValueAt(tb12.getSelectedRow(), 31).toString());
+            TnmPengawas.setText(tb12.getValueAt(tb12.getSelectedRow(), 6).toString());
+            cmbHubPasien.setSelectedItem(tb12.getValueAt(tb12.getSelectedRow(), 7).toString());
+            TnoTelpPMO.setText(tb12.getValueAt(tb12.getSelectedRow(), 8).toString());
+            TAlamatPMO.setText(tb12.getValueAt(tb12.getSelectedRow(), 9).toString());
+            Valid.SetTgl(TglKonfirmasiTes, tb12.getValueAt(tb12.getSelectedRow(), 10).toString());
+            cmbEntriPoin.setSelectedItem(tb12.getValueAt(tb12.getSelectedRow(), 11).toString());
+            cmbEntriPoin2.setSelectedItem(tb12.getValueAt(tb12.getSelectedRow(), 12).toString());
+            cmbEntriPoin5.setSelectedItem(tb12.getValueAt(tb12.getSelectedRow(), 13).toString());
+            T2ralanlainya.setText(tb12.getValueAt(tb12.getSelectedRow(), 14).toString());
+            T5Jangkauan.setText(tb12.getValueAt(tb12.getSelectedRow(), 15).toString());
+            T8lainyaUraikan.setText(tb12.getValueAt(tb12.getSelectedRow(), 16).toString());
+            pasienDirujuk = tb12.getValueAt(tb12.getSelectedRow(), 17).toString();
+            cmbPndkn.setSelectedItem(tb12.getValueAt(tb12.getSelectedRow(), 18).toString());
+            TnmKlinikSblmnya.setText(tb12.getValueAt(tb12.getSelectedRow(), 19).toString());
+            sttsPekerjaan = tb12.getValueAt(tb12.getSelectedRow(), 20).toString();
+            tglrujukmasuk = tb12.getValueAt(tb12.getSelectedRow(), 21).toString();
+            cmbFaktorResiko.setSelectedItem(tb12.getValueAt(tb12.getSelectedRow(), 22).toString());
+            T7lainUraikan.setText(tb12.getValueAt(tb12.getSelectedRow(), 23).toString());
+            Tkd.setText(tb12.getValueAt(tb12.getSelectedRow(), 24).toString());
+            TnmRejimen.setText(tb12.getValueAt(tb12.getSelectedRow(), 25).toString());
+            Tkd1.setText(tb12.getValueAt(tb12.getSelectedRow(), 24).toString());
+            TnmRejimen1.setText(tb12.getValueAt(tb12.getSelectedRow(), 25).toString());
+            cmbRujukMasuk.setSelectedItem(tb12.getValueAt(tb12.getSelectedRow(), 26).toString());
+            cmbSttsNikah.setSelectedItem(tb12.getValueAt(tb12.getSelectedRow(), 27).toString());            
+            cmbTerimaART.setSelectedItem(tb12.getValueAt(tb12.getSelectedRow(), 28).toString());
+            cmbJikaYA.setSelectedItem(tb12.getValueAt(tb12.getSelectedRow(), 29).toString());
+            cmbTmpART.setSelectedItem(tb12.getValueAt(tb12.getSelectedRow(), 30).toString());
             
             if (tglrujukmasuk.equals("-")) {
                 TglRujukMsk.setDate(new Date());
             } else {
-                Valid.SetTgl(TglRujukMsk, tb12.getValueAt(tb12.getSelectedRow(), 22).toString());
+                Valid.SetTgl(TglRujukMsk, tb12.getValueAt(tb12.getSelectedRow(), 21).toString());
             }
             
             if (pasienDirujuk.equals("Tanpa ART")) {
@@ -4564,7 +4552,6 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         cekPasien(norm);
         Tkd1.setText(Tkd.getText());
         TnmRejimen1.setText(TnmRejimen.getText());
-        AutoNomorRegNas();
         TabIkhtisar.setSelectedIndex(0);
         emptText12();
         emptText3();
@@ -4583,7 +4570,6 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         Tjk.setText("");
         TtglLahir.setText("");
         TRiwAlergiObat.setText("");
-        TkdPengawas.setText("");
         TnmPengawas.setText("");
         cmbHubPasien.setSelectedIndex(0);
         TnoTelpPMO.setText("");
@@ -4613,7 +4599,6 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         T5Jangkauan.setEnabled(false);
         T8lainyaUraikan.setEnabled(false);
         T7lainUraikan.setEnabled(false);
-        AutoNomorRegNas();
         emptText3();
         emptText4();
         emptText5();
@@ -4625,7 +4610,6 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     
     private void emptText12() {
         TRiwAlergiObat.setText("");
-        TkdPengawas.setText("");
         TnmPengawas.setText("");
         cmbHubPasien.setSelectedIndex(0);
         TnoTelpPMO.setText("");
@@ -4777,15 +4761,14 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     public void tampil12() {
         Valid.tabelKosong(tabMode1);
         try {
-            ps1 = koneksi.prepareStatement("SELECT p.no_rkm_medis, p.nm_pasien, "
-                    + "CONCAT('6303015 ',h.no_reg_nasional) noRegNas, p.jk, p.tgl_lahir, h.riwayat_alergi_obat, "
-                    + "h.nip_pengawas_pmo nip_pmo, pt.nama nm_pengawas, h.hubungan_dg_pasien, h.no_telpon_pmo, "
+            ps1 = koneksi.prepareStatement("SELECT p.no_rkm_medis, p.nm_pasien, h.no_reg_nasional, p.jk, p.tgl_lahir, h.riwayat_alergi_obat, "
+                    + "h.nm_pengawas_pmo, h.hubungan_dg_pasien, h.no_telpon_pmo, "
                     + "h.alamat_pmo, h.tgl_konfirmasi_tes_hiv, h.entry_point, h.rawat_jalan, h.jangkauan, "
                     + "h.lainnya_rawat_jalan, h.lainnya_jangkauan, h.delapan_lainnya_uraikan, h.dirujuk_msk_dari_klinik_lain, "
                     + "h.pendidikan, h.nm_klinik_sebelumnya, h.stts_pekerjaan, if(h.tgl_rujuk_msk='0000-00-00','-',h.tgl_rujuk_msk) tgl_rujuk_msk, "
                     + "h.faktor_resiko, h.lain2_faktor_resiko_uraian, h.kd_rejimen, hm.nm_rejimen, h.dirujuk_masuk, h.stts_pernikahan, h.menerima_art, h.art_ya, "
-                    + "h.tmpt_art_dulu FROM hiv_identitas_riwayat_pribadi h INNER JOIN petugas pt ON pt.nip=h.nip_pengawas_pmo "
-                    + "INNER JOIN hiv_master_rejimen hm ON hm.kd_rejimen=h.kd_rejimen inner join pasien p on p.no_rkm_medis=h.no_rkm_medis WHERE "
+                    + "h.tmpt_art_dulu FROM hiv_identitas_riwayat_pribadi h INNER JOIN hiv_master_rejimen hm ON hm.kd_rejimen=h.kd_rejimen "
+                    + "inner join pasien p on p.no_rkm_medis=h.no_rkm_medis WHERE "
                     + "p.no_rkm_medis LIKE ? OR "
                     + "p.nm_pasien LIKE ? OR "
                     + "h.no_reg_nasional LIKE ? OR "
@@ -4816,12 +4799,11 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                     tabMode1.addRow(new Object[]{
                         rs1.getString("no_rkm_medis"),
                         rs1.getString("nm_pasien"),
-                        rs1.getString("noRegNas"),
+                        rs1.getString("no_reg_nasional"),
                         rs1.getString("jk").replaceAll("L", "Laki-laki").replaceAll("P", "Perempuan"),
                         Valid.SetTglINDONESIA(rs1.getString("tgl_lahir")),
                         rs1.getString("riwayat_alergi_obat"),
-                        rs1.getString("nip_pmo"),
-                        rs1.getString("nm_pengawas"),
+                        rs1.getString("nm_pengawas_pmo"),
                         rs1.getString("hubungan_dg_pasien"),
                         rs1.getString("no_telpon_pmo"),
                         rs1.getString("alamat_pmo"),
@@ -5307,20 +5289,15 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         }
     }
     
-    private void AutoNomorRegNas() {
-        Valid.autoNomer7("select ifnull(MAX(CONVERT(LEFT(no_reg_nasional,5),signed)),0) from hiv_identitas_riwayat_pribadi "
-                + "where no_rkm_medis ='" + TNoRM.getText() + "' ", "", 5, TnoregNas);
-    }
-    
     private void AutoKodeKLG() {
         Valid.autoNomer7("select ifnull(MAX(CONVERT(LEFT(kd_keluarga,2),signed)),0) from hiv_riwayat_keluarga where "
                 + "no_rkm_medis like '%" + TNoRM.getText() + "%' ", "-" + TNoRM.getText(), 2, kdKLG);
     }
     
     private void simpan12() {
-        if (TkdPengawas.getText().equals("")) {
-            Valid.textKosong(TkdPengawas, "Nama Pengawas Minum Obat (PMO)");
-            btnPengawas.requestFocus();
+        if (TnmPengawas.getText().equals("")) {
+            Valid.textKosong(TnmPengawas, "Nama Pengawas Minum Obat (PMO)");
+            TnmPengawas.requestFocus();
         } else if (cmbHubPasien.getSelectedIndex() == 0) {
             Valid.textKosong(cmbHubPasien, "Hubungan dengan pasien");
             cmbHubPasien.requestFocus();
@@ -5360,9 +5337,6 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         } else if (cmbTerimaART.getSelectedIndex() == 0 && cmbJikaYA.getSelectedIndex() == 0) {
             Valid.textKosong(cmbJikaYA, "Jika Ya pernah menerima ART");
             cmbJikaYA.requestFocus();
-        } else if (cmbTmpART.getSelectedIndex() == 0) {
-            Valid.textKosong(cmbTmpART, "Tempat ART dulu");
-            cmbTmpART.requestFocus();
         } else {
             pasienDirujuk = "";
             sttsPekerjaan = "";
@@ -5384,9 +5358,8 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                 sttsPekerjaan = "1. Bekerja";
             }
 
-            AutoNomorRegNas();
             Sequel.menyimpan("hiv_identitas_riwayat_pribadi",
-                    "'" + TNoRM.getText() + "','" + TnoregNas.getText() + "','" + TkdPengawas.getText() + "',"
+                    "'" + TNoRM.getText() + "','" + TnoregNas.getText() + "','" + TnmPengawas.getText() + "',"
                     + "'" + cmbHubPasien.getSelectedItem().toString() + "',"
                     + "'" + TAlamatPMO.getText() + "','" + TnoTelpPMO.getText() + "',"
                     + "'" + TRiwAlergiObat.getText() + "','" + Valid.SetTgl(TglKonfirmasiTes.getSelectedItem() + "") + "',"
@@ -5458,12 +5431,6 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         } else if (bb.getText().trim().equals("")) {
             Valid.textKosong(bb, "BB");
             bb.requestFocus();
-        } else if (cmbstsFung.getSelectedIndex() == 0) {
-            Valid.textKosong(cmbstsFung, "Status Fungsional");
-            cmbstsFung.requestFocus();
-        } else if (JLHcd4.getText().trim().equals("")) {
-            Valid.textKosong(JLHcd4, "Jumlah Cd4");
-            JLHcd4.requestFocus();
         } else {
             noUrut = "";
             if (cmbPemeriksaan.getSelectedIndex() == 1) {
@@ -5722,9 +5689,9 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     }
     
     private void ganti12() {
-        if (TkdPengawas.getText().equals("")) {
-            Valid.textKosong(TkdPengawas, "Nama Pengawas Minum Obat (PMO)");
-            btnPengawas.requestFocus();
+        if (TnmPengawas.getText().equals("")) {
+            Valid.textKosong(TnmPengawas, "Nama Pengawas Minum Obat (PMO)");
+            TnmPengawas.requestFocus();
         } else if (cmbHubPasien.getSelectedIndex() == 0) {
             Valid.textKosong(cmbHubPasien, "Hubungan dengan pasien");
             cmbHubPasien.requestFocus();
@@ -5764,9 +5731,6 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         } else if (cmbTerimaART.getSelectedIndex() == 0 && cmbJikaYA.getSelectedIndex() == 0) {
             Valid.textKosong(cmbJikaYA, "Jika Ya pernah menerima ART");
             cmbJikaYA.requestFocus();
-        } else if (cmbTmpART.getSelectedIndex() == 0) {
-            Valid.textKosong(cmbTmpART, "Tempat ART dulu");
-            cmbTmpART.requestFocus();
         } else {
             pasienDirujuk = "";
             sttsPekerjaan = "";
@@ -5789,7 +5753,8 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
             }
 
             Sequel.mengedit("hiv_identitas_riwayat_pribadi", "no_rkm_medis='" + TNoRM.getText() + "'",
-                    "nip_pengawas_pmo='" + TkdPengawas.getText() + "', "
+                    "no_reg_nasional='" + TnoregNas.getText() + "',"
+                    + "nm_pengawas_pmo='" + TnmPengawas.getText() + "', "
                     + "hubungan_dg_pasien='" + cmbHubPasien.getSelectedItem().toString() + "',"
                     + "alamat_pmo='" + TAlamatPMO.getText() + "', "
                     + "no_telpon_pmo='" + TnoTelpPMO.getText() + "',"
@@ -5886,12 +5851,6 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         } else if (bb.getText().trim().equals("")) {
             Valid.textKosong(bb, "BB");
             bb.requestFocus();
-        } else if (cmbstsFung.getSelectedIndex() == 0) {
-            Valid.textKosong(cmbstsFung, "Status Fungsional");
-            cmbstsFung.requestFocus();
-        } else if (JLHcd4.getText().trim().equals("")) {
-            Valid.textKosong(JLHcd4, "Jumlah Cd4");
-            JLHcd4.requestFocus();
         } else {
             Sequel.mengedit("hiv_pemeriksaan_klinis_lab", "no_rkm_medis='" + TNoRM.getText() + "' and "
                     + "urutan='" + noUrut + "' and tgl='" + tb5.getValueAt(tb5.getSelectedRow(), 10).toString() + "'",
@@ -6074,17 +6033,16 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         tglrujukkeluar = "";
         try {
             Sequel.queryu("delete from temporary_ikhtisar_hiv");
-            psc12 = koneksi.prepareStatement("SELECT p.no_rkm_medis, p.nm_pasien, p.tgl_lahir, "
-                    + "CONCAT('6303015 ',h.no_reg_nasional) noRegNas, p.jk, h.riwayat_alergi_obat, "
-                    + "h.nip_pengawas_pmo nip_pmo, pt.nama nm_pengawas, h.hubungan_dg_pasien, h.no_telpon_pmo, "
+            psc12 = koneksi.prepareStatement("SELECT p.no_rkm_medis, p.nm_pasien, p.tgl_lahir, h.no_reg_nasional, p.jk, h.riwayat_alergi_obat, "
+                    + "h.nm_pengawas_pmo, h.hubungan_dg_pasien, h.no_telpon_pmo, "
                     + "h.alamat_pmo, h.tgl_konfirmasi_tes_hiv, h.entry_point, h.rawat_jalan, h.jangkauan, "
                     + "h.lainnya_rawat_jalan, h.lainnya_jangkauan, h.delapan_lainnya_uraikan, "
                     + "if(h.dirujuk_msk_dari_klinik_lain='','-',h.dirujuk_msk_dari_klinik_lain) dirujuk_msk_dari_klinik_lain, "
                     + "h.pendidikan, if(h.nm_klinik_sebelumnya='','-',h.nm_klinik_sebelumnya) nm_klinik_sebelumnya, h.stts_pekerjaan, "
                     + "if(h.tgl_rujuk_msk='0000-00-00','-',h.tgl_rujuk_msk) tgl_rujuk_msk, h.faktor_resiko, h.lain2_faktor_resiko_uraian, "
                     + "h.kd_rejimen, hm.nm_rejimen, h.dirujuk_masuk, h.stts_pernikahan, h.menerima_art, h.art_ya, h.tmpt_art_dulu FROM hiv_identitas_riwayat_pribadi h "
-                    + "INNER JOIN petugas pt ON pt.nip=h.nip_pengawas_pmo INNER JOIN hiv_master_rejimen hm ON hm.kd_rejimen=h.kd_rejimen "
-                    + "inner join pasien p on p.no_rkm_medis=h.no_rkm_medis WHERE h.no_rkm_medis ='" + TNoRM.getText() + "'");
+                    + "INNER JOIN hiv_master_rejimen hm ON hm.kd_rejimen=h.kd_rejimen inner join pasien p on p.no_rkm_medis=h.no_rkm_medis "
+                    + "WHERE h.no_rkm_medis ='" + TNoRM.getText() + "'");
             try {
                 rsc12 = psc12.executeQuery();
                 while (rsc12.next()) {
@@ -6106,11 +6064,11 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                     //mencetak lembar ikhtisar perawatan hiv & terapi antiretroviral (arv)
                     Map<String, Object> param = new HashMap<>();
                     param.put("pasien", "Nama : " + rsc12.getString("nm_pasien") + "      No. Rekam Medis : " + rsc12.getString("no_rkm_medis"));
-                    param.put("noreg_nasional", rsc12.getString("noRegNas"));
+                    param.put("noreg_nasional", rsc12.getString("no_reg_nasional"));
                     param.put("jns_kelamin", rsc12.getString("jk").replaceAll("L", "Laki-laki").replaceAll("P", "Perempuan")
                             + "     Tgl. Lahir : " + Valid.SetTglINDONESIA(rsc12.getString("tgl_lahir")));
                     param.put("riw_alergi_obat", rsc12.getString("riwayat_alergi_obat"));
-                    param.put("nm_pengawas_minum_obat", rsc12.getString("nm_pengawas"));
+                    param.put("nm_pengawas_minum_obat", rsc12.getString("nm_pengawas_pmo"));
                     param.put("hub_dg_pasien", rsc12.getString("hubungan_dg_pasien"));
                     param.put("alamat_notel_pmo", rsc12.getString("alamat_pmo") + " (" + rsc12.getString("no_telpon_pmo") + ")");
                     param.put("tgl_konfirmasi_hiv", Valid.SetTglINDONESIA(rsc12.getString("tgl_konfirmasi_tes_hiv")));
@@ -6569,11 +6527,12 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private void cekIdentitasRiwayat(String nrm) {
         try {
             psCek = koneksi.prepareStatement("select ifnull(kd_rejimen,'') kdRej, ifnull(stts_pernikahan,'') stsNikah, "
-                    + "ifnull(menerima_art,'') nerimaART, ifnull(art_ya,'') artYa, ifnull(tmpt_art_dulu,'') tmpART "
-                    + "from hiv_identitas_riwayat_pribadi where no_rkm_medis='" + nrm + "'");
+                    + "ifnull(menerima_art,'') nerimaART, ifnull(art_ya,'') artYa, ifnull(tmpt_art_dulu,'') tmpART, "
+                    + "ifnull(no_reg_nasional,'') no_reg_nasional from hiv_identitas_riwayat_pribadi where no_rkm_medis='" + nrm + "'");
             try {
                 rsCek = psCek.executeQuery();
                 while (rsCek.next()) {
+                    TnoregNas.setText(rsCek.getString("no_reg_nasional"));
                     Tkd.setText(rsCek.getString("kdRej"));
                     TnmRejimen.setText(Sequel.cariIsi("select nm_rejimen from hiv_master_rejimen where kd_rejimen='" + Tkd.getText() + "'"));
                     TsttsPernikahan.setText(rsCek.getString("stsNikah"));
