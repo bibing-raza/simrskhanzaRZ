@@ -2224,7 +2224,7 @@ public class DlgPasien extends javax.swing.JDialog {
         FormInput.add(jLabel13);
         jLabel13.setBounds(4, 98, 95, 23);
 
-        DTPLahir.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-11-2021" }));
+        DTPLahir.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-02-2022" }));
         DTPLahir.setDisplayFormat("dd-MM-yyyy");
         DTPLahir.setName("DTPLahir"); // NOI18N
         DTPLahir.setOpaque(false);
@@ -2382,7 +2382,7 @@ public class DlgPasien extends javax.swing.JDialog {
         TKtp.setBounds(712, 127, 130, 23);
 
         DTPDaftar.setEditable(false);
-        DTPDaftar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-11-2021" }));
+        DTPDaftar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-02-2022" }));
         DTPDaftar.setDisplayFormat("dd-MM-yyyy");
         DTPDaftar.setEnabled(false);
         DTPDaftar.setName("DTPDaftar"); // NOI18N
@@ -2961,7 +2961,7 @@ public class DlgPasien extends javax.swing.JDialog {
         jLabel37.setBounds(880, 40, 95, 23);
 
         cmbPngJawab.setForeground(new java.awt.Color(0, 0, 0));
-        cmbPngJawab.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SAUDARA", "AYAH", "IBU", "ANAK", "SUAMI", "ISTRI", "SEPUPU", "PASIEN SENDIRI", "PAMAN", "BIBI", "KAKEK", "NENEK", "TEMAN", "TETANGGA", "IPAR", "BESAN", "MENANTU", "MERTUA", "KEPONAKAN" }));
+        cmbPngJawab.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SAUDARA", "AYAH", "IBU", "ANAK", "SUAMI", "ISTRI", "SEPUPU", "PASIEN SENDIRI", "PAMAN", "BIBI", "KAKEK", "NENEK", "TEMAN", "TETANGGA", "IPAR", "BESAN", "MENANTU", "MERTUA", "KEPONAKAN", "KAKAK", "ADIK" }));
         cmbPngJawab.setName("cmbPngJawab"); // NOI18N
         cmbPngJawab.setOpaque(false);
         cmbPngJawab.addMouseListener(new java.awt.event.MouseAdapter() {
