@@ -1112,7 +1112,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         TglKonfirmasiTes.setBounds(133, 122, 90, 23);
 
         cmbHubPasien.setForeground(new java.awt.Color(0, 0, 0));
-        cmbHubPasien.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Saudara", "Ayah", "Ibu", "Anak", "Suami", "Istri", "Sepupu", "Pasien Sendiri", "Paman", "Bibi", "Kakek", "Nenek", "Teman", "Tetangga", "Ipar", "Besan", "Menantu", "Mertua", "Keponakan", "Kakak", "Adik" }));
+        cmbHubPasien.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Pendukung", "LSM", "Saudara", "Ayah", "Ibu", "Anak", "Suami", "Istri", "Sepupu", "Pasien Sendiri", "Paman", "Bibi", "Kakek", "Nenek", "Teman", "Tetangga", "Ipar", "Besan", "Menantu", "Mertua", "Keponakan", "Kakak", "Adik" }));
         cmbHubPasien.setName("cmbHubPasien"); // NOI18N
         cmbHubPasien.setOpaque(false);
         cmbHubPasien.setPreferredSize(new java.awt.Dimension(55, 28));
@@ -5298,9 +5298,6 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         if (TnmPengawas.getText().equals("")) {
             Valid.textKosong(TnmPengawas, "Nama Pengawas Minum Obat (PMO)");
             TnmPengawas.requestFocus();
-        } else if (cmbHubPasien.getSelectedIndex() == 0) {
-            Valid.textKosong(cmbHubPasien, "Hubungan dengan pasien");
-            cmbHubPasien.requestFocus();
         } else if (cmbEntriPoin.getSelectedIndex() == 0) {
             Valid.textKosong(cmbEntriPoin, "Entry Point");
             cmbEntriPoin.requestFocus();
@@ -5692,9 +5689,6 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         if (TnmPengawas.getText().equals("")) {
             Valid.textKosong(TnmPengawas, "Nama Pengawas Minum Obat (PMO)");
             TnmPengawas.requestFocus();
-        } else if (cmbHubPasien.getSelectedIndex() == 0) {
-            Valid.textKosong(cmbHubPasien, "Hubungan dengan pasien");
-            cmbHubPasien.requestFocus();
         } else if (cmbEntriPoin.getSelectedIndex() == 0) {
             Valid.textKosong(cmbEntriPoin, "Entry Point");
             cmbEntriPoin.requestFocus();
