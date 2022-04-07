@@ -1388,18 +1388,18 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         WindowCariNoRujuk = new javax.swing.JDialog();
         internalFrame8 = new widget.InternalFrame();
         TabRujukan = new javax.swing.JTabbedPane();
-        internalFrame4 = new widget.InternalFrame();
-        scrollPane1 = new widget.ScrollPane();
-        tbFaskes1 = new widget.Table();
-        internalFrame5 = new widget.InternalFrame();
-        scrollPane2 = new widget.ScrollPane();
-        tbFaskes2 = new widget.Table();
         internalFrame6 = new widget.InternalFrame();
         scrollPane3 = new widget.ScrollPane();
         tbFaskes3 = new widget.Table();
         internalFrame9 = new widget.InternalFrame();
         scrollPane4 = new widget.ScrollPane();
         tbFaskes4 = new widget.Table();
+        internalFrame4 = new widget.InternalFrame();
+        scrollPane1 = new widget.ScrollPane();
+        tbFaskes1 = new widget.Table();
+        internalFrame5 = new widget.InternalFrame();
+        scrollPane2 = new widget.ScrollPane();
+        tbFaskes2 = new widget.Table();
         panelisi3 = new widget.panelisi();
         BtnKeluar1 = new widget.Button();
         kode_rujukanya = new widget.TextBox();
@@ -1730,7 +1730,7 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         Popup1.add(ppRencanaKontrollagi1);
 
         TanggalBooking.setEditable(false);
-        TanggalBooking.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-03-2022" }));
+        TanggalBooking.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-04-2022" }));
         TanggalBooking.setDisplayFormat("dd-MM-yyyy");
         TanggalBooking.setName("TanggalBooking"); // NOI18N
         TanggalBooking.setOpaque(false);
@@ -1751,7 +1751,7 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         WindowCariNoRujuk.setResizable(false);
         WindowCariNoRujuk.getContentPane().setLayout(new java.awt.BorderLayout(1, 1));
 
-        internalFrame8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Cek Riwayat Rujukan Faskes ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
+        internalFrame8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255), 3), "::[ Cek Riwayat Rujukan Faskes ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
         internalFrame8.setName("internalFrame8"); // NOI18N
         internalFrame8.setWarnaBawah(new java.awt.Color(245, 250, 240));
         internalFrame8.setLayout(new java.awt.BorderLayout(1, 1));
@@ -1764,54 +1764,6 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
                 TabRujukanMouseClicked(evt);
             }
         });
-
-        internalFrame4.setName("internalFrame4"); // NOI18N
-        internalFrame4.setLayout(new java.awt.BorderLayout(1, 1));
-
-        scrollPane1.setName("scrollPane1"); // NOI18N
-        scrollPane1.setOpaque(true);
-
-        tbFaskes1.setToolTipText("Klik data di tabel");
-        tbFaskes1.setName("tbFaskes1"); // NOI18N
-        tbFaskes1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbFaskes1MouseClicked(evt);
-            }
-        });
-        tbFaskes1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                tbFaskes1KeyPressed(evt);
-            }
-        });
-        scrollPane1.setViewportView(tbFaskes1);
-
-        internalFrame4.add(scrollPane1, java.awt.BorderLayout.CENTER);
-
-        TabRujukan.addTab(".: Faskes 1", internalFrame4);
-
-        internalFrame5.setName("internalFrame5"); // NOI18N
-        internalFrame5.setLayout(new java.awt.BorderLayout(1, 1));
-
-        scrollPane2.setName("scrollPane2"); // NOI18N
-        scrollPane2.setOpaque(true);
-
-        tbFaskes2.setToolTipText("Klik data di tabel");
-        tbFaskes2.setName("tbFaskes2"); // NOI18N
-        tbFaskes2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbFaskes2MouseClicked(evt);
-            }
-        });
-        tbFaskes2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                tbFaskes2KeyPressed(evt);
-            }
-        });
-        scrollPane2.setViewportView(tbFaskes2);
-
-        internalFrame5.add(scrollPane2, java.awt.BorderLayout.CENTER);
-
-        TabRujukan.addTab(".: Faskes 2 (RS)", internalFrame5);
 
         internalFrame6.setName("internalFrame6"); // NOI18N
         internalFrame6.setLayout(new java.awt.BorderLayout(1, 1));
@@ -1860,6 +1812,54 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         internalFrame9.add(scrollPane4, java.awt.BorderLayout.CENTER);
 
         TabRujukan.addTab(".: Faskes 2 (RS) banyak", internalFrame9);
+
+        internalFrame4.setName("internalFrame4"); // NOI18N
+        internalFrame4.setLayout(new java.awt.BorderLayout(1, 1));
+
+        scrollPane1.setName("scrollPane1"); // NOI18N
+        scrollPane1.setOpaque(true);
+
+        tbFaskes1.setToolTipText("Klik data di tabel");
+        tbFaskes1.setName("tbFaskes1"); // NOI18N
+        tbFaskes1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbFaskes1MouseClicked(evt);
+            }
+        });
+        tbFaskes1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tbFaskes1KeyPressed(evt);
+            }
+        });
+        scrollPane1.setViewportView(tbFaskes1);
+
+        internalFrame4.add(scrollPane1, java.awt.BorderLayout.CENTER);
+
+        TabRujukan.addTab(".: Faskes 1", internalFrame4);
+
+        internalFrame5.setName("internalFrame5"); // NOI18N
+        internalFrame5.setLayout(new java.awt.BorderLayout(1, 1));
+
+        scrollPane2.setName("scrollPane2"); // NOI18N
+        scrollPane2.setOpaque(true);
+
+        tbFaskes2.setToolTipText("Klik data di tabel");
+        tbFaskes2.setName("tbFaskes2"); // NOI18N
+        tbFaskes2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbFaskes2MouseClicked(evt);
+            }
+        });
+        tbFaskes2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tbFaskes2KeyPressed(evt);
+            }
+        });
+        scrollPane2.setViewportView(tbFaskes2);
+
+        internalFrame5.add(scrollPane2, java.awt.BorderLayout.CENTER);
+
+        TabRujukan.addTab(".: Faskes 2 (RS)", internalFrame5);
 
         internalFrame8.add(TabRujukan, java.awt.BorderLayout.CENTER);
 
@@ -2264,7 +2264,7 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         panelCari.add(R2);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-03-2022" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-04-2022" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -2289,7 +2289,7 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         panelCari.add(jLabel22);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-03-2022" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-04-2022" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -2312,7 +2312,7 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         panelCari.add(R3);
 
         DTPCari3.setEditable(false);
-        DTPCari3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-03-2022" }));
+        DTPCari3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-04-2022" }));
         DTPCari3.setDisplayFormat("dd-MM-yyyy");
         DTPCari3.setName("DTPCari3"); // NOI18N
         DTPCari3.setOpaque(false);
@@ -2337,7 +2337,7 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         panelCari.add(jLabel25);
 
         DTPCari4.setEditable(false);
-        DTPCari4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-03-2022" }));
+        DTPCari4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-04-2022" }));
         DTPCari4.setDisplayFormat("dd-MM-yyyy");
         DTPCari4.setName("DTPCari4"); // NOI18N
         DTPCari4.setOpaque(false);
@@ -2507,7 +2507,7 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         jLabel14.setBounds(0, 66, 115, 23);
 
         TanggalPeriksa.setEditable(false);
-        TanggalPeriksa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-03-2022" }));
+        TanggalPeriksa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-04-2022" }));
         TanggalPeriksa.setDisplayFormat("dd-MM-yyyy");
         TanggalPeriksa.setName("TanggalPeriksa"); // NOI18N
         TanggalPeriksa.setOpaque(false);
@@ -2891,7 +2891,7 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         jLabel28.setBounds(0, 67, 95, 23);
 
         TanggalRujuk.setEditable(false);
-        TanggalRujuk.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-03-2022" }));
+        TanggalRujuk.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-04-2022" }));
         TanggalRujuk.setDisplayFormat("dd-MM-yyyy");
         TanggalRujuk.setName("TanggalRujuk"); // NOI18N
         TanggalRujuk.setOpaque(false);
@@ -3471,7 +3471,7 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         LabTglkll.setBounds(0, 38, 90, 23);
 
         TanggalKejadian.setEditable(false);
-        TanggalKejadian.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-03-2022" }));
+        TanggalKejadian.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-04-2022" }));
         TanggalKejadian.setDisplayFormat("dd-MM-yyyy");
         TanggalKejadian.setName("TanggalKejadian"); // NOI18N
         TanggalKejadian.setOpaque(false);
@@ -4247,7 +4247,8 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         } else {
             WindowCariNoRujuk.setLocationRelativeTo(internalFrame1);
             WindowCariNoRujuk.setVisible(true);
-            tampilFaskes1();
+            TabRujukan.setSelectedIndex(0);
+            tampilFaskes1BYK();
         }
     }//GEN-LAST:event_btnNoRujukanActionPerformed
 
@@ -4506,13 +4507,13 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
     private void TabRujukanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabRujukanMouseClicked
         if (TabRujukan.getSelectedIndex() == 0) {
-            tampilFaskes1();
-        } else if (TabRujukan.getSelectedIndex() == 1) {
-            tampilFaskes2();
-        } else if (TabRujukan.getSelectedIndex() == 2) {
             tampilFaskes1BYK();
-        } else if (TabRujukan.getSelectedIndex() == 3) {
+        } else if (TabRujukan.getSelectedIndex() == 1) {
             tampilFaskes2BYK();
+        } else if (TabRujukan.getSelectedIndex() == 2) {
+            tampilFaskes1();
+        } else if (TabRujukan.getSelectedIndex() == 3) {
+            tampilFaskes2();
         }
     }//GEN-LAST:event_TabRujukanMouseClicked
 
@@ -5434,6 +5435,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     public void tampilFaskes1() {
         try {
             prop.loadFromXML(new FileInputStream("setting/database.xml"));
+            Valid.tabelKosong(tabMode1);
             URL = prop.getProperty("URLAPIBPJS") + "/Rujukan/Peserta/" + NoKartu.getText();
 
             HttpHeaders headers = new HttpHeaders();
@@ -5448,11 +5450,10 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.GET, requestEntity, String.class).getBody());
             JsonNode nameNode = root.path("metaData");
-            
+
             if (nameNode.path("code").asText().equals("200")) {
-                Valid.tabelKosong(tabMode1);
 //ini yang baru -----------            
-                  JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc)).path("rujukan");
+                JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc)).path("rujukan");
 //sampai sini -------------                
 //                JsonNode response = root.path("response").path("rujukan");
                 tabMode1.addRow(new Object[]{
@@ -5482,6 +5483,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     public void tampilFaskes2() {
         try {
             prop.loadFromXML(new FileInputStream("setting/database.xml"));
+            Valid.tabelKosong(tabMode2);
             URL = prop.getProperty("URLAPIBPJS") + "/Rujukan/RS/Peserta/" + NoKartu.getText();
 
             HttpHeaders headers = new HttpHeaders();
@@ -5496,11 +5498,10 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.GET, requestEntity, String.class).getBody());
             JsonNode nameNode = root.path("metaData");
-            
+
             if (nameNode.path("code").asText().equals("200")) {
-                Valid.tabelKosong(tabMode2);
 //ini yang baru -----------            
-                    JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc)).path("rujukan");
+                JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc)).path("rujukan");
 //sampai sini -------------                
 //                JsonNode response = root.path("response").path("rujukan");
                 tabMode2.addRow(new Object[]{
@@ -5530,6 +5531,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     public void tampilFaskes1BYK() {
         try {
             prop.loadFromXML(new FileInputStream("setting/database.xml"));
+            Valid.tabelKosong(tabMode3);
             URL = prop.getProperty("URLAPIBPJS") + "/Rujukan/List/Peserta/" + NoKartu.getText();
 
             HttpHeaders headers = new HttpHeaders();
@@ -5544,10 +5546,10 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.GET, requestEntity, String.class).getBody());
             JsonNode nameNode = root.path("metaData");
+
             if (nameNode.path("code").asText().equals("200")) {
-                Valid.tabelKosong(tabMode3);
 //ini yang baru -----------            
-                    JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc));
+                JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc));
 //sampai sini -------------                
 //                JsonNode response = root.path("response");
                 if (response.path("rujukan").isArray()) {
@@ -5584,6 +5586,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     public void tampilFaskes2BYK() {
         try {
             prop.loadFromXML(new FileInputStream("setting/database.xml"));
+            Valid.tabelKosong(tabMode4);
             URL = prop.getProperty("URLAPIBPJS") + "/Rujukan/RS/List/Peserta/" + NoKartu.getText();
 
             HttpHeaders headers = new HttpHeaders();
@@ -5593,16 +5596,15 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             headers.add("X-Timestamp", utc);
             headers.add("X-Signature", api.getHmac(utc));
             headers.add("user_key", koneksiDB.USERKEYAPIBPJS());
-            
+
             HttpEntity requestEntity = new HttpEntity(headers);
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.GET, requestEntity, String.class).getBody());
             JsonNode nameNode = root.path("metaData");
-            
+
             if (nameNode.path("code").asText().equals("200")) {
-                Valid.tabelKosong(tabMode4);
 //ini yang baru -----------            
-                    JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc));
+                JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc));
 //sampai sini -------------            
 //                JsonNode response = root.path("response");
                 if (response.path("rujukan").isArray()) {

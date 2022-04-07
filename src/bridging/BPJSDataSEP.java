@@ -1316,18 +1316,18 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         WindowCariNoRujuk = new javax.swing.JDialog();
         internalFrame8 = new widget.InternalFrame();
         TabRujukan = new javax.swing.JTabbedPane();
-        internalFrame2 = new widget.InternalFrame();
-        scrollPane1 = new widget.ScrollPane();
-        tbFaskes1 = new widget.Table();
-        internalFrame3 = new widget.InternalFrame();
-        scrollPane2 = new widget.ScrollPane();
-        tbFaskes2 = new widget.Table();
         internalFrame4 = new widget.InternalFrame();
         scrollPane3 = new widget.ScrollPane();
         tbFaskes3 = new widget.Table();
         internalFrame9 = new widget.InternalFrame();
         scrollPane4 = new widget.ScrollPane();
         tbFaskes4 = new widget.Table();
+        internalFrame2 = new widget.InternalFrame();
+        scrollPane1 = new widget.ScrollPane();
+        tbFaskes1 = new widget.Table();
+        internalFrame3 = new widget.InternalFrame();
+        scrollPane2 = new widget.ScrollPane();
+        tbFaskes2 = new widget.Table();
         panelisi1 = new widget.panelisi();
         BtnKeluar1 = new widget.Button();
         WindowCariRujukanVClaim = new javax.swing.JDialog();
@@ -1940,7 +1940,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         noSrtMati.setBounds(130, 62, 280, 23);
 
         tglMati.setEditable(false);
-        tglMati.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-04-2022" }));
+        tglMati.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-04-2022" }));
         tglMati.setDisplayFormat("dd-MM-yyyy");
         tglMati.setName("tglMati"); // NOI18N
         tglMati.setOpaque(false);
@@ -1956,7 +1956,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         jLabel48.setBounds(220, 91, 90, 23);
 
         noLP.setEditable(false);
-        noLP.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-04-2022" }));
+        noLP.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-04-2022" }));
         noLP.setDisplayFormat("dd-MM-yyyy");
         noLP.setName("noLP"); // NOI18N
         noLP.setOpaque(false);
@@ -2046,7 +2046,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         jLabel30.setBounds(0, 25, 160, 23);
 
         TanggalRujukKeluar.setEditable(false);
-        TanggalRujukKeluar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-04-2022" }));
+        TanggalRujukKeluar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-04-2022" }));
         TanggalRujukKeluar.setDisplayFormat("dd-MM-yyyy");
         TanggalRujukKeluar.setName("TanggalRujukKeluar"); // NOI18N
         TanggalRujukKeluar.setOpaque(false);
@@ -2268,7 +2268,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         jLabel49.setBounds(0, 54, 160, 23);
 
         tglRencanaKunjungan.setEditable(false);
-        tglRencanaKunjungan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-04-2022" }));
+        tglRencanaKunjungan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-04-2022" }));
         tglRencanaKunjungan.setDisplayFormat("dd-MM-yyyy");
         tglRencanaKunjungan.setName("tglRencanaKunjungan"); // NOI18N
         tglRencanaKunjungan.setOpaque(false);
@@ -2608,54 +2608,6 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
             }
         });
 
-        internalFrame2.setName("internalFrame2"); // NOI18N
-        internalFrame2.setLayout(new java.awt.BorderLayout(1, 1));
-
-        scrollPane1.setName("scrollPane1"); // NOI18N
-        scrollPane1.setOpaque(true);
-
-        tbFaskes1.setToolTipText("Klik data di tabel");
-        tbFaskes1.setName("tbFaskes1"); // NOI18N
-        tbFaskes1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbFaskes1MouseClicked(evt);
-            }
-        });
-        tbFaskes1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                tbFaskes1KeyPressed(evt);
-            }
-        });
-        scrollPane1.setViewportView(tbFaskes1);
-
-        internalFrame2.add(scrollPane1, java.awt.BorderLayout.CENTER);
-
-        TabRujukan.addTab(".: Faskes 1", internalFrame2);
-
-        internalFrame3.setName("internalFrame3"); // NOI18N
-        internalFrame3.setLayout(new java.awt.BorderLayout(1, 1));
-
-        scrollPane2.setName("scrollPane2"); // NOI18N
-        scrollPane2.setOpaque(true);
-
-        tbFaskes2.setToolTipText("Klik data di tabel");
-        tbFaskes2.setName("tbFaskes2"); // NOI18N
-        tbFaskes2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbFaskes2MouseClicked(evt);
-            }
-        });
-        tbFaskes2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                tbFaskes2KeyPressed(evt);
-            }
-        });
-        scrollPane2.setViewportView(tbFaskes2);
-
-        internalFrame3.add(scrollPane2, java.awt.BorderLayout.CENTER);
-
-        TabRujukan.addTab(".: Faskes 2 (RS)", internalFrame3);
-
         internalFrame4.setName("internalFrame4"); // NOI18N
         internalFrame4.setLayout(new java.awt.BorderLayout(1, 1));
 
@@ -2703,6 +2655,54 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         internalFrame9.add(scrollPane4, java.awt.BorderLayout.CENTER);
 
         TabRujukan.addTab(".: Faskes 2 (RS) banyak", internalFrame9);
+
+        internalFrame2.setName("internalFrame2"); // NOI18N
+        internalFrame2.setLayout(new java.awt.BorderLayout(1, 1));
+
+        scrollPane1.setName("scrollPane1"); // NOI18N
+        scrollPane1.setOpaque(true);
+
+        tbFaskes1.setToolTipText("Klik data di tabel");
+        tbFaskes1.setName("tbFaskes1"); // NOI18N
+        tbFaskes1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbFaskes1MouseClicked(evt);
+            }
+        });
+        tbFaskes1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tbFaskes1KeyPressed(evt);
+            }
+        });
+        scrollPane1.setViewportView(tbFaskes1);
+
+        internalFrame2.add(scrollPane1, java.awt.BorderLayout.CENTER);
+
+        TabRujukan.addTab(".: Faskes 1", internalFrame2);
+
+        internalFrame3.setName("internalFrame3"); // NOI18N
+        internalFrame3.setLayout(new java.awt.BorderLayout(1, 1));
+
+        scrollPane2.setName("scrollPane2"); // NOI18N
+        scrollPane2.setOpaque(true);
+
+        tbFaskes2.setToolTipText("Klik data di tabel");
+        tbFaskes2.setName("tbFaskes2"); // NOI18N
+        tbFaskes2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbFaskes2MouseClicked(evt);
+            }
+        });
+        tbFaskes2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tbFaskes2KeyPressed(evt);
+            }
+        });
+        scrollPane2.setViewportView(tbFaskes2);
+
+        internalFrame3.add(scrollPane2, java.awt.BorderLayout.CENTER);
+
+        TabRujukan.addTab(".: Faskes 2 (RS)", internalFrame3);
 
         internalFrame8.add(TabRujukan, java.awt.BorderLayout.CENTER);
         TabRujukan.getAccessibleContext().setAccessibleName(".: Faskes 1");
@@ -2925,7 +2925,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         jLabel20.setBounds(183, 102, 53, 23);
 
         TanggalSEP.setEditable(false);
-        TanggalSEP.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-04-2022" }));
+        TanggalSEP.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-04-2022" }));
         TanggalSEP.setDisplayFormat("dd-MM-yyyy");
         TanggalSEP.setName("TanggalSEP"); // NOI18N
         TanggalSEP.setOpaque(false);
@@ -2946,7 +2946,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         jLabel22.setBounds(0, 102, 90, 23);
 
         TanggalRujuk.setEditable(false);
-        TanggalRujuk.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-04-2022" }));
+        TanggalRujuk.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-04-2022" }));
         TanggalRujuk.setDisplayFormat("dd-MM-yyyy");
         TanggalRujuk.setName("TanggalRujuk"); // NOI18N
         TanggalRujuk.setOpaque(false);
@@ -3304,7 +3304,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         jLabel36.setBounds(806, 12, 93, 23);
 
         TanggalKejadian.setEditable(false);
-        TanggalKejadian.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-04-2022" }));
+        TanggalKejadian.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-04-2022" }));
         TanggalKejadian.setDisplayFormat("dd-MM-yyyy");
         TanggalKejadian.setName("TanggalKejadian"); // NOI18N
         TanggalKejadian.setOpaque(false);
@@ -3946,7 +3946,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         panelGlass11.add(jLabel19);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-04-2022" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-04-2022" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -3966,7 +3966,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         panelGlass11.add(jLabel21);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-04-2022" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-04-2022" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -5298,7 +5298,8 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
         } else {
             WindowCariNoRujuk.setLocationRelativeTo(internalFrame1);
             WindowCariNoRujuk.setVisible(true);
-            tampilFaskes1();
+            TabRujukan.setSelectedIndex(0);
+            tampilFaskes1BYK();
         }
     }//GEN-LAST:event_btnNoRujukanActionPerformed
 
@@ -5358,13 +5359,13 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
 
     private void TabRujukanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabRujukanMouseClicked
         if (TabRujukan.getSelectedIndex() == 0) {
-            tampilFaskes1();
+            tampilFaskes1BYK();            
         } else if (TabRujukan.getSelectedIndex() == 1) {
-            tampilFaskes2();
+            tampilFaskes2BYK();            
         } else if (TabRujukan.getSelectedIndex() == 2) {
-            tampilFaskes1BYK();
+            tampilFaskes1();
         } else if (TabRujukan.getSelectedIndex() == 3) {
-            tampilFaskes2BYK();
+            tampilFaskes2();
         }
     }//GEN-LAST:event_TabRujukanMouseClicked
 
@@ -7753,79 +7754,31 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
     }
     
     public void tampilFaskes1() {
-    try {            
+        try {
             prop.loadFromXML(new FileInputStream("setting/database.xml"));
-            
+            Valid.tabelKosong(tabMode1);
+
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-	    headers.add("X-Cons-ID",Sequel.decXML2(prop.getProperty("CONSIDAPIBPJS"), prop.getProperty("KEY")));
-            utc=String.valueOf(api.GetUTCdatetimeAsString());
-	    headers.add("X-Timestamp", utc);            
-	    headers.add("X-Signature",api.getHmac(utc));
-            headers.add("user_key",koneksiDB.USERKEYAPIBPJS());
+            headers.add("X-Cons-ID", Sequel.decXML2(prop.getProperty("CONSIDAPIBPJS"), prop.getProperty("KEY")));
+            utc = String.valueOf(api.GetUTCdatetimeAsString());
+            headers.add("X-Timestamp", utc);
+            headers.add("X-Signature", api.getHmac(utc));
+            headers.add("user_key", koneksiDB.USERKEYAPIBPJS());
             URL = prop.getProperty("URLAPIBPJS") + "/Rujukan/Peserta/" + NoKartu.getText();
-            
-	    HttpEntity requestEntity = new HttpEntity(headers);
-	    ObjectMapper mapper = new ObjectMapper();
-            JsonNode root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.GET, requestEntity, String.class).getBody());           
+
+            HttpEntity requestEntity = new HttpEntity(headers);
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.GET, requestEntity, String.class).getBody());
             JsonNode nameNode = root.path("metaData");
-            
-            if(nameNode.path("code").asText().equals("200")){
-                Valid.tabelKosong(tabMode1);
+
+            if (nameNode.path("code").asText().equals("200")) {
 //ini yang baru -----------            
-            JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc)).path("rujukan");
+                JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc)).path("rujukan");
 //sampai sini -------------                 
 //                JsonNode response = root.path("response").path("rujukan");
                 tabMode1.addRow(new Object[]{
-                    "1",response.path("noKunjungan").asText(),
-                    response.path("tglKunjungan").asText(),
-                    response.path("provPerujuk").path("kode").asText(),
-                    response.path("provPerujuk").path("nama").asText(),
-                    response.path("poliRujukan").path("nama").asText(),
-                    response.path("diagnosa").path("kode").asText(),
-                    response.path("diagnosa").path("nama").asText(),
-                    response.path("keluhan").asText(),
-                    response.path("poliRujukan").path("kode").asText(),
-                    response.path("pelayanan").path("kode").asText(),
-                    response.path("pelayanan").path("nama").asText()
-                }); 
-            }else {
-                JOptionPane.showMessageDialog(null,nameNode.path("message").asText()+" di Faskes 1.");                
-            }  
-        } catch (Exception ex) {
-            System.out.println("Notifikasi : "+ex);
-            if(ex.toString().contains("UnknownHostException")){
-                JOptionPane.showMessageDialog(rootPane,"Koneksi ke server BPJS terputus...!");
-            }
-        }
-    }
-    
-    public void tampilFaskes2() {
-    try {            
-            prop.loadFromXML(new FileInputStream("setting/database.xml"));
-                        
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-	    headers.add("X-Cons-ID",Sequel.decXML2(prop.getProperty("CONSIDAPIBPJS"), prop.getProperty("KEY")));
-            utc=String.valueOf(api.GetUTCdatetimeAsString());
-	    headers.add("X-Timestamp", utc);            
-	    headers.add("X-Signature",api.getHmac(utc));
-            headers.add("user_key",koneksiDB.USERKEYAPIBPJS());
-            URL = prop.getProperty("URLAPIBPJS")+"/Rujukan/RS/Peserta/"+NoKartu.getText();            
-            
-	    HttpEntity requestEntity = new HttpEntity(headers);
-	    ObjectMapper mapper = new ObjectMapper();
-            JsonNode root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.GET, requestEntity, String.class).getBody());
-            JsonNode nameNode = root.path("metaData");
-            
-            if(nameNode.path("code").asText().equals("200")){
-                Valid.tabelKosong(tabMode2);
-//ini yang baru -----------            
-            JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc)).path("rujukan");
-//sampai sini -------------                
-//                JsonNode response = root.path("response").path("rujukan");
-                tabMode2.addRow(new Object[]{
-                    "1",response.path("noKunjungan").asText(),
+                    "1", response.path("noKunjungan").asText(),
                     response.path("tglKunjungan").asText(),
                     response.path("provPerujuk").path("kode").asText(),
                     response.path("provPerujuk").path("nama").asText(),
@@ -7837,13 +7790,61 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                     response.path("pelayanan").path("kode").asText(),
                     response.path("pelayanan").path("nama").asText()
                 });
-            }else {
-                JOptionPane.showMessageDialog(null,nameNode.path("message").asText()+" di Faskes 2.");                
-            }  
+            } else {
+                JOptionPane.showMessageDialog(null, nameNode.path("message").asText() + " di Faskes 1.");
+            }
         } catch (Exception ex) {
-            System.out.println("Notifikasi : "+ex);
-            if(ex.toString().contains("UnknownHostException")){
-                JOptionPane.showMessageDialog(rootPane,"Koneksi ke server BPJS terputus...!");
+            System.out.println("Notifikasi : " + ex);
+            if (ex.toString().contains("UnknownHostException")) {
+                JOptionPane.showMessageDialog(rootPane, "Koneksi ke server BPJS terputus...!");
+            }
+        }
+    }
+    
+    public void tampilFaskes2() {
+        try {
+            prop.loadFromXML(new FileInputStream("setting/database.xml"));
+            Valid.tabelKosong(tabMode2);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.add("X-Cons-ID", Sequel.decXML2(prop.getProperty("CONSIDAPIBPJS"), prop.getProperty("KEY")));
+            utc = String.valueOf(api.GetUTCdatetimeAsString());
+            headers.add("X-Timestamp", utc);
+            headers.add("X-Signature", api.getHmac(utc));
+            headers.add("user_key", koneksiDB.USERKEYAPIBPJS());
+            URL = prop.getProperty("URLAPIBPJS") + "/Rujukan/RS/Peserta/" + NoKartu.getText();
+
+            HttpEntity requestEntity = new HttpEntity(headers);
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.GET, requestEntity, String.class).getBody());
+            JsonNode nameNode = root.path("metaData");
+
+            if (nameNode.path("code").asText().equals("200")) {
+//ini yang baru -----------            
+                JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc)).path("rujukan");
+//sampai sini -------------                
+//                JsonNode response = root.path("response").path("rujukan");
+                tabMode2.addRow(new Object[]{
+                    "1", response.path("noKunjungan").asText(),
+                    response.path("tglKunjungan").asText(),
+                    response.path("provPerujuk").path("kode").asText(),
+                    response.path("provPerujuk").path("nama").asText(),
+                    response.path("poliRujukan").path("nama").asText(),
+                    response.path("diagnosa").path("kode").asText(),
+                    response.path("diagnosa").path("nama").asText(),
+                    response.path("keluhan").asText(),
+                    response.path("poliRujukan").path("kode").asText(),
+                    response.path("pelayanan").path("kode").asText(),
+                    response.path("pelayanan").path("nama").asText()
+                });
+            } else {
+                JOptionPane.showMessageDialog(null, nameNode.path("message").asText() + " di Faskes 2.");
+            }
+        } catch (Exception ex) {
+            System.out.println("Notifikasi : " + ex);
+            if (ex.toString().contains("UnknownHostException")) {
+                JOptionPane.showMessageDialog(rootPane, "Koneksi ke server BPJS terputus...!");
             }
         }
     }
@@ -7851,6 +7852,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
     public void tampilFaskes1BYK() {
         try {
             prop.loadFromXML(new FileInputStream("setting/database.xml"));
+            Valid.tabelKosong(tabMode3);
             
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
@@ -7866,8 +7868,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
             JsonNode root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.GET, requestEntity, String.class).getBody());
             JsonNode nameNode = root.path("metaData");
             
-            if (nameNode.path("code").asText().equals("200")) {
-                Valid.tabelKosong(tabMode3);
+            if (nameNode.path("code").asText().equals("200")) {                
 //ini yang baru -----------            
             JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc));
 //sampai sini -------------                
@@ -7906,6 +7907,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
     public void tampilFaskes2BYK() {
     try {            
             prop.loadFromXML(new FileInputStream("setting/database.xml"));
+            Valid.tabelKosong(tabMode4);
                         
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
@@ -7921,8 +7923,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
             JsonNode root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.GET, requestEntity, String.class).getBody());
             JsonNode nameNode = root.path("metaData");
             
-            if(nameNode.path("code").asText().equals("200")){
-                Valid.tabelKosong(tabMode4);  
+            if(nameNode.path("code").asText().equals("200")){                
 //ini yang baru -----------            
             JsonNode response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc));
 //sampai sini -------------                
