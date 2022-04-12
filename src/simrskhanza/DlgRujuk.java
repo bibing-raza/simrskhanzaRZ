@@ -1165,7 +1165,7 @@ private void btnDokterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                         + "FROM reg_periksa rp INNER JOIN pasien p ON rp.no_rkm_medis = p.no_rkm_medis "
                         + "INNER JOIN kelurahan kl ON p.kd_kel = kl.kd_kel INNER JOIN kecamatan kc ON p.kd_kec = kc.kd_kec "
                         + "INNER JOIN kabupaten kb ON p.kd_kab = kb.kd_kab INNER JOIN rujuk r ON rp.no_rawat = r.no_rawat "
-                        + "INNER JOIN dokter d ON r.kd_dokter = d.kd_dokter WHERE rp.no_rawat='" + TNoRw.getText() + "'", param);
+                        + "INNER JOIN dokter d ON r.kd_dokter = d.kd_dokter WHERE rp.no_rawat='" + TNoRw.getText() + "' and r.no_rujuk='" + TNoRj.getText() + "'", param);
 
             } else if (TabRujuk.getSelectedIndex() == 1) {
                 LocalDate tgldirujuk = LocalDate.parse(Valid.SetTgl(DTPRujuk.getSelectedItem() + ""));
