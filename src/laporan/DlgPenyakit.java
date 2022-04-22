@@ -88,23 +88,23 @@ public final class DlgPenyakit extends javax.swing.JDialog {
 
         for (z = 0; z < 9; z++) {
             TableColumn column = tbPenyakit.getColumnModel().getColumn(z);
-            if(z==0){
+            if (z == 0) {
                 column.setPreferredWidth(20);
-            }else if(z==1){
+            } else if (z == 1) {
                 column.setPreferredWidth(70);
-            }else if(z==2){
+            } else if (z == 2) {
                 column.setPreferredWidth(300);
-            }else if(z==3){
+            } else if (z == 3) {
                 column.setPreferredWidth(300);
-            }else if(z==4){
+            } else if (z == 4) {
                 column.setPreferredWidth(150);
-            }else if(z==5){
+            } else if (z == 5) {
                 column.setPreferredWidth(150);
-            }else if(z==6){
-                column.setPreferredWidth(150);
-            }else if(z==7){
+            } else if (z == 6) {
+                column.setPreferredWidth(250);
+            } else if (z == 7) {
                 column.setPreferredWidth(100);
-            }else if(z==8){
+            } else if (z == 8) {
                 column.setPreferredWidth(70);
             }
         }
@@ -907,7 +907,7 @@ public final class DlgPenyakit extends javax.swing.JDialog {
 
     private void btnKtgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKtgActionPerformed
         ktg.emptTeks();
-        ktg.setSize(internalFrame1.getWidth()-40,internalFrame1.getHeight()-40);
+        ktg.setSize(687, 403);
         ktg.setLocationRelativeTo(internalFrame1);
         ktg.setVisible(true);
 }//GEN-LAST:event_btnKtgActionPerformed

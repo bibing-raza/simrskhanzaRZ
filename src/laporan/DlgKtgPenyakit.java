@@ -158,7 +158,7 @@ public final class DlgKtgPenyakit extends javax.swing.JDialog {
             }
         });
 
-        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Kategori Penyakit ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 70, 40))); // NOI18N
+        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255), 3), "::[ Kategori Penyakit ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
         internalFrame1.setName("internalFrame1"); // NOI18N
         internalFrame1.setLayout(new java.awt.BorderLayout(1, 1));
 
@@ -191,6 +191,7 @@ public final class DlgKtgPenyakit extends javax.swing.JDialog {
         panelGlass8.setPreferredSize(new java.awt.Dimension(44, 44));
         panelGlass8.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 9));
 
+        BtnSimpan.setForeground(new java.awt.Color(0, 0, 0));
         BtnSimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/save-16x16.png"))); // NOI18N
         BtnSimpan.setMnemonic('S');
         BtnSimpan.setText("Simpan");
@@ -209,6 +210,7 @@ public final class DlgKtgPenyakit extends javax.swing.JDialog {
         });
         panelGlass8.add(BtnSimpan);
 
+        BtnBatal.setForeground(new java.awt.Color(0, 0, 0));
         BtnBatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Cancel-2-16x16.png"))); // NOI18N
         BtnBatal.setMnemonic('B');
         BtnBatal.setText("Baru");
@@ -227,6 +229,7 @@ public final class DlgKtgPenyakit extends javax.swing.JDialog {
         });
         panelGlass8.add(BtnBatal);
 
+        BtnHapus.setForeground(new java.awt.Color(0, 0, 0));
         BtnHapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/stop_f2.png"))); // NOI18N
         BtnHapus.setMnemonic('H');
         BtnHapus.setText("Hapus");
@@ -245,6 +248,7 @@ public final class DlgKtgPenyakit extends javax.swing.JDialog {
         });
         panelGlass8.add(BtnHapus);
 
+        BtnEdit.setForeground(new java.awt.Color(0, 0, 0));
         BtnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/inventaris.png"))); // NOI18N
         BtnEdit.setMnemonic('G');
         BtnEdit.setText("Ganti");
@@ -263,6 +267,7 @@ public final class DlgKtgPenyakit extends javax.swing.JDialog {
         });
         panelGlass8.add(BtnEdit);
 
+        BtnPrint.setForeground(new java.awt.Color(0, 0, 0));
         BtnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/b_print.png"))); // NOI18N
         BtnPrint.setMnemonic('T');
         BtnPrint.setText("Cetak");
@@ -281,6 +286,7 @@ public final class DlgKtgPenyakit extends javax.swing.JDialog {
         });
         panelGlass8.add(BtnPrint);
 
+        BtnKeluar.setForeground(new java.awt.Color(0, 0, 0));
         BtnKeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/exit.png"))); // NOI18N
         BtnKeluar.setMnemonic('K');
         BtnKeluar.setText("Keluar");
@@ -305,12 +311,14 @@ public final class DlgKtgPenyakit extends javax.swing.JDialog {
         panelGlass9.setPreferredSize(new java.awt.Dimension(44, 44));
         panelGlass9.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 9));
 
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Key Word :");
         jLabel6.setName("jLabel6"); // NOI18N
         jLabel6.setPreferredSize(new java.awt.Dimension(70, 23));
         jLabel6.setRequestFocusEnabled(false);
         panelGlass9.add(jLabel6);
 
+        TCari.setForeground(new java.awt.Color(0, 0, 0));
         TCari.setName("TCari"); // NOI18N
         TCari.setPreferredSize(new java.awt.Dimension(350, 23));
         TCari.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -320,6 +328,7 @@ public final class DlgKtgPenyakit extends javax.swing.JDialog {
         });
         panelGlass9.add(TCari);
 
+        BtnCari.setForeground(new java.awt.Color(0, 0, 0));
         BtnCari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept.png"))); // NOI18N
         BtnCari.setMnemonic('1');
         BtnCari.setToolTipText("Alt+1");
@@ -340,6 +349,7 @@ public final class DlgKtgPenyakit extends javax.swing.JDialog {
         });
         panelGlass9.add(BtnCari);
 
+        BtnAll.setForeground(new java.awt.Color(0, 0, 0));
         BtnAll.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Search-16x16.png"))); // NOI18N
         BtnAll.setMnemonic('2');
         BtnAll.setToolTipText("Alt+2");
@@ -357,11 +367,13 @@ public final class DlgKtgPenyakit extends javax.swing.JDialog {
         });
         panelGlass9.add(BtnAll);
 
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Record :");
         jLabel7.setName("jLabel7"); // NOI18N
         jLabel7.setPreferredSize(new java.awt.Dimension(65, 23));
         panelGlass9.add(jLabel7);
 
+        LCount.setForeground(new java.awt.Color(0, 0, 0));
         LCount.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         LCount.setText("0");
         LCount.setName("LCount"); // NOI18N
@@ -376,17 +388,20 @@ public final class DlgKtgPenyakit extends javax.swing.JDialog {
         panelGlass2.setPreferredSize(new java.awt.Dimension(44, 77));
         panelGlass2.setLayout(null);
 
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Kode Kategori :");
         jLabel3.setName("jLabel3"); // NOI18N
         panelGlass2.add(jLabel3);
         jLabel3.setBounds(0, 12, 106, 23);
 
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Ciri-ciri Umum :");
         jLabel4.setName("jLabel4"); // NOI18N
         panelGlass2.add(jLabel4);
         jLabel4.setBounds(0, 42, 106, 23);
 
-        TKd.setHighlighter(null);
+        TKd.setEditable(false);
+        TKd.setForeground(new java.awt.Color(0, 0, 0));
         TKd.setName("TKd"); // NOI18N
         TKd.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -396,6 +411,7 @@ public final class DlgKtgPenyakit extends javax.swing.JDialog {
         panelGlass2.add(TKd);
         TKd.setBounds(110, 12, 100, 23);
 
+        TCiri.setForeground(new java.awt.Color(0, 0, 0));
         TCiri.setFocusTraversalPolicyProvider(true);
         TCiri.setName("TCiri"); // NOI18N
         TCiri.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -406,6 +422,7 @@ public final class DlgKtgPenyakit extends javax.swing.JDialog {
         panelGlass2.add(TCiri);
         TCiri.setBounds(110, 42, 510, 23);
 
+        TNm.setForeground(new java.awt.Color(0, 0, 0));
         TNm.setHighlighter(null);
         TNm.setName("TNm"); // NOI18N
         TNm.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -416,6 +433,7 @@ public final class DlgKtgPenyakit extends javax.swing.JDialog {
         panelGlass2.add(TNm);
         TNm.setBounds(400, 12, 220, 23);
 
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Nama Kategori :");
         jLabel8.setName("jLabel8"); // NOI18N
         panelGlass2.add(jLabel8);
@@ -441,14 +459,14 @@ public final class DlgKtgPenyakit extends javax.swing.JDialog {
 }//GEN-LAST:event_TNmKeyPressed
 
     private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSimpanActionPerformed
-        if(TKd.getText().trim().equals("")){
-            Valid.textKosong(TKd,"kode kategori");
-        }else if(TNm.getText().trim().equals("")){
-            Valid.textKosong(TNm,"nama kategori");
-        }else if(TCiri.getText().trim().equals("")){
-            Valid.textKosong(TCiri,"ciri-ciri umum");
-        }else{
-            Sequel.menyimpan("kategori_penyakit","'"+TKd.getText()+"','"+TNm.getText()+"','"+TCiri.getText()+"'","Kode Kategori");
+        if (TKd.getText().trim().equals("")) {
+            Valid.textKosong(TKd, "kode kategori");
+        } else if (TNm.getText().trim().equals("")) {
+            Valid.textKosong(TNm, "nama kategori");
+        } else if (TCiri.getText().trim().equals("")) {
+            Valid.textKosong(TCiri, "ciri-ciri umum");
+        } else {
+            Sequel.menyimpan("kategori_penyakit", "'" + TKd.getText() + "','" + TNm.getText() + "','" + TCiri.getText() + "'", "Kode Kategori");
             tampil();
             emptTeks();
         }
@@ -671,20 +689,20 @@ public final class DlgKtgPenyakit extends javax.swing.JDialog {
 
     private void tampil() {
         Valid.tabelKosong(tabMode);
-        try{
-            ps.setString(1,"%"+TCari.getText().trim()+"%");
-            ps.setString(2,"%"+TCari.getText().trim()+"%");
-            ps.setString(3,"%"+TCari.getText().trim()+"%");
-            rs=ps.executeQuery();
-            while(rs.next()){
+        try {
+            ps.setString(1, "%" + TCari.getText().trim() + "%");
+            ps.setString(2, "%" + TCari.getText().trim() + "%");
+            ps.setString(3, "%" + TCari.getText().trim() + "%");
+            rs = ps.executeQuery();
+            while (rs.next()) {
                 tabMode.addRow(new Object[]{
-                    false,rs.getString(1),rs.getString(2),rs.getString(3)
+                    false, rs.getString(1), rs.getString(2), rs.getString(3)
                 });
             }
-        }catch(SQLException e){
-            System.out.println("Notifikasi : "+e);
+        } catch (SQLException e) {
+            System.out.println("Notifikasi : " + e);
         }
-        LCount.setText(""+tabMode.getRowCount());
+        LCount.setText("" + tabMode.getRowCount());
     }
 
     public void emptTeks() {
@@ -693,7 +711,7 @@ public final class DlgKtgPenyakit extends javax.swing.JDialog {
         TCiri.setText("");
         TCari.setText("");
         TKd.requestFocus();
-        Valid.autoNomer(tabMode,"KP",6,TKd);
+        Valid.autoNomer(tabMode, "KP", 6, TKd);
     }
 
     private void getData() {

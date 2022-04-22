@@ -1858,7 +1858,7 @@ public class DlgBarang extends javax.swing.JDialog {
 }//GEN-LAST:event_BtnKeluarKeyPressed
 
     private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSimpanActionPerformed
-        if(var.getnamauser().equals("Admin Utama") || var.getnamauser().equals("Wardah")){
+        if(var.getnamauser().equals("Admin Utama") || var.getkode().equals("0319")){
             if (Kd.getText().trim().equals("")) {
             Valid.textKosong(Kd, "Kode Barang");
         } else if (Nm.getText().trim().equals("")) {
