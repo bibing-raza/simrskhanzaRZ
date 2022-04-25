@@ -398,8 +398,10 @@ public class DlgSetBridging extends javax.swing.JDialog {
             tglnonAktif = "";
             if (ChkNonAktif.isSelected() == true) {
                 tglnonAktif = Valid.SetTgl(tglNonAktif.getSelectedItem() + "");
+                cmbStatus.setSelectedIndex(1);
             } else {
                 tglnonAktif = "0000-00-00";
+                cmbStatus.setSelectedIndex(0);
             }
 
             Sequel.menyimpan("setting_bridging",
@@ -442,8 +444,10 @@ public class DlgSetBridging extends javax.swing.JDialog {
             tglnonAktif = "";
             if (ChkNonAktif.isSelected() == true) {
                 tglnonAktif = Valid.SetTgl(tglNonAktif.getSelectedItem() + "");
+                cmbStatus.setSelectedIndex(1);
             } else {
                 tglnonAktif = "0000-00-00";
+                cmbStatus.setSelectedIndex(0);
             }
             
             Sequel.mengedit("setting_bridging", "kd_bridging = '" + kode + "'",
