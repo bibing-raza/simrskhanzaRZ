@@ -607,7 +607,8 @@ public class DlgUpdateUser extends javax.swing.JDialog {
                     + "assesmen_gizi_ulang,tombol_nota_billing,tombol_simpan_hasil_radiologi,monev_asuhan_gizi,inacbg_klaim_raza,"
                     + "pengajuan_klaim_inacbg_raza,copy_pemeriksaan_dokter_kepetugas_ralan,jkn_belum_diproses_klaim,input_kode_icd,indikator_mutu_unit,"
                     + "kendali_Mutu_kendali_Biaya_INACBG,dashboard_eResep,bpjs_sep_internal,kemenkes_sitt,rencana_kontrol_jkn,spri_jkn,hapus_sep,"
-                    + "penilaian_awal_medis_ralan_kebidanan,penilaian_awal_keperawatan_kebidanan,ikhtisar_perawatan_hiv,survey_kepuasan from user where id_user=AES_ENCRYPT(?,'nur')");
+                    + "penilaian_awal_medis_ralan_kebidanan,penilaian_awal_keperawatan_kebidanan,ikhtisar_perawatan_hiv,survey_kepuasan,kemenkes_kanker,"
+                    + "aktivasi_bridging from user where id_user=AES_ENCRYPT(?,'nur')");
             try {
                 ps.setString(1, user);
                 rs = ps.executeQuery();
@@ -1496,6 +1497,10 @@ public class DlgUpdateUser extends javax.swing.JDialog {
                         tabMode.addRow(new Object[]{false, "[J]Tarif UTD", rs.getBoolean("tarif_utd")});
                     }
                     
+                    if ("[K]Kemenkes Kanker".toLowerCase().contains(TCari.getText().toLowerCase())) {
+                        tabMode.addRow(new Object[]{false, "[K]Kemenkes Kanker", rs.getBoolean("kemenkes_kanker")});
+                    }
+                    
                     if ("[K]Hapus SEP".toLowerCase().contains(TCari.getText().toLowerCase())) {
                         tabMode.addRow(new Object[]{false, "[K]Hapus SEP", rs.getBoolean("hapus_sep")});
                     }
@@ -1982,6 +1987,10 @@ public class DlgUpdateUser extends javax.swing.JDialog {
 
                     if ("[N]Reg Lama Per Tanggal".toLowerCase().contains(TCari.getText().toLowerCase())) {
                         tabMode.addRow(new Object[]{false, "[N]Reg Lama Per Tanggal", rs.getBoolean("grafik_kunjungan_statusdaftartanggal")});
+                    }
+                    
+                    if ("[O]Set Bridging".toLowerCase().contains(TCari.getText().toLowerCase())) {
+                        tabMode.addRow(new Object[]{false, "[O]Set Bridging", rs.getBoolean("aktivasi_bridging")});
                     }
 
                     if ("[O]Biaya Harian Kamar".toLowerCase().contains(TCari.getText().toLowerCase())) {
@@ -2975,6 +2984,10 @@ public class DlgUpdateUser extends javax.swing.JDialog {
                 Sequel.mengedit("user","id_user=AES_ENCRYPT('"+TKd.getText()+"','nur')","tarif_utd='"+tbUser.getValueAt(i,2).toString()+"'");
             }
             
+            if("[K]Kemenkes Kanker".equals(tbUser.getValueAt(i,1).toString())){
+                Sequel.mengedit("user","id_user=AES_ENCRYPT('"+TKd.getText()+"','nur')","kemenkes_kanker='"+tbUser.getValueAt(i,2).toString()+"'");
+            }
+            
             if("[K]Hapus SEP".equals(tbUser.getValueAt(i,1).toString())){
                 Sequel.mengedit("user","id_user=AES_ENCRYPT('"+TKd.getText()+"','nur')","hapus_sep='"+tbUser.getValueAt(i,2).toString()+"'");
             }
@@ -3461,6 +3474,10 @@ public class DlgUpdateUser extends javax.swing.JDialog {
 
             if("[N]Reg Lama Per Tanggal".equals(tbUser.getValueAt(i,1).toString())){
                 Sequel.mengedit("user","id_user=AES_ENCRYPT('"+TKd.getText()+"','nur')","grafik_kunjungan_statusdaftartanggal='"+tbUser.getValueAt(i,2).toString()+"'");
+            }
+            
+            if("[O]Set Bridging".equals(tbUser.getValueAt(i,1).toString())){
+                Sequel.mengedit("user","id_user=AES_ENCRYPT('"+TKd.getText()+"','nur')","aktivasi_bridging='"+tbUser.getValueAt(i,2).toString()+"'");
             }
 
             if("[O]Biaya Harian Kamar".equals(tbUser.getValueAt(i,1).toString())){

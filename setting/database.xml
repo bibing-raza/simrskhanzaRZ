@@ -60,4 +60,7 @@
 	<entry key="IDSITT">kode id sitt dienkrip dulu</entry>
 	<entry key="PASSSITT">password sitt dienkrip dulu</entry>
 	<entry key="URLAPISITT">http://sirs.yankes.kemkes.go.id/sirsservice/sitbtraining/sitb/senddata</entry>	
+	<entry key="URLAPIKANKER">http://103.74.143.45/sirsonline/api</entry>
+	<entry key="KODERSKANKER">kode rs kanker dienkrip dulu</entry>
+	<entry key="PASSKANKER">password rs kanker dienkrip dulu</entry>
 </properties>

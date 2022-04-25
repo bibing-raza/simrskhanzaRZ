@@ -265,4 +265,34 @@ public final class koneksiDB {
         }
         return var;
     }
+    
+    public static String URLAPIKANKER() {
+        try {
+            prop.loadFromXML(new FileInputStream("setting/database.xml"));
+            var = prop.getProperty("URLAPIKANKER");
+        } catch (Exception e) {
+            var = "";
+        }
+        return var;
+    }
+    
+    public static String KODERSKANKER() {
+        try {
+            prop.loadFromXML(new FileInputStream("setting/database.xml"));
+            var = Sequel.decXML2(prop.getProperty("KODERSKANKER"), prop.getProperty("KEY"));
+        } catch (Exception e) {
+            var = "";
+        }
+        return var;
+    }
+    
+    public static String PASSKANKER() {
+        try {
+            prop.loadFromXML(new FileInputStream("setting/database.xml"));
+            var = Sequel.decXML2(prop.getProperty("PASSKANKER"), prop.getProperty("KEY"));
+        } catch (Exception e) {
+            var = "";
+        }
+        return var;
+    }
 }

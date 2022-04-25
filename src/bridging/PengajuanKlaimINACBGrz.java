@@ -49,14 +49,13 @@ import org.springframework.http.MediaType;
  * @author perpustakaan
  */
 public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
-
     private final DefaultTableModel tabMode, tabMode1, tabMode2, tabMode3, tabMode4,
             tabMode5, tabMode6, tabMode7, tabMode8, tabMode9, tabMode10, tabMode11, tabMode12, 
             tabMode13, tabMode14, tabMode15, tabMode16;
     private final Properties prop = new Properties();
     private validasi Valid = new validasi();
     private sekuel Sequel = new sekuel();
-    private int i = 0, j = 0, diag = 0;
+    private int i = 0, j = 0, diag = 0, cekKanker = 0, kankerRanap = 0, kankerRalan = 0;
     private Connection koneksi = koneksiDB.condb();
     public DlgDiagnosaPenyakit diagnosa = new DlgDiagnosaPenyakit(null, false);
     private Date tanggal = new Date();
@@ -4003,19 +4002,62 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
 
     private void BtnKirimOnlineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnKirimOnlineActionPerformed
         //kalau kode payor 3 adalah JKN
+        cekKanker = 0;
+        kankerRalan = 0;
+        kankerRanap = 0;
+        
         if (kodePayor.equals("3")) {
             if (tabMode2.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(null, "Hasil grouper belum ada, lakukan proses simpan & grouper klaim dulu,...!!");
                 BtnGruper.requestFocus();
             } else {
-                tampilDiagnosa();
-                tampilProsedur();
-                mbak_eka.mengirimOnline(noSEP.getText());
-                labelhasilG.setText("Hasil Grouper : " + Sequel.cariIsi("select if(klaim_final='Belum','',klaim_final) from eklaim_new_claim where no_sep='" + noSEP.getText() + "'"));
-                labeltambahan.setText("Tambahan biaya yang dibayar pasien naik kelas : Rp. "
-                        + Sequel.cariIsi("SELECT format(ifnull(add_payment_amt,'0'),0) tambhn_biaya FROM eklaim_grouping WHERE no_sep='" + noSEP.getText() + "'"));
-                tampilHG1();
-                tampilHG2();
+                if (Sequel.cariInteger("select count(-1) from setting_bridging where kd_bridging='1' and status_aktif='Ya'") == 1) {
+                    kankerRanap = Sequel.cariInteger("select count(-1) from diagnosa_pasien dp inner join penyakit p on p.kd_penyakit=dp.kd_penyakit "
+                            + "inner join kategori_penyakit kp on kp.kd_ktg=p.kd_ktg where "
+                            + "dp.no_rawat='" + Sequel.cariIsi("select no_rawat from bridging_sep where no_sep='" + noSEP.getText() + "'") + "' "
+                            + "and dp.status='Ranap' and dp.prioritas='1' and kp.nm_kategori='Kanker'");
+
+                    kankerRalan = Sequel.cariInteger("select count(-1) from diagnosa_pasien dp inner join penyakit p on p.kd_penyakit=dp.kd_penyakit "
+                            + "inner join kategori_penyakit kp on kp.kd_ktg=p.kd_ktg where "
+                            + "dp.no_rawat='" + Sequel.cariIsi("select no_rawat from bridging_sep where no_sep='" + noSEP.getText() + "'") + "' "
+                            + "and dp.status='Ralan' and dp.prioritas='1' and kp.nm_kategori='Kanker'");
+
+                    cekKanker = Sequel.cariInteger("select count(-1) from data_kanker_bridging dk inner join bridging_sep bs on bs.no_rawat=dk.no_rawat where bs.no_sep='" + noSEP.getText() + "'");
+
+                    if ((kankerRanap > 0 && cekKanker < 1) || (kankerRalan > 0 && cekKanker < 1)) {
+                        i = JOptionPane.showConfirmDialog(null, "Diagnosa utama pasien ini terindikasi kanker, lakukan proses pengiriman data ke Kemenkes terlebih dulu...", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+                        if (i == JOptionPane.YES_OPTION) {
+                            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                            DlgDataKanker kanker = new DlgDataKanker(null, false);
+                            kanker.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
+                            kanker.setLocationRelativeTo(internalFrame1);
+                            kanker.isCek();
+                            kanker.emptTeks();
+                            kanker.setData(Sequel.cariIsi("select no_rawat from bridging_sep where no_sep='" + noSEP.getText() + "'"));
+                            kanker.setVisible(true);
+                            this.setCursor(Cursor.getDefaultCursor());
+                        }
+
+                    } else {
+                        tampilDiagnosa();
+                        tampilProsedur();
+                        mbak_eka.mengirimOnline(noSEP.getText());
+                        labelhasilG.setText("Hasil Grouper : " + Sequel.cariIsi("select if(klaim_final='Belum','',klaim_final) from eklaim_new_claim where no_sep='" + noSEP.getText() + "'"));
+                        labeltambahan.setText("Tambahan biaya yang dibayar pasien naik kelas : Rp. "
+                                + Sequel.cariIsi("SELECT format(ifnull(add_payment_amt,'0'),0) tambhn_biaya FROM eklaim_grouping WHERE no_sep='" + noSEP.getText() + "'"));
+                        tampilHG1();
+                        tampilHG2();
+                    }
+                } else {
+                    tampilDiagnosa();
+                    tampilProsedur();
+                    mbak_eka.mengirimOnline(noSEP.getText());
+                    labelhasilG.setText("Hasil Grouper : " + Sequel.cariIsi("select if(klaim_final='Belum','',klaim_final) from eklaim_new_claim where no_sep='" + noSEP.getText() + "'"));
+                    labeltambahan.setText("Tambahan biaya yang dibayar pasien naik kelas : Rp. "
+                            + Sequel.cariIsi("SELECT format(ifnull(add_payment_amt,'0'),0) tambhn_biaya FROM eklaim_grouping WHERE no_sep='" + noSEP.getText() + "'"));
+                    tampilHG1();
+                    tampilHG2();
+                }               
             }
 
         } else {
@@ -4100,7 +4142,7 @@ public final class PengajuanKlaimINACBGrz extends javax.swing.JDialog {
     }//GEN-LAST:event_BtnHapusKlaimActionPerformed
 
     private void BtnFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnFinalActionPerformed
-        //kalau kode payor 3 adalah JKN
+        //kalau kode payor 3 adalah JKN        
         if (kodePayor.equals("3")) {
             if (tabMode2.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(null, "Lakukan proses simpan & grouper klaim dulu,...!!");

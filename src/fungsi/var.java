@@ -75,10 +75,10 @@ public final class var {
             laporan_farmasi=false,master_masalah_keperawatan=false,penilaian_awal_keperawatan_ralan=false,master_triase_skala1=false,master_triase_skala2=false,
             master_triase_skala3=false,master_triase_skala4=false,master_triase_skala5=false, data_triase_igd = false, master_triase_pemeriksaan = false, master_triase_macamkasus = false, master_cara_bayar = false,
             status_kerja_dokter = false, pasien_corona = false, diagnosa_pasien_corona = false, perawatan_pasien_corona = false, inacbg_klaim_baru_manual2 = false, assesmen_gizi_harian = false, assesmen_gizi_ulang = false,
-            tombol_nota_billing = false, tombol_simpan_hasil_rad = false, monev_asuhan_gizi = false, inacbg_klaim_raza=false,pengajuan_klaim_inacbg_raza=false,
-            copy_pemeriksaan_dokter_kepetugas_ralan=false, jkn_belum_diproses_klaim=false, input_kode_icd=false, kendali_Mutu_kendali_Biaya_INACBG=false, dashboard_eResep=false, bpjs_sep_internal=false,
-            kemenkes_sitt=false, rencana_kontrol_jkn=false, spri_jkn=false, hapus_sep=false,penilaian_awal_medis_ralan_kebidanan=false,penilaian_awal_keperawatan_kebidanan=false,
-            ikhtisar_perawatan_hiv=false,survey_kepuasan=false;
+            tombol_nota_billing = false, tombol_simpan_hasil_rad = false, monev_asuhan_gizi = false, inacbg_klaim_raza = false, pengajuan_klaim_inacbg_raza = false,
+            copy_pemeriksaan_dokter_kepetugas_ralan = false, jkn_belum_diproses_klaim = false, input_kode_icd = false, kendali_Mutu_kendali_Biaya_INACBG = false, dashboard_eResep = false, bpjs_sep_internal = false,
+            kemenkes_sitt = false, rencana_kontrol_jkn = false, spri_jkn = false, hapus_sep = false, penilaian_awal_medis_ralan_kebidanan = false, penilaian_awal_keperawatan_kebidanan = false,
+            ikhtisar_perawatan_hiv = false, survey_kepuasan = false, kemenkes_kanker=false, aktivasi_bridging=false;
 
     public static void setData(String user, String pass) {
         try {
@@ -460,6 +460,8 @@ public final class var {
                     var.penilaian_awal_keperawatan_kebidanan=true;
                     var.ikhtisar_perawatan_hiv=true;
                     var.survey_kepuasan=true;
+                    var.kemenkes_kanker=true;
+                    var.aktivasi_bridging=true;
                 } else if (rs.getRow() >= 1) {
                     var.kode = "Admin Utama";
                     var.penyakit = true;
@@ -821,6 +823,8 @@ public final class var {
                     var.penilaian_awal_keperawatan_kebidanan = true;
                     var.ikhtisar_perawatan_hiv = true;
                     var.survey_kepuasan = true;
+                    var.kemenkes_kanker = true;
+                    var.aktivasi_bridging = true;
                 } else if (rs2.getRow() >= 1) {
                     rs2.beforeFirst();
                     rs2.next();
@@ -1185,6 +1189,8 @@ public final class var {
                     var.penilaian_awal_keperawatan_kebidanan = rs2.getBoolean("penilaian_awal_keperawatan_kebidanan");
                     var.ikhtisar_perawatan_hiv = rs2.getBoolean("ikhtisar_perawatan_hiv");
                     var.survey_kepuasan = rs2.getBoolean("survey_kepuasan");
+                    var.kemenkes_kanker = rs2.getBoolean("kemenkes_kanker");
+                    var.aktivasi_bridging = rs2.getBoolean("aktivasi_bridging");
                 } else if ((rs.getRow() == 0) && (rs2.getRow() == 0)) {
                     var.kode = "";
                     var.penyakit = false;
@@ -1547,6 +1553,8 @@ public final class var {
                     var.penilaian_awal_keperawatan_kebidanan = false;
                     var.ikhtisar_perawatan_hiv = false;
                     var.survey_kepuasan = false;
+                    var.kemenkes_kanker = false;
+                    var.aktivasi_bridging = false;
                 }
             } catch (Exception e) {
                 System.out.println("Notifikasi : " + e);
@@ -1579,8 +1587,8 @@ public final class var {
 
     public static boolean getadmin() {
         return var.admin;
-    }
-
+    }    
+    
     public static boolean getuser() {
         return var.user;
     }
@@ -2846,4 +2854,6 @@ public final class var {
         public static boolean getpenilaian_awal_keperawatan_kebidanan(){return var.penilaian_awal_keperawatan_kebidanan;}
         public static boolean getikhtisar_perawatan_hiv(){return var.ikhtisar_perawatan_hiv;}
         public static boolean getsurvey_kepuasan(){return var.survey_kepuasan;}
+        public static boolean getkemenkes_kanker(){return var.kemenkes_kanker;}
+        public static boolean getset_bridging(){return var.aktivasi_bridging;}
 }

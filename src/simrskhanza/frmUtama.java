@@ -63,6 +63,7 @@ import bridging.BPJSSuratKontrol;
 import bridging.BPJSSPRI;
 import bridging.CoronaDiagnosa;
 import bridging.CoronaPasien;
+import bridging.DlgDataKanker;
 import bridging.DlgDataTB;
 import bridging.INACBGCariCoderNIK;
 import bridging.INACBGCoderNIK;
@@ -336,6 +337,7 @@ import rekammedis.RMPenilaianAwalKeperawatanRalan;
 import rekammedis.RMPenilaianAwalMedisRalanKandungan;
 import rekammedis.RMTriaseIGD;
 import setting.DlgClosingKasir;
+import setting.DlgSetBridging;
 import setting.DlgSetEmbalase;
 import setting.DlgSetHargaKamar;
 import setting.DlgSetHargaObatRalan;
@@ -871,6 +873,8 @@ public class frmUtama extends javax.swing.JFrame {
         btnPenilaianAwalMedisKebidananRalan = new widget.ButtonBig();
         btnPenilaianAwalKeperawatanKebidananRalan = new widget.ButtonBig();
         btnIkhtisarPerawatanHIV = new widget.ButtonBig();
+        btnKemenkesKanker = new widget.ButtonBig();
+        btnSetingBridging = new widget.ButtonBig();
         tanggal = new widget.Tanggal();
         btnDataPenjualan = new widget.ButtonBig();
         btnInputPenjualan = new widget.ButtonBig();
@@ -5826,6 +5830,32 @@ public class frmUtama extends javax.swing.JFrame {
         });
         Panelmenu.add(btnIkhtisarPerawatanHIV);
 
+        btnKemenkesKanker.setForeground(new java.awt.Color(0, 0, 0));
+        btnKemenkesKanker.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/kemenkes.png"))); // NOI18N
+        btnKemenkesKanker.setText("Kemenkes Data Penyakit Kanker");
+        btnKemenkesKanker.setIconTextGap(0);
+        btnKemenkesKanker.setName("btnKemenkesKanker"); // NOI18N
+        btnKemenkesKanker.setPreferredSize(new java.awt.Dimension(200, 90));
+        btnKemenkesKanker.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKemenkesKankerActionPerformed(evt);
+            }
+        });
+        Panelmenu.add(btnKemenkesKanker);
+
+        btnSetingBridging.setForeground(new java.awt.Color(0, 0, 0));
+        btnSetingBridging.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/icons8-settings-64.png"))); // NOI18N
+        btnSetingBridging.setText("Set Bridging");
+        btnSetingBridging.setIconTextGap(0);
+        btnSetingBridging.setName("btnSetingBridging"); // NOI18N
+        btnSetingBridging.setPreferredSize(new java.awt.Dimension(200, 90));
+        btnSetingBridging.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSetingBridgingActionPerformed(evt);
+            }
+        });
+        Panelmenu.add(btnSetingBridging);
+
         scrollPane2.setViewportView(Panelmenu);
 
         panelMenu.add(scrollPane2, java.awt.BorderLayout.CENTER);
@@ -5834,7 +5864,7 @@ public class frmUtama extends javax.swing.JFrame {
 
         tanggal.setEditable(false);
         tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02/03/2022" }));
+        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "25/04/2022" }));
         tanggal.setDisplayFormat("dd/MM/yyyy");
         tanggal.setName("tanggal"); // NOI18N
         tanggal.setOpaque(false);
@@ -11965,6 +11995,32 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_btnIkhtisarPerawatanHIVActionPerformed
 
+    private void btnKemenkesKankerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKemenkesKankerActionPerformed
+        isTutup();
+        DlgHome.dispose();
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        DlgDataKanker aplikasi = new DlgDataKanker(this, false);
+        aplikasi.emptTeks();
+        aplikasi.isCek();
+        aplikasi.setSize(PanelUtama.getWidth(), PanelUtama.getHeight());
+        aplikasi.setLocationRelativeTo(PanelUtama);
+        aplikasi.setVisible(true);
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnKemenkesKankerActionPerformed
+
+    private void btnSetingBridgingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetingBridgingActionPerformed
+        isTutup();
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        DlgSetBridging setbrid = new DlgSetBridging(this, false);
+        setbrid.tampil();
+        setbrid.emptTeks();
+        setbrid.setSize(PanelUtama.getWidth(), PanelUtama.getHeight());
+        setbrid.setLocationRelativeTo(PanelUtama);
+        setbrid.setVisible(true);
+        DlgHome.dispose();
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnSetingBridgingActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -12169,6 +12225,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
     private widget.ButtonBig btnKasir;
     private widget.ButtonBig btnKategoriBarang;
     private widget.ButtonBig btnKategoriInventaris;
+    private widget.ButtonBig btnKemenkesKanker;
     private widget.ButtonBig btnKemenkesSITB;
     private widget.ButtonBig btnKendaliMutuKendaliBiayaINACBG;
     private widget.ButtonBig btnKeterlambatanPresensi;
@@ -12328,6 +12385,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
     private widget.ButtonBig btnSetObatRanap;
     private widget.ButtonBig btnSetOtoRalan;
     private widget.ButtonBig btnSetPenjab;
+    private widget.ButtonBig btnSetingBridging;
     private widget.ButtonBig btnSetupAplikasi;
     private widget.ButtonBig btnSetupEmbalase;
     private widget.ButtonBig btnSetupHarga;
@@ -13578,6 +13636,11 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
                 jmlmenu++;
             }
             
+            if (var.getkemenkes_kanker()== true) {
+                Panelmenu.add(btnKemenkesKanker);
+                jmlmenu++;
+            }
+            
             if (var.getRencanaKontrolJKN()== true) {
                 Panelmenu.add(btnRencanaKontrolBPJS);
                 jmlmenu++;
@@ -14232,6 +14295,11 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
                 Panelmenu.add(btnAdmin);
                 jmlmenu++;
             }
+            
+            if (var.getset_bridging() == true) {
+                Panelmenu.add(btnSetingBridging);
+                jmlmenu++;
+            }
 
             if (var.getsetup_pjlab() == true) {
                 Panelmenu.add(btnSetPenjab);
@@ -14344,6 +14412,16 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
         
         if (var.getkemenkes_sitt() == true) {
             Panelmenu.add(btnKemenkesSITB);
+            jmlmenu++;
+        }
+        
+        if (var.getset_bridging() == true) {
+            Panelmenu.add(btnSetingBridging);
+            jmlmenu++;
+        }
+        
+        if (var.getkemenkes_kanker() == true) {
+            Panelmenu.add(btnKemenkesKanker);
             jmlmenu++;
         }
 
@@ -16013,7 +16091,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
             Panelmenu.add(btnAdmin);
             jmlmenu++;
         }
-
+        
         if (var.getsetup_pjlab() == true) {
             Panelmenu.add(btnSetPenjab);
             jmlmenu++;
@@ -16124,9 +16202,23 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
             }
         }
         
+        if (var.getset_bridging() == true) {
+            if (btnSetingBridging.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())) {
+                Panelmenu.add(btnSetingBridging);
+                jmlmenu++;
+            }
+        }
+        
         if (var.getkemenkes_sitt() == true) {
             if (btnKemenkesSITB.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())) {
                 Panelmenu.add(btnKemenkesSITB);
+                jmlmenu++;
+            }
+        }
+        
+        if (var.getkemenkes_kanker() == true) {
+            if (btnKemenkesKanker.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())) {
+                Panelmenu.add(btnKemenkesKanker);
                 jmlmenu++;
             }
         }
@@ -18468,8 +18560,8 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
                 Panelmenu.add(btnAdmin);
                 jmlmenu++;
             }
-        }
-
+        }        
+        
         if (var.getsetup_pjlab() == true) {
             if (btnSetPenjab.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())) {
                 Panelmenu.add(btnSetPenjab);

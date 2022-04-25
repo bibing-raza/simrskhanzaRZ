@@ -4,6 +4,7 @@ import bridging.BPJSDataSEP;
 import bridging.BPJSProgramPRB;
 import bridging.BPJSSuratKontrol;
 import bridging.CoronaPasien;
+import bridging.DlgDataKanker;
 import bridging.DlgDataTB;
 import bridging.DlgSKDPBPJS;
 import bridging.INACBGDaftarKlaim;
@@ -598,7 +599,9 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         MnBatal = new javax.swing.JMenuItem();
         MnHapusData = new javax.swing.JMenuItem();
         MnInputData = new javax.swing.JMenu();
+        MnKemenkes = new javax.swing.JMenu();
         MnTeridentifikasiTB = new javax.swing.JMenuItem();
+        MnDataKanker = new javax.swing.JMenuItem();
         ppProgramPRB = new javax.swing.JMenuItem();
         MnPemeriksaanKlinisLabHIV = new javax.swing.JMenuItem();
         MnTerapiAntiretroviralHIV = new javax.swing.JMenuItem();
@@ -1524,6 +1527,17 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         MnInputData.setOpaque(true);
         MnInputData.setPreferredSize(new java.awt.Dimension(220, 26));
 
+        MnKemenkes.setBackground(new java.awt.Color(255, 255, 255));
+        MnKemenkes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnKemenkes.setText("Bridging Kemenkes RI");
+        MnKemenkes.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnKemenkes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnKemenkes.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnKemenkes.setIconTextGap(5);
+        MnKemenkes.setName("MnKemenkes"); // NOI18N
+        MnKemenkes.setOpaque(true);
+        MnKemenkes.setPreferredSize(new java.awt.Dimension(230, 26));
+
         MnTeridentifikasiTB.setBackground(new java.awt.Color(255, 255, 255));
         MnTeridentifikasiTB.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         MnTeridentifikasiTB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
@@ -1532,13 +1546,31 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         MnTeridentifikasiTB.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         MnTeridentifikasiTB.setIconTextGap(5);
         MnTeridentifikasiTB.setName("MnTeridentifikasiTB"); // NOI18N
-        MnTeridentifikasiTB.setPreferredSize(new java.awt.Dimension(230, 26));
+        MnTeridentifikasiTB.setPreferredSize(new java.awt.Dimension(190, 26));
         MnTeridentifikasiTB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MnTeridentifikasiTBBtnPrintActionPerformed(evt);
             }
         });
-        MnInputData.add(MnTeridentifikasiTB);
+        MnKemenkes.add(MnTeridentifikasiTB);
+
+        MnDataKanker.setBackground(new java.awt.Color(255, 255, 255));
+        MnDataKanker.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnDataKanker.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnDataKanker.setText("Data Penyakit Kanker");
+        MnDataKanker.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnDataKanker.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnDataKanker.setIconTextGap(5);
+        MnDataKanker.setName("MnDataKanker"); // NOI18N
+        MnDataKanker.setPreferredSize(new java.awt.Dimension(190, 26));
+        MnDataKanker.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnDataKankerBtnPrintActionPerformed(evt);
+            }
+        });
+        MnKemenkes.add(MnDataKanker);
+
+        MnInputData.add(MnKemenkes);
 
         ppProgramPRB.setBackground(new java.awt.Color(255, 255, 255));
         ppProgramPRB.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -2402,7 +2434,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         norwBoking.setBounds(298, 110, 177, 23);
 
         tglPeriksa.setEditable(false);
-        tglPeriksa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-03-2022" }));
+        tglPeriksa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20-04-2022" }));
         tglPeriksa.setDisplayFormat("dd-MM-yyyy");
         tglPeriksa.setName("tglPeriksa"); // NOI18N
         tglPeriksa.setOpaque(false);
@@ -3113,7 +3145,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         });
 
         TglKunRwt.setEditable(false);
-        TglKunRwt.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-03-2022" }));
+        TglKunRwt.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20-04-2022" }));
         TglKunRwt.setDisplayFormat("dd-MM-yyyy");
         TglKunRwt.setName("TglKunRwt"); // NOI18N
         TglKunRwt.setOpaque(false);
@@ -3338,7 +3370,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         panelGlass8.add(jLabel15);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-03-2022" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20-04-2022" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -3358,7 +3390,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         panelGlass8.add(jLabel17);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-03-2022" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20-04-2022" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -5946,6 +5978,43 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
         }
     }//GEN-LAST:event_MnFollowUPPerawatanTerapiHIVBtnPrintActionPerformed
 
+    private void MnDataKankerBtnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnDataKankerBtnPrintActionPerformed
+        if (TNoRw.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, Silahkan anda pilih dulu pasien...!!!");
+            tbKasirRalan.requestFocus();
+        } else {
+            if (Sequel.cariInteger("select count(-1) from setting_bridging where kd_bridging='1' and status_aktif='Ya'") == 1) {
+                if (Sequel.cariInteger("select count(no_rawat) from kamar_inap where no_rawat=?", TNoRw.getText()) > 0) {
+                    JOptionPane.showMessageDialog(null, "Maaf, Pasien sudah masuk Kamar Inap. Masukkan data penyakit kanker dikamar inap..!!!");
+                } else if (Sequel.cariInteger("SELECT count(-1) FROM data_kanker_bridging WHERE nik='" + nik + "' or no_rawat='" + TNoRw.getText() + "'") < 1) {
+                    this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                    DlgDataKanker kanker = new DlgDataKanker(null, false);
+                    kanker.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
+                    kanker.setLocationRelativeTo(internalFrame1);
+                    kanker.isCek();
+                    kanker.emptTeks();
+                    kanker.setData(TNoRw.getText());
+                    kanker.setVisible(true);
+                    this.setCursor(Cursor.getDefaultCursor());
+                } else {
+                    JOptionPane.showMessageDialog(null, "Data penyakit kanker pasien ini sudah ada, lakukan update pada halaman data penyakit kanker.");
+                    this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                    DlgDataKanker kanker = new DlgDataKanker(null, false);
+                    kanker.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
+                    kanker.setLocationRelativeTo(internalFrame1);
+                    kanker.isCek();
+                    kanker.emptTeks();
+                    kanker.TabRawat.setSelectedIndex(1);
+                    kanker.tampil();
+                    kanker.setVisible(true);
+                    this.setCursor(Cursor.getDefaultCursor());
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Bridging data penyakit kanker dinonaktifkan, permasalahanya masih dalam pembahasan...");
+            }
+        }
+    }//GEN-LAST:event_MnDataKankerBtnPrintActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -6009,6 +6078,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
     private javax.swing.JMenuItem MnCariPermintaanRad;
     private javax.swing.JMenuItem MnCetakResepDokter;
     private javax.swing.JMenuItem MnDataHAIs;
+    private javax.swing.JMenuItem MnDataKanker;
     private javax.swing.JMenuItem MnDataPemberianObat;
     private javax.swing.JMenuItem MnDataRalan;
     private javax.swing.JMenuItem MnDataTriaseIGD;
@@ -6024,6 +6094,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
     private javax.swing.JMenuItem MnIkhtisarPerawatanHIV;
     private javax.swing.JMenu MnInputData;
     private javax.swing.JMenuItem MnKamarInap;
+    private javax.swing.JMenu MnKemenkes;
     private javax.swing.JMenuItem MnKlaimCOVID;
     private javax.swing.JMenuItem MnKlaimJKN;
     private javax.swing.JMenuItem MnKlaimKIPI;
@@ -6414,6 +6485,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
         MnIkhtisarPerawatanHIV.setEnabled(var.getikhtisar_perawatan_hiv());
         MnPemeriksaanKlinisLabHIV.setEnabled(var.getikhtisar_perawatan_hiv());
         MnTerapiAntiretroviralHIV.setEnabled(var.getikhtisar_perawatan_hiv());
+        MnDataKanker.setEnabled(var.getkemenkes_kanker());
         
         if (var.getbpjs_sep() == true || var.getberi_obat() == true || var.getkode().equals("Admin Utama")) {
             ppProgramPRB.setEnabled(true);

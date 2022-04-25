@@ -17,6 +17,7 @@ import bridging.BPJSDataSEP;
 import bridging.BPJSSPRI;
 import bridging.BPJSSuratKontrol;
 import bridging.CoronaPasien;
+import bridging.DlgDataKanker;
 import bridging.DlgDataTB;
 import bridging.DlgSKDPBPJS;
 import bridging.INACBGPerawatanCorona;
@@ -970,7 +971,9 @@ public class DlgKamarInap extends javax.swing.JDialog {
         MnSEP = new javax.swing.JMenuItem();
         MnHapusSEPdidatabase = new javax.swing.JMenuItem();
         MnAmbilSEPvclaim = new javax.swing.JMenuItem();
+        MnKemenkes = new javax.swing.JMenu();
         MnTeridentifikasiTB = new javax.swing.JMenuItem();
+        MnDataKanker = new javax.swing.JMenuItem();
         ppPasienCorona = new javax.swing.JMenuItem();
         ppRencanaKontrolSPRIbpjs = new javax.swing.JMenuItem();
         MnSJP = new javax.swing.JMenuItem();
@@ -1786,7 +1789,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
 
         TglMati.setEditable(false);
         TglMati.setForeground(new java.awt.Color(0, 51, 204));
-        TglMati.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "11-02-2022" }));
+        TglMati.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-03-2022" }));
         TglMati.setDisplayFormat("dd-MM-yyyy");
         TglMati.setName("TglMati"); // NOI18N
         TglMati.setOpaque(false);
@@ -3207,6 +3210,17 @@ public class DlgKamarInap extends javax.swing.JDialog {
         });
         MnBridging.add(MnAmbilSEPvclaim);
 
+        MnKemenkes.setBackground(new java.awt.Color(255, 255, 255));
+        MnKemenkes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnKemenkes.setText("Kemenkes RI");
+        MnKemenkes.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnKemenkes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnKemenkes.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnKemenkes.setIconTextGap(5);
+        MnKemenkes.setName("MnKemenkes"); // NOI18N
+        MnKemenkes.setOpaque(true);
+        MnKemenkes.setPreferredSize(new java.awt.Dimension(190, 26));
+
         MnTeridentifikasiTB.setBackground(new java.awt.Color(255, 255, 255));
         MnTeridentifikasiTB.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         MnTeridentifikasiTB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
@@ -3221,7 +3235,25 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 MnTeridentifikasiTBActionPerformed(evt);
             }
         });
-        MnBridging.add(MnTeridentifikasiTB);
+        MnKemenkes.add(MnTeridentifikasiTB);
+
+        MnDataKanker.setBackground(new java.awt.Color(255, 255, 255));
+        MnDataKanker.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnDataKanker.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnDataKanker.setText("Data Penyakit Kanker");
+        MnDataKanker.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnDataKanker.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnDataKanker.setIconTextGap(5);
+        MnDataKanker.setName("MnDataKanker"); // NOI18N
+        MnDataKanker.setPreferredSize(new java.awt.Dimension(190, 26));
+        MnDataKanker.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnDataKankerActionPerformed(evt);
+            }
+        });
+        MnKemenkes.add(MnDataKanker);
+
+        MnBridging.add(MnKemenkes);
 
         ppPasienCorona.setBackground(new java.awt.Color(255, 255, 255));
         ppPasienCorona.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -4220,7 +4252,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         jLabel37.setBounds(0, 20, 110, 23);
 
         Tglsurat.setEditable(false);
-        Tglsurat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "11-02-2022" }));
+        Tglsurat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-03-2022" }));
         Tglsurat.setDisplayFormat("dd-MM-yyyy");
         Tglsurat.setName("Tglsurat"); // NOI18N
         Tglsurat.setOpaque(false);
@@ -4349,7 +4381,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         jLabel105.setBounds(0, 20, 110, 23);
 
         Tglsurat1.setEditable(false);
-        Tglsurat1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "11-02-2022" }));
+        Tglsurat1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-03-2022" }));
         Tglsurat1.setDisplayFormat("dd-MM-yyyy");
         Tglsurat1.setName("Tglsurat1"); // NOI18N
         Tglsurat1.setOpaque(false);
@@ -4453,7 +4485,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         jLabel43.setBounds(10, 20, 120, 23);
 
         TglMati1.setEditable(false);
-        TglMati1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "11-02-2022" }));
+        TglMati1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-03-2022" }));
         TglMati1.setDisplayFormat("dd-MM-yyyy");
         TglMati1.setName("TglMati1"); // NOI18N
         TglMati1.setOpaque(false);
@@ -5088,7 +5120,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         panelGlass9.add(jLabel91);
 
         DTPCari9.setEditable(false);
-        DTPCari9.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "11-02-2022" }));
+        DTPCari9.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-03-2022" }));
         DTPCari9.setDisplayFormat("dd-MM-yyyy");
         DTPCari9.setName("DTPCari9"); // NOI18N
         DTPCari9.setOpaque(false);
@@ -5107,7 +5139,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         panelGlass9.add(jLabel92);
 
         DTPCari10.setEditable(false);
-        DTPCari10.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "11-02-2022" }));
+        DTPCari10.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-03-2022" }));
         DTPCari10.setDisplayFormat("dd-MM-yyyy");
         DTPCari10.setName("DTPCari10"); // NOI18N
         DTPCari10.setOpaque(false);
@@ -5977,7 +6009,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         jLabel51.setBounds(0, 25, 130, 23);
 
         TglRegRalan.setEditable(false);
-        TglRegRalan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "11-02-2022" }));
+        TglRegRalan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-03-2022" }));
         TglRegRalan.setDisplayFormat("dd-MM-yyyy");
         TglRegRalan.setName("TglRegRalan"); // NOI18N
         TglRegRalan.setOpaque(false);
@@ -6328,7 +6360,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         statusSEP.setPreferredSize(new java.awt.Dimension(207, 23));
 
         tglMasukInap.setEditable(false);
-        tglMasukInap.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "11-02-2022" }));
+        tglMasukInap.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-03-2022" }));
         tglMasukInap.setDisplayFormat("dd-MM-yyyy");
         tglMasukInap.setName("tglMasukInap"); // NOI18N
         tglMasukInap.setOpaque(false);
@@ -6689,7 +6721,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         panelCari.add(R2);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "11-02-2022" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-03-2022" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -6714,7 +6746,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         panelCari.add(jLabel22);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "11-02-2022" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-03-2022" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -6742,7 +6774,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         panelCari.add(R3);
 
         DTPCari3.setEditable(false);
-        DTPCari3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "11-02-2022" }));
+        DTPCari3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-03-2022" }));
         DTPCari3.setDisplayFormat("dd-MM-yyyy");
         DTPCari3.setName("DTPCari3"); // NOI18N
         DTPCari3.setOpaque(false);
@@ -6767,7 +6799,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         panelCari.add(jLabel25);
 
         DTPCari4.setEditable(false);
-        DTPCari4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "11-02-2022" }));
+        DTPCari4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-03-2022" }));
         DTPCari4.setDisplayFormat("dd-MM-yyyy");
         DTPCari4.setName("DTPCari4"); // NOI18N
         DTPCari4.setOpaque(false);
@@ -13670,6 +13702,47 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         }
     }//GEN-LAST:event_MnHapusSEPdidatabaseActionPerformed
 
+    private void MnDataKankerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnDataKankerActionPerformed
+        if (norawat.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, Silahkan anda pilih dulu pasien...!!!");
+            tbKamIn.requestFocus();
+        } else if (Sequel.cariInteger("select count(-1) from kamar_inap where no_rawat='" + norawat.getText() + "' and stts_pulang not in ('-','Pindah Kamar')") < 1) {
+            JOptionPane.showMessageDialog(null, "Pasien masih dirawat inap, diagnosa kanker belum bisa dikirim ke kemenkes RI...!!!");
+        } else if (Sequel.cariInteger("SELECT count(-1) FROM data_kanker_bridging WHERE "
+                + "nik='" + Sequel.cariIsi("select no_ktp from pasien where no_rkm_medis='" + TNoRM.getText() + "'") + "' "
+                + "or no_rawat='" + norawat.getText() + "'") < 1) {
+            if (Sequel.cariInteger("select count(-1) from setting_bridging where kd_bridging='1' and status_aktif='Ya'") == 1) {
+                this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                DlgDataKanker kanker = new DlgDataKanker(null, false);
+                kanker.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
+                kanker.setLocationRelativeTo(internalFrame1);
+                kanker.isCek();
+                kanker.emptTeks();
+                kanker.setData(norawat.getText());
+                kanker.setVisible(true);
+                this.setCursor(Cursor.getDefaultCursor());
+            } else {
+                JOptionPane.showMessageDialog(null, "Bridging data penyakit kanker dinonaktifkan, permasalahanya masih dalam pembahasan...");
+            }
+        } else {
+            if (Sequel.cariInteger("select count(-1) from setting_bridging where kd_bridging='1' and status_aktif='Ya'") == 1) {
+                JOptionPane.showMessageDialog(null, "Data penyakit kanker pasien ini sudah ada, lakukan update pada halaman data penyakit kanker.");
+                this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                DlgDataKanker kanker = new DlgDataKanker(null, false);
+                kanker.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
+                kanker.setLocationRelativeTo(internalFrame1);
+                kanker.isCek();
+                kanker.emptTeks();
+                kanker.TabRawat.setSelectedIndex(1);
+                kanker.tampil();
+                kanker.setVisible(true);
+                this.setCursor(Cursor.getDefaultCursor());
+            } else {
+                JOptionPane.showMessageDialog(null, "Bridging data penyakit kanker dinonaktifkan, permasalahanya masih dalam pembahasan...");
+            }
+        }
+    }//GEN-LAST:event_MnDataKankerActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -13782,6 +13855,7 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private javax.swing.JMenuItem MnDPJP;
     private javax.swing.JMenuItem MnDPJPRanap;
     private javax.swing.JMenu MnDataBPJS;
+    private javax.swing.JMenuItem MnDataKanker;
     private javax.swing.JMenuItem MnDataMati;
     private javax.swing.JMenuItem MnDeposit;
     private javax.swing.JMenuItem MnDiagnosa;
@@ -13805,6 +13879,7 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private javax.swing.JMenu MnKartu;
     private javax.swing.JMenuItem MnKartuNonUmum;
     private javax.swing.JMenuItem MnKartuUmum;
+    private javax.swing.JMenu MnKemenkes;
     private javax.swing.JMenuItem MnLabelPxRanap1;
     private javax.swing.JMenuItem MnLabelPxRanap2;
     private javax.swing.JMenu MnLabelPxRanap3;
@@ -14752,6 +14827,7 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         MnMonevAsuhanGizi.setEnabled(var.getmonev_asuhan_gizi());
         MnTeridentifikasiTB.setEnabled(var.getkemenkes_sitt());
         MnRencanaKontrolManual.setEnabled(var.getRencanaKontrolJKN());
+        MnDataKanker.setEnabled(var.getkemenkes_kanker());
     }
 
     private void updateHari() {
