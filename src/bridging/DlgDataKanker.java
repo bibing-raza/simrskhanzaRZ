@@ -3703,14 +3703,15 @@ public final class DlgDataKanker extends javax.swing.JDialog {
             ps=koneksi.prepareStatement("select p.no_rkm_medis, p.nm_pasien, p.tgl_lahir, rp.umurdaftar, "
                     + "rp.sttsumur, ifnull(p.no_peserta,'0') no_peserta, if(p.no_ktp='','0',p.no_ktp) no_ktp,"
                     + "p.alamat, rp.status_lanjut, rp.tgl_registrasi, kb.nm_kab, kc.nm_kec, kl.nm_kel, if(p.jk='L','Laki-laki','Perempuan') jk, "
-                    + "ifnull(dp.kd_penyakit,'') kd_penyakit, ifnull(py.nm_penyakit,'') nm_penyakit, pj.png_jawab from pasien p "
+                    + "ifnull(dp.kd_penyakit,'') kd_penyakit, ifnull(py.nm_penyakit,'') nm_penyakit, pj.png_jawab, ifnull(rm.perujuk,'') asalrujukan from pasien p "
                     + "inner join reg_periksa rp on rp.no_rkm_medis=p.no_rkm_medis "
                     + "inner join kelurahan kl ON kl.kd_kel=p.kd_kel "
                     + "inner join kecamatan kc ON kc.kd_kec=p.kd_kec "
                     + "inner join kabupaten kb ON kb.kd_kab=p.kd_kab "
                     + "inner join penjab pj on pj.kd_pj=rp.kd_pj "
                     + "left join diagnosa_pasien dp on dp.no_rawat=rp.no_rawat and dp.prioritas='1' "
-                    + "left join penyakit py on py.kd_penyakit=dp.kd_penyakit where rp.no_rawat = '" + norawat + "'");
+                    + "left join penyakit py on py.kd_penyakit=dp.kd_penyakit "
+                    + "left join rujuk_masuk rm on rm.no_rawat=rp.no_rawat where rp.no_rawat = '" + norawat + "'");
             try {
                 rs=ps.executeQuery();
                 if(rs.next()){
@@ -3721,12 +3722,13 @@ public final class DlgDataKanker extends javax.swing.JDialog {
                     NoKartu.setText(rs.getString("no_peserta"));
                     NIK.setText(rs.getString("no_ktp"));
                     Alamat.setText(rs.getString("alamat"));
-                    Propinsi.setText(rs.getString("nm_kab"));
+                    Kabupaten.setText(rs.getString("nm_kab"));
                     Kecamatan.setText(rs.getString("nm_kec"));
                     Kelurahan.setText(rs.getString("nm_kel"));
                     tgl_masuk.setText(rs.getString("tgl_registrasi"));                      
                     jnsBayar.setText(rs.getString("png_jawab"));
                     nmjk.setText(rs.getString("jk"));
+                    asalRujukan.setText(rs.getString("asalrujukan"));
                     stts_lanjt = rs.getString("status_lanjut"); 
                     
                     if (stts_lanjt.equals("Ralan")) {
