@@ -124,7 +124,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
             } else if (i == 3) {
                 column.setPreferredWidth(80);
             } else if (i == 4) {
-                column.setPreferredWidth(90);
+                column.setPreferredWidth(120);
             } else if (i == 5) {
                 column.setPreferredWidth(250);
             } else if (i == 6) {
@@ -335,13 +335,13 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
             } else if (i == 4) {
                 column.setPreferredWidth(75);
             } else if (i == 5) {
-                column.setPreferredWidth(150);
+                column.setPreferredWidth(70);
             } else if (i == 6) {
-                column.setPreferredWidth(65);
+                column.setPreferredWidth(60);
             } else if (i == 7) {
                 column.setPreferredWidth(100);
             } else if (i == 8) {
-                column.setPreferredWidth(150);
+                column.setPreferredWidth(70);
             } else if (i == 9) {
                 column.setPreferredWidth(250);
             } else if (i == 10) {
@@ -387,7 +387,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
             } else if (i == 2) {
                 column.setPreferredWidth(75);
             } else if (i == 3) {
-                column.setPreferredWidth(90);
+                column.setPreferredWidth(110);
             } else if (i == 4) {
                 column.setPreferredWidth(250);
             } else if (i == 5) {
@@ -582,7 +582,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
             } else if (i == 6) {
                 column.setPreferredWidth(110);
             } else if (i == 7) {
-                column.setPreferredWidth(220);
+                column.setPreferredWidth(70);
             } else if (i == 8) {
                 column.setPreferredWidth(60);
             } else if (i == 9) {
@@ -606,7 +606,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
             } else if (i == 18) {
                 column.setPreferredWidth(200);
             } else if (i == 19) {
-                column.setPreferredWidth(120);
+                column.setPreferredWidth(70);
             } else if (i == 20) {
                 column.setPreferredWidth(200);
             } else if (i == 21) {
@@ -1023,6 +1023,8 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         TCari = new widget.TextBox();
         BtnCari = new widget.Button();
         BtnAll = new widget.Button();
+        jLabel19 = new widget.Label();
+        LCount = new widget.Label();
         panelGlass24 = new widget.panelisi();
         jLabel3 = new widget.Label();
         TNoRM = new widget.TextBox();
@@ -1099,7 +1101,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         btnPengawas.setBounds(660, 38, 28, 23);
 
         TglKonfirmasiTes.setEditable(false);
-        TglKonfirmasiTes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-04-2022" }));
+        TglKonfirmasiTes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "05-04-2022" }));
         TglKonfirmasiTes.setDisplayFormat("dd-MM-yyyy");
         TglKonfirmasiTes.setName("TglKonfirmasiTes"); // NOI18N
         TglKonfirmasiTes.setOpaque(false);
@@ -1345,7 +1347,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         jLabel88.setBounds(510, 318, 90, 23);
 
         TglRujukMsk.setEditable(false);
-        TglRujukMsk.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-04-2022" }));
+        TglRujukMsk.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "05-04-2022" }));
         TglRujukMsk.setDisplayFormat("dd-MM-yyyy");
         TglRujukMsk.setName("TglRujukMsk"); // NOI18N
         TglRujukMsk.setOpaque(false);
@@ -1775,7 +1777,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         jLabel18.setBounds(375, 66, 140, 23);
 
         TglDicatat.setEditable(false);
-        TglDicatat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-04-2022" }));
+        TglDicatat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "05-04-2022" }));
         TglDicatat.setDisplayFormat("dd-MM-yyyy");
         TglDicatat.setName("TglDicatat"); // NOI18N
         TglDicatat.setOpaque(false);
@@ -1845,7 +1847,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         panelGlass14.setLayout(null);
 
         tglPemeriksaan.setEditable(false);
-        tglPemeriksaan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-04-2022" }));
+        tglPemeriksaan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "05-04-2022" }));
         tglPemeriksaan.setDisplayFormat("dd-MM-yyyy");
         tglPemeriksaan.setName("tglPemeriksaan"); // NOI18N
         tglPemeriksaan.setOpaque(false);
@@ -2114,7 +2116,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         jLabel32.setBounds(475, 10, 130, 23);
 
         tglTerapi.setEditable(false);
-        tglTerapi.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-04-2022" }));
+        tglTerapi.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "05-04-2022" }));
         tglTerapi.setDisplayFormat("dd-MM-yyyy");
         tglTerapi.setName("tglTerapi"); // NOI18N
         tglTerapi.setOpaque(false);
@@ -2321,7 +2323,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         jLabel46.setBounds(0, 122, 140, 23);
 
         tglMulaitb.setEditable(false);
-        tglMulaitb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-04-2022" }));
+        tglMulaitb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "05-04-2022" }));
         tglMulaitb.setDisplayFormat("dd-MM-yyyy");
         tglMulaitb.setName("tglMulaitb"); // NOI18N
         tglMulaitb.setOpaque(false);
@@ -2329,7 +2331,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         tglMulaitb.setBounds(142, 94, 90, 23);
 
         tglSelesaitb.setEditable(false);
-        tglSelesaitb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-04-2022" }));
+        tglSelesaitb.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "05-04-2022" }));
         tglSelesaitb.setDisplayFormat("dd-MM-yyyy");
         tglSelesaitb.setName("tglSelesaitb"); // NOI18N
         tglSelesaitb.setOpaque(false);
@@ -2394,7 +2396,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         jLabel48.setBounds(0, 38, 150, 23);
 
         tglMati.setEditable(false);
-        tglMati.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-04-2022" }));
+        tglMati.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "05-04-2022" }));
         tglMati.setDisplayFormat("dd-MM-yyyy");
         tglMati.setName("tglMati"); // NOI18N
         tglMati.setOpaque(false);
@@ -2408,7 +2410,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         jLabel49.setBounds(0, 66, 150, 23);
 
         tglKunAkhir.setEditable(false);
-        tglKunAkhir.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-04-2022" }));
+        tglKunAkhir.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "05-04-2022" }));
         tglKunAkhir.setDisplayFormat("dd-MM-yyyy");
         tglKunAkhir.setName("tglKunAkhir"); // NOI18N
         tglKunAkhir.setOpaque(false);
@@ -2422,7 +2424,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         jLabel50.setBounds(0, 94, 150, 23);
 
         tglRujukKeluar.setEditable(false);
-        tglRujukKeluar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-04-2022" }));
+        tglRujukKeluar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "05-04-2022" }));
         tglRujukKeluar.setDisplayFormat("dd-MM-yyyy");
         tglRujukKeluar.setName("tglRujukKeluar"); // NOI18N
         tglRujukKeluar.setOpaque(false);
@@ -2585,7 +2587,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         TobatARV.setBounds(717, 10, 240, 23);
 
         TglFollowup.setEditable(false);
-        TglFollowup.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-04-2022" }));
+        TglFollowup.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "05-04-2022" }));
         TglFollowup.setDisplayFormat("dd-MM-yyyy");
         TglFollowup.setName("TglFollowup"); // NOI18N
         TglFollowup.setOpaque(false);
@@ -2593,7 +2595,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         TglFollowup.setBounds(133, 10, 90, 23);
 
         TglRencKun.setEditable(false);
-        TglRencKun.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-04-2022" }));
+        TglRencKun.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "05-04-2022" }));
         TglRencKun.setDisplayFormat("dd-MM-yyyy");
         TglRencKun.setName("TglRencKun"); // NOI18N
         TglRencKun.setOpaque(false);
@@ -2968,7 +2970,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         panelGlass23.add(jLabel41);
 
         tgl1.setEditable(false);
-        tgl1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-04-2022" }));
+        tgl1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "05-04-2022" }));
         tgl1.setDisplayFormat("dd-MM-yyyy");
         tgl1.setName("tgl1"); // NOI18N
         tgl1.setOpaque(false);
@@ -2983,7 +2985,7 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
         panelGlass23.add(jLabel42);
 
         tgl2.setEditable(false);
-        tgl2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-04-2022" }));
+        tgl2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "05-04-2022" }));
         tgl2.setDisplayFormat("dd-MM-yyyy");
         tgl2.setName("tgl2"); // NOI18N
         tgl2.setOpaque(false);
@@ -3043,6 +3045,19 @@ public final class DlgIkhtisarPerawatanHIVart extends javax.swing.JDialog {
             }
         });
         panelGlass23.add(BtnAll);
+
+        jLabel19.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel19.setText("Record :");
+        jLabel19.setName("jLabel19"); // NOI18N
+        jLabel19.setPreferredSize(new java.awt.Dimension(60, 30));
+        panelGlass23.add(jLabel19);
+
+        LCount.setForeground(new java.awt.Color(0, 0, 0));
+        LCount.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        LCount.setText("0");
+        LCount.setName("LCount"); // NOI18N
+        LCount.setPreferredSize(new java.awt.Dimension(100, 30));
+        panelGlass23.add(LCount);
 
         panelGlass22.add(panelGlass23, java.awt.BorderLayout.PAGE_START);
 
@@ -4035,6 +4050,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private widget.PanelBiasa FormInput3;
     private widget.PanelBiasa FormInput4;
     private widget.TextBox JLHcd4;
+    private widget.Label LCount;
     private widget.RadioButton RBekerja;
     private widget.RadioButton RT;
     private widget.RadioButton RY;
@@ -4183,6 +4199,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private widget.Label jLabel16;
     private widget.Label jLabel17;
     private widget.Label jLabel18;
+    private widget.Label jLabel19;
     private widget.Label jLabel21;
     private widget.Label jLabel23;
     private widget.Label jLabel24;
@@ -4843,6 +4860,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         } catch (Exception e) {
             System.out.println("Notifikasi : " + e);
         }
+        LCount.setText("" + tabMode1.getRowCount());
     }
     
     private void tampil3() {
@@ -4895,6 +4913,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         } catch (Exception e) {
             System.out.println("Notifikasi : " + e);
         }
+        LCount.setText("" + tabMode2.getRowCount());
     }
     
     private void tampil4() {
@@ -4940,6 +4959,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         } catch (Exception e) {
             System.out.println("Notifikasi : " + e);
         }
+        LCount.setText("" + tabMode3.getRowCount());
     }
     
     private void tampil5() {
@@ -5010,6 +5030,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         } catch (Exception e) {
             System.out.println("Notifikasi : " + e);
         }
+        LCount.setText("" + tabMode4.getRowCount());
     }
     
     private void tampil6() {
@@ -5076,6 +5097,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         } catch (Exception e) {
             System.out.println("Notifikasi : " + e);
         }
+        LCount.setText("" + tabMode5.getRowCount());
     }
     
     private void tampil7() {
@@ -5139,6 +5161,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         } catch (Exception e) {
             System.out.println("Notifikasi : " + e);
         }
+        LCount.setText("" + tabMode6.getRowCount());
     }
     
     private void tampil8() {
@@ -5188,6 +5211,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         } catch (Exception e) {
             System.out.println("Notifikasi : " + e);
         }
+        LCount.setText("" + tabMode7.getRowCount());
     }
     
     private void tampil9() {
@@ -5287,6 +5311,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         } catch (Exception e) {
             System.out.println("Notifikasi : " + e);
         }
+        LCount.setText("" + tabMode8.getRowCount());
     }
     
     private void AutoKodeKLG() {
