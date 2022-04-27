@@ -37,11 +37,12 @@ public class DlgUbahPemesanan extends javax.swing.JDialog {
     private Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
     public DlgSuplier suplier = new DlgSuplier(null, false);
     private DlgCariSatuan satuanbarang = new DlgCariSatuan(null, false);
-    private double saldoawal = 0, mutasi = 0, ttl = 0, y = 0, w = 0, ttldisk = 0, sbttl = 0, ppn = 0, tagihan = 0, jmlkonversi = 0, hargappn = 0, ppnPctg = 0;
+    private double saldoawal = 0, mutasi = 0, ttl = 0, y = 0, w = 0, ttldisk = 0, sbttl = 0, ppn = 0, tagihan = 0, jmlkonversi = 0, hargappn = 0, ppnPctg = 0, stokbarang2 = 0;
     private int jml = 0, i = 0, row = 0, index = 0;
     private String[] kodebarang, namabarang, satuan, satuanbeli, kadaluwarsa, no_batch;
     private double[] harga, jumlah, subtotal, diskon, besardiskon, jmltotal, jmlstok;
     private String fakturNo;
+    private Integer cek;
 
     /**
      * Creates new form DlgProgramStudi
@@ -819,82 +820,96 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
 
 //                if (var.getnamauser().equals("Admin Utama")) {
                 Sequel.AutoComitFalse();
-                try {
-//                        pscaripesan.setString(1,NoFaktur.getText());
+                try { 
+                    cek = 0;
                     pscaripesan.setString(1, fakturNo);
                     rs = pscaripesan.executeQuery();
                     if (rs.next()) {
                         psdetailpesan.setString(1, rs.getString(1));
                         rs2 = psdetailpesan.executeQuery();
                         while (rs2.next()) {
-                            Trackobat.catatRiwayat2(rs2.getString("kode_brng"), 0, rs2.getDouble("jumlah2"), "Ubah Pemesanan", var.getkode(), rs.getString("kd_bangsal"), "Hapus");
-                            Sequel.menyimpan("gudangbarang", "'" + rs2.getString("kode_brng") + "','" + rs.getString("kd_bangsal") + "','-" + rs2.getString("jumlah2") + "'",
-                                    "stok=stok-'" + rs2.getString("jumlah2") + "'", "kode_brng='" + rs2.getString("kode_brng") + "' and kd_bangsal='" + rs.getString("kd_bangsal") + "'");
+                            isStok(rs2.getString("kode_brng"), rs.getString("kd_bangsal"));
+                            if (stokbarang2 == 0 || stokbarang2 < Double.parseDouble(rs2.getString("jumlah2"))) {
+                                cek++;
+                            }
                         }
-                        Sequel.queryu("delete from tampjurnal");
-                        Sequel.menyimpan("tampjurnal", "?,?,?,?", "Rekening", 4, new String[]{
-                            Sequel.cariIsi("select Pemesanan_Obat from set_akun"), "PERSEDIAAN BARANG", "0", rs.getString("tagihan")
-                        });
-                        Sequel.menyimpan("tampjurnal", "?,?,?,?", "Rekening", 4, new String[]{
-                            Sequel.cariIsi("select Kontra_Pemesanan_Obat from set_akun"), "HUTANG USAHA", rs.getString("tagihan"), "0"
-                        });
-                        jur.simpanJurnal(rs.getString("no_faktur"), Sequel.cariIsi("select current_date()"), "U", "BATAL TRANSAKSI PEMESANAN BARANG DI " + Sequel.cariIsi("select nm_bangsal from bangsal where kd_bangsal=?", rs.getString("kd_bangsal")).toUpperCase());
-                        Sequel.queryu2("delete from pemesanan where no_faktur=?", 1, new String[]{fakturNo});
 
-                        if (Sequel.menyimpantf2("pemesanan", "?,?,?,?,?,?,?,?,?,?,?,?,?,?", "No.Nota", 14, new String[]{
-                            NoFaktur.getText(), NoOrder.getText(), kdsup.getText(), kdptg.getText(), Valid.SetTgl(TglPesan.getSelectedItem() + ""),
-                            Valid.SetTgl(TglFaktur.getSelectedItem() + ""), Valid.SetTgl(TglTempo.getSelectedItem() + ""), "" + sbttl, "" + ttldisk, "" + ttl,
-                            "" + ppn, "" + (ttl + ppn), kdgudang.getText(), "Belum Dibayar"
-                        }) == true) {
-                            jml = tbDokter.getRowCount();
-                            for (i = 0; i < jml; i++) {
-                                try {
-                                    if (Valid.SetAngka(tbDokter.getValueAt(i, 0).toString()) > 0) {
-                                        if (Sequel.menyimpantf2("detailpesan", "?,?,?,?,?,?,?,?,?,?,?", "Transaksi Pemesanan", 11, new String[]{
-                                            NoFaktur.getText(),
-                                            tbDokter.getValueAt(i, 2).toString(),
-                                            tbDokter.getValueAt(i, 1).toString(),
-                                            tbDokter.getValueAt(i, 0).toString(),
-                                            tbDokter.getValueAt(i, 7).toString(),
-                                            tbDokter.getValueAt(i, 8).toString(),
-                                            tbDokter.getValueAt(i, 9).toString(),
-                                            tbDokter.getValueAt(i, 10).toString(),
-                                            tbDokter.getValueAt(i, 11).toString(),
-                                            tbDokter.getValueAt(i, 13).toString(),
-                                            tbDokter.getValueAt(i, 12).toString()
-                                        }) == true) {
-                                            Trackobat.catatRiwayat2(tbDokter.getValueAt(i, 2).toString(), Valid.SetAngka(tbDokter.getValueAt(i, 12).toString()), 0, "Ubah Pemesanan", var.getkode(), kdgudang.getText(), "Simpan");
-                                            Sequel.menyimpan("gudangbarang", "'" + tbDokter.getValueAt(i, 2).toString() + "','" + kdgudang.getText() + "','" + tbDokter.getValueAt(i, 12).toString() + "'",
-                                                    "stok=stok+'" + tbDokter.getValueAt(i, 12).toString() + "'", "kode_brng='" + tbDokter.getValueAt(i, 2).toString() + "' and kd_bangsal='" + kdgudang.getText() + "'");
-                                        }
+                        if (cek > 0) {
+                            JOptionPane.showMessageDialog(rootPane, "Maaf,ada stok yang tidak mencukupi..!!, silakan hapus transaksi lain terlebih dahulu");
+                        } else {
 
-                                    }
-                                } catch (Exception e) {
-                                }
+                            psdetailpesan.setString(1, rs.getString(1));
+                            rs2 = psdetailpesan.executeQuery();
+                            while (rs2.next()) {
+                                Trackobat.catatRiwayat2(rs2.getString("kode_brng"), 0, rs2.getDouble("jumlah2"), "Ubah Pemesanan", var.getkode(), rs.getString("kd_bangsal"), "Hapus");
+                                Sequel.menyimpan("gudangbarang", "'" + rs2.getString("kode_brng") + "','" + rs.getString("kd_bangsal") + "','-" + rs2.getString("jumlah2") + "'",
+                                        "stok=stok-'" + rs2.getString("jumlah2") + "'", "kode_brng='" + rs2.getString("kode_brng") + "' and kd_bangsal='" + rs.getString("kd_bangsal") + "'");
                             }
 
                             Sequel.queryu("delete from tampjurnal");
-                            Sequel.menyimpan("tampjurnal", "?,?,?,?", 4, new String[]{Sequel.cariIsi("select Pemesanan_Obat from set_akun"), "PERSEDIAAN BARANG", "" + (ttl + ppn), "0"});
-                            Sequel.menyimpan("tampjurnal", "?,?,?,?", 4, new String[]{Sequel.cariIsi("select Kontra_Pemesanan_Obat from set_akun"), "HUTANG USAHA", "0", "" + (ttl + ppn)});
-                            jur.simpanJurnal(NoFaktur.getText(), Valid.SetTgl(TglPesan.getSelectedItem() + ""), "U", "PEMESANAN BARANG DI " + nmgudang.getText().toUpperCase());
-                            jml = tbDokter.getRowCount();
-                            for (i = 0; i < jml; i++) {
-                                tbDokter.setValueAt(null, i, 0);
-                                tbDokter.setValueAt(0, i, 8);
-                                tbDokter.setValueAt(0, i, 9);
-                                tbDokter.setValueAt(0, i, 10);
-                                tbDokter.setValueAt(0, i, 11);
-                                tbDokter.setValueAt(0, i, 12);
-                                tbDokter.setValueAt("", i, 13);
+                            Sequel.menyimpan("tampjurnal", "?,?,?,?", "Rekening", 4, new String[]{
+                                Sequel.cariIsi("select Pemesanan_Obat from set_akun"), "PERSEDIAAN BARANG", "0", rs.getString("tagihan")
+                            });
+                            Sequel.menyimpan("tampjurnal", "?,?,?,?", "Rekening", 4, new String[]{
+                                Sequel.cariIsi("select Kontra_Pemesanan_Obat from set_akun"), "HUTANG USAHA", rs.getString("tagihan"), "0"
+                            });
+                            jur.simpanJurnal(rs.getString("no_faktur"), Sequel.cariIsi("select current_date()"), "U", "BATAL TRANSAKSI PEMESANAN BARANG DI " + Sequel.cariIsi("select nm_bangsal from bangsal where kd_bangsal=?", rs.getString("kd_bangsal")).toUpperCase());
+                            Sequel.queryu2("delete from pemesanan where no_faktur=?", 1, new String[]{fakturNo});
+
+                            if (Sequel.menyimpantf2("pemesanan", "?,?,?,?,?,?,?,?,?,?,?,?,?,?", "No.Nota", 14, new String[]{
+                                NoFaktur.getText(), NoOrder.getText(), kdsup.getText(), kdptg.getText(), Valid.SetTgl(TglPesan.getSelectedItem() + ""),
+                                Valid.SetTgl(TglFaktur.getSelectedItem() + ""), Valid.SetTgl(TglTempo.getSelectedItem() + ""), "" + sbttl, "" + ttldisk, "" + ttl,
+                                "" + ppn, "" + (ttl + ppn), kdgudang.getText(), "Belum Dibayar"
+                            }) == true) {
+                                jml = tbDokter.getRowCount();
+                                for (i = 0; i < jml; i++) {
+                                    try {
+                                        if (Valid.SetAngka(tbDokter.getValueAt(i, 0).toString()) > 0) {
+                                            if (Sequel.menyimpantf2("detailpesan", "?,?,?,?,?,?,?,?,?,?,?", "Transaksi Pemesanan", 11, new String[]{
+                                                NoFaktur.getText(),
+                                                tbDokter.getValueAt(i, 2).toString(),
+                                                tbDokter.getValueAt(i, 1).toString(),
+                                                tbDokter.getValueAt(i, 0).toString(),
+                                                tbDokter.getValueAt(i, 7).toString(),
+                                                tbDokter.getValueAt(i, 8).toString(),
+                                                tbDokter.getValueAt(i, 9).toString(),
+                                                tbDokter.getValueAt(i, 10).toString(),
+                                                tbDokter.getValueAt(i, 11).toString(),
+                                                tbDokter.getValueAt(i, 13).toString(),
+                                                tbDokter.getValueAt(i, 12).toString()
+                                            }) == true) {
+                                                Trackobat.catatRiwayat2(tbDokter.getValueAt(i, 2).toString(), Valid.SetAngka(tbDokter.getValueAt(i, 12).toString()), 0, "Ubah Pemesanan", var.getkode(), kdgudang.getText(), "Simpan");
+                                                Sequel.menyimpan("gudangbarang", "'" + tbDokter.getValueAt(i, 2).toString() + "','" + kdgudang.getText() + "','" + tbDokter.getValueAt(i, 12).toString() + "'",
+                                                        "stok=stok+'" + tbDokter.getValueAt(i, 12).toString() + "'", "kode_brng='" + tbDokter.getValueAt(i, 2).toString() + "' and kd_bangsal='" + kdgudang.getText() + "'");
+                                            }
+                                        }
+                                    } catch (Exception e) {
+                                    }
+                                }
+                                Sequel.queryu("delete from tampjurnal");
+                                Sequel.menyimpan("tampjurnal", "?,?,?,?", 4, new String[]{Sequel.cariIsi("select Pemesanan_Obat from set_akun"), "PERSEDIAAN BARANG", "" + (ttl + ppn), "0"});
+                                Sequel.menyimpan("tampjurnal", "?,?,?,?", 4, new String[]{Sequel.cariIsi("select Kontra_Pemesanan_Obat from set_akun"), "HUTANG USAHA", "0", "" + (ttl + ppn)});
+                                jur.simpanJurnal(NoFaktur.getText(), Valid.SetTgl(TglPesan.getSelectedItem() + ""), "U", "PEMESANAN BARANG DI " + nmgudang.getText().toUpperCase());
+                                jml = tbDokter.getRowCount();
+                                for (i = 0; i < jml; i++) {
+                                    tbDokter.setValueAt(null, i, 0);
+                                    tbDokter.setValueAt(0, i, 8);
+                                    tbDokter.setValueAt(0, i, 9);
+                                    tbDokter.setValueAt(0, i, 10);
+                                    tbDokter.setValueAt(0, i, 11);
+                                    tbDokter.setValueAt(0, i, 12);
+                                    tbDokter.setValueAt("", i, 13);
+                                }
+                                getData();
+                            } else {
+                                JOptionPane.showMessageDialog(rootPane, "Gagal Menyimpan, kemungkinan No.Nota sudah ada sebelumnya...!!");
                             }
-                            getData();
-                        } else {
-                            JOptionPane.showMessageDialog(rootPane, "Gagal Menyimpan, kemungkinan No.Nota sudah ada sebelumnya...!!");
+                            Sequel.menyimpan("history_user", "Now(),'" + NoFaktur.getText() + "','" + var.getkode() + "','Ganti Data Pemesanan','Ganti'");
+                            Sequel.AutoComitTrue();
+                            JOptionPane.showMessageDialog(rootPane, "Proses simpan selesai...!!");
+                            dispose();
                         }
-                        Sequel.menyimpan("history_user", "Now(),'" + NoFaktur.getText() + "','" + var.getkode() + "','Ganti Data Pemesanan','Ganti'");
-                        Sequel.AutoComitTrue();
-                        JOptionPane.showMessageDialog(rootPane, "Proses simpan selesai...!!");
-                        dispose();
+
                     }
 //                        Sequel.queryu2("delete from pemesanan where no_faktur=?",1,new String[]{NoFaktur.getText()});
 
@@ -1604,6 +1619,10 @@ private void kdgudangKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
         }
         TCari.requestFocus();
         tppn.setText(String.valueOf(ppnPctg));
+    }
+
+    private void isStok(String a, String b) {
+        stokbarang2 = Sequel.cariIsiAngka("select ifnull(stok,'0') from gudangbarang where kd_bangsal='" + b + "' and kode_brng='" + a + "'");
     }
 
 }
