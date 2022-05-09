@@ -929,6 +929,7 @@ public class frmUtama extends javax.swing.JFrame {
         MnRekapBulanan = new javax.swing.JMenuItem();
         MnRekapHadir = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
+        MnJadwalDokterRalan = new javax.swing.JMenuItem();
         MnRekapBulanan1 = new javax.swing.JMenuItem();
         MnTelusurKunjungan = new javax.swing.JMenuItem();
         MnRekapBulanan2 = new javax.swing.JMenuItem();
@@ -939,7 +940,6 @@ public class frmUtama extends javax.swing.JFrame {
         MnSudahPulang2 = new javax.swing.JMenuItem();
         MnSudahPulang5 = new javax.swing.JMenuItem();
         MnSudahPulang7 = new javax.swing.JMenuItem();
-        MnRekapHadir1 = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         MnAnjungan = new javax.swing.JMenuItem();
         MnRekapHadir3 = new javax.swing.JMenuItem();
@@ -5864,7 +5864,7 @@ public class frmUtama extends javax.swing.JFrame {
 
         tanggal.setEditable(false);
         tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "25/04/2022" }));
+        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09/05/2022" }));
         tanggal.setDisplayFormat("dd/MM/yyyy");
         tanggal.setName("tanggal"); // NOI18N
         tanggal.setOpaque(false);
@@ -6581,6 +6581,21 @@ public class frmUtama extends javax.swing.JFrame {
         jMenu6.setName("jMenu6"); // NOI18N
         jMenu6.setPreferredSize(new java.awt.Dimension(98, 30));
 
+        MnJadwalDokterRalan.setBackground(new java.awt.Color(255, 255, 255));
+        MnJadwalDokterRalan.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnJadwalDokterRalan.setForeground(new java.awt.Color(0, 0, 0));
+        MnJadwalDokterRalan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Preview.png"))); // NOI18N
+        MnJadwalDokterRalan.setText("Jadwal Dokter Rawat Jalan");
+        MnJadwalDokterRalan.setIconTextGap(6);
+        MnJadwalDokterRalan.setName("MnJadwalDokterRalan"); // NOI18N
+        MnJadwalDokterRalan.setPreferredSize(new java.awt.Dimension(250, 35));
+        MnJadwalDokterRalan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnJadwalDokterRalanActionPerformed(evt);
+            }
+        });
+        jMenu6.add(MnJadwalDokterRalan);
+
         MnRekapBulanan1.setBackground(new java.awt.Color(255, 255, 255));
         MnRekapBulanan1.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         MnRekapBulanan1.setForeground(new java.awt.Color(0, 0, 0));
@@ -6730,21 +6745,6 @@ public class frmUtama extends javax.swing.JFrame {
             }
         });
         jMenu6.add(MnSudahPulang7);
-
-        MnRekapHadir1.setBackground(new java.awt.Color(255, 255, 255));
-        MnRekapHadir1.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        MnRekapHadir1.setForeground(new java.awt.Color(0, 0, 0));
-        MnRekapHadir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Preview.png"))); // NOI18N
-        MnRekapHadir1.setText("Jadwal Praktek Dokter");
-        MnRekapHadir1.setIconTextGap(6);
-        MnRekapHadir1.setName("MnRekapHadir1"); // NOI18N
-        MnRekapHadir1.setPreferredSize(new java.awt.Dimension(250, 35));
-        MnRekapHadir1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MnRekapHadir1ActionPerformed(evt);
-            }
-        });
-        jMenu6.add(MnRekapHadir1);
 
         MenuBar.add(jMenu6);
 
@@ -8479,7 +8479,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_MnRekapBulanan1ActionPerformed
 
-    private void MnRekapHadir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnRekapHadir1ActionPerformed
+    private void MnJadwalDokterRalanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnJadwalDokterRalanActionPerformed
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         DlgHome.dispose();
         InformasiJadwal belum = new InformasiJadwal(this, true);
@@ -8487,7 +8487,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
         belum.setLocationRelativeTo(PanelUtama);
         belum.setVisible(true);
         this.setCursor(Cursor.getDefaultCursor());
-    }//GEN-LAST:event_MnRekapHadir1ActionPerformed
+    }//GEN-LAST:event_MnJadwalDokterRalanActionPerformed
 
     private void MnSudahPulang2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnSudahPulang2ActionPerformed
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -12054,13 +12054,13 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
     private javax.swing.JMenuItem MnBelumDatang;
     private javax.swing.JMenuItem MnBelumDatang1;
     private javax.swing.JMenuItem MnGantiPassword;
+    private javax.swing.JMenuItem MnJadwalDokterRalan;
     private javax.swing.JMenuItem MnKomunikasi;
     private javax.swing.JMenuItem MnLogin;
     private javax.swing.JMenuItem MnRekapBulanan;
     private javax.swing.JMenuItem MnRekapBulanan1;
     private javax.swing.JMenuItem MnRekapBulanan2;
     private javax.swing.JMenuItem MnRekapHadir;
-    private javax.swing.JMenuItem MnRekapHadir1;
     private javax.swing.JMenuItem MnRekapHadir3;
     private javax.swing.JMenuItem MnRekapHadir4;
     private javax.swing.JMenuItem MnSudahPulang;

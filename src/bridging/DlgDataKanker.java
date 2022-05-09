@@ -1066,7 +1066,7 @@ public final class DlgDataKanker extends javax.swing.JDialog {
         panelGlass9.add(jLabel58);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "25-04-2022" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-04-2022" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -1081,7 +1081,7 @@ public final class DlgDataKanker extends javax.swing.JDialog {
         panelGlass9.add(jLabel59);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "25-04-2022" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-04-2022" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -1660,7 +1660,7 @@ public final class DlgDataKanker extends javax.swing.JDialog {
         FormInput1.add(BtnCaraMasuk);
         BtnCaraMasuk.setBounds(697, 250, 28, 23);
 
-        jLabel18.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel18.setForeground(new java.awt.Color(255, 0, 0));
         jLabel18.setText("Asal Rujukan : ");
         jLabel18.setName("jLabel18"); // NOI18N
         FormInput1.add(jLabel18);
@@ -1920,7 +1920,7 @@ public final class DlgDataKanker extends javax.swing.JDialog {
         jLabel28.setBounds(0, 580, 120, 23);
 
         tglDiagnosa.setEditable(false);
-        tglDiagnosa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "25-04-2022" }));
+        tglDiagnosa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-04-2022" }));
         tglDiagnosa.setDisplayFormat("dd-MM-yyyy");
         tglDiagnosa.setName("tglDiagnosa"); // NOI18N
         tglDiagnosa.setOpaque(false);
