@@ -1700,7 +1700,7 @@ public class DlgBarang extends javax.swing.JDialog {
 }//GEN-LAST:event_BtnHapusKeyPressed
 
     private void BtnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEditActionPerformed
-        if(var.getnamauser().equals("Admin Utama") || var.getnamauser().equals("Wardah") || var.getnamauser().equals("Sulistyaningtyas") ){
+        if(var.getnamauser().equals("Admin Utama") || var.getkode().equals(Sequel.cariIsi("select AES_DECRYPT(nip_admin_farmasi,'raza') from admin"))){
             if (Kd.getText().trim().equals("")) {
             Valid.textKosong(Kd, "Kode Barang");
         } else if (Nm.getText().trim().equals("")) {
@@ -1858,7 +1858,7 @@ public class DlgBarang extends javax.swing.JDialog {
 }//GEN-LAST:event_BtnKeluarKeyPressed
 
     private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSimpanActionPerformed
-        if(var.getnamauser().equals("Admin Utama") || var.getkode().equals("0319")){
+        if(var.getnamauser().equals("Admin Utama") || var.getkode().equals(Sequel.cariIsi("select AES_DECRYPT(nip_admin_farmasi,'raza') from admin"))){
             if (Kd.getText().trim().equals("")) {
             Valid.textKosong(Kd, "Kode Barang");
         } else if (Nm.getText().trim().equals("")) {

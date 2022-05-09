@@ -18,8 +18,12 @@ import fungsi.batasInput;
 import fungsi.koneksiDB;
 import fungsi.sekuel;
 import fungsi.validasi;
+import fungsi.var;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,6 +31,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import kepegawaian.DlgCariPegawai;
 
 /**
  *
@@ -37,6 +42,7 @@ public class DlgAdmin extends javax.swing.JDialog {
     private Connection koneksi=koneksiDB.condb();
     private sekuel Sequel=new sekuel();
     private validasi Valid=new validasi();
+    private DlgCariPegawai pegawai = new DlgCariPegawai(null, false);
 
     /** Creates new form DlgAdmin
      * @param parent
@@ -47,31 +53,73 @@ public class DlgAdmin extends javax.swing.JDialog {
         this.setLocation(10,10);
         setSize(457,249);
 
-        Object[] row={"ID Admin",
-                      "Password"};
-        tabMode=new DefaultTableModel(null,row){
-              @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
+        Object[] row = {"ID Admin","Password","NIP/NR Pet. Farmasi","Nama Pet. Farmasi"};
+        tabMode = new DefaultTableModel(null, row) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;
+            }
         };
 
         tbAdmin.setModel(tabMode);
-        //tampil();
-        //tbJabatan.setDefaultRenderer(Object.class, new WarnaTable(Scroll.getBackground(),Color.GREEN));
         tbAdmin.setPreferredScrollableViewportSize(new Dimension(500,500));
         tbAdmin.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 4; i++) {
             TableColumn column = tbAdmin.getColumnModel().getColumn(i);
-            if(i==0){
+            if (i == 0) {
                 column.setPreferredWidth(250);
-            }else if(i==1){
+            } else if (i == 1) {
+                column.setPreferredWidth(250);
+            } else if (i == 2) {
+                column.setPreferredWidth(150);
+            } else if (i == 3) {
                 column.setPreferredWidth(250);
             }
         }
 
         tbAdmin.setDefaultRenderer(Object.class, new WarnaTable());
 
-        TKd.setDocument(new batasInput((byte)30).getKata(TKd));
-        TNm.setDocument(new batasInput((byte)30).getKata(TNm));
+        TIDadmin.setDocument(new batasInput((byte)30).getKata(TIDadmin));
+        Tpassword.setDocument(new batasInput((byte)30).getKata(Tpassword));
+        
+        pegawai.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {}
+            @Override
+            public void windowClosing(WindowEvent e) {}
+            @Override
+            public void windowClosed(WindowEvent e) {
+                if (var.getform().equals("DlgAdmin")) {
+                    if (pegawai.getTable().getSelectedRow() != -1) {
+                        TNR.setText(pegawai.tbPegawai.getValueAt(pegawai.tbPegawai.getSelectedRow(), 0).toString());
+                        Tnama.setText(pegawai.tbPegawai.getValueAt(pegawai.tbPegawai.getSelectedRow(), 1).toString());
+                        BtnSimpan.requestFocus();
+                    }
+                }
+            }
+            @Override
+            public void windowIconified(WindowEvent e) {}
+            @Override
+            public void windowDeiconified(WindowEvent e) {}
+            @Override
+            public void windowActivated(WindowEvent e) {}
+            @Override
+            public void windowDeactivated(WindowEvent e) {}
+        });
+        
+        pegawai.getTable().addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {}
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode()==KeyEvent.VK_SPACE){
+                    pegawai.dispose();
+                }                
+            }
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
     }
 
     /** This method is called from within the constructor to
@@ -88,9 +136,14 @@ public class DlgAdmin extends javax.swing.JDialog {
         tbAdmin = new widget.Table();
         panelGlass7 = new widget.panelisi();
         jLabel3 = new widget.Label();
-        TKd = new widget.TextBox();
+        TIDadmin = new widget.TextBox();
         jLabel4 = new widget.Label();
-        TNm = new widget.TextBox();
+        Tpassword = new widget.TextBox();
+        jLabel5 = new widget.Label();
+        TNR = new widget.TextBox();
+        jLabel6 = new widget.Label();
+        Tnama = new widget.TextBox();
+        BtnCariPegawai = new widget.Button();
         panelGlass5 = new widget.panelisi();
         BtnSimpan = new widget.Button();
         BtnBatal = new widget.Button();
@@ -102,9 +155,6 @@ public class DlgAdmin extends javax.swing.JDialog {
         setUndecorated(true);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
-            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -137,39 +187,66 @@ public class DlgAdmin extends javax.swing.JDialog {
 
         panelGlass7.setName("panelGlass7"); // NOI18N
         panelGlass7.setPreferredSize(new java.awt.Dimension(44, 47));
-        panelGlass7.setLayout(null);
+        panelGlass7.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 10));
 
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("ID Admin :");
         jLabel3.setName("jLabel3"); // NOI18N
+        jLabel3.setPreferredSize(new java.awt.Dimension(70, 23));
         panelGlass7.add(jLabel3);
-        jLabel3.setBounds(0, 12, 69, 23);
 
-        TKd.setForeground(new java.awt.Color(0, 0, 0));
-        TKd.setName("TKd"); // NOI18N
-        TKd.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                TKdKeyPressed(evt);
-            }
-        });
-        panelGlass7.add(TKd);
-        TKd.setBounds(72, 12, 140, 23);
+        TIDadmin.setForeground(new java.awt.Color(0, 0, 0));
+        TIDadmin.setName("TIDadmin"); // NOI18N
+        TIDadmin.setPreferredSize(new java.awt.Dimension(100, 24));
+        panelGlass7.add(TIDadmin);
 
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Password :");
         jLabel4.setName("jLabel4"); // NOI18N
+        jLabel4.setPreferredSize(new java.awt.Dimension(60, 23));
         panelGlass7.add(jLabel4);
-        jLabel4.setBounds(213, 12, 74, 23);
 
-        TNm.setForeground(new java.awt.Color(0, 0, 0));
-        TNm.setName("TNm"); // NOI18N
-        TNm.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                TNmKeyPressed(evt);
+        Tpassword.setForeground(new java.awt.Color(0, 0, 0));
+        Tpassword.setName("Tpassword"); // NOI18N
+        Tpassword.setPreferredSize(new java.awt.Dimension(200, 24));
+        panelGlass7.add(Tpassword);
+
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setText("NIP / NR Pet. Farmasi :");
+        jLabel5.setName("jLabel5"); // NOI18N
+        jLabel5.setPreferredSize(new java.awt.Dimension(120, 23));
+        panelGlass7.add(jLabel5);
+
+        TNR.setEditable(false);
+        TNR.setForeground(new java.awt.Color(0, 0, 0));
+        TNR.setName("TNR"); // NOI18N
+        TNR.setPreferredSize(new java.awt.Dimension(100, 24));
+        panelGlass7.add(TNR);
+
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel6.setText("Nama Pet. Farmasi :");
+        jLabel6.setName("jLabel6"); // NOI18N
+        jLabel6.setPreferredSize(new java.awt.Dimension(110, 23));
+        panelGlass7.add(jLabel6);
+
+        Tnama.setEditable(false);
+        Tnama.setForeground(new java.awt.Color(0, 0, 0));
+        Tnama.setName("Tnama"); // NOI18N
+        Tnama.setPreferredSize(new java.awt.Dimension(250, 24));
+        panelGlass7.add(Tnama);
+
+        BtnCariPegawai.setForeground(new java.awt.Color(0, 0, 0));
+        BtnCariPegawai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/190.png"))); // NOI18N
+        BtnCariPegawai.setMnemonic('1');
+        BtnCariPegawai.setToolTipText("ALt+1");
+        BtnCariPegawai.setName("BtnCariPegawai"); // NOI18N
+        BtnCariPegawai.setPreferredSize(new java.awt.Dimension(28, 26));
+        BtnCariPegawai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCariPegawaiActionPerformed(evt);
             }
         });
-        panelGlass7.add(TNm);
-        TNm.setBounds(290, 12, 210, 23);
+        panelGlass7.add(BtnCariPegawai);
 
         internalFrame1.add(panelGlass7, java.awt.BorderLayout.PAGE_START);
 
@@ -283,26 +360,22 @@ public class DlgAdmin extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TKdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKeyPressed
-        Valid.pindah(evt,BtnSimpan,TNm);
-}//GEN-LAST:event_TKdKeyPressed
-
-    private void TNmKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TNmKeyPressed
-        Valid.pindah(evt,TKd,BtnSimpan);
-}//GEN-LAST:event_TNmKeyPressed
-
     private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSimpanActionPerformed
-        if(TKd.getText().trim().equals("")){
-            Valid.textKosong(TKd,"ID Admin");
-        }else if(TNm.getText().trim().equals("")){
-            Valid.textKosong(TNm,"Password");
-        }else if(tabMode.getRowCount()==0){
-            Sequel.menyimpan("admin","AES_ENCRYPT('"+TKd.getText()+"','nur'),AES_ENCRYPT('"+TNm.getText()+"','windi')","Kode Admin");
+        if (TIDadmin.getText().trim().equals("")) {
+            Valid.textKosong(TIDadmin, "ID Admin");
+        } else if (Tpassword.getText().trim().equals("")) {
+            Valid.textKosong(Tpassword, "Password");
+        } else if (TNR.getText().trim().equals("")) {
+            Valid.textKosong(TNR, "Petugas Farmasi");
+        } else if (tabMode.getRowCount() == 0) {
+            Sequel.menyimpan("admin", "AES_ENCRYPT('" + TIDadmin.getText() + "','nur'),"
+                    + "AES_ENCRYPT('" + Tpassword.getText() + "','windi'),"
+                    + "AES_ENCRYPT('" + TNR.getText() + "','raza')", "Kode Admin");
             tampil();
             emptTeks();
-        }else if(tabMode.getRowCount()>0){
-            JOptionPane.showMessageDialog(null,"Maaf, Hanya diijinkan satu Admin Utama ...!!!!");
-            TKd.requestFocus();
+        } else if (tabMode.getRowCount() > 0) {
+            JOptionPane.showMessageDialog(null, "Maaf, Hanya diijinkan satu Admin Utama & Petugas Farmasi...!!!!");
+            TIDadmin.requestFocus();
         }
 }//GEN-LAST:event_BtnSimpanActionPerformed
 
@@ -310,7 +383,7 @@ public class DlgAdmin extends javax.swing.JDialog {
         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
             BtnSimpanActionPerformed(null);
         }else{
-            Valid.pindah(evt,TNm,BtnBatal);
+            Valid.pindah(evt,Tpassword,BtnBatal);
         }
 }//GEN-LAST:event_BtnSimpanKeyPressed
 
@@ -325,12 +398,12 @@ public class DlgAdmin extends javax.swing.JDialog {
 }//GEN-LAST:event_BtnBatalKeyPressed
 
     private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHapusActionPerformed
-        if(tabMode.getRowCount()==0){
-            JOptionPane.showMessageDialog(null,"Maaf, data sudah habis...!!!!");
-            TKd.requestFocus();
-        }else if(TNm.getText().trim().equals("")){
-            JOptionPane.showMessageDialog(null,"Maaf, Gagal menghapus. Pilih dulu data yang mau dihapus.\nKlik data pada table untuk memilih...!!!!");
-        }else if(! TNm.getText().trim().equals("")){
+        if (tabMode.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Maaf, data sudah habis...!!!!");
+            TIDadmin.requestFocus();
+        } else if (Tpassword.getText().trim().equals("") || TNR.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, Gagal menghapus. Pilih dulu data yang mau dihapus. Klik data pada tabel untuk memilih...!!!!");
+        } else if (!Tpassword.getText().trim().equals("")) {
             Sequel.queryu("delete from admin");
             tampil();
             emptTeks();
@@ -346,14 +419,20 @@ public class DlgAdmin extends javax.swing.JDialog {
 }//GEN-LAST:event_BtnHapusKeyPressed
 
     private void BtnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEditActionPerformed
-        if(TKd.getText().trim().equals("")){
-            Valid.textKosong(TKd,"kode jabatan");
-        }else if(TNm.getText().trim().equals("")){
-            Valid.textKosong(TNm,"nama jabatan");
-        }else{
+        if (TIDadmin.getText().trim().equals("")) {
+            Valid.textKosong(TIDadmin, "kode jabatan");
+        } else if (Tpassword.getText().trim().equals("")) {
+            Valid.textKosong(Tpassword, "nama jabatan");
+        } else if (TNR.getText().trim().equals("")) {
+            Valid.textKosong(TNR, "Petugas Farmasi");
+        } else {
             Sequel.queryu("delete from admin");
-            Sequel.menyimpan("admin","AES_ENCRYPT('"+TKd.getText()+"','nur'),AES_ENCRYPT('"+TNm.getText()+"','windi')","Kode Admin");
-            if(tabMode.getRowCount()!=0){tampil();}
+            Sequel.menyimpan("admin", "AES_ENCRYPT('" + TIDadmin.getText() + "','nur'),"
+                    + "AES_ENCRYPT('" + Tpassword.getText() + "','windi'),"
+                    + "AES_ENCRYPT('" + TNR.getText() + "','raza')", "Kode Admin");
+            if (tabMode.getRowCount() != 0) {
+                tampil();
+            }
             emptTeks();
         }
 }//GEN-LAST:event_BtnEditActionPerformed
@@ -369,7 +448,7 @@ public class DlgAdmin extends javax.swing.JDialog {
     private void BtnKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnKeluarActionPerformed
         if(tabMode.getRowCount()==0){
             JOptionPane.showMessageDialog(null,"Maaf, data admin tidak boleh kosong ...!!!!");
-            TKd.requestFocus();
+            TIDadmin.requestFocus();
         }else if(! (tabMode.getRowCount()==0)) {
             dispose();
         }
@@ -401,13 +480,21 @@ public class DlgAdmin extends javax.swing.JDialog {
         }
 }//GEN-LAST:event_tbAdminKeyPressed
 
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        emptTeks();
-    }//GEN-LAST:event_formWindowActivated
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         tampil();
+        emptTeks();        
     }//GEN-LAST:event_formWindowOpened
+
+    private void BtnCariPegawaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCariPegawaiActionPerformed
+        var.setform("DlgAdmin");
+        pegawai.setSize(internalFrame1.getWidth()-40,internalFrame1.getHeight()-40);
+        pegawai.setLocationRelativeTo(internalFrame1);
+        pegawai.setAlwaysOnTop(false);
+        pegawai.isCek();
+        pegawai.emptTeks();
+        pegawai.setVisible(true);
+        pegawai.TCari.requestFocus();
+    }//GEN-LAST:event_BtnCariPegawaiActionPerformed
 
     /**
     * @param args the command line arguments
@@ -427,55 +514,69 @@ public class DlgAdmin extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private widget.Button BtnBatal;
+    private widget.Button BtnCariPegawai;
     private widget.Button BtnEdit;
     private widget.Button BtnHapus;
     private widget.Button BtnKeluar;
     private widget.Button BtnSimpan;
     private widget.ScrollPane Scroll;
-    private widget.TextBox TKd;
-    private widget.TextBox TNm;
+    private widget.TextBox TIDadmin;
+    private widget.TextBox TNR;
+    private widget.TextBox Tnama;
+    private widget.TextBox Tpassword;
     private widget.InternalFrame internalFrame1;
     private widget.Label jLabel3;
     private widget.Label jLabel4;
+    private widget.Label jLabel5;
+    private widget.Label jLabel6;
     private widget.panelisi panelGlass5;
     private widget.panelisi panelGlass7;
     private widget.Table tbAdmin;
     // End of variables declaration//GEN-END:variables
 
     public void tampil() {
-        String sql="select AES_DECRYPT(usere,'nur'),AES_DECRYPT(passworde,'windi') from admin";
+        String sql="select AES_DECRYPT(usere,'nur'),AES_DECRYPT(passworde,'windi'),AES_DECRYPT(nip_admin_farmasi,'raza') from admin";
         prosesCari(sql);
     }
 
     private void prosesCari(String sql) {
         Valid.tabelKosong(tabMode);
-        try{
-            java.sql.Statement stat=koneksi.createStatement();
-            ResultSet rs=stat.executeQuery(sql);
-            while(rs.next()){
-                String kd=rs.getString(1);
-                String nm=rs.getString(2);
-                String[] data={kd,nm};
+        try {
+            java.sql.Statement stat = koneksi.createStatement();
+            ResultSet rs = stat.executeQuery(sql);
+            while (rs.next()) {
+                String kd = rs.getString(1);
+                String nm = rs.getString(2);
+                String nip = rs.getString(3);
+                String nm_petugas = Sequel.cariIsi("select nama from pegawai where nik='" + rs.getString(3) + "'");
+                String[] data = {kd, nm, nip, nm_petugas};
                 tabMode.addRow(data);
-             }
-        }catch(SQLException e){
-            System.out.println("Notifikasi : "+e);
+            }
+        } catch (SQLException e) {
+            System.out.println("Notifikasi : " + e);
         }
     }
 
     private void getData() {
-        int row=tbAdmin.getSelectedRow();
-        if(row!= -1){
-            String kode=tabMode.getValueAt(row,0).toString();
-            String nama=tabMode.getValueAt(row,1).toString();
-            TKd.setText(kode);
-            TNm.setText(nama);
+        int row = tbAdmin.getSelectedRow();
+        if (row != -1) {
+            String kode = tabMode.getValueAt(row, 0).toString();
+            String nama = tabMode.getValueAt(row, 1).toString();
+            String nip_nr = tabMode.getValueAt(row, 2).toString();
+            String petugas = tabMode.getValueAt(row, 3).toString();
+            
+            TIDadmin.setText(kode);
+            Tpassword.setText(nama);
+            TNR.setText(nip_nr);
+            Tnama.setText(petugas);
         }
     }
 
     public void emptTeks() {
-        TKd.setText("");
-        TNm.setText("");
-        TKd.requestFocus();
+        TIDadmin.setText("");
+        Tpassword.setText("");
+        TNR.setText("");
+        Tnama.setText("");
+        TIDadmin.requestFocus();
     }
 }
