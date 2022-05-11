@@ -5986,28 +5986,30 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
             if (Sequel.cariInteger("select count(-1) from setting_bridging where kd_bridging='1' and status_aktif='Ya'") == 1) {
                 if (Sequel.cariInteger("select count(no_rawat) from kamar_inap where no_rawat=?", TNoRw.getText()) > 0) {
                     JOptionPane.showMessageDialog(null, "Maaf, Pasien sudah masuk Kamar Inap. Masukkan data penyakit kanker dikamar inap..!!!");
-                } else if (Sequel.cariInteger("SELECT count(-1) FROM data_kanker_bridging WHERE nik='" + nik + "' or no_rawat='" + TNoRw.getText() + "'") < 1) {
-                    this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-                    DlgDataKanker kanker = new DlgDataKanker(null, false);
-                    kanker.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
-                    kanker.setLocationRelativeTo(internalFrame1);
-                    kanker.isCek();
-                    kanker.emptTeks();
-                    kanker.setData(TNoRw.getText());
-                    kanker.setVisible(true);
-                    this.setCursor(Cursor.getDefaultCursor());
                 } else {
-                    JOptionPane.showMessageDialog(null, "Data penyakit kanker pasien ini sudah ada, lakukan update pada halaman data penyakit kanker.");
-                    this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-                    DlgDataKanker kanker = new DlgDataKanker(null, false);
-                    kanker.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
-                    kanker.setLocationRelativeTo(internalFrame1);
-                    kanker.isCek();
-                    kanker.emptTeks();
-                    kanker.TabRawat.setSelectedIndex(1);
-                    kanker.tampil();
-                    kanker.setVisible(true);
-                    this.setCursor(Cursor.getDefaultCursor());
+                    if (Sequel.cariInteger("SELECT count(-1) FROM data_kanker_bridging WHERE no_rawat='" + TNoRw.getText() + "'") < 1) {
+                        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                        DlgDataKanker kanker = new DlgDataKanker(null, false);
+                        kanker.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
+                        kanker.setLocationRelativeTo(internalFrame1);
+                        kanker.isCek();
+                        kanker.emptTeks();
+                        kanker.setData(TNoRw.getText());
+                        kanker.setVisible(true);
+                        this.setCursor(Cursor.getDefaultCursor());
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Data penyakit kanker pasien ini sudah ada, lakukan update pada halaman data penyakit kanker.");
+                        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                        DlgDataKanker kanker = new DlgDataKanker(null, false);
+                        kanker.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
+                        kanker.setLocationRelativeTo(internalFrame1);
+                        kanker.isCek();
+                        kanker.emptTeks();
+                        kanker.TabRawat.setSelectedIndex(1);
+                        kanker.tampil();
+                        kanker.setVisible(true);
+                        this.setCursor(Cursor.getDefaultCursor());
+                    }
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Bridging data penyakit kanker dinonaktifkan, permasalahanya masih dalam pembahasan...");

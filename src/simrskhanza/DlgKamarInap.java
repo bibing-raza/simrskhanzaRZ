@@ -13708,39 +13708,35 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
             tbKamIn.requestFocus();
         } else if (Sequel.cariInteger("select count(-1) from kamar_inap where no_rawat='" + norawat.getText() + "' and stts_pulang not in ('-','Pindah Kamar')") < 1) {
             JOptionPane.showMessageDialog(null, "Pasien masih dirawat inap, diagnosa kanker belum bisa dikirim ke kemenkes RI...!!!");
-        } else if (Sequel.cariInteger("SELECT count(-1) FROM data_kanker_bridging WHERE "
-                + "nik='" + Sequel.cariIsi("select no_ktp from pasien where no_rkm_medis='" + TNoRM.getText() + "'") + "' "
-                + "or no_rawat='" + norawat.getText() + "'") < 1) {
-            if (Sequel.cariInteger("select count(-1) from setting_bridging where kd_bridging='1' and status_aktif='Ya'") == 1) {
-                this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-                DlgDataKanker kanker = new DlgDataKanker(null, false);
-                kanker.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
-                kanker.setLocationRelativeTo(internalFrame1);
-                kanker.isCek();
-                kanker.emptTeks();
-                kanker.setData(norawat.getText());
-                kanker.setVisible(true);
-                this.setCursor(Cursor.getDefaultCursor());
-            } else {
-                JOptionPane.showMessageDialog(null, "Bridging data penyakit kanker dinonaktifkan, permasalahanya masih dalam pembahasan...");
-            }
         } else {
             if (Sequel.cariInteger("select count(-1) from setting_bridging where kd_bridging='1' and status_aktif='Ya'") == 1) {
-                JOptionPane.showMessageDialog(null, "Data penyakit kanker pasien ini sudah ada, lakukan update pada halaman data penyakit kanker.");
-                this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-                DlgDataKanker kanker = new DlgDataKanker(null, false);
-                kanker.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
-                kanker.setLocationRelativeTo(internalFrame1);
-                kanker.isCek();
-                kanker.emptTeks();
-                kanker.TabRawat.setSelectedIndex(1);
-                kanker.tampil();
-                kanker.setVisible(true);
-                this.setCursor(Cursor.getDefaultCursor());
+                if (Sequel.cariInteger("SELECT count(-1) FROM data_kanker_bridging WHERE no_rawat='" + norawat.getText() + "'") < 1) {
+                    this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                    DlgDataKanker kanker = new DlgDataKanker(null, false);
+                    kanker.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
+                    kanker.setLocationRelativeTo(internalFrame1);
+                    kanker.isCek();
+                    kanker.emptTeks();
+                    kanker.setData(norawat.getText());
+                    kanker.setVisible(true);
+                    this.setCursor(Cursor.getDefaultCursor());
+                } else {
+                    JOptionPane.showMessageDialog(null, "Data penyakit kanker pasien ini sudah ada, lakukan update pada halaman data penyakit kanker.");
+                    this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                    DlgDataKanker kanker = new DlgDataKanker(null, false);
+                    kanker.setSize(internalFrame1.getWidth() - 40, internalFrame1.getHeight() - 40);
+                    kanker.setLocationRelativeTo(internalFrame1);
+                    kanker.isCek();
+                    kanker.emptTeks();
+                    kanker.TabRawat.setSelectedIndex(1);
+                    kanker.tampil();
+                    kanker.setVisible(true);
+                    this.setCursor(Cursor.getDefaultCursor());
+                }                
             } else {
                 JOptionPane.showMessageDialog(null, "Bridging data penyakit kanker dinonaktifkan, permasalahanya masih dalam pembahasan...");
             }
-        }
+        } 
     }//GEN-LAST:event_MnDataKankerActionPerformed
 
     /**
