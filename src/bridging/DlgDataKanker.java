@@ -3703,7 +3703,8 @@ public final class DlgDataKanker extends javax.swing.JDialog {
             ps=koneksi.prepareStatement("select p.no_rkm_medis, p.nm_pasien, p.tgl_lahir, rp.umurdaftar, "
                     + "rp.sttsumur, ifnull(p.no_peserta,'0') no_peserta, if(p.no_ktp='','0',p.no_ktp) no_ktp,"
                     + "p.alamat, rp.status_lanjut, rp.tgl_registrasi, kb.nm_kab, kc.nm_kec, kl.nm_kel, if(p.jk='L','Laki-laki','Perempuan') jk, "
-                    + "ifnull(dp.kd_penyakit,'') kd_penyakit, ifnull(py.nm_penyakit,'') nm_penyakit, pj.png_jawab, ifnull(rm.perujuk,'') asalrujukan from pasien p "
+                    + "ifnull(dp.kd_penyakit,'') kd_penyakit, ifnull(py.nm_penyakit,'') nm_penyakit, pj.png_jawab, "
+                    + "ifnull(rm.perujuk,'') asalrujukan, if(p.no_tlp='0','00000',p.no_tlp) no_tlp from pasien p "
                     + "inner join reg_periksa rp on rp.no_rkm_medis=p.no_rkm_medis "
                     + "inner join kelurahan kl ON kl.kd_kel=p.kd_kel "
                     + "inner join kecamatan kc ON kc.kd_kec=p.kd_kec "
@@ -3729,6 +3730,7 @@ public final class DlgDataKanker extends javax.swing.JDialog {
                     jnsBayar.setText(rs.getString("png_jawab"));
                     nmjk.setText(rs.getString("jk"));
                     asalRujukan.setText(rs.getString("asalrujukan"));
+                    TNoTelp.setText(rs.getString("no_tlp"));
                     stts_lanjt = rs.getString("status_lanjut"); 
                     
                     if (stts_lanjt.equals("Ralan")) {
