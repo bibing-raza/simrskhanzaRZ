@@ -3650,7 +3650,8 @@ public final class DlgDataKanker extends javax.swing.JDialog {
             tglKeluar.setText(tbKanker.getValueAt(tbKanker.getSelectedRow(), 43).toString());
             KdcaraKlr.setText(tbKanker.getValueAt(tbKanker.getSelectedRow(), 44).toString());
             CaraKeluar.setText(tbKanker.getValueAt(tbKanker.getSelectedRow(), 45).toString());
-            jnsBayar.setText(Sequel.cariIsi("select p.png_jawab from reg_periksa r inner join penjab p on p.kd_pj=r.kd_pj where r.no_rawat='" + TNoRw.getText() + "'"));
+            jnsBayar.setText(Sequel.cariIsi("select if(r.kd_pj='B01',concat(p.png_jawab,' - ',bs.peserta),p.png_jawab) from reg_periksa r inner join penjab p on p.kd_pj=r.kd_pj "
+                    + "left join bridging_sep bs on bs.no_rawat=r.no_rawat where r.no_rawat='" + TNoRw.getText() + "' order by bs.urutan_sep desc limit 1"));
             KdkeadaanKlr.setText(tbKanker.getValueAt(tbKanker.getSelectedRow(), 46).toString());
             KeadaanKeluar.setText(tbKanker.getValueAt(tbKanker.getSelectedRow(), 47).toString());
             KdcaraByr.setText(tbKanker.getValueAt(tbKanker.getSelectedRow(), 54).toString());
@@ -3703,7 +3704,7 @@ public final class DlgDataKanker extends javax.swing.JDialog {
             ps=koneksi.prepareStatement("select p.no_rkm_medis, p.nm_pasien, p.tgl_lahir, rp.umurdaftar, "
                     + "rp.sttsumur, ifnull(p.no_peserta,'0') no_peserta, if(p.no_ktp='','0',p.no_ktp) no_ktp,"
                     + "p.alamat, rp.status_lanjut, rp.tgl_registrasi, kb.nm_kab, kc.nm_kec, kl.nm_kel, if(p.jk='L','Laki-laki','Perempuan') jk, "
-                    + "ifnull(dp.kd_penyakit,'') kd_penyakit, ifnull(py.nm_penyakit,'') nm_penyakit, pj.png_jawab, "
+                    + "ifnull(dp.kd_penyakit,'') kd_penyakit, ifnull(py.nm_penyakit,'') nm_penyakit, if(rp.kd_pj='B01',concat(pj.png_jawab,' - ',bs.peserta),pj.png_jawab) png_jawab, "
                     + "ifnull(rm.perujuk,'') asalrujukan, if(p.no_tlp='0','00000',p.no_tlp) no_tlp from pasien p "
                     + "inner join reg_periksa rp on rp.no_rkm_medis=p.no_rkm_medis "
                     + "inner join kelurahan kl ON kl.kd_kel=p.kd_kel "
@@ -3712,7 +3713,8 @@ public final class DlgDataKanker extends javax.swing.JDialog {
                     + "inner join penjab pj on pj.kd_pj=rp.kd_pj "
                     + "left join diagnosa_pasien dp on dp.no_rawat=rp.no_rawat and dp.prioritas='1' "
                     + "left join penyakit py on py.kd_penyakit=dp.kd_penyakit "
-                    + "left join rujuk_masuk rm on rm.no_rawat=rp.no_rawat where rp.no_rawat = '" + norawat + "'");
+                    + "left join rujuk_masuk rm on rm.no_rawat=rp.no_rawat "
+                    + "left join bridging_sep bs on bs.no_rawat=rp.no_rawat where rp.no_rawat = '" + norawat + "' order by bs.urutan_sep desc limit 1");
             try {
                 rs=ps.executeQuery();
                 if(rs.next()){
