@@ -77,7 +77,7 @@ public class DlgUser extends javax.swing.JDialog {
                     "[H]Tagihan Masuk","[H]Tambahan Biaya","[H]Potongan Biaya","[A]No.Resep","[L]Riwayat Perawatan","[I]Frekuensi Penyakit Ralan","[I]Frekuensi Penyakit Ranap",
                     "[J]Kamar","[J]Tarif Ralan","[J]Tarif Ranap","[J]Tarif Lab","[J]Tarif Radiologi","[J]Tarif Operasi","[J]Akun Rekening","[J]Rekening Tahun",
                     "[J]Posting Jurnal","[J]Buku Besar","[J]Cash Flow","[J]Keuangan","[J]Pengeluaran Harian","[O]Set P.J. Unit Penunjang","[O]Set Oto Lokasi","[O]Set Kamar Inap",
-                    "[O]Set Embalase & Tuslah","[O]Tracer Login","[O]Display Antrian","[O]Set Harga Obat","[O]Set Penggunaan Tarif","[O]Set Oto Ralan","[O]Biaya Harian Kamar",
+                    "[O]Set Embalase & Tuslah","[O]Tracer Login","[O]Set Antrian","[O]Set Harga Obat","[O]Set Penggunaan Tarif","[O]Set Oto Ralan","[O]Biaya Harian Kamar",
                     "[O]Biaya Masuk Sekali","[O]Set RM","[A]Billing Ralan","[A]Billing Ranap","[H]Detail JM Dokter","[A]IGD","[B]Barcode Ralan","[B]Barcode Ranap",
                     "[O]Set Harga Obat Ralan","[O]Set Harga Obat Ranap","[I]Penyakit AFP & PD3I","[I]Surveilans AFP & PD3I","[I]Surveilans Ralan","[L]Diagnosa Pasien",
                     "[I]Surveilans Ranap","[I]Pny.Tdk Menular Ranap","[I]Pny.Tdk Menular Ralan","[I]Kunjungan Ralan","[I]RL 3.2 Rawat Darurat","[I]RL 3.3 Gigi dan Mulut","[I]RL 3.7 Radiologi","[I]RL 3.8 Laboratorium","[H]Harian Dokter Ralan",

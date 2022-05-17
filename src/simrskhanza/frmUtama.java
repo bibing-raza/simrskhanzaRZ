@@ -540,7 +540,7 @@ public class frmUtama extends javax.swing.JFrame {
         btnAdmin = new widget.ButtonBig();
         btnUser = new widget.ButtonBig();
         btnVakum = new widget.ButtonBig();
-        btnDisplay = new widget.ButtonBig();
+        btnAntrian = new widget.ButtonBig();
         btnSetupHarga = new widget.ButtonBig();
         btnSuplier = new widget.ButtonBig();
         btnJnsBarang = new widget.ButtonBig();
@@ -1501,18 +1501,18 @@ public class frmUtama extends javax.swing.JFrame {
         });
         Panelmenu.add(btnVakum);
 
-        btnDisplay.setForeground(new java.awt.Color(0, 0, 0));
-        btnDisplay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/find.png"))); // NOI18N
-        btnDisplay.setText("Display Antrian");
-        btnDisplay.setIconTextGap(0);
-        btnDisplay.setName("btnDisplay"); // NOI18N
-        btnDisplay.setPreferredSize(new java.awt.Dimension(200, 90));
-        btnDisplay.addActionListener(new java.awt.event.ActionListener() {
+        btnAntrian.setForeground(new java.awt.Color(0, 0, 0));
+        btnAntrian.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/demographic.png"))); // NOI18N
+        btnAntrian.setText("Set Antrian");
+        btnAntrian.setIconTextGap(0);
+        btnAntrian.setName("btnAntrian"); // NOI18N
+        btnAntrian.setPreferredSize(new java.awt.Dimension(200, 90));
+        btnAntrian.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDisplayActionPerformed(evt);
+                btnAntrianActionPerformed(evt);
             }
         });
-        Panelmenu.add(btnDisplay);
+        Panelmenu.add(btnAntrian);
 
         btnSetupHarga.setForeground(new java.awt.Color(0, 0, 0));
         btnSetupHarga.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/1360487093_price.png"))); // NOI18N
@@ -5864,7 +5864,7 @@ public class frmUtama extends javax.swing.JFrame {
 
         tanggal.setEditable(false);
         tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09/05/2022" }));
+        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17/05/2022" }));
         tanggal.setDisplayFormat("dd/MM/yyyy");
         tanggal.setName("tanggal"); // NOI18N
         tanggal.setOpaque(false);
@@ -7371,7 +7371,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_btnVakumActionPerformed
 
-    private void btnDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisplayActionPerformed
+    private void btnAntrianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAntrianActionPerformed
 
         isTutup();
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -7382,7 +7382,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
         runteks.setVisible(true);
         DlgHome.dispose();
         this.setCursor(Cursor.getDefaultCursor());
-    }//GEN-LAST:event_btnDisplayActionPerformed
+    }//GEN-LAST:event_btnAntrianActionPerformed
 
     private void btnSetupHargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetupHargaActionPerformed
 
@@ -12084,6 +12084,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
     private widget.ButtonBig btnAdmin;
     private widget.ButtonBig btnAkunPiutang;
     private widget.ButtonBig btnAnalisaKamar;
+    private widget.ButtonBig btnAntrian;
     private widget.ButtonBig btnAplicareKetersediaanKamar;
     private widget.ButtonBig btnAplicareReferensiKamar;
     private widget.ButtonBig btnAssesmenGiziHarian;
@@ -12165,7 +12166,6 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
     private widget.ButtonBig btnDiagnosa;
     private widget.ButtonBig btnDiagnosaPasienCorona;
     private widget.ButtonBig btnDiet;
-    private widget.ButtonBig btnDisplay;
     private widget.ButtonBig btnDokter;
     private widget.ButtonBig btnFrekuensiRalan;
     private widget.ButtonBig btnFrekuensiRanap;
@@ -14342,7 +14342,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
             }
 
             if (var.getdisplay() == true) {
-                Panelmenu.add(btnDisplay);
+                Panelmenu.add(btnAntrian);
                 jmlmenu++;
             }
 
@@ -16133,7 +16133,7 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
         }
 
         if (var.getdisplay() == true) {
-            Panelmenu.add(btnDisplay);
+            Panelmenu.add(btnAntrian);
             jmlmenu++;
         }
 
@@ -18619,8 +18619,8 @@ private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:e
         }
 
         if (var.getdisplay() == true) {
-            if (btnDisplay.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())) {
-                Panelmenu.add(btnDisplay);
+            if (btnAntrian.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())) {
+                Panelmenu.add(btnAntrian);
                 jmlmenu++;
             }
         }

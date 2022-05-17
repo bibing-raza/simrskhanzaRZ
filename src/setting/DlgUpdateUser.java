@@ -2005,8 +2005,8 @@ public class DlgUpdateUser extends javax.swing.JDialog {
                         tabMode.addRow(new Object[]{false, "[O]Closing Kasir", rs.getBoolean("closing_kasir")});
                     }
 
-                    if ("[O]Display Antrian".toLowerCase().contains(TCari.getText().toLowerCase())) {
-                        tabMode.addRow(new Object[]{false, "[O]Display Antrian", rs.getBoolean("display")});
+                    if ("[O]Set Antrian".toLowerCase().contains(TCari.getText().toLowerCase())) {
+                        tabMode.addRow(new Object[]{false, "[O]Set Antrian", rs.getBoolean("display")});
                     }
 
                     if ("[O]Set Billing".toLowerCase().contains(TCari.getText().toLowerCase())) {
@@ -3492,7 +3492,7 @@ public class DlgUpdateUser extends javax.swing.JDialog {
                 Sequel.mengedit("user","id_user=AES_ENCRYPT('"+TKd.getText()+"','nur')","closing_kasir='"+tbUser.getValueAt(i,2).toString()+"'");
             }
 
-            if("[O]Display Antrian".equals(tbUser.getValueAt(i,1).toString())){
+            if("[O]Set Antrian".equals(tbUser.getValueAt(i,1).toString())){
                 Sequel.mengedit("user","id_user=AES_ENCRYPT('"+TKd.getText()+"','nur')","display='"+tbUser.getValueAt(i,2).toString()+"'");
             }
 
