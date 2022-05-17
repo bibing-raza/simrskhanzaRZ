@@ -48,7 +48,7 @@ public class DlgRunTeks extends javax.swing.JDialog {
     private sekuel Sequel=new sekuel();
     private validasi Valid=new validasi();
     private int i = 0;
-    private String pinNya = "";
+    private String pinNya = "", teksNya = "";
 
     /** Creates new form DlgAdmin */
     public DlgRunTeks(java.awt.Frame parent, boolean modal) {
@@ -123,7 +123,6 @@ public class DlgRunTeks extends javax.swing.JDialog {
         MnHakAkses = new javax.swing.JMenuItem();
         internalFrame1 = new widget.InternalFrame();
         panelGlass1 = new widget.panelGlass();
-        label35 = new widget.Label();
         label37 = new widget.Label();
         scrollPane2 = new widget.ScrollPane();
         PhotoGambar = new Painter();
@@ -137,6 +136,7 @@ public class DlgRunTeks extends javax.swing.JDialog {
         label14 = new widget.Label();
         pinAdmin = new widget.TextBox();
         ChkPetugas = new widget.CekBox();
+        ChkTeks = new widget.CekBox();
         internalFrame2 = new widget.InternalFrame();
         Scroll = new widget.ScrollPane();
         tbDisplay = new widget.Table();
@@ -160,7 +160,7 @@ public class DlgRunTeks extends javax.swing.JDialog {
         MnDisplay.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         MnDisplay.setIconTextGap(5);
         MnDisplay.setName("MnDisplay"); // NOI18N
-        MnDisplay.setPreferredSize(new java.awt.Dimension(190, 26));
+        MnDisplay.setPreferredSize(new java.awt.Dimension(220, 26));
         MnDisplay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MnDisplayActionPerformed(evt);
@@ -172,12 +172,12 @@ public class DlgRunTeks extends javax.swing.JDialog {
         MnHakAkses.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         MnHakAkses.setForeground(new java.awt.Color(0, 0, 0));
         MnHakAkses.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
-        MnHakAkses.setText("Hapus Hak Akses Nomor");
+        MnHakAkses.setText("Hapus Hak Akses Nomor Antrian");
         MnHakAkses.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MnHakAkses.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         MnHakAkses.setIconTextGap(5);
         MnHakAkses.setName("MnHakAkses"); // NOI18N
-        MnHakAkses.setPreferredSize(new java.awt.Dimension(190, 26));
+        MnHakAkses.setPreferredSize(new java.awt.Dimension(220, 26));
         MnHakAkses.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MnHakAksesActionPerformed(evt);
@@ -202,21 +202,13 @@ public class DlgRunTeks extends javax.swing.JDialog {
         panelGlass1.setPreferredSize(new java.awt.Dimension(200, 230));
         panelGlass1.setLayout(null);
 
-        label35.setForeground(new java.awt.Color(0, 0, 0));
-        label35.setText("Teks Berjalan :");
-        label35.setName("label35"); // NOI18N
-        label35.setPreferredSize(new java.awt.Dimension(35, 23));
-        panelGlass1.add(label35);
-        label35.setBounds(0, 10, 88, 23);
-
         label37.setForeground(new java.awt.Color(0, 0, 0));
-        label37.setText("Display :");
+        label37.setText("Lokasi Wallpaper : ");
         label37.setName("label37"); // NOI18N
         label37.setPreferredSize(new java.awt.Dimension(35, 23));
         panelGlass1.add(label37);
-        label37.setBounds(0, 130, 88, 23);
+        label37.setBounds(0, 130, 110, 23);
 
-        scrollPane2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         scrollPane2.setName("scrollPane2"); // NOI18N
 
         PhotoGambar.setBackground(new java.awt.Color(235, 255, 235));
@@ -239,7 +231,7 @@ public class DlgRunTeks extends javax.swing.JDialog {
             }
         });
         panelGlass1.add(BtnCariGb);
-        BtnCariGb.setBounds(287, 130, 25, 23);
+        BtnCariGb.setBounds(303, 130, 25, 23);
 
         EGb.setEditable(false);
         EGb.setForeground(new java.awt.Color(0, 0, 0));
@@ -252,7 +244,7 @@ public class DlgRunTeks extends javax.swing.JDialog {
             }
         });
         panelGlass1.add(EGb);
-        EGb.setBounds(92, 130, 193, 23);
+        EGb.setBounds(110, 130, 193, 23);
 
         label12.setForeground(new java.awt.Color(0, 0, 0));
         label12.setText("Mau Aktifkan Wallpaper ?");
@@ -272,15 +264,17 @@ public class DlgRunTeks extends javax.swing.JDialog {
         panelGlass1.add(YesNo);
         YesNo.setBounds(242, 160, 70, 23);
 
-        Scroll2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Scroll2.setForeground(new java.awt.Color(153, 0, 51));
         Scroll2.setName("Scroll2"); // NOI18N
+        Scroll2.setOpaque(true);
+        Scroll2.setPreferredSize(new java.awt.Dimension(202, 150));
 
         TTeks.setBorder(null);
         TTeks.setColumns(20);
         TTeks.setRows(5);
         TTeks.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         TTeks.setName("TTeks"); // NOI18N
+        TTeks.setPreferredSize(new java.awt.Dimension(200, 150));
         TTeks.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 TTeksKeyPressed(evt);
@@ -289,7 +283,7 @@ public class DlgRunTeks extends javax.swing.JDialog {
         Scroll2.setViewportView(TTeks);
 
         panelGlass1.add(Scroll2);
-        Scroll2.setBounds(92, 10, 220, 110);
+        Scroll2.setBounds(110, 10, 220, 110);
 
         pinPetugas.setForeground(new java.awt.Color(0, 0, 0));
         pinPetugas.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -330,6 +324,23 @@ public class DlgRunTeks extends javax.swing.JDialog {
         });
         panelGlass1.add(ChkPetugas);
         ChkPetugas.setBounds(0, 190, 170, 23);
+
+        ChkTeks.setBackground(new java.awt.Color(255, 255, 250));
+        ChkTeks.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 250)));
+        ChkTeks.setForeground(new java.awt.Color(0, 0, 0));
+        ChkTeks.setText("Teks Berjalan : ");
+        ChkTeks.setBorderPainted(true);
+        ChkTeks.setBorderPaintedFlat(true);
+        ChkTeks.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ChkTeks.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        ChkTeks.setName("ChkTeks"); // NOI18N
+        ChkTeks.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChkTeksActionPerformed(evt);
+            }
+        });
+        panelGlass1.add(ChkTeks);
+        ChkTeks.setBounds(0, 10, 110, 23);
 
         internalFrame1.add(panelGlass1, java.awt.BorderLayout.PAGE_START);
 
@@ -471,16 +482,20 @@ public class DlgRunTeks extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEditActionPerformed
-        if (TTeks.getText().trim().equals("")) {
-            Valid.textKosong(TTeks, "Teks");
-        } else {            
-            if (EGb.getText().trim().equals("")) {
-                Sequel.mengedit("runtext", "teks='" + TTeks.getText() + "'", "aktifkan='" + YesNo.getSelectedItem() + "'");
+        if (ChkTeks.isSelected() == true) {
+            if (TTeks.getText().trim().equals("")) {
+                Valid.textKosong(TTeks, "Teks");
+            } else if (teksNya.equals("")) {
+                JOptionPane.showMessageDialog(null, "Silahkan pilih salah satu datanya pada tabel yg. akan diperbaiki...!!!!");
             } else {
-                Sequel.mengedit("runtext", "teks='" + TTeks.getText() + "'", "aktifkan='" + YesNo.getSelectedItem() + "',gambar=?", EGb);
+                if (EGb.getText().trim().equals("")) {
+                    Sequel.mengedit("runtext", "teks='" + TTeks.getText() + "'", "aktifkan='" + YesNo.getSelectedItem() + "'");
+                } else {
+                    Sequel.mengedit("runtext", "teks='" + TTeks.getText() + "'", "aktifkan='" + YesNo.getSelectedItem() + "',gambar=?", EGb);
+                }
+                tampil();
+                emptTeks();
             }
-            tampil();
-            emptTeks();
         }
 
         if (ChkPetugas.isSelected() == true) {
@@ -541,17 +556,19 @@ public class DlgRunTeks extends javax.swing.JDialog {
     }//GEN-LAST:event_EGbKeyPressed
 
     private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSimpanActionPerformed
-        if (TTeks.getText().trim().equals("")) {
-            Valid.textKosong(TTeks, "Teks");
-        } else if (EGb.getText().trim().equals("")) {
-            YesNo.setSelectedItem("No");
-            EGb.setText("./setting/wallpaper.png");
-        } else if (tabMode.getRowCount() == 0) {
-            Sequel.menyimpan("runtext", "'" + TTeks.getText() + "','" + YesNo.getSelectedItem() + "'", "Display", EGb);            
-            tampil();
-            emptTeks();
-        } else if (tabMode.getRowCount() > 0) {
-            JOptionPane.showMessageDialog(null, "Maaf, Hanya diijinkan satu runtext...!!!!");
+        if (ChkTeks.isSelected() == true) {
+            if (TTeks.getText().trim().equals("")) {
+                Valid.textKosong(TTeks, "Teks");
+            } else if (EGb.getText().trim().equals("")) {
+                YesNo.setSelectedItem("No");
+                EGb.setText("./setting/wallpaper.png");
+            } else if (tabMode.getRowCount() == 0) {
+                Sequel.menyimpan("runtext", "'" + TTeks.getText() + "','" + YesNo.getSelectedItem() + "'", "Display", EGb);
+                tampil();
+                emptTeks();
+            } else if (tabMode.getRowCount() > 0) {
+                JOptionPane.showMessageDialog(null, "Maaf, Hanya diijinkan satu runtext...!!!!");
+            }
         }
         
         if (ChkPetugas.isSelected() == true) {
@@ -657,8 +674,11 @@ private void TTeksKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TTe
             JOptionPane.showMessageDialog(null, "Maaf, data sudah habis...!!!!");
             TTeks.requestFocus();
         } else if (TTeks.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Maaf, Gagal menghapus. Pilih dulu data yang mau dihapus. Klik data pada table untuk memilih...!!!!");
-        } else if (!TTeks.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Maaf, Gagal menghapus. Pilih dulu data yang mau dihapus. Klik data pada tabel untuk memilih...!!!!");
+        } else if (teksNya.equals("")) {
+            JOptionPane.showMessageDialog(null, "Silahkan pilih salah satu datanya pada tabel yg. akan diperbaiki...!!!!");
+            tbDisplay.requestFocus();
+        } else {
             Sequel.queryu("delete from runtext ");
             tampil();
             emptTeks();
@@ -668,6 +688,10 @@ private void TTeksKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TTe
     private void ChkPetugasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChkPetugasActionPerformed
         pinPetugas.requestFocus();
     }//GEN-LAST:event_ChkPetugasActionPerformed
+
+    private void ChkTeksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChkTeksActionPerformed
+        TTeks.requestFocus();
+    }//GEN-LAST:event_ChkTeksActionPerformed
 
     /**
     * @param args the command line arguments
@@ -693,6 +717,7 @@ private void TTeksKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TTe
     private widget.Button BtnKeluar;
     private widget.Button BtnSimpan;
     private widget.CekBox ChkPetugas;
+    private widget.CekBox ChkTeks;
     private widget.TextBox EGb;
     private javax.swing.JMenuItem MnDisplay;
     private javax.swing.JMenuItem MnHakAkses;
@@ -707,7 +732,6 @@ private void TTeksKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TTe
     private javax.swing.JPopupMenu jPopupMenu1;
     private widget.Label label12;
     private widget.Label label14;
-    private widget.Label label35;
     private widget.Label label37;
     private widget.panelGlass panelGlass1;
     private widget.panelisi panelisi1;
@@ -757,18 +781,27 @@ private void TTeksKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TTe
     }
 
     private void getData() {
-        int row=tbDisplay.getSelectedRow();
-        if(row!= -1){
-            TTeks.setText(tabMode.getValueAt(row,0).toString());
-            YesNo.setSelectedItem(tabMode.getValueAt(row,1).toString());
+        teksNya = "";
+        int row = tbDisplay.getSelectedRow();
+        if (row != -1) {
+            TTeks.setText(tabMode.getValueAt(row, 0).toString());
+            YesNo.setSelectedItem(tabMode.getValueAt(row, 1).toString());
+            teksNya = TTeks.getText();
+            
+            if (!teksNya.equals("")) {
+                ChkTeks.setSelected(true);
+            } else {
+                ChkTeks.setSelected(false);
+            }
+            
             try {
                 ResultSet hasil = koneksi.createStatement().executeQuery(
-                        "select gambar from runtext where teks='"+tabMode.getValueAt(row,0).toString()+"'");
+                        "select gambar from runtext where teks='" + tabMode.getValueAt(row, 0).toString() + "'");
                 for (int I = 0; hasil.next(); I++) {
-                    ((Painter) PhotoGambar).setImage(gambar(tabMode.getValueAt(row,0).toString()));
+                    ((Painter) PhotoGambar).setImage(gambar(tabMode.getValueAt(row, 0).toString()));
                     Blob blob = hasil.getBlob(1);
                     ((Painter) PhotoGambar).setImageIcon(new javax.swing.ImageIcon(
-                        blob.getBytes(1, (int) (blob.length()))));
+                            blob.getBytes(1, (int) (blob.length()))));
                     blob.free();
                 }
                 hasil.close();
@@ -798,10 +831,13 @@ private void TTeksKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TTe
         ((Painter) PhotoGambar).setImage("");
         EGb.setText("");
         YesNo.setSelectedItem("No");
+        ChkTeks.setSelected(false);
         ChkPetugas.setSelected(false);
         pinPetugas.setText("");
         pinAdmin.setText("");
         TTeks.requestFocus();
+        tampil();
+        tampilNomor();
     }
     
     
