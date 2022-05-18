@@ -556,34 +556,38 @@ public class DlgRunTeks extends javax.swing.JDialog {
     }//GEN-LAST:event_EGbKeyPressed
 
     private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSimpanActionPerformed
-        if (ChkTeks.isSelected() == true) {
-            if (TTeks.getText().trim().equals("")) {
-                Valid.textKosong(TTeks, "Teks");
-            } else if (EGb.getText().trim().equals("")) {
-                YesNo.setSelectedItem("No");
-                EGb.setText("./setting/wallpaper.png");
-            } else if (tabMode.getRowCount() == 0) {
-                Sequel.menyimpan("runtext", "'" + TTeks.getText() + "','" + YesNo.getSelectedItem() + "'", "Display", EGb);
-                tampil();
-                emptTeks();
-            } else if (tabMode.getRowCount() > 0) {
-                JOptionPane.showMessageDialog(null, "Maaf, Hanya diijinkan satu runtext...!!!!");
+        if (ChkTeks.isSelected() == false && ChkPetugas.isSelected() == false) {
+            JOptionPane.showMessageDialog(null, "Silahkan conteng dulu Teks berjalan atau PIN Nomor Antrian Petugas utk. menyimpan data...");
+        } else {
+            if (ChkTeks.isSelected() == true) {
+                if (TTeks.getText().trim().equals("")) {
+                    Valid.textKosong(TTeks, "Teks");
+                } else if (EGb.getText().trim().equals("")) {
+                    YesNo.setSelectedItem("No");
+                    EGb.setText("./setting/wallpaper.png");
+                } else if (tabMode.getRowCount() == 0) {
+                    Sequel.menyimpan("runtext", "'" + TTeks.getText() + "','" + YesNo.getSelectedItem() + "'", "Display", EGb);
+                    tampil();
+                    emptTeks();
+                } else if (tabMode.getRowCount() > 0) {
+                    JOptionPane.showMessageDialog(null, "Maaf, Hanya diijinkan satu runtext...!!!!");
+                }
             }
-        }
-        
-        if (ChkPetugas.isSelected() == true) {
-            if (pinPetugas.getText().equals("")) {
-                Valid.textKosong(pinPetugas, "PIN Nomor Antrian Petugas");
-                pinPetugas.requestFocus();
-            } else if (pinAdmin.getText().equals("")) {
-                Valid.textKosong(pinAdmin, "PIN Nomor Antrian Admin Utama");
-                pinAdmin.requestFocus();
-            } else if (tabMode1.getRowCount() == 0) {
-                Sequel.menyimpan("antrian_hak_akses", "'" + pinPetugas.getText() + "','" + pinAdmin.getText() + "'", "Hak Akses Nomor Antrian");
-                tampilNomor();
-                emptTeks();
-            } else if (tabMode1.getRowCount() > 0) {
-                JOptionPane.showMessageDialog(null, "Maaf, Hanya diijinkan satu data hak akses nomor antrian aja...!!!!");
+
+            if (ChkPetugas.isSelected() == true) {
+                if (pinPetugas.getText().equals("")) {
+                    Valid.textKosong(pinPetugas, "PIN Nomor Antrian Petugas");
+                    pinPetugas.requestFocus();
+                } else if (pinAdmin.getText().equals("")) {
+                    Valid.textKosong(pinAdmin, "PIN Nomor Antrian Admin Utama");
+                    pinAdmin.requestFocus();
+                } else if (tabMode1.getRowCount() == 0) {
+                    Sequel.menyimpan("antrian_hak_akses", "'" + pinPetugas.getText() + "','" + pinAdmin.getText() + "'", "Hak Akses Nomor Antrian");
+                    tampilNomor();
+                    emptTeks();
+                } else if (tabMode1.getRowCount() > 0) {
+                    JOptionPane.showMessageDialog(null, "Maaf, Hanya diijinkan satu data hak akses nomor antrian aja...!!!!");
+                }
             }
         }
     }//GEN-LAST:event_BtnSimpanActionPerformed
