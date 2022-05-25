@@ -1969,5 +1969,62 @@ public final class validasi {
     public double SetAngka7(double nilai){        
        return Double.parseDouble(df7.format(nilai));
     }
+    
+    public void AutoMultiPrint(String reportName, String reportDirName, String judul, String qry, Map parameters, String printernama) {
+        Properties systemProp = System.getProperties();
+
+        // Ambil current dir
+        String currentDir = systemProp.getProperty("user.dir");
+
+        File dir = new File(currentDir);
+
+        File fileRpt;
+        String fullPath = "";
+        if (dir.isDirectory()) {
+            String[] isiDir = dir.list();
+            for (String iDir : isiDir) {
+                fileRpt = new File(currentDir + File.separatorChar + iDir + File.separatorChar + reportDirName + File.separatorChar + reportName);
+                if (fileRpt.isFile()) { // Cek apakah file RptMaster.jrxml ada
+                    fullPath = fileRpt.toString();
+                    System.out.println("Found Report File at : " + fullPath);
+                } // end if
+            } // end for i
+        } // end if
+
+        // Ambil Direktori tempat file RptMaster.jrxml berada
+        String[] subRptDir = fullPath.split(reportName);
+        String reportDir = subRptDir[0];
+
+        try {
+            try (Statement stm = connect.createStatement()) {
+
+                try {
+
+                    String namafile = "./" + reportDirName + "/" + reportName;
+                    File reportfile = new File(namafile);
+
+                    JRDesignQuery newQuery = new JRDesignQuery();
+                    newQuery.setText(qry);
+                    JasperDesign jasperDesign = JRXmlLoader.load(reportfile);
+                    jasperDesign.setQuery(newQuery);
+
+                    JasperReport JRpt = JasperCompileManager.compileReport(jasperDesign);
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(JRpt, parameters, connect);
+                    
+                    //untuk langsung mencetak tanpa print preview
+//                    JasperPrintManager.printReport(jasperPrint, false);
+                    PrintReportToPrinter(jasperPrint, printernama);
+                    System.out.println("Sukses ");
+//                    JOptionPane.showMessageDialog(null, "Report Berhasil Dicetak");
+
+                } catch (Exception rptexcpt) {
+                    System.out.println("Report Can't view because : " + rptexcpt);
+//                    JOptionPane.showMessageDialog(null, "Report Can't view because : " + rptexcpt);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 }
   
