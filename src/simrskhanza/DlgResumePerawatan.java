@@ -1735,8 +1735,9 @@ private void BtnCari1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
                             try {
                                 rs3 = koneksi.prepareStatement(
                                         "SELECT ifnull(pl.nm_poli,'-') ke_poli, ifnull(DATE_FORMAT(ri.tgl_rencana_dirujuk,'%d-%m-%Y'),'-') tgl_dirujuk, "
-                                        + "ifnull(ri.keterangan,'-') keterangan FROM rujukan_internal_poli ri "
-                                        + "INNER JOIN poliklinik pl on pl.kd_poli=ri.kd_poli WHERE ri.no_rawat='" + rs2.getString("no_rawat") + "'").executeQuery();
+                                        + "ifnull(ri.keterangan,'-') keterangan, ifnull(ri.keterangan_balasan,'-') jwbn, ifnull(d.nm_dokter,'') drMenjawab FROM rujukan_internal_poli ri "
+                                        + "INNER JOIN poliklinik pl on pl.kd_poli=ri.kd_poli_pembalas left join dokter d on d.kd_dokter=ri.kd_dokter_pembalas "
+                                        + "WHERE ri.no_rawat='" + rs2.getString("no_rawat") + "'").executeQuery();
                                 
                                 if (rs3.next()) {
                                     htmlContent.append(
@@ -1746,9 +1747,10 @@ private void BtnCari1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
                                             + "<td valign='top' width='79%'>"
                                             + "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"
                                             + "<tr align='center'>"
-                                            + "<td valign='top' width='30%' bgcolor='#f8fdf3'>Poliklinik/Inst.</td>"
-                                            + "<td valign='top' width='7%' bgcolor='#f8fdf3'>Tgl. Dirujuk</td>"
-                                            + "<td valign='top' width='250%' bgcolor='#f8fdf3'>Isi/Pesan Rujukan</td>"
+                                            + "<td valign='top' width='15%' bgcolor='#f8fdf3'>Poliklinik/Inst.</td>"
+                                            + "<td valign='top' width='13%' bgcolor='#f8fdf3'>Renc. Dirujuk</td>"
+                                            + "<td valign='top' width='150%' bgcolor='#f8fdf3'>Isi/Pesan Rujukan</td>"
+                                            + "<td valign='top' width='150%' bgcolor='#f8fdf3'>Balasan/Jawaban Rujukan</td>"
                                             + "</tr>"
                                     );
                                     rs3.beforeFirst();
@@ -1757,7 +1759,8 @@ private void BtnCari1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
                                                 "<tr>"                                                
                                                 + "<td valign='top'>" + rs3.getString("ke_poli") + "</td>"
                                                 + "<td valign='top'>" + rs3.getString("tgl_dirujuk") + "</td>"
-                                                + "<td valign='top'>" + rs3.getString("keterangan").replaceAll("(\r\n|\r|\n|\n\r)","<br>") + "</td>"
+                                                + "<td valign='top'>" + rs3.getString("keterangan").replaceAll("(\r\n|\r|\n|\n\r)", "<br>") + "</td>"
+                                                + "<td valign='top'>" + rs3.getString("jwbn").replaceAll("(\r\n|\r|\n|\n\r)", "<br>") + "<br><br>Ttd.<br>" + rs3.getString("drMenjawab") + "</td>"
                                                 + "</tr>");
                                     }
                                     htmlContent.append(
@@ -6632,8 +6635,9 @@ private void BtnCari1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
                             try {
                                 rs3 = koneksi.prepareStatement(
                                         "SELECT ifnull(pl.nm_poli,'-') ke_poli, ifnull(DATE_FORMAT(ri.tgl_rencana_dirujuk,'%d-%m-%Y'),'-') tgl_dirujuk, "
-                                        + "ifnull(ri.keterangan,'-') keterangan FROM rujukan_internal_poli ri "
-                                        + "INNER JOIN poliklinik pl on pl.kd_poli=ri.kd_poli WHERE ri.no_rawat='" + rs2.getString("no_rawat") + "'").executeQuery();
+                                        + "ifnull(ri.keterangan,'-') keterangan, ifnull(ri.keterangan_balasan,'-') jwbn, ifnull(d.nm_dokter,'') drMenjawab FROM rujukan_internal_poli ri "
+                                        + "INNER JOIN poliklinik pl on pl.kd_poli=ri.kd_poli_pembalas left join dokter d on d.kd_dokter=ri.kd_dokter_pembalas "
+                                        + "WHERE ri.no_rawat='" + rs2.getString("no_rawat") + "'").executeQuery();
                                 
                                 if (rs3.next()) {
                                     htmlContent.append(
@@ -6643,9 +6647,10 @@ private void BtnCari1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
                                             + "<td valign='top' width='79%'>"
                                             + "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"
                                             + "<tr align='center'>"
-                                            + "<td valign='top' width='30%' bgcolor='#f8fdf3'>Poliklinik/Inst.</td>"
-                                            + "<td valign='top' width='7%' bgcolor='#f8fdf3'>Tgl. Dirujuk</td>"
-                                            + "<td valign='top' width='250%' bgcolor='#f8fdf3'>Isi/Pesan Rujukan</td>"
+                                            + "<td valign='top' width='15%' bgcolor='#f8fdf3'>Poliklinik/Inst.</td>"
+                                            + "<td valign='top' width='13%' bgcolor='#f8fdf3'>Renc. Dirujuk</td>"
+                                            + "<td valign='top' width='150%' bgcolor='#f8fdf3'>Isi/Pesan Rujukan</td>"
+                                            + "<td valign='top' width='150%' bgcolor='#f8fdf3'>Balasan/Jawaban Rujukan</td>"
                                             + "</tr>"
                                     );
                                     rs3.beforeFirst();
@@ -6654,7 +6659,8 @@ private void BtnCari1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
                                                 "<tr>"                                                
                                                 + "<td valign='top'>" + rs3.getString("ke_poli") + "</td>"
                                                 + "<td valign='top'>" + rs3.getString("tgl_dirujuk") + "</td>"
-                                                + "<td valign='top'>" + rs3.getString("keterangan").replaceAll("(\r\n|\r|\n|\n\r)","<br>") + "</td>"
+                                                + "<td valign='top'>" + rs3.getString("keterangan").replaceAll("(\r\n|\r|\n|\n\r)", "<br>") + "</td>"
+                                                + "<td valign='top'>" + rs3.getString("jwbn").replaceAll("(\r\n|\r|\n|\n\r)", "<br>") + "<br><br>Ttd.<br>" + rs3.getString("drMenjawab") + "</td>"
                                                 + "</tr>");
                                     }
                                     htmlContent.append(
@@ -7830,7 +7836,7 @@ private void BtnCari1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
                     }
                     y++;
                 }
-                LoadHTML.setText(
+                LoadHTML4.setText(
                         "<html>"
                         + "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"
                         + htmlContent.toString()

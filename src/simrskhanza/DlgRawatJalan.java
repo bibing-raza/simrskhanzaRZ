@@ -8654,7 +8654,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                                             + "<td valign='top' width='13%' bgcolor='#f8fdf3'>Renc. Dirujuk</td>"
                                             + "<td valign='top' width='150%' bgcolor='#f8fdf3'>Isi/Pesan Rujukan</td>"
                                             + "<td valign='top' width='150%' bgcolor='#f8fdf3'>Balasan/Jawaban Rujukan</td>"
-                                            + "</tr>"                                            
+                                            + "</tr>"
                                     );
                                     rs3.beforeFirst();
                                     while (rs3.next()) {
