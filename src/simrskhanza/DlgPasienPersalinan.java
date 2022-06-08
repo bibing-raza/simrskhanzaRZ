@@ -721,14 +721,20 @@ public class DlgPasienPersalinan extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Belum ada data pasien yang dipilih...!!!!");
         } else {
             DataFix();
-            Sequel.menyimpan("data_persalinan", "'" + norawat.getText() + "','" + norm.getText() + "',"
-                    + "'" + FixPersalinan.getText() + "','" + FixRujukan.getText() + "' ", "Data Persalinan");
+            if (FixPersalinan.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Silahkan pilih dulu salah satu option jenis persalinan/non persalinan yg. tersedia...!!!!");
+            } else if (FixRujukan.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Silahkan pilih dulu salah satu option jenis rujukan yg. tersedia...!!!!");
+            } else {
+                Sequel.menyimpan("data_persalinan", "'" + norawat.getText() + "','" + norm.getText() + "',"
+                        + "'" + FixPersalinan.getText() + "','" + FixRujukan.getText() + "' ", "Data Persalinan");
 
-            tampil();
-            emptForm();            
-            BtnSimpan.setEnabled(false);
-            BtnGanti.setEnabled(true);
-            BtnKeluar.requestFocus();
+                tampil();
+                emptForm();
+                BtnSimpan.setEnabled(false);
+                BtnGanti.setEnabled(true);
+                BtnKeluar.requestFocus();
+            }
         }
 }//GEN-LAST:event_BtnSimpanActionPerformed
 
