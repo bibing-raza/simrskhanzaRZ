@@ -11832,7 +11832,8 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                     + "r.status_jawaban, r.tgl_rencana_dirujuk, r.no_rawat_pembalas, r.status_jawaban, r.tgl_simpan FROM rujukan_internal_poli r "
                     + "INNER JOIN reg_periksa rp ON rp.no_rawat = r.no_rawat INNER JOIN poliklinik pl1 ON pl1.kd_poli = r.kd_poli "
                     + "INNER JOIN poliklinik pl2 ON pl2.kd_poli = r.kd_poli_pembalas INNER JOIN dokter d ON d.kd_dokter = rp.kd_dokter "
-                    + "WHERE r.kd_poli_pembalas='" + polinya + "' AND r.status_jawaban='" + jawaban + "' ORDER BY r.tgl_rencana_dirujuk DESC limit 10");
+                    + "WHERE r.kd_poli_pembalas='" + polinya + "' AND r.status_jawaban='" + jawaban + "' "
+                    + "AND rp.no_rkm_medis='" + TNoRM.getText() + "' ORDER BY r.tgl_rencana_dirujuk DESC limit 10");
             try {
                 rsru1 = psru1.executeQuery();
                 while (rsru1.next()) {
