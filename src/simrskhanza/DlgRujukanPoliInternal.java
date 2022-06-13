@@ -482,6 +482,9 @@ public class DlgRujukanPoliInternal extends javax.swing.JDialog {
             Valid.textKosong(TNoRM, "Pasien");
         } else if (TPoli.getText().trim().equals("") || kdpoli.getText().trim().equals("")) {
             Valid.textKosong(kdpoli, "poliklinik");
+        } else if (keterangan.getText().trim().equals("") || keterangan.getText().trim().length() < 6) {
+            JOptionPane.showMessageDialog(null, "Silahkan diisi dulu dg. benar keterangan/deskripsi utk. rujukan internal polikliniknya...!!");
+            keterangan.requestFocus();
         } else {
             if (Sequel.menyimpantf("rujukan_internal_poli", "?,?,?,?,?,?,?,?,?,?", "Rujukan Sama", 10, new String[]{
                 TNoRw.getText(), Sequel.cariIsi("select kd_poli from reg_periksa where no_rawat='" + TNoRw.getText() + "' and status_lanjut='Ralan'"),
@@ -577,6 +580,9 @@ public class DlgRujukanPoliInternal extends javax.swing.JDialog {
     private void BtnGantiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGantiActionPerformed
         if (TNoRw.getText().trim().equals("") || TNoRM.getText().trim().equals("") || TPasien.getText().trim().equals("")) {
             Valid.textKosong(TNoRM, "Pasien");
+        } else if (keterangan.getText().trim().equals("") || keterangan.getText().trim().length() < 6) {
+            JOptionPane.showMessageDialog(null, "Silahkan diisi dulu dg. benar keterangan/deskripsi utk. rujukan internal polikliniknya...!!");
+            keterangan.requestFocus();
         } else if (TPoli.getText().trim().equals("") || kdpoli.getText().trim().equals("")) {
             Valid.textKosong(kdpoli, "poliklinik");
         } else if (tglSimpan.equals("")) {

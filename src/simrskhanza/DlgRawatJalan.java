@@ -4829,8 +4829,12 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
                             BtnBatalActionPerformed(evt);
                         } else if (TabRawat.getSelectedIndex() == 8) {
                             if (Sequel.cariIsi("select ifnull(kd_dokter_pembalas,'') from rujukan_internal_poli where no_rawat='" + Tnorawat.getText() + "'").equals("")) {
-                                simpanJawabanRujukan();
-                                tampilRujukanInternal();
+                                if (Sequel.cariInteger("select count(-1) from dokter where kd_dokter='" + var.getkode() + "'") > 0 || var.getkode().equals("Admin Utama")) {
+                                    simpanJawabanRujukan();
+                                    tampilRujukanInternal();
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Maaf, hanya dokter saja yg. bisa memberi balasan/jawaban rujukan internal poliklinik ini...!!");
+                                }
                             } else {
                                 JOptionPane.showMessageDialog(null, "Jawaban rujukan internal poliklinik sdh. pernah tersimpan...!!");
                             }                           
@@ -4899,8 +4903,12 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
                         BtnBatalActionPerformed(evt);
                     } else if (TabRawat.getSelectedIndex() == 8) {
                         if (Sequel.cariIsi("select ifnull(kd_dokter_pembalas,'') from rujukan_internal_poli where no_rawat='" + Tnorawat.getText() + "'").equals("")) {
-                            simpanJawabanRujukan();
-                            tampilRujukanInternal();
+                            if (Sequel.cariInteger("select count(-1) from dokter where kd_dokter='" + var.getkode() + "'") > 0 || var.getkode().equals("Admin Utama")) {
+                                simpanJawabanRujukan();
+                                tampilRujukanInternal();
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Maaf, hanya dokter saja yg. bisa memberi balasan/jawaban rujukan internal poliklinik ini...!!");
+                            }
                         } else {
                             JOptionPane.showMessageDialog(null, "Jawaban rujukan internal poliklinik sdh. pernah tersimpan...!!");
                         }
@@ -5681,7 +5689,7 @@ private void BtnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                         }
                     } else if (TabRawat.getSelectedIndex() == 8) {
                         gantiJawabanRujukan();
-                        tampilRujukanInternal();
+                        tampilRujukanInternal();                        
                     }
 
                     Sequel.menyimpan("history_user", "Now(),'" + TNoRw.getText() + "','" + var.getkode() + "','Tindakan Rawat Jalan','Ganti'");
@@ -11915,12 +11923,11 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         if (Tnorawat.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Silahkan pilih dulu salah satu data rujukannya pada tabel...!!");
             tbRujukan.requestFocus();
-        } else if (TJwbnRujukan.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Kalimat uraian balasan/jawaban rujukan masih belum terisi...!!");
+        } else if (TJwbnRujukan.getText().trim().equals("") || TJwbnRujukan.getText().trim().length() < 6) {
+            JOptionPane.showMessageDialog(null, "Kalimat uraian balasan/jawaban rujukan belum terisi dg. benar, silahkan lengkapi lagi...!!");
             TJwbnRujukan.requestFocus();
         } else {
-            if (Sequel.cariIsi("select kd_dokter_pembalas from rujukan_internal_poli where "
-                    + "no_rawat='" + Tnorawat.getText() + "'").equals(Sequel.cariIsi("select kd_dokter from reg_periksa where no_rawat='" + TNoRw.getText() + "'"))) {
+            if (Sequel.cariIsi("select kd_dokter_pembalas from rujukan_internal_poli where no_rawat='" + Tnorawat.getText() + "'").equals(var.getkode()) || var.getkode().equals("Admin Utama")) {
                 
                 Sequel.mengedit("rujukan_internal_poli", "no_rawat='" + Tnorawat.getText() + "' and tgl_simpan='" + tglSimpanRujukan + "'",
                         "status_jawaban='Sudah', no_rawat_pembalas='" + TNoRw.getText() + "', keterangan_balasan='" + TJwbnRujukan.getText() + "', "
@@ -11958,8 +11965,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
             JOptionPane.showMessageDialog(null, "Silahkan pilih dulu salah satu data rujukannya pada tabel...!!");
             tbRujukan.requestFocus();
         } else {
-            if (Sequel.cariIsi("select kd_dokter_pembalas from rujukan_internal_poli where "
-                    + "no_rawat='" + Tnorawat.getText() + "'").equals(Sequel.cariIsi("select kd_dokter from reg_periksa where no_rawat='" + TNoRw.getText() + "'"))) {
+            if (Sequel.cariIsi("select kd_dokter_pembalas from rujukan_internal_poli where no_rawat='" + Tnorawat.getText() + "'").equals(var.getkode()) || var.getkode().equals("Admin Utama")) {
                 
                 Sequel.mengedit("rujukan_internal_poli", "no_rawat='" + Tnorawat.getText() + "' and tgl_simpan='" + tglSimpanRujukan + "'",
                         "status_jawaban='Belum', no_rawat_pembalas='', keterangan_balasan='', kd_dokter_pembalas=''");
@@ -11995,8 +12001,8 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         if (Tnorawat.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Silahkan pilih dulu salah satu data rujukannya pada tabel...!!");
             tbRujukan.requestFocus();
-        } else if (TJwbnRujukan.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Kalimat uraian balasan/jawaban rujukan masih belum terisi...!!");
+        } else if (TJwbnRujukan.getText().trim().equals("") || TJwbnRujukan.getText().trim().length() < 6) {
+            JOptionPane.showMessageDialog(null, "Kalimat uraian balasan/jawaban rujukan belum terisi dg. benar, silahkan lengkapi lagi...!!");
             TJwbnRujukan.requestFocus();
         } else {
             Sequel.mengedit("rujukan_internal_poli", "no_rawat='" + Tnorawat.getText() + "' and tgl_simpan='" + tglSimpanRujukan + "'",
