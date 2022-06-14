@@ -7464,7 +7464,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
             param.put("tglSuratPerujuk", "Martapura, " + Valid.SetTglINDONESIA(Sequel.cariIsi("select tgl_registrasi from reg_periksa where no_rawat='" + Tnorawat.getText() + "'")));
             param.put("nmDokterPerujuk", OlehDokter.getText());
 
-            if (Sequel.cariIsi("select keterangan_balasan from rujukan_internal_poli where no_rawat='" + Tnorawat.getText() + "'").equals("")) {
+            if (Sequel.cariIsi("select ifnull(keterangan_balasan,'') from rujukan_internal_poli where no_rawat='" + Tnorawat.getText() + "'").equals("")) {
                 param.put("judul", "SURAT RUJUKAN INTERNAL POLIKLINIK");
                 param.put("nmDokterPenjawab", ".........................................");
             } else {
