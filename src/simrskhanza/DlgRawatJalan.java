@@ -19,6 +19,7 @@ import fungsi.sekuel;
 import fungsi.validasi;
 import fungsi.var;
 import inventory.DlgPeresepanDokter;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.Dimension;
@@ -744,7 +745,9 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
             } else if (i == 3) {
                 column.setPreferredWidth(250);
             } else if (i == 4) {
-                column.setPreferredWidth(250);
+//                column.setPreferredWidth(250);
+                column.setMinWidth(0);
+                column.setMaxWidth(0);
             } else if (i == 5) {
                 column.setPreferredWidth(200);
             } else if (i == 6) {
@@ -2446,7 +2449,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         });
 
         TglKunRwt.setEditable(false);
-        TglKunRwt.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-06-2022" }));
+        TglKunRwt.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-06-2022" }));
         TglKunRwt.setDisplayFormat("dd-MM-yyyy");
         TglKunRwt.setName("TglKunRwt"); // NOI18N
         TglKunRwt.setOpaque(false);
@@ -2474,6 +2477,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         setUndecorated(true);
         setResizable(false);
 
+        internalFrame1.setBackground(new java.awt.Color(204, 255, 204));
         internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255), 3), "::[ Perawatan/Tindakan Rawat Jalan ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
         internalFrame1.setName("internalFrame1"); // NOI18N
         internalFrame1.setLayout(new java.awt.BorderLayout(1, 1));
@@ -2676,7 +2680,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         panelGlass9.add(ChkTanggal);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-06-2022" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-06-2022" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -2691,7 +2695,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-06-2022" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-06-2022" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -3835,7 +3839,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         jLabel43.setBounds(0, 5, 95, 23);
 
         DTPCari3.setEditable(false);
-        DTPCari3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-06-2022" }));
+        DTPCari3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-06-2022" }));
         DTPCari3.setDisplayFormat("dd-MM-yyyy");
         DTPCari3.setName("DTPCari3"); // NOI18N
         DTPCari3.setOpaque(false);
@@ -4647,7 +4651,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         jLabel23.setBounds(645, 34, 60, 23);
 
         DTPTgl.setEditable(false);
-        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-06-2022" }));
+        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-06-2022" }));
         DTPTgl.setDisplayFormat("dd-MM-yyyy");
         DTPTgl.setName("DTPTgl"); // NOI18N
         DTPTgl.setOpaque(false);
@@ -4832,6 +4836,12 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
                                 if (Sequel.cariInteger("select count(-1) from dokter where kd_dokter='" + var.getkode() + "'") > 0 || var.getkode().equals("Admin Utama")) {
                                     simpanJawabanRujukan();
                                     tampilRujukanInternal();
+
+                                    if (tabModeRujukan.getRowCount() != 0) {
+                                        TabRawat.setBackgroundAt(8, Color.ORANGE);
+                                    } else {
+                                        TabRawat.setBackgroundAt(8, TabRawat.getBackground());
+                                    }
                                 } else {
                                     JOptionPane.showMessageDialog(null, "Maaf, hanya dokter saja yg. bisa memberi balasan/jawaban rujukan internal poliklinik ini...!!");
                                 }
@@ -4906,6 +4916,11 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
                             if (Sequel.cariInteger("select count(-1) from dokter where kd_dokter='" + var.getkode() + "'") > 0 || var.getkode().equals("Admin Utama")) {
                                 simpanJawabanRujukan();
                                 tampilRujukanInternal();
+                                if (tabModeRujukan.getRowCount() != 0) {
+                                    TabRawat.setBackgroundAt(8, Color.ORANGE);
+                                } else {
+                                    TabRawat.setBackgroundAt(8, TabRawat.getBackground());
+                                }
                             } else {
                                 JOptionPane.showMessageDialog(null, "Maaf, hanya dokter saja yg. bisa memberi balasan/jawaban rujukan internal poliklinik ini...!!");
                             }
@@ -5079,6 +5094,11 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         } else if (TabRawat.getSelectedIndex() == 8) {
             hapusJawabanRujukan();
             tampilRujukanInternal();
+            if (tabModeRujukan.getRowCount() != 0) {
+                TabRawat.setBackgroundAt(8, Color.ORANGE);
+            } else {
+                TabRawat.setBackgroundAt(8, TabRawat.getBackground());
+            }
         }
 
         if (cekIGD.equals("inap")) {
@@ -5264,7 +5284,13 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
             } else {
                 jawaban = "Belum";
             }
+            
             tampilRujukanInternal();
+            if (tabModeRujukan.getRowCount() != 0) {
+                TabRawat.setBackgroundAt(8, Color.ORANGE);
+            } else {
+                TabRawat.setBackgroundAt(8, TabRawat.getBackground());
+            }
         }
 }//GEN-LAST:event_BtnCariActionPerformed
 
@@ -5423,7 +5449,12 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
             tampilAssesmen();
         } else if (TabRawat.getSelectedIndex() == 8) {
             emptTeksRujukanInternal();
-            tampilRujukanInternal();            
+            tampilRujukanInternal();
+            if (tabModeRujukan.getRowCount() != 0) {
+                TabRawat.setBackgroundAt(8, Color.ORANGE);
+            } else {
+                TabRawat.setBackgroundAt(8, TabRawat.getBackground());
+            }
         }
     }//GEN-LAST:event_TabRawatMouseClicked
 
@@ -5689,7 +5720,12 @@ private void BtnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                         }
                     } else if (TabRawat.getSelectedIndex() == 8) {
                         gantiJawabanRujukan();
-                        tampilRujukanInternal();                        
+                        tampilRujukanInternal();
+                        if (tabModeRujukan.getRowCount() != 0) {
+                            TabRawat.setBackgroundAt(8, Color.ORANGE);
+                        } else {
+                            TabRawat.setBackgroundAt(8, TabRawat.getBackground());
+                        }
                     }
 
                     Sequel.menyimpan("history_user", "Now(),'" + TNoRw.getText() + "','" + var.getkode() + "','Tindakan Rawat Jalan','Ganti'");
@@ -5840,6 +5876,11 @@ private void BtnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                 } else if (TabRawat.getSelectedIndex() == 8) {
                     gantiJawabanRujukan();
                     tampilRujukanInternal();
+                    if (tabModeRujukan.getRowCount() != 0) {
+                        TabRawat.setBackgroundAt(8, Color.ORANGE);
+                    } else {
+                        TabRawat.setBackgroundAt(8, TabRawat.getBackground());
+                    }
                 }
 
                 Sequel.menyimpan("history_user", "Now(),'" + TNoRw.getText() + "','" + var.getkode() + "','Tindakan Rawat Jalan','Ganti'");
@@ -8024,6 +8065,16 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         
         emptText();
         Valid.tabelKosong(tabModePemeriksaanDr);
+        
+        //cek rujukan internal poliklinik
+        emptTeksRujukanInternal();
+        tampilRujukanInternal();
+
+        if (tabModeRujukan.getRowCount() != 0) {
+            TabRawat.setBackgroundAt(8, Color.ORANGE);
+        } else {
+            TabRawat.setBackgroundAt(8, TabRawat.getBackground());
+        }
     }
     
     private void cekRehabMedik() {
