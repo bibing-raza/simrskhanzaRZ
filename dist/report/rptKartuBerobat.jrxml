@@ -83,16 +83,16 @@
 				</jr:barbecue>
 			</componentElement>
 			<staticText>
-				<reportElement x="170" y="96" width="64" height="12"/>
+				<reportElement x="11" y="96" width="70" height="10"/>
 				<textElement lineSpacing="Single">
-					<font size="8" isBold="true"/>
+					<font size="7" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Tgl. Cetak Kartu]]></text>
+				<text><![CDATA[Tgl. Cetak Kartu :]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="170" y="105" width="78" height="12"/>
+				<reportElement x="11" y="105" width="126" height="10"/>
 				<textElement lineSpacing="Single">
-					<font size="8" isBold="true"/>
+					<font size="7" isBold="true"/>
 				</textElement>
 				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
