@@ -34,9 +34,9 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
     private ResultSet rs, rs1, rs2, rs4, rs5, rs6;
     private Date tgl = new Date();
     private String cekSEP = "", jnsKlaim = "", nik = "", noka = "", tglKunj = "", jnsrwt = "", norm = "", dialog_simpan = "",
-            nmpas = "", tgllahir = "", jk = "", tglSep = "", nilaiRWT = "", kd_payor = "", nmibu = "", cekData = "";
+            nmpas = "", tgllahir = "", jk = "", tglSep = "", nilaiRWT = "", kd_payor = "", nmibu = "", cekData = "", jnsRawat = "";
     private JsonNode root;
-    private int cekKlaim = 0, x=0;
+    private int cekKlaim = 0, x = 0, i = 0;
     private ApiEKLAIM_inacbg mbak_eka = new ApiEKLAIM_inacbg();
     public PengajuanKlaimINACBGrz ajukan = new PengajuanKlaimINACBGrz(null, false);
 
@@ -141,7 +141,8 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
         }
         tbINACBG.setDefaultRenderer(Object.class, new WarnaTable());
         
-        tabMode1 = new DefaultTableModel(null, new Object[]{"No. Rawat", "No. Kartu", "No. SEP","Tgl. SEP","No. RM","Nama Pasien","J.K.","Jns. Rawat", "tgl_lhr","jknya"}) {
+        tabMode1 = new DefaultTableModel(null, new Object[]{"No. Rawat", "No. Kartu", "No. SEP", "Tgl. SEP", "No. RM",
+            "Nama Pasien", "J.K.", "Jns. Rawat", "tgl_lhr", "jknya", "tglsep"}) {
             @Override
             public boolean isCellEditable(int rowIndex, int colIndex) {
                 return false;
@@ -151,7 +152,7 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
         tbSEP.setPreferredScrollableViewportSize(new Dimension(500, 500));
         tbSEP.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 11; i++) {
             TableColumn column = tbSEP.getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setPreferredWidth(110);
@@ -170,11 +171,12 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
             } else if (i == 7) {
                 column.setPreferredWidth(75);
             } else if (i == 8) {
-//                column.setPreferredWidth(75);
                 column.setMinWidth(0);
                 column.setMaxWidth(0);
             } else if (i == 9) {
-//                column.setPreferredWidth(75);
+                column.setMinWidth(0);
+                column.setMaxWidth(0);
+            } else if (i == 10) {
                 column.setMinWidth(0);
                 column.setMaxWidth(0);
             }
@@ -460,7 +462,7 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
         panelGlass8.add(jLabel15);
 
         tgl1.setEditable(false);
-        tgl1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "14-06-2022" }));
+        tgl1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-06-2022" }));
         tgl1.setDisplayFormat("dd-MM-yyyy");
         tgl1.setName("tgl1"); // NOI18N
         tgl1.setOpaque(false);
@@ -480,7 +482,7 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
         panelGlass8.add(jLabel17);
 
         tgl2.setEditable(false);
-        tgl2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "14-06-2022" }));
+        tgl2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-06-2022" }));
         tgl2.setDisplayFormat("dd-MM-yyyy");
         tgl2.setName("tgl2"); // NOI18N
         tgl2.setOpaque(false);
@@ -652,7 +654,7 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
         panelGlass12.add(jLabel19);
 
         tgl3.setEditable(false);
-        tgl3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "14-06-2022" }));
+        tgl3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-06-2022" }));
         tgl3.setDisplayFormat("dd-MM-yyyy");
         tgl3.setName("tgl3"); // NOI18N
         tgl3.setOpaque(false);
@@ -667,7 +669,7 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
         panelGlass12.add(jLabel20);
 
         tgl4.setEditable(false);
-        tgl4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "14-06-2022" }));
+        tgl4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-06-2022" }));
         tgl4.setDisplayFormat("dd-MM-yyyy");
         tgl4.setName("tgl4"); // NOI18N
         tgl4.setOpaque(false);
@@ -838,7 +840,7 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
         panelGlass14.add(jLabel24);
 
         tgl5.setEditable(false);
-        tgl5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "14-06-2022" }));
+        tgl5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-06-2022" }));
         tgl5.setDisplayFormat("dd-MM-yyyy");
         tgl5.setName("tgl5"); // NOI18N
         tgl5.setOpaque(false);
@@ -853,7 +855,7 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
         panelGlass14.add(jLabel25);
 
         tgl6.setEditable(false);
-        tgl6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "14-06-2022" }));
+        tgl6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-06-2022" }));
         tgl6.setDisplayFormat("dd-MM-yyyy");
         tgl6.setName("tgl6"); // NOI18N
         tgl6.setOpaque(false);
@@ -1177,7 +1179,7 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
         panelGlass10.add(Chktgl);
 
         tglA.setEditable(false);
-        tglA.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "14-06-2022" }));
+        tglA.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-06-2022" }));
         tglA.setDisplayFormat("dd-MM-yyyy");
         tglA.setName("tglA"); // NOI18N
         tglA.setOpaque(false);
@@ -1192,7 +1194,7 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
         panelGlass10.add(jLabel18);
 
         tglB.setEditable(false);
-        tglB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "14-06-2022" }));
+        tglB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-06-2022" }));
         tglB.setDisplayFormat("dd-MM-yyyy");
         tglB.setName("tglB"); // NOI18N
         tglB.setOpaque(false);
@@ -1293,7 +1295,20 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Data pasien berdasarkan No. Rawat belum dipilih,...!!");
         } else {
             if (kd_payor.equals("3")) {
-                klaimBaruJKN();
+                if (jnsRawat.equals("Rawat Jalan")) {
+                    if (Sequel.cariInteger("SELECT COUNT(-1) FROM bridging_sep WHERE nomr='" + Sequel.cariIsi("select no_rkm_medis from reg_periksa where no_rawat='" + noRawat.getText() + "'") + "' "
+                            + "AND tglsep='" + tglSep + "' AND jnspelayanan='1'") > 0) {
+                        i = JOptionPane.showConfirmDialog(null, "Pasien telah memiliki SEP Rawat Jalan & Rawat Inap dihari yang sama, Apakah proses klaim akan tetap dilanjutkan,...!!", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+                        if (i == JOptionPane.YES_OPTION) {
+                            klaimBaruJKN();
+                        }
+                    } else {
+                        klaimBaruJKN();
+                    }
+                } else {
+                    klaimBaruJKN();
+                }
+                
             } else {
                 if (nosep_klaim.getText().equals("-")) {
                     JOptionPane.showMessageDialog(null, "Lakukan terlebih dulu proses pengajuan klaim Ibunya utk. pasien bayi An. " + nmpas + " ...!!");
@@ -1467,9 +1482,11 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
             if (evt.getClickCount() == 2) {
                 tglSep = "";
                 kd_payor = "3";
+                jnsRawat = "";
                 noRawat.setText(tbSEP.getValueAt(tbSEP.getSelectedRow(), 0).toString());
                 nosep_klaim.setText(tbSEP.getValueAt(tbSEP.getSelectedRow(), 2).toString());
-                tglSep = Valid.SetTgl(tbSEP.getValueAt(tbSEP.getSelectedRow(), 3).toString());
+                tglSep = tbSEP.getValueAt(tbSEP.getSelectedRow(), 10).toString();
+                jnsRawat = tbSEP.getValueAt(tbSEP.getSelectedRow(), 7).toString();
                 WindowSEPbpjs.dispose();
                 BtnProses.requestFocus();
             }
@@ -1488,9 +1505,11 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
             if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
                 tglSep = "";
                 kd_payor = "3";
+                jnsRawat = "";
                 noRawat.setText(tbSEP.getValueAt(tbSEP.getSelectedRow(), 0).toString());
                 nosep_klaim.setText(tbSEP.getValueAt(tbSEP.getSelectedRow(), 2).toString());
-                tglSep = Valid.SetTgl(tbSEP.getValueAt(tbSEP.getSelectedRow(), 3).toString());
+                tglSep = tbSEP.getValueAt(tbSEP.getSelectedRow(), 10).toString();
+                jnsRawat = tbSEP.getValueAt(tbSEP.getSelectedRow(), 7).toString();
                 WindowSEPbpjs.dispose();
                 BtnProses.requestFocus();
             }
@@ -2086,8 +2105,8 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
         Valid.tabelKosong(tabMode1);
         try {
             if (cmbLimit1.getSelectedItem().equals("Semuanya")) {
-                ps1 = koneksi.prepareStatement("SELECT no_rawat, no_kartu, no_sep, DATE_FORMAT(tglsep,'%d-%m-%Y') tglsep, nomr, nama_pasien, jkel,  "
-                        + "IF(jnspelayanan='1','Rawat Inap','Rawat Jalan') jns_rwt, concat(tanggal_lahir,' ','00:00:00') tgl_lhr, IF(jkel='L','1','2') jknya FROM bridging_sep WHERE "
+                ps1 = koneksi.prepareStatement("SELECT no_rawat, no_kartu, no_sep, DATE_FORMAT(tglsep,'%d-%m-%Y') tgl_SEP, nomr, nama_pasien, jkel,  "
+                        + "IF(jnspelayanan='1','Rawat Inap','Rawat Jalan') jns_rwt, concat(tanggal_lahir,' ','00:00:00') tgl_lhr, IF(jkel='L','1','2') jknya, tglsep FROM bridging_sep WHERE "
                         + "tglsep BETWEEN ? AND ? and no_rawat like ? or "
                         + "tglsep BETWEEN ? AND ? and no_kartu like ? or "
                         + "tglsep BETWEEN ? AND ? and no_sep like ? or "
@@ -2096,8 +2115,8 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
                         + "tglsep BETWEEN ? AND ? and jkel like ? or "
                         + "tglsep BETWEEN ? AND ? and IF(jnspelayanan='1','Rawat Inap','Rawat Jalan') like ? ORDER BY no_sep DESC");
             } else {
-                ps1 = koneksi.prepareStatement("SELECT no_rawat, no_kartu, no_sep, DATE_FORMAT(tglsep,'%d-%m-%Y') tglsep, nomr, nama_pasien, jkel,  "
-                        + "IF(jnspelayanan='1','Rawat Inap','Rawat Jalan') jns_rwt, concat(tanggal_lahir,' ','00:00:00') tgl_lhr, IF(jkel='L','1','2') jknya FROM bridging_sep WHERE "
+                ps1 = koneksi.prepareStatement("SELECT no_rawat, no_kartu, no_sep, DATE_FORMAT(tglsep,'%d-%m-%Y') tgl_SEP, nomr, nama_pasien, jkel,  "
+                        + "IF(jnspelayanan='1','Rawat Inap','Rawat Jalan') jns_rwt, concat(tanggal_lahir,' ','00:00:00') tgl_lhr, IF(jkel='L','1','2') jknya, tglsep FROM bridging_sep WHERE "
                         + "tglsep BETWEEN ? AND ? and no_rawat like ? or "
                         + "tglsep BETWEEN ? AND ? and no_kartu like ? or "
                         + "tglsep BETWEEN ? AND ? and no_sep like ? or "
@@ -2135,13 +2154,14 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
                         rs1.getString("no_rawat"),
                         rs1.getString("no_kartu"),
                         rs1.getString("no_sep"),
-                        rs1.getString("tglsep"),
+                        rs1.getString("tgl_SEP"),
                         rs1.getString("nomr"),
                         rs1.getString("nama_pasien"),                        
                         rs1.getString("jkel"),
                         rs1.getString("jns_rwt"),
                         rs1.getString("tgl_lhr"),
-                        rs1.getString("jknya")
+                        rs1.getString("jknya"),
+                        rs1.getString("tglsep")
                     });
                 }
             } catch (Exception e) {

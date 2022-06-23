@@ -692,7 +692,7 @@ public class DlgPasien extends javax.swing.JDialog {
         MnLabelRM1 = new javax.swing.JMenuItem();
         MnLabelRM2 = new javax.swing.JMenuItem();
         MenuIdentitas = new javax.swing.JMenu();
-        MnIdentitas = new javax.swing.JMenuItem();
+        MnIdentitas1 = new javax.swing.JMenuItem();
         MnIdentitas2 = new javax.swing.JMenuItem();
         MnIdentitas3 = new javax.swing.JMenuItem();
         MnBarcode = new javax.swing.JMenuItem();
@@ -1074,18 +1074,18 @@ public class DlgPasien extends javax.swing.JDialog {
         MenuIdentitas.setOpaque(true);
         MenuIdentitas.setPreferredSize(new java.awt.Dimension(250, 25));
 
-        MnIdentitas.setBackground(new java.awt.Color(255, 255, 255));
-        MnIdentitas.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        MnIdentitas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
-        MnIdentitas.setText("Identitas Pasien");
-        MnIdentitas.setName("MnIdentitas"); // NOI18N
-        MnIdentitas.setPreferredSize(new java.awt.Dimension(140, 25));
-        MnIdentitas.addActionListener(new java.awt.event.ActionListener() {
+        MnIdentitas1.setBackground(new java.awt.Color(255, 255, 255));
+        MnIdentitas1.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnIdentitas1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnIdentitas1.setText("Identitas Pasien 1");
+        MnIdentitas1.setName("MnIdentitas1"); // NOI18N
+        MnIdentitas1.setPreferredSize(new java.awt.Dimension(140, 25));
+        MnIdentitas1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MnIdentitasActionPerformed(evt);
+                MnIdentitas1ActionPerformed(evt);
             }
         });
-        MenuIdentitas.add(MnIdentitas);
+        MenuIdentitas.add(MnIdentitas1);
 
         MnIdentitas2.setBackground(new java.awt.Color(255, 255, 255));
         MnIdentitas2.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -2224,7 +2224,7 @@ public class DlgPasien extends javax.swing.JDialog {
         FormInput.add(jLabel13);
         jLabel13.setBounds(4, 98, 95, 23);
 
-        DTPLahir.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-02-2022" }));
+        DTPLahir.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-06-2022" }));
         DTPLahir.setDisplayFormat("dd-MM-yyyy");
         DTPLahir.setName("DTPLahir"); // NOI18N
         DTPLahir.setOpaque(false);
@@ -2382,7 +2382,7 @@ public class DlgPasien extends javax.swing.JDialog {
         TKtp.setBounds(712, 127, 130, 23);
 
         DTPDaftar.setEditable(false);
-        DTPDaftar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-02-2022" }));
+        DTPDaftar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-06-2022" }));
         DTPDaftar.setDisplayFormat("dd-MM-yyyy");
         DTPDaftar.setEnabled(false);
         DTPDaftar.setName("DTPDaftar"); // NOI18N
@@ -4554,7 +4554,7 @@ private void KabupatenMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
         DTPDaftar.requestFocus();
     }//GEN-LAST:event_ChkDaftarItemStateChanged
 
-    private void MnIdentitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnIdentitasActionPerformed
+    private void MnIdentitas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnIdentitas1ActionPerformed
         if (tabMode.getRowCount() == 0) {
             JOptionPane.showMessageDialog(null, "Maaf, data pasien sudah habis...!!!!");
             TNo.requestFocus();
@@ -4571,17 +4571,17 @@ private void KabupatenMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
             param.put("kontakrs", var.getkontakrs());
             param.put("emailrs", var.getemailrs());
             param.put("logo", Sequel.cariGambar("select logo from setting"));
-            Valid.MyReport("rptRM1.jrxml", "report", "::[ Identitas Pasien ]::", "select pasien.no_rkm_medis, pasien.nm_pasien, pasien.no_ktp, pasien.jk, "
-                    + "pasien.tmp_lahir, pasien.tgl_lahir,pasien.nm_ibu, concat(pasien.alamat,', ',kelurahan.nm_kel,', ',kecamatan.nm_kec,', ',kabupaten.nm_kab) as alamat, pasien.gol_darah, pasien.pekerjaan,"
-                    + "pasien.stts_nikah,pasien.agama,pasien.tgl_daftar,pasien.no_tlp,pasien.umur,"
-                    + "pasien.pnd, pasien.keluarga, pasien.namakeluarga,penjab.png_jawab,pasien.pekerjaanpj,"
-                    + "concat(pasien.alamatpj,', ',pasien.kelurahanpj,', ',pasien.kecamatanpj,', ',pasien.kabupatenpj) as alamatpj from pasien "
-                    + "inner join kelurahan inner join kecamatan inner join kabupaten "
-                    + "inner join penjab on pasien.kd_pj=penjab.kd_pj and pasien.kd_kel=kelurahan.kd_kel "
-                    + "and pasien.kd_kec=kecamatan.kd_kec and pasien.kd_kab=kabupaten.kd_kab  where pasien.no_rkm_medis='" + TNo.getText() + "' ", param);
+            Valid.MyReport("rptRM1.jrxml", "report", "::[ Identitas Pasien (Lembar RM 1)]::",
+                    "SELECT p.no_rkm_medis, p.nm_pasien, p.no_ktp, IF(p.jk='L','Laki-laki','Perempuan') jk, p.tmp_lahir, p.tgl_lahir,p.nm_ibu, "
+                    + "CONCAT(p.alamat,', ',kl.nm_kel,', ',kc.nm_kec,', ',kb.nm_kab) alamat, p.gol_darah, p.pekerjaan, "
+                    + "p.stts_nikah,p.agama,p.tgl_daftar,p.no_tlp, p.umur, p.pnd, p.keluarga, p.namakeluarga,pj.png_jawab,p.pekerjaanpj, "
+                    + "CONCAT(IF(p.alamatpj='alamat','-',p.alamatpj),', ',IF(p.kelurahanpj='kelurahan','-',p.kelurahanpj),', ',IF(p.kecamatanpj='kecamatan','-', "
+                    + "p.kecamatanpj),', ',IF(p.kabupatenpj='kabupaten','-',p.kabupatenpj)) alamatpj FROM pasien p INNER JOIN kelurahan kl ON kl.kd_kel=p.kd_kel "
+                    + "INNER JOIN kecamatan kc ON kc.kd_kec=p.kd_kec INNER JOIN kabupaten kb ON kb.kd_kab=p.kd_kab "
+                    + "INNER JOIN penjab pj ON pj.kd_pj=p.kd_pj WHERE p.no_rkm_medis='" + TNo.getText() + "'", param);
             this.setCursor(Cursor.getDefaultCursor());
         }
-    }//GEN-LAST:event_MnIdentitasActionPerformed
+    }//GEN-LAST:event_MnIdentitas1ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         tampil();
@@ -4947,14 +4947,14 @@ private void KabupatenMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
             param.put("kontakrs", var.getkontakrs());
             param.put("emailrs", var.getemailrs());
             param.put("logo", Sequel.cariGambar("select logo from setting"));
-            Valid.MyReport("rptRM5.jrxml", "report", "::[ Identitas Pasien ]::", "select pasien.no_rkm_medis, pasien.nm_pasien, pasien.no_ktp, pasien.jk, "
-                    + "pasien.tmp_lahir, pasien.tgl_lahir,pasien.nm_ibu, concat(pasien.alamat,', ',kelurahan.nm_kel,', ',kecamatan.nm_kec,', ',kabupaten.nm_kab) as alamat, pasien.gol_darah, pasien.pekerjaan,"
-                    + "pasien.stts_nikah,pasien.agama,pasien.tgl_daftar,pasien.no_tlp,pasien.umur,"
-                    + "pasien.pnd, pasien.keluarga, pasien.namakeluarga,penjab.png_jawab,pasien.pekerjaanpj,"
-                    + "concat(pasien.alamatpj,', ',pasien.kelurahanpj,', ',pasien.kecamatanpj,', ',pasien.kabupatenpj) as alamatpj,pasien.no_peserta from pasien "
-                    + "inner join kelurahan inner join kecamatan inner join kabupaten "
-                    + "inner join penjab on pasien.kd_pj=penjab.kd_pj and pasien.kd_kel=kelurahan.kd_kel "
-                    + "and pasien.kd_kec=kecamatan.kd_kec and pasien.kd_kab=kabupaten.kd_kab  where pasien.no_rkm_medis='" + TNo.getText() + "' ", param);
+            Valid.MyReport("rptRM5.jrxml", "report", "::[ Identitas Pasien (Lembar RM 1) ]::",
+                    "SELECT p.no_rkm_medis, p.nm_pasien, p.no_ktp, IF(p.jk='L','Laki-laki','Perempuan') jk, p.tmp_lahir, p.tgl_lahir,p.nm_ibu, "
+                    + "CONCAT(p.alamat,', ',kl.nm_kel,', ',kc.nm_kec,', ',kb.nm_kab) alamat, p.gol_darah, p.pekerjaan, p.no_peserta, "
+                    + "p.stts_nikah,p.agama,p.tgl_daftar,p.no_tlp, p.umur, p.pnd, p.keluarga, p.namakeluarga,pj.png_jawab,p.pekerjaanpj, "
+                    + "CONCAT(IF(p.alamatpj='alamat','-',p.alamatpj),', ',IF(p.kelurahanpj='kelurahan','-',p.kelurahanpj),', ',IF(p.kecamatanpj='kecamatan','-', "
+                    + "p.kecamatanpj),', ',IF(p.kabupatenpj='kabupaten','-',p.kabupatenpj)) alamatpj FROM pasien p INNER JOIN kelurahan kl ON kl.kd_kel=p.kd_kel "
+                    + "INNER JOIN kecamatan kc ON kc.kd_kec=p.kd_kec INNER JOIN kabupaten kb ON kb.kd_kab=p.kd_kab "
+                    + "INNER JOIN penjab pj ON pj.kd_pj=p.kd_pj WHERE p.no_rkm_medis='" + TNo.getText() + "'", param);
             this.setCursor(Cursor.getDefaultCursor());
         }
     }//GEN-LAST:event_MnIdentitas2ActionPerformed
@@ -5121,14 +5121,14 @@ private void KabupatenMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
             param.put("kontakrs", var.getkontakrs());
             param.put("emailrs", var.getemailrs());
             param.put("logo", Sequel.cariGambar("select logo from setting"));
-            Valid.MyReport("rptRM10.jrxml", "report", "::[ Identitas Pasien ]::", "select pasien.no_rkm_medis, pasien.nm_pasien, pasien.no_ktp, pasien.jk, "
-                    + "pasien.tmp_lahir, pasien.tgl_lahir,pasien.nm_ibu, concat(pasien.alamat,', ',kelurahan.nm_kel,', ',kecamatan.nm_kec,', ',kabupaten.nm_kab) as alamat, pasien.gol_darah, pasien.pekerjaan,"
-                    + "pasien.stts_nikah,pasien.agama,pasien.tgl_daftar,pasien.no_tlp,pasien.umur,"
-                    + "pasien.pnd, pasien.keluarga, pasien.namakeluarga,penjab.png_jawab,pasien.pekerjaanpj,"
-                    + "concat(pasien.alamatpj,', ',pasien.kelurahanpj,', ',pasien.kecamatanpj,', ',pasien.kabupatenpj) as alamatpj from pasien "
-                    + "inner join kelurahan inner join kecamatan inner join kabupaten "
-                    + "inner join penjab on pasien.kd_pj=penjab.kd_pj and pasien.kd_kel=kelurahan.kd_kel "
-                    + "and pasien.kd_kec=kecamatan.kd_kec and pasien.kd_kab=kabupaten.kd_kab  where pasien.no_rkm_medis='" + TNo.getText() + "' ", param);
+            Valid.MyReport("rptRM10.jrxml", "report", "::[ Identitas Pasien (Lembar RM 1) ]::",
+                    "SELECT p.no_rkm_medis, p.nm_pasien, p.no_ktp, IF(p.jk='L','Laki-laki','Perempuan') jk, p.tmp_lahir, p.tgl_lahir,p.nm_ibu, "
+                    + "CONCAT(p.alamat,', ',kl.nm_kel,', ',kc.nm_kec,', ',kb.nm_kab) alamat, p.gol_darah, p.pekerjaan, p.no_peserta, "
+                    + "p.stts_nikah,p.agama,p.tgl_daftar,p.no_tlp, p.umur, p.pnd, p.keluarga, p.namakeluarga,pj.png_jawab,p.pekerjaanpj, "
+                    + "CONCAT(IF(p.alamatpj='alamat','-',p.alamatpj),', ',IF(p.kelurahanpj='kelurahan','-',p.kelurahanpj),', ',IF(p.kecamatanpj='kecamatan','-', "
+                    + "p.kecamatanpj),', ',IF(p.kabupatenpj='kabupaten','-',p.kabupatenpj)) alamatpj FROM pasien p INNER JOIN kelurahan kl ON kl.kd_kel=p.kd_kel "
+                    + "INNER JOIN kecamatan kc ON kc.kd_kec=p.kd_kec INNER JOIN kabupaten kb ON kb.kd_kab=p.kd_kab "
+                    + "INNER JOIN penjab pj ON pj.kd_pj=p.kd_pj WHERE p.no_rkm_medis='" + TNo.getText() + "'", param);
             this.setCursor(Cursor.getDefaultCursor());
         }
     }//GEN-LAST:event_MnIdentitas3ActionPerformed
@@ -5927,7 +5927,7 @@ private void KabupatenMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
     private javax.swing.JMenuItem MnFormulirPendaftaran;
     private javax.swing.JMenu MnGelangBayi;
     private javax.swing.JMenu MnGelangDewasaAnak;
-    private javax.swing.JMenuItem MnIdentitas;
+    private javax.swing.JMenuItem MnIdentitas1;
     private javax.swing.JMenuItem MnIdentitas2;
     private javax.swing.JMenuItem MnIdentitas3;
     private javax.swing.JMenu MnKartu;
