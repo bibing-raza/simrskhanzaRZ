@@ -388,13 +388,13 @@ public class DlgRunTeks extends javax.swing.JDialog {
         internalFrame2.add(Scroll1, java.awt.BorderLayout.CENTER);
 
         internalFrame3.setName("internalFrame3"); // NOI18N
-        internalFrame3.setPreferredSize(new java.awt.Dimension(460, 170));
+        internalFrame3.setPreferredSize(new java.awt.Dimension(460, 420));
         internalFrame3.setLayout(new java.awt.BorderLayout(1, 1));
 
         Scroll3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "::[ Set Hari Libur / Tutup Pelayanan Normal Poliklinik Rawat Jalan ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
         Scroll3.setName("Scroll3"); // NOI18N
         Scroll3.setOpaque(true);
-        Scroll3.setPreferredSize(new java.awt.Dimension(460, 170));
+        Scroll3.setPreferredSize(new java.awt.Dimension(460, 250));
 
         tbHari.setToolTipText("Silahkan klik untuk memilih data yang mau diedit ataupun dihapus");
         tbHari.setComponentPopupMenu(jPopupMenu1);

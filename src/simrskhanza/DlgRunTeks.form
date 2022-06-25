@@ -501,7 +501,7 @@
               <Properties>
                 <Property name="name" type="java.lang.String" value="internalFrame3" noResource="true"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[460, 170]"/>
+                  <Dimension value="[460, 420]"/>
                 </Property>
               </Properties>
               <Constraints>
@@ -528,7 +528,7 @@
                     <Property name="name" type="java.lang.String" value="Scroll3" noResource="true"/>
                     <Property name="opaque" type="boolean" value="true"/>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[460, 170]"/>
+                      <Dimension value="[460, 250]"/>
                     </Property>
                   </Properties>
                   <Constraints>
