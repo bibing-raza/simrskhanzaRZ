@@ -17,24 +17,17 @@ import fungsi.sekuel;
 import fungsi.validasi;
 import fungsi.WarnaTable;
 import fungsi.*;
-import java.awt.Canvas;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import java.io.File;
-import java.net.URL;
-import java.sql.Blob;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
@@ -43,21 +36,22 @@ import javax.swing.table.TableColumn;
  * @author perpustakaan
  */
 public class DlgRunTeks extends javax.swing.JDialog {
-    private DefaultTableModel tabMode,tabMode1;
-    private Connection koneksi=koneksiDB.condb();
-    private sekuel Sequel=new sekuel();
-    private validasi Valid=new validasi();
+    private DefaultTableModel tabMode, tabMode1, tabMode2;
+    private Connection koneksi = koneksiDB.condb();
+    private sekuel Sequel = new sekuel();
+    private validasi Valid = new validasi();
+    private PreparedStatement ps2;
+    private ResultSet rs2;
     private int i = 0;
-    private String pinNya = "", teksNya = "";
+    private String pinNya = "", kdInformasi = "", tglnya = "";
 
     /** Creates new form DlgAdmin */
     public DlgRunTeks(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.setLocation(10,10);
-        setSize(457,249);
-
-        Object[] row = {"Teks Berjalan", "Aktifkan?", "Wallpaper"};
+        
+        Object[] row = {"Kode", "URL Youtube Video", "Kalimat Informasi"};
         tabMode=new DefaultTableModel(null,row){
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
         };
@@ -69,11 +63,11 @@ public class DlgRunTeks extends javax.swing.JDialog {
         for (int i = 0; i < 3; i++) {
             TableColumn column = tbDisplay.getColumnModel().getColumn(i);
             if (i == 0) {
-                column.setPreferredWidth(300);
+                column.setPreferredWidth(50);
             } else if (i == 1) {
-                column.setPreferredWidth(80);
+                column.setPreferredWidth(300);
             } else if (i == 2) {
-                column.setPreferredWidth(200);
+                column.setPreferredWidth(400);
             }
         }
 
@@ -97,18 +91,29 @@ public class DlgRunTeks extends javax.swing.JDialog {
         }
         tbNomor.setDefaultRenderer(Object.class, new WarnaTable());
         
-        TTeks.setDocument(new batasInput((int) 1500).getKata(TTeks));
+        tabMode2 = new DefaultTableModel(null, new Object[]{
+            "Tgl. Libur", "Keterangan Libur"}) {
+            @Override public boolean isCellEditable(int rowIndex, int colIndex) {return false;}            
+        };
+        tbHari.setModel(tabMode2);
+        tbHari.setPreferredScrollableViewportSize(new Dimension(500, 500));
+        tbHari.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        for (i = 0; i < 2; i++) {
+            TableColumn column = tbHari.getColumnModel().getColumn(i);
+            if (i == 0) {
+                column.setPreferredWidth(75);
+            } else if (i == 1) {
+                column.setPreferredWidth(450);
+            }
+        }
+        tbHari.setDefaultRenderer(Object.class, new WarnaTable());
+        
         pinPetugas.setDocument(new batasInput((int) 4).getOnlyAngka(pinPetugas));
         pinAdmin.setDocument(new batasInput((int) 4).getOnlyAngka(pinAdmin));
+        taun.setDocument(new batasInput((int) 4).getOnlyAngka(taun));
     }
     
-    Dimension screen=Toolkit.getDefaultToolkit().getScreenSize();
-    private javax.swing.JFileChooser jfc = new JFileChooser();
-    private FileFilter jpgFilter = new FileNameExtensionFilter("Gambar JPEG", "jpg");
-    private FileFilter gifFilter = new FileNameExtensionFilter("Gambar GIF", "gif");
-    private FileFilter pngFilter = new FileNameExtensionFilter("Gambar PNG", "png");
-    private FileFilter bothFilter = new FileNameExtensionFilter("Gambar JPEG dan GIF dan PNG", "jpg", "gif", "png");
-
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -119,17 +124,10 @@ public class DlgRunTeks extends javax.swing.JDialog {
     private void initComponents() {
 
         jPopupMenu1 = new javax.swing.JPopupMenu();
-        MnDisplay = new javax.swing.JMenuItem();
         MnHakAkses = new javax.swing.JMenuItem();
+        MnHariLibur = new javax.swing.JMenuItem();
         internalFrame1 = new widget.InternalFrame();
         panelGlass1 = new widget.panelGlass();
-        label37 = new widget.Label();
-        scrollPane2 = new widget.ScrollPane();
-        PhotoGambar = new Painter();
-        BtnCariGb = new widget.Button();
-        EGb = new widget.TextBox();
-        label12 = new widget.Label();
-        YesNo = new widget.ComboBox();
         Scroll2 = new widget.ScrollPane();
         TTeks = new widget.TextArea();
         pinPetugas = new widget.TextBox();
@@ -137,36 +135,37 @@ public class DlgRunTeks extends javax.swing.JDialog {
         pinAdmin = new widget.TextBox();
         ChkPetugas = new widget.CekBox();
         ChkTeks = new widget.CekBox();
+        label38 = new widget.Label();
+        urlVideo = new widget.TextBox();
+        ChkHariLibur = new widget.CekBox();
+        tglLibur = new widget.Tanggal();
+        label15 = new widget.Label();
+        ketLibur = new widget.TextBox();
         internalFrame2 = new widget.InternalFrame();
         Scroll = new widget.ScrollPane();
         tbDisplay = new widget.Table();
         Scroll1 = new widget.ScrollPane();
         tbNomor = new widget.Table();
+        internalFrame3 = new widget.InternalFrame();
+        Scroll3 = new widget.ScrollPane();
+        tbHari = new widget.Table();
+        panelisi2 = new widget.panelisi();
+        jLabel15 = new widget.Label();
+        taun = new widget.TextBox();
+        jLabel6 = new widget.Label();
+        TCari = new widget.TextBox();
+        BtnCari = new widget.Button();
+        BtnAll = new widget.Button();
         panelisi1 = new widget.panelisi();
         BtnSimpan = new widget.Button();
         BtnBatal = new widget.Button();
         BtnEdit = new widget.Button();
         BtnKeluar = new widget.Button();
+        jLabel7 = new widget.Label();
+        LCount = new widget.Label();
 
         jPopupMenu1.setForeground(new java.awt.Color(60, 80, 50));
         jPopupMenu1.setName("jPopupMenu1"); // NOI18N
-
-        MnDisplay.setBackground(new java.awt.Color(255, 255, 255));
-        MnDisplay.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        MnDisplay.setForeground(new java.awt.Color(0, 0, 0));
-        MnDisplay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
-        MnDisplay.setText("Hapus Display Monitor");
-        MnDisplay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        MnDisplay.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        MnDisplay.setIconTextGap(5);
-        MnDisplay.setName("MnDisplay"); // NOI18N
-        MnDisplay.setPreferredSize(new java.awt.Dimension(220, 26));
-        MnDisplay.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MnDisplayActionPerformed(evt);
-            }
-        });
-        jPopupMenu1.add(MnDisplay);
 
         MnHakAkses.setBackground(new java.awt.Color(255, 255, 255));
         MnHakAkses.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -185,6 +184,23 @@ public class DlgRunTeks extends javax.swing.JDialog {
         });
         jPopupMenu1.add(MnHakAkses);
 
+        MnHariLibur.setBackground(new java.awt.Color(255, 255, 255));
+        MnHariLibur.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnHariLibur.setForeground(new java.awt.Color(0, 0, 0));
+        MnHariLibur.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnHariLibur.setText("Hapus Hari Libur");
+        MnHariLibur.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnHariLibur.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnHariLibur.setIconTextGap(5);
+        MnHariLibur.setName("MnHariLibur"); // NOI18N
+        MnHariLibur.setPreferredSize(new java.awt.Dimension(220, 26));
+        MnHariLibur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnHariLiburActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(MnHariLibur);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
@@ -202,68 +218,6 @@ public class DlgRunTeks extends javax.swing.JDialog {
         panelGlass1.setPreferredSize(new java.awt.Dimension(200, 230));
         panelGlass1.setLayout(null);
 
-        label37.setForeground(new java.awt.Color(0, 0, 0));
-        label37.setText("Lokasi Wallpaper : ");
-        label37.setName("label37"); // NOI18N
-        label37.setPreferredSize(new java.awt.Dimension(35, 23));
-        panelGlass1.add(label37);
-        label37.setBounds(0, 130, 110, 23);
-
-        scrollPane2.setName("scrollPane2"); // NOI18N
-
-        PhotoGambar.setBackground(new java.awt.Color(235, 255, 235));
-        PhotoGambar.setForeground(new java.awt.Color(232, 232, 172));
-        PhotoGambar.setName("PhotoGambar"); // NOI18N
-        scrollPane2.setViewportView(PhotoGambar);
-
-        panelGlass1.add(scrollPane2);
-        scrollPane2.setBounds(340, 10, 280, 170);
-
-        BtnCariGb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/190.png"))); // NOI18N
-        BtnCariGb.setMnemonic('1');
-        BtnCariGb.setToolTipText("Alt+1");
-        BtnCariGb.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        BtnCariGb.setName("BtnCariGb"); // NOI18N
-        BtnCariGb.setPreferredSize(new java.awt.Dimension(100, 30));
-        BtnCariGb.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnCariGbActionPerformed(evt);
-            }
-        });
-        panelGlass1.add(BtnCariGb);
-        BtnCariGb.setBounds(303, 130, 25, 23);
-
-        EGb.setEditable(false);
-        EGb.setForeground(new java.awt.Color(0, 0, 0));
-        EGb.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        EGb.setName("EGb"); // NOI18N
-        EGb.setPreferredSize(new java.awt.Dimension(207, 23));
-        EGb.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                EGbKeyPressed(evt);
-            }
-        });
-        panelGlass1.add(EGb);
-        EGb.setBounds(110, 130, 193, 23);
-
-        label12.setForeground(new java.awt.Color(0, 0, 0));
-        label12.setText("Mau Aktifkan Wallpaper ?");
-        label12.setName("label12"); // NOI18N
-        label12.setPreferredSize(new java.awt.Dimension(70, 23));
-        panelGlass1.add(label12);
-        label12.setBounds(0, 160, 232, 23);
-
-        YesNo.setForeground(new java.awt.Color(0, 0, 0));
-        YesNo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Yes", "No" }));
-        YesNo.setName("YesNo"); // NOI18N
-        YesNo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                YesNoKeyPressed(evt);
-            }
-        });
-        panelGlass1.add(YesNo);
-        YesNo.setBounds(242, 160, 70, 23);
-
         Scroll2.setForeground(new java.awt.Color(153, 0, 51));
         Scroll2.setName("Scroll2"); // NOI18N
         Scroll2.setOpaque(true);
@@ -272,9 +226,8 @@ public class DlgRunTeks extends javax.swing.JDialog {
         TTeks.setBorder(null);
         TTeks.setColumns(20);
         TTeks.setRows(5);
-        TTeks.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         TTeks.setName("TTeks"); // NOI18N
-        TTeks.setPreferredSize(new java.awt.Dimension(200, 150));
+        TTeks.setPreferredSize(new java.awt.Dimension(200, 280));
         TTeks.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 TTeksKeyPressed(evt);
@@ -283,30 +236,28 @@ public class DlgRunTeks extends javax.swing.JDialog {
         Scroll2.setViewportView(TTeks);
 
         panelGlass1.add(Scroll2);
-        Scroll2.setBounds(110, 10, 220, 110);
+        Scroll2.setBounds(110, 10, 610, 114);
 
         pinPetugas.setForeground(new java.awt.Color(0, 0, 0));
         pinPetugas.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        pinPetugas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         pinPetugas.setName("pinPetugas"); // NOI18N
         pinPetugas.setPreferredSize(new java.awt.Dimension(207, 23));
         panelGlass1.add(pinPetugas);
-        pinPetugas.setBounds(170, 190, 70, 23);
+        pinPetugas.setBounds(170, 160, 70, 23);
 
         label14.setForeground(new java.awt.Color(0, 0, 0));
         label14.setText("PIN Nomor Antrian Admin Utama : ");
         label14.setName("label14"); // NOI18N
         label14.setPreferredSize(new java.awt.Dimension(70, 23));
         panelGlass1.add(label14);
-        label14.setBounds(241, 190, 180, 23);
+        label14.setBounds(241, 160, 180, 23);
 
         pinAdmin.setForeground(new java.awt.Color(0, 0, 0));
         pinAdmin.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        pinAdmin.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         pinAdmin.setName("pinAdmin"); // NOI18N
         pinAdmin.setPreferredSize(new java.awt.Dimension(207, 23));
         panelGlass1.add(pinAdmin);
-        pinAdmin.setBounds(423, 190, 70, 23);
+        pinAdmin.setBounds(423, 160, 70, 23);
 
         ChkPetugas.setBackground(new java.awt.Color(255, 255, 250));
         ChkPetugas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 250)));
@@ -323,7 +274,7 @@ public class DlgRunTeks extends javax.swing.JDialog {
             }
         });
         panelGlass1.add(ChkPetugas);
-        ChkPetugas.setBounds(0, 190, 170, 23);
+        ChkPetugas.setBounds(0, 160, 170, 23);
 
         ChkTeks.setBackground(new java.awt.Color(255, 255, 250));
         ChkTeks.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 250)));
@@ -342,6 +293,52 @@ public class DlgRunTeks extends javax.swing.JDialog {
         panelGlass1.add(ChkTeks);
         ChkTeks.setBounds(0, 10, 110, 23);
 
+        label38.setForeground(new java.awt.Color(0, 0, 0));
+        label38.setText("URL Youtube Video : ");
+        label38.setName("label38"); // NOI18N
+        label38.setPreferredSize(new java.awt.Dimension(35, 23));
+        panelGlass1.add(label38);
+        label38.setBounds(0, 130, 110, 23);
+
+        urlVideo.setForeground(new java.awt.Color(0, 0, 0));
+        urlVideo.setName("urlVideo"); // NOI18N
+        urlVideo.setPreferredSize(new java.awt.Dimension(207, 23));
+        panelGlass1.add(urlVideo);
+        urlVideo.setBounds(110, 130, 610, 23);
+
+        ChkHariLibur.setBackground(new java.awt.Color(255, 255, 250));
+        ChkHariLibur.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 250)));
+        ChkHariLibur.setForeground(new java.awt.Color(0, 0, 0));
+        ChkHariLibur.setText("Set Hari Libur, Tgl. : ");
+        ChkHariLibur.setBorderPainted(true);
+        ChkHariLibur.setBorderPaintedFlat(true);
+        ChkHariLibur.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ChkHariLibur.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        ChkHariLibur.setName("ChkHariLibur"); // NOI18N
+        panelGlass1.add(ChkHariLibur);
+        ChkHariLibur.setBounds(0, 190, 128, 23);
+
+        tglLibur.setEditable(false);
+        tglLibur.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "25-06-2022" }));
+        tglLibur.setDisplayFormat("dd-MM-yyyy");
+        tglLibur.setName("tglLibur"); // NOI18N
+        tglLibur.setOpaque(false);
+        panelGlass1.add(tglLibur);
+        tglLibur.setBounds(130, 190, 90, 23);
+
+        label15.setForeground(new java.awt.Color(0, 0, 0));
+        label15.setText("Keterangan Libur : ");
+        label15.setName("label15"); // NOI18N
+        label15.setPreferredSize(new java.awt.Dimension(70, 23));
+        panelGlass1.add(label15);
+        label15.setBounds(221, 190, 107, 23);
+
+        ketLibur.setForeground(new java.awt.Color(0, 0, 0));
+        ketLibur.setName("ketLibur"); // NOI18N
+        ketLibur.setPreferredSize(new java.awt.Dimension(207, 23));
+        panelGlass1.add(ketLibur);
+        ketLibur.setBounds(330, 190, 390, 23);
+
         internalFrame1.add(panelGlass1, java.awt.BorderLayout.PAGE_START);
 
         internalFrame2.setName("internalFrame2"); // NOI18N
@@ -353,8 +350,6 @@ public class DlgRunTeks extends javax.swing.JDialog {
         Scroll.setPreferredSize(new java.awt.Dimension(452, 100));
 
         tbDisplay.setToolTipText("Silahkan klik untuk memilih data yang mau diedit ataupun dihapus");
-        tbDisplay.setComponentPopupMenu(jPopupMenu1);
-        tbDisplay.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tbDisplay.setName("tbDisplay"); // NOI18N
         tbDisplay.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -373,10 +368,10 @@ public class DlgRunTeks extends javax.swing.JDialog {
         Scroll1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "::[ Hak Akses Nomor Antrian ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
         Scroll1.setName("Scroll1"); // NOI18N
         Scroll1.setOpaque(true);
+        Scroll1.setPreferredSize(new java.awt.Dimension(460, 100));
 
         tbNomor.setToolTipText("Silahkan klik untuk memilih data yang mau diedit ataupun dihapus");
         tbNomor.setComponentPopupMenu(jPopupMenu1);
-        tbNomor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tbNomor.setName("tbNomor"); // NOI18N
         tbNomor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -391,6 +386,111 @@ public class DlgRunTeks extends javax.swing.JDialog {
         Scroll1.setViewportView(tbNomor);
 
         internalFrame2.add(Scroll1, java.awt.BorderLayout.CENTER);
+
+        internalFrame3.setName("internalFrame3"); // NOI18N
+        internalFrame3.setPreferredSize(new java.awt.Dimension(460, 170));
+        internalFrame3.setLayout(new java.awt.BorderLayout(1, 1));
+
+        Scroll3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "::[ Set Hari Libur / Tutup Pelayanan Normal Poliklinik Rawat Jalan ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        Scroll3.setName("Scroll3"); // NOI18N
+        Scroll3.setOpaque(true);
+        Scroll3.setPreferredSize(new java.awt.Dimension(460, 170));
+
+        tbHari.setToolTipText("Silahkan klik untuk memilih data yang mau diedit ataupun dihapus");
+        tbHari.setComponentPopupMenu(jPopupMenu1);
+        tbHari.setName("tbHari"); // NOI18N
+        tbHari.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbHariMouseClicked(evt);
+            }
+        });
+        tbHari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tbHariKeyPressed(evt);
+            }
+        });
+        Scroll3.setViewportView(tbHari);
+
+        internalFrame3.add(Scroll3, java.awt.BorderLayout.CENTER);
+
+        panelisi2.setName("panelisi2"); // NOI18N
+        panelisi2.setPreferredSize(new java.awt.Dimension(100, 54));
+        panelisi2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 9));
+
+        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel15.setText("Tahun Libur : ");
+        jLabel15.setName("jLabel15"); // NOI18N
+        jLabel15.setPreferredSize(new java.awt.Dimension(80, 23));
+        panelisi2.add(jLabel15);
+
+        taun.setForeground(new java.awt.Color(0, 0, 0));
+        taun.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        taun.setName("taun"); // NOI18N
+        taun.setPreferredSize(new java.awt.Dimension(60, 23));
+        taun.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                taunKeyPressed(evt);
+            }
+        });
+        panelisi2.add(taun);
+
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel6.setText("Key Word :");
+        jLabel6.setName("jLabel6"); // NOI18N
+        jLabel6.setPreferredSize(new java.awt.Dimension(70, 23));
+        panelisi2.add(jLabel6);
+
+        TCari.setForeground(new java.awt.Color(0, 0, 0));
+        TCari.setName("TCari"); // NOI18N
+        TCari.setPreferredSize(new java.awt.Dimension(250, 23));
+        TCari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TCariKeyPressed(evt);
+            }
+        });
+        panelisi2.add(TCari);
+
+        BtnCari.setForeground(new java.awt.Color(0, 0, 0));
+        BtnCari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept.png"))); // NOI18N
+        BtnCari.setMnemonic('T');
+        BtnCari.setText("Tampilkan Data");
+        BtnCari.setToolTipText("Alt+T");
+        BtnCari.setName("BtnCari"); // NOI18N
+        BtnCari.setPreferredSize(new java.awt.Dimension(150, 30));
+        BtnCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCariActionPerformed(evt);
+            }
+        });
+        BtnCari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                BtnCariKeyPressed(evt);
+            }
+        });
+        panelisi2.add(BtnCari);
+
+        BtnAll.setForeground(new java.awt.Color(0, 0, 0));
+        BtnAll.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Search-16x16.png"))); // NOI18N
+        BtnAll.setMnemonic('B');
+        BtnAll.setText("Semua Data");
+        BtnAll.setToolTipText("Alt+B");
+        BtnAll.setName("BtnAll"); // NOI18N
+        BtnAll.setPreferredSize(new java.awt.Dimension(120, 30));
+        BtnAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAllActionPerformed(evt);
+            }
+        });
+        BtnAll.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                BtnAllKeyPressed(evt);
+            }
+        });
+        panelisi2.add(BtnAll);
+
+        internalFrame3.add(panelisi2, java.awt.BorderLayout.PAGE_END);
+
+        internalFrame2.add(internalFrame3, java.awt.BorderLayout.PAGE_END);
 
         internalFrame1.add(internalFrame2, java.awt.BorderLayout.CENTER);
 
@@ -474,6 +574,19 @@ public class DlgRunTeks extends javax.swing.JDialog {
         });
         panelisi1.add(BtnKeluar);
 
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setText("Ada : ");
+        jLabel7.setName("jLabel7"); // NOI18N
+        jLabel7.setPreferredSize(new java.awt.Dimension(45, 23));
+        panelisi1.add(jLabel7);
+
+        LCount.setForeground(new java.awt.Color(0, 0, 0));
+        LCount.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        LCount.setText("0");
+        LCount.setName("LCount"); // NOI18N
+        LCount.setPreferredSize(new java.awt.Dimension(230, 23));
+        panelisi1.add(LCount);
+
         internalFrame1.add(panelisi1, java.awt.BorderLayout.PAGE_END);
 
         getContentPane().add(internalFrame1, java.awt.BorderLayout.CENTER);
@@ -483,16 +596,17 @@ public class DlgRunTeks extends javax.swing.JDialog {
 
     private void BtnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEditActionPerformed
         if (ChkTeks.isSelected() == true) {
-            if (TTeks.getText().trim().equals("")) {
+            if (TTeks.getText().equals("")) {
                 Valid.textKosong(TTeks, "Teks");
-            } else if (teksNya.equals("")) {
+            } else if (urlVideo.getText().trim().equals("")) {
+                Valid.textKosong(urlVideo, "URL Youtube Video");
+                urlVideo.requestFocus();
+            } else if (kdInformasi.equals("")) {
                 JOptionPane.showMessageDialog(null, "Silahkan pilih salah satu datanya pada tabel yg. akan diperbaiki...!!!!");
+                tbDisplay.requestFocus();
             } else {
-                if (EGb.getText().trim().equals("")) {
-                    Sequel.mengedit("runtext", "teks='" + TTeks.getText() + "'", "aktifkan='" + YesNo.getSelectedItem() + "'");
-                } else {
-                    Sequel.mengedit("runtext", "teks='" + TTeks.getText() + "'", "aktifkan='" + YesNo.getSelectedItem() + "',gambar=?", EGb);
-                }
+                Sequel.mengedit("antrian_informasi", "kode='" + kdInformasi + "'",
+                        "url_video='" + urlVideo.getText() + "',kalimat='" + TTeks.getText() + "'");
                 tampil();
                 emptTeks();
             }
@@ -510,9 +624,25 @@ public class DlgRunTeks extends javax.swing.JDialog {
             } else {
                 Sequel.mengedit("antrian_hak_akses", "pin_petugas='" + pinNya + "'",
                         "pin_petugas='" + pinPetugas.getText() + "',pin_admin_utama='" + pinAdmin.getText() + "'");
+                tampilNomor();
+                emptTeks();
             }
-            tampilNomor();
-            emptTeks();
+        }
+        
+        if (ChkHariLibur.isSelected() == true) {
+            if (ketLibur.getText().trim().equals("")) {
+                Valid.textKosong(ketLibur, "Keterangan Libur");
+                ketLibur.requestFocus();
+            } else if (tglnya.equals("")) {
+                JOptionPane.showMessageDialog(null, "Silahkan pilih salah satu datanya pada tabel yg. akan diperbaiki...!!!!");
+                tbHari.requestFocus();
+            } else {
+                Sequel.mengedit("hari_libur", "tgl_libur='" + tglnya + "'",
+                        "tgl_libur='" + Valid.SetTgl(tglLibur.getSelectedItem() + "") + "',"
+                        + "keterangan='" + ketLibur.getText() + "'");
+                tampilLibur();
+                emptTeks();
+            }                      
         }
 }//GEN-LAST:event_BtnEditActionPerformed
 
@@ -536,41 +666,23 @@ public class DlgRunTeks extends javax.swing.JDialog {
         }
 }//GEN-LAST:event_tbDisplayKeyPressed
 
-    private void BtnCariGbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCariGbActionPerformed
-        jfc.setAcceptAllFileFilterUsed(false);
-        jfc.addChoosableFileFilter(jpgFilter);
-        jfc.addChoosableFileFilter(gifFilter);
-        jfc.addChoosableFileFilter(pngFilter);
-        jfc.addChoosableFileFilter(bothFilter);
-        if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-            String f = jfc.getSelectedFile().toString();
-            EGb.setText(f);
-            //lGambar.setIcon(new ImageIcon(f));
-            ((Painter) PhotoGambar).setImage(f);
-
-        }
-    }//GEN-LAST:event_BtnCariGbActionPerformed
-
-    private void EGbKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EGbKeyPressed
-        Valid.pindah(evt,TTeks,BtnSimpan);
-    }//GEN-LAST:event_EGbKeyPressed
-
     private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSimpanActionPerformed
-        if (ChkTeks.isSelected() == false && ChkPetugas.isSelected() == false) {
-            JOptionPane.showMessageDialog(null, "Silahkan conteng dulu Teks berjalan atau PIN Nomor Antrian Petugas utk. menyimpan data...");
+        if (ChkTeks.isSelected() == false && ChkPetugas.isSelected() == false && ChkHariLibur.isSelected() == false) {
+            JOptionPane.showMessageDialog(null, "Silahkan conteng dulu Teks berjalan, PIN Nomor Antrian Petugas atau Set Hari Libur utk. menyimpan data...");
         } else {
             if (ChkTeks.isSelected() == true) {
-                if (TTeks.getText().trim().equals("")) {
+                if (TTeks.getText().equals("")) {
                     Valid.textKosong(TTeks, "Teks");
-                } else if (EGb.getText().trim().equals("")) {
-                    YesNo.setSelectedItem("No");
-                    EGb.setText("./setting/wallpaper.png");
+                } else if (urlVideo.getText().trim().equals("")) {
+                    Valid.textKosong(urlVideo, "URL Youtube Video");
+                    urlVideo.requestFocus();
                 } else if (tabMode.getRowCount() == 0) {
-                    Sequel.menyimpan("runtext", "'" + TTeks.getText() + "','" + YesNo.getSelectedItem() + "'", "Display", EGb);
+                    Sequel.mengedit("antrian_informasi", "kode='" + kdInformasi + "'",
+                        "url_video='" + urlVideo.getText() + "',kalimat='" + TTeks.getText() + "'");
                     tampil();
                     emptTeks();
                 } else if (tabMode.getRowCount() > 0) {
-                    JOptionPane.showMessageDialog(null, "Maaf, Hanya diijinkan satu runtext...!!!!");
+                    JOptionPane.showMessageDialog(null, "Maaf, Hanya diijinkan satu display antrian...!!!!");
                 }
             }
 
@@ -589,14 +701,26 @@ public class DlgRunTeks extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(null, "Maaf, Hanya diijinkan satu data hak akses nomor antrian aja...!!!!");
                 }
             }
+            
+            if (ChkHariLibur.isSelected() == true) {
+                if (ketLibur.getText().trim().equals("")) {
+                    Valid.textKosong(ketLibur, "Keterangan Libur");
+                    ketLibur.requestFocus();
+                } else {
+                    Sequel.menyimpan("hari_libur", "'" + Valid.SetTgl(tglLibur.getSelectedItem() + "") + "',"
+                            + "'" + ketLibur.getText() + "'", "Set Hari Libur");
+                    tampilLibur();
+                    emptTeks();
+                }
+            }
         }
     }//GEN-LAST:event_BtnSimpanActionPerformed
 
     private void BtnSimpanKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnSimpanKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             BtnSimpanActionPerformed(null);
-        }else{
-            Valid.pindah(evt,TTeks,BtnBatal);
+        } else {
+            Valid.pindah(evt, TTeks, BtnBatal);
         }
     }//GEN-LAST:event_BtnSimpanKeyPressed
 
@@ -626,17 +750,15 @@ public class DlgRunTeks extends javax.swing.JDialog {
         }else{Valid.pindah(evt,BtnEdit,BtnKeluar);}
     }//GEN-LAST:event_BtnKeluarKeyPressed
 
-    private void YesNoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_YesNoKeyPressed
-        Valid.pindah(evt, TTeks,BtnSimpan);
-    }//GEN-LAST:event_YesNoKeyPressed
-
 private void TTeksKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TTeksKeyPressed
-        Valid.pindah(evt,BtnKeluar,EGb);
+        Valid.pindah(evt, BtnKeluar, urlVideo);
 }//GEN-LAST:event_TTeksKeyPressed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        taun.setText(Sequel.cariIsi("SELECT YEAR(NOW())"));
         tampil();
         tampilNomor();
+        tampilLibur();
     }//GEN-LAST:event_formWindowOpened
 
     private void tbNomorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbNomorMouseClicked
@@ -673,22 +795,6 @@ private void TTeksKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TTe
         }
     }//GEN-LAST:event_MnHakAksesActionPerformed
 
-    private void MnDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnDisplayActionPerformed
-        if (tabMode.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(null, "Maaf, data sudah habis...!!!!");
-            TTeks.requestFocus();
-        } else if (TTeks.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Maaf, Gagal menghapus. Pilih dulu data yang mau dihapus. Klik data pada tabel untuk memilih...!!!!");
-        } else if (teksNya.equals("")) {
-            JOptionPane.showMessageDialog(null, "Silahkan pilih salah satu datanya pada tabel yg. akan diperbaiki...!!!!");
-            tbDisplay.requestFocus();
-        } else {
-            Sequel.queryu("delete from runtext ");
-            tampil();
-            emptTeks();
-        }
-    }//GEN-LAST:event_MnDisplayActionPerformed
-
     private void ChkPetugasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChkPetugasActionPerformed
         pinPetugas.requestFocus();
     }//GEN-LAST:event_ChkPetugasActionPerformed
@@ -696,6 +802,94 @@ private void TTeksKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TTe
     private void ChkTeksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChkTeksActionPerformed
         TTeks.requestFocus();
     }//GEN-LAST:event_ChkTeksActionPerformed
+
+    private void tbHariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbHariMouseClicked
+        if (tabMode2.getRowCount() != 0) {
+            try {
+                getDataLibur();
+            } catch (java.lang.NullPointerException e) {
+            }
+        }
+    }//GEN-LAST:event_tbHariMouseClicked
+
+    private void tbHariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbHariKeyPressed
+        if (tabMode2.getRowCount() != 0) {
+            if ((evt.getKeyCode() == KeyEvent.VK_ENTER) || (evt.getKeyCode() == KeyEvent.VK_UP) || (evt.getKeyCode() == KeyEvent.VK_DOWN)) {
+                try {
+                    getDataLibur();
+                } catch (java.lang.NullPointerException e) {
+                }
+            }
+        }
+    }//GEN-LAST:event_tbHariKeyPressed
+
+    private void MnHariLiburActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnHariLiburActionPerformed
+        if (tabMode2.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Maaf, tabel masih kosong...!!!!");
+            tbHari.requestFocus();
+        } else if (tglnya.equals("")) {
+            JOptionPane.showMessageDialog(null, "Silahkan pilih salah satu datanya pada tabel yg. akan diperbaiki...!!!!");
+            tbHari.requestFocus();
+        } else {
+            Sequel.queryu("delete from hari_libur where tgl_libur='" + tglnya + "'");
+            tampilLibur();
+            emptTeks();
+        }
+    }//GEN-LAST:event_MnHariLiburActionPerformed
+
+    private void BtnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCariActionPerformed
+        if (taun.getText().equals("") || taun.getText().length() < 4) {
+            JOptionPane.showMessageDialog(null, "Silahkan isi tahun libur dengan benar...!!!!");
+            taun.requestFocus();
+        } else {
+            tampilLibur();
+        }
+    }//GEN-LAST:event_BtnCariActionPerformed
+
+    private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnCariKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
+            BtnCariActionPerformed(null);
+        } else {
+            Valid.pindah(evt, TCari, BtnAll);
+        }
+    }//GEN-LAST:event_BtnCariKeyPressed
+
+    private void BtnAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAllActionPerformed
+        if (taun.getText().equals("") || taun.getText().length() < 4) {
+            JOptionPane.showMessageDialog(null, "Silahkan isi tahun libur dengan benar...!!!!");
+            taun.requestFocus();
+        } else {
+            TCari.setText("");
+            tampilLibur();
+        }
+    }//GEN-LAST:event_BtnAllActionPerformed
+
+    private void BtnAllKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnAllKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {            
+            TCari.setText("");
+            tampilLibur();
+        }
+    }//GEN-LAST:event_BtnAllKeyPressed
+
+    private void TCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TCariKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            BtnCariActionPerformed(null);
+        } else if (evt.getKeyCode() == KeyEvent.VK_PAGE_DOWN) {
+            BtnCari.requestFocus();
+        } else if (evt.getKeyCode() == KeyEvent.VK_PAGE_UP) {
+            BtnKeluar.requestFocus();
+        }
+    }//GEN-LAST:event_TCariKeyPressed
+
+    private void taunKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_taunKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            BtnCariActionPerformed(null);
+        } else if (evt.getKeyCode() == KeyEvent.VK_PAGE_DOWN) {
+            BtnCari.requestFocus();
+        } else if (evt.getKeyCode() == KeyEvent.VK_PAGE_UP) {
+            BtnKeluar.requestFocus();
+        }
+    }//GEN-LAST:event_taunKeyPressed
 
     /**
     * @param args the command line arguments
@@ -715,39 +909,50 @@ private void TTeksKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TTe
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private widget.Button BtnAll;
     private widget.Button BtnBatal;
-    private widget.Button BtnCariGb;
+    private widget.Button BtnCari;
     private widget.Button BtnEdit;
     private widget.Button BtnKeluar;
     private widget.Button BtnSimpan;
+    private widget.CekBox ChkHariLibur;
     private widget.CekBox ChkPetugas;
     private widget.CekBox ChkTeks;
-    private widget.TextBox EGb;
-    private javax.swing.JMenuItem MnDisplay;
+    private widget.Label LCount;
     private javax.swing.JMenuItem MnHakAkses;
-    private java.awt.Canvas PhotoGambar;
+    private javax.swing.JMenuItem MnHariLibur;
     private widget.ScrollPane Scroll;
     private widget.ScrollPane Scroll1;
     private widget.ScrollPane Scroll2;
+    private widget.ScrollPane Scroll3;
+    private widget.TextBox TCari;
     private widget.TextArea TTeks;
-    private widget.ComboBox YesNo;
     private widget.InternalFrame internalFrame1;
     private widget.InternalFrame internalFrame2;
+    private widget.InternalFrame internalFrame3;
+    private widget.Label jLabel15;
+    private widget.Label jLabel6;
+    private widget.Label jLabel7;
     private javax.swing.JPopupMenu jPopupMenu1;
-    private widget.Label label12;
+    private widget.TextBox ketLibur;
     private widget.Label label14;
-    private widget.Label label37;
+    private widget.Label label15;
+    private widget.Label label38;
     private widget.panelGlass panelGlass1;
     private widget.panelisi panelisi1;
+    private widget.panelisi panelisi2;
     private widget.TextBox pinAdmin;
     private widget.TextBox pinPetugas;
-    private widget.ScrollPane scrollPane2;
+    private widget.TextBox taun;
     private widget.Table tbDisplay;
+    private widget.Table tbHari;
     private widget.Table tbNomor;
+    private widget.Tanggal tglLibur;
+    private widget.TextBox urlVideo;
     // End of variables declaration//GEN-END:variables
 
     private void tampil() {
-        String sql = "select teks, aktifkan, gambar from runtext";
+        String sql = "select kode, url_video, kalimat from antrian_informasi order by kode";
         prosesCari(sql);
     }
     
@@ -755,11 +960,12 @@ private void TTeksKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TTe
         String sql1 = "select pin_petugas, pin_admin_utama from antrian_hak_akses";
         prosesCari1(sql1);
     }
-
+    
     private void prosesCari(String sql) {
+        kdInformasi = "";
         Valid.tabelKosong(tabMode);
         try {
-            java.sql.Statement stat = koneksi.createStatement();
+            java.sql.Statement stat = koneksi.createStatement();            
             ResultSet rs = stat.executeQuery(sql);
             while (rs.next()) {
                 Object[] data = {rs.getString(1), rs.getString(2), rs.getString(3)};
@@ -771,6 +977,7 @@ private void TTeksKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TTe
     }
     
     private void prosesCari1(String sql1) {
+        pinNya = "";
         Valid.tabelKosong(tabMode1);
         try {
             java.sql.Statement stat = koneksi.createStatement();
@@ -783,34 +990,49 @@ private void TTeksKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TTe
             System.out.println("Notifikasi : " + e);
         }
     }
+    
+    private void tampilLibur() {
+        tglnya = "";
+        Valid.tabelKosong(tabMode2);
+        try {
+            ps2 = koneksi.prepareStatement("select tgl_libur, keterangan from hari_libur where "
+                    + "year(tgl_libur)='" + taun.getText() + "' and keterangan like ? order by tgl_libur desc");
+            try {
+                ps2.setString(1, "%" + TCari.getText().trim() + "%");
+                rs2 = ps2.executeQuery();
+                while (rs2.next()) {
+                    tabMode2.addRow(new Object[]{
+                        rs2.getString("tgl_libur"),
+                        rs2.getString("keterangan")
+                    });
+                }
+            } catch (Exception e) {
+                System.out.println("Notifikasi : " + e);
+            } finally {
+                if (rs2 != null) {
+                    rs2.close();
+                }
+                if (ps2 != null) {
+                    ps2.close();
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Notifikasi : " + e);
+        }
+        LCount.setText("" + tabMode2.getRowCount() + " hari libur ditemukan.");
+    }
 
     private void getData() {
-        teksNya = "";
-        int row = tbDisplay.getSelectedRow();
-        if (row != -1) {
-            TTeks.setText(tabMode.getValueAt(row, 0).toString());
-            YesNo.setSelectedItem(tabMode.getValueAt(row, 1).toString());
-            teksNya = TTeks.getText();
-            
-            if (!teksNya.equals("")) {
+        kdInformasi = "";
+        if (tbDisplay.getSelectedRow() != -1) {
+            kdInformasi = tbDisplay.getValueAt(tbDisplay.getSelectedRow(), 0).toString();
+            urlVideo.setText(tbDisplay.getValueAt(tbDisplay.getSelectedRow(), 1).toString());
+            TTeks.setText(tbDisplay.getValueAt(tbDisplay.getSelectedRow(), 2).toString());
+
+            if (!kdInformasi.equals("")) {
                 ChkTeks.setSelected(true);
             } else {
                 ChkTeks.setSelected(false);
-            }
-            
-            try {
-                ResultSet hasil = koneksi.createStatement().executeQuery(
-                        "select gambar from runtext where teks='" + tabMode.getValueAt(row, 0).toString() + "'");
-                for (int I = 0; hasil.next(); I++) {
-                    ((Painter) PhotoGambar).setImage(gambar(tabMode.getValueAt(row, 0).toString()));
-                    Blob blob = hasil.getBlob(1);
-                    ((Painter) PhotoGambar).setImageIcon(new javax.swing.ImageIcon(
-                            blob.getBytes(1, (int) (blob.length()))));
-                    blob.free();
-                }
-                hasil.close();
-            } catch (Exception ex) {
-                cetak(ex.toString());
             }
         }
     }
@@ -829,58 +1051,36 @@ private void TTeksKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TTe
             }
         }
     }
+    
+    private void getDataLibur() {
+        tglnya = "";
+        if (tbHari.getSelectedRow() != -1) {
+            tglnya = tbHari.getValueAt(tbHari.getSelectedRow(), 0).toString();
+            Valid.SetTgl(tglLibur, tbHari.getValueAt(tbHari.getSelectedRow(), 0).toString());
+            ketLibur.setText(tbHari.getValueAt(tbHari.getSelectedRow(), 1).toString());
+            
+            if (!tglnya.equals("")) {
+                ChkHariLibur.setSelected(true);
+            } else {
+                ChkHariLibur.setSelected(false);
+            }
+        }
+    }
 
     public void emptTeks() {
         TTeks.setText("");
-        ((Painter) PhotoGambar).setImage("");
-        EGb.setText("");
-        YesNo.setSelectedItem("No");
         ChkTeks.setSelected(false);
         ChkPetugas.setSelected(false);
+        ChkHariLibur.setSelected(false);
         pinPetugas.setText("");
         pinAdmin.setText("");
+        urlVideo.setText("");
+        tglLibur.setDate(new Date());
+        ketLibur.setText("");
         TTeks.requestFocus();
+        taun.setText(Sequel.cariIsi("SELECT YEAR(NOW())"));
         tampil();
         tampilNomor();
+        tampilLibur();
     }
-    
-    
-    private String gambar(String id) {
-        return folder + File.separator + id.trim() + ".jpg";
-    }
-
-    private String folder;
-
-    public class Painter extends Canvas {
-
-        Image image;
-
-        public void setImage(String file) {
-            URL url = null;
-            try {
-                url = new File(file).toURI().toURL();
-            } catch (Exception ex) {
-                cetak(ex.toString());
-            }
-            image = getToolkit().getImage(url);
-            repaint();
-        }
-        public void setImageIcon(ImageIcon file) {
-            image = file.getImage();
-            repaint();
-        }
-
-        @Override
-        public void paint(Graphics g) {
-            double d = image.getHeight(this) / this.getHeight();
-            double w = image.getWidth(this) / d;
-            double x = this.getWidth() / 2 - w / 2;
-            g.drawImage(image, (int) x, 0, (int) (w), this.getHeight(), this);
-        }
-    }
-    
-    private void cetak(String str) {
-        System.out.println(str);
-    }
-    
 }

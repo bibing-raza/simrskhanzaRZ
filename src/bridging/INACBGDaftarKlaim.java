@@ -1017,7 +1017,7 @@ public class INACBGDaftarKlaim extends javax.swing.JDialog {
 
         ppExportKlaimFinal.setBackground(new java.awt.Color(242, 242, 242));
         ppExportKlaimFinal.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        ppExportKlaimFinal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        ppExportKlaimFinal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/export-excel.png"))); // NOI18N
         ppExportKlaimFinal.setText("Klaim JKN Final Diexport Ke File Excel ");
         ppExportKlaimFinal.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         ppExportKlaimFinal.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);

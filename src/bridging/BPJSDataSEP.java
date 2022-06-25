@@ -1677,7 +1677,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
 
         MnRekapSEPRanap.setBackground(new java.awt.Color(242, 242, 242));
         MnRekapSEPRanap.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        MnRekapSEPRanap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/download1-24.png"))); // NOI18N
+        MnRekapSEPRanap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/export-excel.png"))); // NOI18N
         MnRekapSEPRanap.setText("Rekap No. SEP R. INAP");
         MnRekapSEPRanap.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MnRekapSEPRanap.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -1693,7 +1693,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
 
         MnRekapSEPRalan.setBackground(new java.awt.Color(242, 242, 242));
         MnRekapSEPRalan.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        MnRekapSEPRalan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/download1-24.png"))); // NOI18N
+        MnRekapSEPRalan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/export-excel.png"))); // NOI18N
         MnRekapSEPRalan.setText("Rekap No. SEP R. JALAN");
         MnRekapSEPRalan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MnRekapSEPRalan.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);

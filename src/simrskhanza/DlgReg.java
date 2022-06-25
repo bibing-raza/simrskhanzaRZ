@@ -313,7 +313,6 @@ public final class DlgReg extends javax.swing.JDialog {
                     if (pasien.getTable().getSelectedRow() != -1) {
                         TNoID.setText(pasien.getTable().getValueAt(pasien.getTable().getSelectedRow(), 1).toString());
                         TNoRM.setText(pasien.getTable().getValueAt(pasien.getTable().getSelectedRow(), 1).toString());
-                        jnsKel.setText(pasien.getTable().getValueAt(pasien.getTable().getSelectedRow(), 4).toString());
                         JnsnoID.setSelectedIndex(0);
                         kdsuku.setText(pasien.getTable().getValueAt(pasien.getTable().getSelectedRow(), 26).toString());
                         kdbahasa.setText(pasien.getTable().getValueAt(pasien.getTable().getSelectedRow(), 27).toString());
@@ -1405,7 +1404,6 @@ public final class DlgReg extends javax.swing.JDialog {
         rmMati = new widget.TextBox();
         jamMati = new widget.TextBox();
         tglMati = new widget.TextBox();
-        jnsKel = new widget.TextBox();
         TNoRM = new widget.TextBox();
         kode_rujukanya = new widget.TextBox();
         cekPasien = new widget.TextBox();
@@ -2966,7 +2964,7 @@ public final class DlgReg extends javax.swing.JDialog {
         panelBiasa2.setLayout(null);
 
         TglSakit1.setEditable(false);
-        TglSakit1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "30-11-2021" }));
+        TglSakit1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-03-2022" }));
         TglSakit1.setDisplayFormat("dd-MM-yyyy");
         TglSakit1.setName("TglSakit1"); // NOI18N
         TglSakit1.setOpaque(false);
@@ -3017,7 +3015,7 @@ public final class DlgReg extends javax.swing.JDialog {
         jLabel32.setBounds(176, 10, 20, 23);
 
         TglSakit2.setEditable(false);
-        TglSakit2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "30-11-2021" }));
+        TglSakit2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-03-2022" }));
         TglSakit2.setDisplayFormat("dd-MM-yyyy");
         TglSakit2.setName("TglSakit2"); // NOI18N
         TglSakit2.setOpaque(false);
@@ -3364,7 +3362,7 @@ public final class DlgReg extends javax.swing.JDialog {
         jLabel26.setBounds(0, 20, 110, 23);
 
         TglSurat.setEditable(false);
-        TglSurat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "30-11-2021" }));
+        TglSurat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-03-2022" }));
         TglSurat.setDisplayFormat("dd-MM-yyyy");
         TglSurat.setName("TglSurat"); // NOI18N
         TglSurat.setOpaque(false);
@@ -3493,7 +3491,7 @@ public final class DlgReg extends javax.swing.JDialog {
         jLabel28.setBounds(0, 20, 110, 23);
 
         TglSurat1.setEditable(false);
-        TglSurat1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "30-11-2021" }));
+        TglSurat1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-03-2022" }));
         TglSurat1.setDisplayFormat("dd-MM-yyyy");
         TglSurat1.setName("TglSurat1"); // NOI18N
         TglSurat1.setOpaque(false);
@@ -3586,7 +3584,7 @@ public final class DlgReg extends javax.swing.JDialog {
         jLabel29.setBounds(0, 25, 130, 23);
 
         TglReg.setEditable(false);
-        TglReg.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "30-11-2021" }));
+        TglReg.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-03-2022" }));
         TglReg.setDisplayFormat("dd-MM-yyyy");
         TglReg.setName("TglReg"); // NOI18N
         TglReg.setOpaque(false);
@@ -3791,9 +3789,6 @@ public final class DlgReg extends javax.swing.JDialog {
 
         tglMati.setName("tglMati"); // NOI18N
         tglMati.setPreferredSize(new java.awt.Dimension(207, 23));
-
-        jnsKel.setName("jnsKel"); // NOI18N
-        jnsKel.setPreferredSize(new java.awt.Dimension(207, 23));
 
         TNoRM.setName("TNoRM"); // NOI18N
         TNoRM.setPreferredSize(new java.awt.Dimension(207, 23));
@@ -4009,7 +4004,7 @@ public final class DlgReg extends javax.swing.JDialog {
         panelGlass7.add(jLabel15);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "30-11-2021" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-03-2022" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -4024,7 +4019,7 @@ public final class DlgReg extends javax.swing.JDialog {
         panelGlass7.add(jLabel17);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "30-11-2021" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-03-2022" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -4714,9 +4709,6 @@ public final class DlgReg extends javax.swing.JDialog {
                 + "where kamar_inap.stts_pulang='-' and pasien.no_rkm_medis=?", TNoRM.getText()) > 0) {
             JOptionPane.showMessageDialog(null, "Pasien sedang dalam masa perawatan di kamar inap..!!");
             TNoID.requestFocus();
-        } else if (jnsKel.getText().equals("L") && (kdpoli.getText().equals("OBG"))) {
-            JOptionPane.showMessageDialog(null, "Pasien dengan jns. kelamin laki-laki tidak boleh mendaftar ke poli " + TPoli.getText() + ".");
-            BtnUnit.requestFocus();
         } else if (!cekPasien.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Pasien ini sdh. terdaftar dipoli & tanggal yang sama...");
             BtnUnit.requestFocus();
@@ -4988,9 +4980,6 @@ public final class DlgReg extends javax.swing.JDialog {
             Valid.textKosong(kdpoli, "poliklinik");
         } else if (TBiaya.getText().trim().equals("")) {
             Valid.textKosong(TBiaya, "biaya regristrasi");
-        } else if (jnsKel.getText().equals("L") && (kdpoli.getText().equals("OBG"))) {
-            JOptionPane.showMessageDialog(null, "Pasien dengan jns. kelamin laki-laki tidak boleh mendaftar ke poli " + TPoli.getText() + ".");
-            BtnUnit.requestFocus();
         } else if (kdsuku.getText().trim().equals("19") || kdsuku.getText().trim().equals("") || kdsuku.getText().trim().equals("-")) {
             Valid.textKosong(kdsuku, "Suku/Bangsa Pasien");
         } else if (kdbahasa.getText().trim().equals("12") || kdbahasa.getText().trim().equals("") || kdbahasa.getText().trim().equals("-")) {
@@ -7486,9 +7475,6 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
                 + "on reg_periksa.no_rkm_medis=pasien.no_rkm_medis and reg_periksa.no_rawat=kamar_inap.no_rawat "
                 + "where kamar_inap.stts_pulang='-' and pasien.no_rkm_medis=?", TNoRM.getText()) > 0) {
             JOptionPane.showMessageDialog(null, "Pasien sedang dalam masa perawatan di kamar inap..!!");
-        } else if (jnsKel.getText().equals("L") && (kdpoliRujuk.getText().equals("OBG"))) {
-            JOptionPane.showMessageDialog(null, "Pasien dengan jns. kelamin laki-laki tidak boleh mendaftar ke poli " + nmpoliRujuk.getText() + ".");
-            BtnPoliRujuk.requestFocus();
         } else if (!cekPasien.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Pasien ini sdh. terdaftar dipoli & tanggal yang sama...");
             BtnPoliRujuk.requestFocus();
@@ -7940,7 +7926,6 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu jPopupMenu1;
     private widget.TextBox jamMati;
-    private widget.TextBox jnsKel;
     private widget.TextBox kdDokterRujuk;
     private widget.TextBox kdbahasa;
     private widget.TextBox kddokter;
@@ -8147,7 +8132,6 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
         rmMati.setText("");
         jamMati.setText("");
         tglMati.setText("");
-        jnsKel.setText("");
 
 //ini tambahannya : 
         kdpoli.setText("");
@@ -8200,7 +8184,6 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
             drPerujuk.setText(TDokter.getText());
             TNoID.setText(tbregistrasiRalan.getValueAt(tbregistrasiRalan.getSelectedRow(), 7).toString());
             TNoRM.setText(tbregistrasiRalan.getValueAt(tbregistrasiRalan.getSelectedRow(), 7).toString());
-            jnsKel.setText(tbregistrasiRalan.getValueAt(tbregistrasiRalan.getSelectedRow(), 9).toString());
             isCekPasien();
             TPoli.setText(tbregistrasiRalan.getValueAt(tbregistrasiRalan.getSelectedRow(), 11).toString());
             poliPerujuk.setText(TPoli.getText());
