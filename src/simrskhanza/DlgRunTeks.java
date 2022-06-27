@@ -51,7 +51,7 @@ public class DlgRunTeks extends javax.swing.JDialog {
         initComponents();
         this.setLocation(10,10);
         
-        Object[] row = {"Kode", "URL Youtube Video", "Kalimat Informasi"};
+        Object[] row = {"Kode", "URL Video Player Youtube", "URL Video Playlist Youtube","Kalimat Informasi"};
         tabMode=new DefaultTableModel(null,row){
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
         };
@@ -60,13 +60,15 @@ public class DlgRunTeks extends javax.swing.JDialog {
         tbDisplay.setPreferredScrollableViewportSize(new Dimension(500,500));
         tbDisplay.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             TableColumn column = tbDisplay.getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setPreferredWidth(50);
             } else if (i == 1) {
                 column.setPreferredWidth(300);
             } else if (i == 2) {
+                column.setPreferredWidth(300);
+            } else if (i == 3) {
                 column.setPreferredWidth(400);
             }
         }
@@ -136,11 +138,13 @@ public class DlgRunTeks extends javax.swing.JDialog {
         ChkPetugas = new widget.CekBox();
         ChkTeks = new widget.CekBox();
         label38 = new widget.Label();
-        urlVideo = new widget.TextBox();
+        urlVideoPlayer = new widget.TextBox();
         ChkHariLibur = new widget.CekBox();
         tglLibur = new widget.Tanggal();
         label15 = new widget.Label();
         ketLibur = new widget.TextBox();
+        label39 = new widget.Label();
+        urlVideoPlaylist = new widget.TextBox();
         internalFrame2 = new widget.InternalFrame();
         Scroll = new widget.ScrollPane();
         tbDisplay = new widget.Table();
@@ -215,7 +219,7 @@ public class DlgRunTeks extends javax.swing.JDialog {
         internalFrame1.setLayout(new java.awt.BorderLayout(1, 1));
 
         panelGlass1.setName("panelGlass1"); // NOI18N
-        panelGlass1.setPreferredSize(new java.awt.Dimension(200, 230));
+        panelGlass1.setPreferredSize(new java.awt.Dimension(200, 260));
         panelGlass1.setLayout(null);
 
         Scroll2.setForeground(new java.awt.Color(153, 0, 51));
@@ -228,11 +232,6 @@ public class DlgRunTeks extends javax.swing.JDialog {
         TTeks.setRows(5);
         TTeks.setName("TTeks"); // NOI18N
         TTeks.setPreferredSize(new java.awt.Dimension(200, 280));
-        TTeks.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                TTeksKeyPressed(evt);
-            }
-        });
         Scroll2.setViewportView(TTeks);
 
         panelGlass1.add(Scroll2);
@@ -243,21 +242,21 @@ public class DlgRunTeks extends javax.swing.JDialog {
         pinPetugas.setName("pinPetugas"); // NOI18N
         pinPetugas.setPreferredSize(new java.awt.Dimension(207, 23));
         panelGlass1.add(pinPetugas);
-        pinPetugas.setBounds(170, 160, 70, 23);
+        pinPetugas.setBounds(170, 190, 70, 23);
 
         label14.setForeground(new java.awt.Color(0, 0, 0));
         label14.setText("PIN Nomor Antrian Admin Utama : ");
         label14.setName("label14"); // NOI18N
         label14.setPreferredSize(new java.awt.Dimension(70, 23));
         panelGlass1.add(label14);
-        label14.setBounds(241, 160, 180, 23);
+        label14.setBounds(241, 190, 180, 23);
 
         pinAdmin.setForeground(new java.awt.Color(0, 0, 0));
         pinAdmin.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         pinAdmin.setName("pinAdmin"); // NOI18N
         pinAdmin.setPreferredSize(new java.awt.Dimension(207, 23));
         panelGlass1.add(pinAdmin);
-        pinAdmin.setBounds(423, 160, 70, 23);
+        pinAdmin.setBounds(423, 190, 70, 23);
 
         ChkPetugas.setBackground(new java.awt.Color(255, 255, 250));
         ChkPetugas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 250)));
@@ -274,7 +273,7 @@ public class DlgRunTeks extends javax.swing.JDialog {
             }
         });
         panelGlass1.add(ChkPetugas);
-        ChkPetugas.setBounds(0, 160, 170, 23);
+        ChkPetugas.setBounds(0, 190, 170, 23);
 
         ChkTeks.setBackground(new java.awt.Color(255, 255, 250));
         ChkTeks.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 250)));
@@ -294,17 +293,17 @@ public class DlgRunTeks extends javax.swing.JDialog {
         ChkTeks.setBounds(0, 10, 110, 23);
 
         label38.setForeground(new java.awt.Color(0, 0, 0));
-        label38.setText("URL Youtube Video : ");
+        label38.setText("URL Video Player Youtube : ");
         label38.setName("label38"); // NOI18N
         label38.setPreferredSize(new java.awt.Dimension(35, 23));
         panelGlass1.add(label38);
-        label38.setBounds(0, 130, 110, 23);
+        label38.setBounds(0, 130, 150, 23);
 
-        urlVideo.setForeground(new java.awt.Color(0, 0, 0));
-        urlVideo.setName("urlVideo"); // NOI18N
-        urlVideo.setPreferredSize(new java.awt.Dimension(207, 23));
-        panelGlass1.add(urlVideo);
-        urlVideo.setBounds(110, 130, 610, 23);
+        urlVideoPlayer.setForeground(new java.awt.Color(0, 0, 0));
+        urlVideoPlayer.setName("urlVideoPlayer"); // NOI18N
+        urlVideoPlayer.setPreferredSize(new java.awt.Dimension(207, 23));
+        panelGlass1.add(urlVideoPlayer);
+        urlVideoPlayer.setBounds(150, 130, 570, 23);
 
         ChkHariLibur.setBackground(new java.awt.Color(255, 255, 250));
         ChkHariLibur.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 250)));
@@ -316,28 +315,41 @@ public class DlgRunTeks extends javax.swing.JDialog {
         ChkHariLibur.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         ChkHariLibur.setName("ChkHariLibur"); // NOI18N
         panelGlass1.add(ChkHariLibur);
-        ChkHariLibur.setBounds(0, 190, 128, 23);
+        ChkHariLibur.setBounds(0, 220, 128, 23);
 
         tglLibur.setEditable(false);
-        tglLibur.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "25-06-2022" }));
+        tglLibur.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "27-06-2022" }));
         tglLibur.setDisplayFormat("dd-MM-yyyy");
         tglLibur.setName("tglLibur"); // NOI18N
         tglLibur.setOpaque(false);
         panelGlass1.add(tglLibur);
-        tglLibur.setBounds(130, 190, 90, 23);
+        tglLibur.setBounds(130, 220, 90, 23);
 
         label15.setForeground(new java.awt.Color(0, 0, 0));
         label15.setText("Keterangan Libur : ");
         label15.setName("label15"); // NOI18N
         label15.setPreferredSize(new java.awt.Dimension(70, 23));
         panelGlass1.add(label15);
-        label15.setBounds(221, 190, 107, 23);
+        label15.setBounds(221, 220, 107, 23);
 
         ketLibur.setForeground(new java.awt.Color(0, 0, 0));
         ketLibur.setName("ketLibur"); // NOI18N
         ketLibur.setPreferredSize(new java.awt.Dimension(207, 23));
         panelGlass1.add(ketLibur);
-        ketLibur.setBounds(330, 190, 390, 23);
+        ketLibur.setBounds(330, 220, 390, 23);
+
+        label39.setForeground(new java.awt.Color(0, 0, 0));
+        label39.setText("URL Video Playlist Youtube : ");
+        label39.setName("label39"); // NOI18N
+        label39.setPreferredSize(new java.awt.Dimension(35, 23));
+        panelGlass1.add(label39);
+        label39.setBounds(0, 160, 150, 23);
+
+        urlVideoPlaylist.setForeground(new java.awt.Color(0, 0, 0));
+        urlVideoPlaylist.setName("urlVideoPlaylist"); // NOI18N
+        urlVideoPlaylist.setPreferredSize(new java.awt.Dimension(207, 23));
+        panelGlass1.add(urlVideoPlaylist);
+        urlVideoPlaylist.setBounds(150, 160, 570, 23);
 
         internalFrame1.add(panelGlass1, java.awt.BorderLayout.PAGE_START);
 
@@ -388,7 +400,7 @@ public class DlgRunTeks extends javax.swing.JDialog {
         internalFrame2.add(Scroll1, java.awt.BorderLayout.CENTER);
 
         internalFrame3.setName("internalFrame3"); // NOI18N
-        internalFrame3.setPreferredSize(new java.awt.Dimension(460, 420));
+        internalFrame3.setPreferredSize(new java.awt.Dimension(460, 380));
         internalFrame3.setLayout(new java.awt.BorderLayout(1, 1));
 
         Scroll3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "::[ Set Hari Libur / Tutup Pelayanan Normal Poliklinik Rawat Jalan ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
@@ -598,15 +610,18 @@ public class DlgRunTeks extends javax.swing.JDialog {
         if (ChkTeks.isSelected() == true) {
             if (TTeks.getText().equals("")) {
                 Valid.textKosong(TTeks, "Teks");
-            } else if (urlVideo.getText().trim().equals("")) {
-                Valid.textKosong(urlVideo, "URL Youtube Video");
-                urlVideo.requestFocus();
+            } else if (urlVideoPlayer.getText().trim().equals("")) {
+                Valid.textKosong(urlVideoPlayer, "URL Video Player Youtube");
+                urlVideoPlayer.requestFocus();
+            } else if (urlVideoPlaylist.getText().trim().equals("")) {
+                Valid.textKosong(urlVideoPlaylist, "URL Video Playlist Youtube");
+                urlVideoPlaylist.requestFocus();
             } else if (kdInformasi.equals("")) {
                 JOptionPane.showMessageDialog(null, "Silahkan pilih salah satu datanya pada tabel yg. akan diperbaiki...!!!!");
                 tbDisplay.requestFocus();
             } else {
                 Sequel.mengedit("antrian_informasi", "kode='" + kdInformasi + "'",
-                        "url_video='" + urlVideo.getText() + "',kalimat='" + TTeks.getText() + "'");
+                            "url_video_player='" + urlVideoPlayer.getText() + "',kalimat='" + TTeks.getText() + "',url_playlist='" + urlVideoPlaylist.getText() + "'");
                 tampil();
                 emptTeks();
             }
@@ -673,12 +688,15 @@ public class DlgRunTeks extends javax.swing.JDialog {
             if (ChkTeks.isSelected() == true) {
                 if (TTeks.getText().equals("")) {
                     Valid.textKosong(TTeks, "Teks");
-                } else if (urlVideo.getText().trim().equals("")) {
-                    Valid.textKosong(urlVideo, "URL Youtube Video");
-                    urlVideo.requestFocus();
+                } else if (urlVideoPlayer.getText().trim().equals("")) {
+                    Valid.textKosong(urlVideoPlayer, "URL Video Player Youtube");
+                    urlVideoPlayer.requestFocus();
+                } else if (urlVideoPlaylist.getText().trim().equals("")) {
+                    Valid.textKosong(urlVideoPlaylist, "URL Video Playlist Youtube");
+                    urlVideoPlaylist.requestFocus();
                 } else if (tabMode.getRowCount() == 0) {
                     Sequel.mengedit("antrian_informasi", "kode='" + kdInformasi + "'",
-                        "url_video='" + urlVideo.getText() + "',kalimat='" + TTeks.getText() + "'");
+                            "url_video_player='" + urlVideoPlayer.getText() + "',kalimat='" + TTeks.getText() + "',url_playlist='" + urlVideoPlaylist.getText() + "'");
                     tampil();
                     emptTeks();
                 } else if (tabMode.getRowCount() > 0) {
@@ -749,10 +767,6 @@ public class DlgRunTeks extends javax.swing.JDialog {
             dispose();
         }else{Valid.pindah(evt,BtnEdit,BtnKeluar);}
     }//GEN-LAST:event_BtnKeluarKeyPressed
-
-private void TTeksKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TTeksKeyPressed
-        Valid.pindah(evt, BtnKeluar, urlVideo);
-}//GEN-LAST:event_TTeksKeyPressed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         taun.setText(Sequel.cariIsi("SELECT YEAR(NOW())"));
@@ -938,6 +952,7 @@ private void TTeksKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TTe
     private widget.Label label14;
     private widget.Label label15;
     private widget.Label label38;
+    private widget.Label label39;
     private widget.panelGlass panelGlass1;
     private widget.panelisi panelisi1;
     private widget.panelisi panelisi2;
@@ -948,11 +963,13 @@ private void TTeksKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TTe
     private widget.Table tbHari;
     private widget.Table tbNomor;
     private widget.Tanggal tglLibur;
-    private widget.TextBox urlVideo;
+    private widget.TextBox urlVideoPlayer;
+    private widget.TextBox urlVideoPlaylist;
     // End of variables declaration//GEN-END:variables
 
     private void tampil() {
-        String sql = "select kode, url_video, kalimat from antrian_informasi order by kode";
+        String sql = "select ifnull(kode,'') kd, ifnull(url_video_player,'') player, "
+                + "ifnull(url_playlist,'') playlist, ifnull(kalimat,'') kalimat from antrian_informasi order by kode";
         prosesCari(sql);
     }
     
@@ -968,7 +985,7 @@ private void TTeksKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TTe
             java.sql.Statement stat = koneksi.createStatement();            
             ResultSet rs = stat.executeQuery(sql);
             while (rs.next()) {
-                Object[] data = {rs.getString(1), rs.getString(2), rs.getString(3)};
+                Object[] data = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)};
                 tabMode.addRow(data);
             }
         } catch (SQLException e) {
@@ -1026,8 +1043,9 @@ private void TTeksKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TTe
         kdInformasi = "";
         if (tbDisplay.getSelectedRow() != -1) {
             kdInformasi = tbDisplay.getValueAt(tbDisplay.getSelectedRow(), 0).toString();
-            urlVideo.setText(tbDisplay.getValueAt(tbDisplay.getSelectedRow(), 1).toString());
-            TTeks.setText(tbDisplay.getValueAt(tbDisplay.getSelectedRow(), 2).toString());
+            urlVideoPlayer.setText(tbDisplay.getValueAt(tbDisplay.getSelectedRow(), 1).toString());
+            urlVideoPlaylist.setText(tbDisplay.getValueAt(tbDisplay.getSelectedRow(), 2).toString());
+            TTeks.setText(tbDisplay.getValueAt(tbDisplay.getSelectedRow(), 3).toString());
 
             if (!kdInformasi.equals("")) {
                 ChkTeks.setSelected(true);
@@ -1074,7 +1092,8 @@ private void TTeksKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TTe
         ChkHariLibur.setSelected(false);
         pinPetugas.setText("");
         pinAdmin.setText("");
-        urlVideo.setText("");
+        urlVideoPlayer.setText("");
+        urlVideoPlaylist.setText("");
         tglLibur.setDate(new Date());
         ketLibur.setText("");
         TTeks.requestFocus();

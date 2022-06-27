@@ -130,7 +130,7 @@
           <Properties>
             <Property name="name" type="java.lang.String" value="panelGlass1" noResource="true"/>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[200, 230]"/>
+              <Dimension value="[200, 260]"/>
             </Property>
           </Properties>
           <Constraints>
@@ -174,9 +174,6 @@
                       <Dimension value="[200, 280]"/>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TTeksKeyPressed"/>
-                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -193,7 +190,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="170" y="160" width="70" height="23"/>
+                  <AbsoluteConstraints x="170" y="190" width="70" height="23"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -210,7 +207,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="241" y="160" width="180" height="23"/>
+                  <AbsoluteConstraints x="241" y="190" width="180" height="23"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -227,7 +224,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="423" y="160" width="70" height="23"/>
+                  <AbsoluteConstraints x="423" y="190" width="70" height="23"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -258,7 +255,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="160" width="170" height="23"/>
+                  <AbsoluteConstraints x="0" y="190" width="170" height="23"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -298,7 +295,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="URL Youtube Video : "/>
+                <Property name="text" type="java.lang.String" value="URL Video Player Youtube : "/>
                 <Property name="name" type="java.lang.String" value="label38" noResource="true"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[35, 23]"/>
@@ -306,23 +303,23 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="130" width="110" height="23"/>
+                  <AbsoluteConstraints x="0" y="130" width="150" height="23"/>
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="widget.TextBox" name="urlVideo">
+            <Component class="widget.TextBox" name="urlVideoPlayer">
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
-                <Property name="name" type="java.lang.String" value="urlVideo" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="urlVideoPlayer" noResource="true"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[207, 23]"/>
                 </Property>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="110" y="130" width="610" height="23"/>
+                  <AbsoluteConstraints x="150" y="130" width="570" height="23"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -350,7 +347,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="190" width="128" height="23"/>
+                  <AbsoluteConstraints x="0" y="220" width="128" height="23"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -359,7 +356,7 @@
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="1">
-                    <StringItem index="0" value="25-06-2022"/>
+                    <StringItem index="0" value="27-06-2022"/>
                   </StringArray>
                 </Property>
                 <Property name="displayFormat" type="java.lang.String" value="dd-MM-yyyy"/>
@@ -368,7 +365,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="130" y="190" width="90" height="23"/>
+                  <AbsoluteConstraints x="130" y="220" width="90" height="23"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -385,7 +382,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="221" y="190" width="107" height="23"/>
+                  <AbsoluteConstraints x="221" y="220" width="107" height="23"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -401,7 +398,40 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="330" y="190" width="390" height="23"/>
+                  <AbsoluteConstraints x="330" y="220" width="390" height="23"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="widget.Label" name="label39">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="0" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="URL Video Playlist Youtube : "/>
+                <Property name="name" type="java.lang.String" value="label39" noResource="true"/>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[35, 23]"/>
+                </Property>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="0" y="160" width="150" height="23"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="widget.TextBox" name="urlVideoPlaylist">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="0" type="rgb"/>
+                </Property>
+                <Property name="name" type="java.lang.String" value="urlVideoPlaylist" noResource="true"/>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[207, 23]"/>
+                </Property>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="150" y="160" width="570" height="23"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -501,7 +531,7 @@
               <Properties>
                 <Property name="name" type="java.lang.String" value="internalFrame3" noResource="true"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[460, 420]"/>
+                  <Dimension value="[460, 380]"/>
                 </Property>
               </Properties>
               <Constraints>
