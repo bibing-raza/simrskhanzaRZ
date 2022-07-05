@@ -5864,7 +5864,7 @@ public class frmUtama extends javax.swing.JFrame {
 
         tanggal.setEditable(false);
         tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17/05/2022" }));
+        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "28/06/2022" }));
         tanggal.setDisplayFormat("dd/MM/yyyy");
         tanggal.setName("tanggal"); // NOI18N
         tanggal.setOpaque(false);
@@ -7054,6 +7054,7 @@ private void BtnToolRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     kasirralan.kamarinap.reg.setSize(PanelUtama.getWidth(), PanelUtama.getHeight());
     kasirralan.kamarinap.reg.setLocationRelativeTo(PanelUtama);
     kasirralan.kamarinap.reg.setVisible(true);
+    kasirralan.kamarinap.reg.TabRawat.setSelectedIndex(0);
     this.setCursor(Cursor.getDefaultCursor());
 }//GEN-LAST:event_BtnToolRegActionPerformed
 

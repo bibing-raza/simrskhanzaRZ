@@ -21,6 +21,7 @@ import bridging.InhealthDataSJP;
 import bridging.SisruteRujukanKeluar;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fungsi.BackgroundMusic;
 import laporan.DlgDiagnosaPenyakit;
 import laporan.DlgFrekuensiPenyakitRalan;
 import keuangan.DlgBilingRalan;
@@ -63,6 +64,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -90,7 +93,7 @@ import org.springframework.http.MediaType;
  * @author dosen
  */
 public final class DlgReg extends javax.swing.JDialog {
-    private final DefaultTableModel tabMode;
+    private final DefaultTableModel tabMode, tabMode1;
     private sekuel Sequel = new sekuel();
     private validasi Valid = new validasi();
     private Connection koneksi = koneksiDB.condb();
@@ -108,16 +111,21 @@ public final class DlgReg extends javax.swing.JDialog {
     public DlgBahasa bahasa = new DlgBahasa(null, false);
     public DlgSuku suku = new DlgSuku(null, false);
     private BPJSApi api = new BPJSApi();
-    private PreparedStatement ps, ps3, pscaripiutang;
+    private PreparedStatement ps, ps2, ps3, pscaripiutang;
     private Properties prop = new Properties();
-    private ResultSet rs;
+    private ResultSet rs, rs2;
     private int pilihan = 0, i = 0, cekRujuk = 0, cekSEP = 0, cekjampersal = 0, cekjamkesda = 0,
-            diagnosa_cek = 0, cekUmur = 0;
+            diagnosa_cek = 0, cekUmur = 0, x = 0, panggilan = 0, nomorpasien = 0, hasilantrian = 0,
+            cekPangBPJS = 0, cekPangUmum = 0, cekPangLB = 0, cekPangInap = 0;
     private Date cal = new Date();
-    private String nosisrute = "", URUTNOREG = "", alamatperujuk = "-", URL = "", utc = "", noka = "",
-            aktifjadwal = "", IPPRINTERTRACER = "", umur = "0", sttsumur = "Th", cekSEPboking = "", diagnosa_ok = "",
+    private String nosisrute = "", URUTNOREG = "", alamatperujuk = "-", URL = "", utc = "", noka = "", wktPanggil = "", wktAmbilNomor = "", panggilanFix = "",
+            aktifjadwal = "", IPPRINTERTRACER = "", umur = "0", sttsumur = "Th", cekSEPboking = "", diagnosa_ok = "", noPangAkhir = "",
             tglDaftar = "", tglnoRW = "", sttsumur1 = "", validasiregistrasi = Sequel.cariIsi("select wajib_closing_kasir from set_validasi_registrasi");
     private SimpleDateFormat dateformat = new SimpleDateFormat("yyyy/MM/dd");
+    private String[] urut = {"", "./suara/satu.mp3", "./suara/dua.mp3", "./suara/tiga.mp3", "./suara/empat.mp3",
+        "./suara/lima.mp3", "./suara/enam.mp3", "./suara/tujuh.mp3", "./suara/delapan.mp3",
+        "./suara/sembilan.mp3", "./suara/sepuluh.mp3", "./suara/sebelas.mp3"};
+    private BackgroundMusic music;
     private char ESC = 27;
     // ganti kertas
     private char[] FORM_FEED = {12};
@@ -264,6 +272,36 @@ public final class DlgReg extends javax.swing.JDialog {
             }
         }
         tbregistrasiRalan.setDefaultRenderer(Object.class, new WarnaTable());
+        
+        tabMode1 = new DefaultTableModel(null, new String[]{
+            "Jenis Reset Nomor", "Nomor Terakhir", "Tgl. Reset", "Jam Reset", "tglreset"
+        }) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;
+            }
+        };
+        
+        tbrestorAntrian.setModel(tabMode1);
+        tbrestorAntrian.setPreferredScrollableViewportSize(new Dimension(800, 800));
+        tbrestorAntrian.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        
+        for (i = 0; i < 5; i++) {
+            TableColumn column = tbrestorAntrian.getColumnModel().getColumn(i);
+            if (i == 0) {
+                column.setPreferredWidth(250);
+            } else if (i == 1) {
+                column.setPreferredWidth(100);
+            } else if (i == 2) {
+                column.setPreferredWidth(75);
+            } else if (i == 3) {
+                column.setPreferredWidth(75);
+            } else if (i == 4) {
+                column.setMinWidth(0);
+                column.setMaxWidth(0);
+            }
+        }
+        tbrestorAntrian.setDefaultRenderer(Object.class, new WarnaTable());
 
         TNoReg.setDocument(new batasInput((byte) 8).getKata(TNoReg));
         TNoRw.setDocument(new batasInput((byte) 17).getKata(TNoRw));
@@ -1209,6 +1247,7 @@ public final class DlgReg extends javax.swing.JDialog {
 
         ChkInput.setSelected(false);
         isForm();
+        jam();
     }
 
     /**
@@ -1315,6 +1354,7 @@ public final class DlgReg extends javax.swing.JDialog {
         MnHemodialisa = new javax.swing.JMenuItem();
         ppRiwayat = new javax.swing.JMenuItem();
         ppCatatanPasien = new javax.swing.JMenuItem();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         DlgSakit = new javax.swing.JDialog();
         internalFrame3 = new widget.InternalFrame();
         panelBiasa2 = new widget.PanelBiasa();
@@ -1409,33 +1449,8 @@ public final class DlgReg extends javax.swing.JDialog {
         cekPasien = new widget.TextBox();
         kdsuku = new widget.TextBox();
         kdbahasa = new widget.TextBox();
+        prosesTombol = new widget.ProgressBar();
         internalFrame1 = new widget.InternalFrame();
-        jPanel2 = new javax.swing.JPanel();
-        panelGlass6 = new widget.panelisi();
-        BtnSimpan = new widget.Button();
-        BtnBatal = new widget.Button();
-        BtnEdit = new widget.Button();
-        BtnHapus = new widget.Button();
-        BtnPrint = new widget.Button();
-        BtnAll = new widget.Button();
-        jLabel10 = new widget.Label();
-        LCount = new widget.Label();
-        BtnKeluar = new widget.Button();
-        panelGlass7 = new widget.panelisi();
-        jLabel15 = new widget.Label();
-        DTPCari1 = new widget.Tanggal();
-        jLabel17 = new widget.Label();
-        DTPCari2 = new widget.Tanggal();
-        jLabel6 = new widget.Label();
-        TCari = new widget.TextBox();
-        BtnCari = new widget.Button();
-        panelGlass8 = new widget.panelisi();
-        jLabel14 = new widget.Label();
-        CrDokter = new widget.TextBox();
-        BtnSeek3 = new widget.Button();
-        jLabel16 = new widget.Label();
-        CrPoli = new widget.TextBox();
-        BtnSeek4 = new widget.Button();
         PanelInput = new javax.swing.JPanel();
         FormInput = new widget.PanelBiasa();
         jLabel3 = new widget.Label();
@@ -1484,8 +1499,121 @@ public final class DlgReg extends javax.swing.JDialog {
         tulisan_tanggal = new widget.Label();
         ChkInput = new widget.CekBox();
         TabRawat = new javax.swing.JTabbedPane();
+        internalFrame17 = new widget.InternalFrame();
         Scroll = new widget.ScrollPane();
         tbregistrasiRalan = new widget.Table();
+        panelGlass12 = new widget.panelisi();
+        panelGlass8 = new widget.panelisi();
+        jLabel14 = new widget.Label();
+        CrDokter = new widget.TextBox();
+        BtnSeek3 = new widget.Button();
+        jLabel16 = new widget.Label();
+        CrPoli = new widget.TextBox();
+        BtnSeek4 = new widget.Button();
+        panelGlass7 = new widget.panelisi();
+        jLabel15 = new widget.Label();
+        DTPCari1 = new widget.Tanggal();
+        jLabel17 = new widget.Label();
+        DTPCari2 = new widget.Tanggal();
+        jLabel6 = new widget.Label();
+        TCari = new widget.TextBox();
+        BtnCari = new widget.Button();
+        panelGlass6 = new widget.panelisi();
+        BtnSimpan = new widget.Button();
+        BtnBatal = new widget.Button();
+        BtnEdit = new widget.Button();
+        BtnHapus = new widget.Button();
+        BtnPrint = new widget.Button();
+        BtnAll = new widget.Button();
+        jLabel10 = new widget.Label();
+        LCount = new widget.Label();
+        BtnKeluar = new widget.Button();
+        internalFrame2 = new widget.InternalFrame();
+        Scroll1 = new widget.ScrollPane();
+        FormInput1 = new widget.PanelBiasa();
+        panelGlass9 = new widget.panelisi();
+        jLabel9 = new widget.Label();
+        jLabel38 = new widget.Label();
+        loket1 = new widget.RadioButton();
+        loket2 = new widget.RadioButton();
+        loket3 = new widget.RadioButton();
+        loket4 = new widget.RadioButton();
+        loket5 = new widget.RadioButton();
+        loket6 = new widget.RadioButton();
+        jLabel39 = new widget.Label();
+        resetPangRalan = new widget.Button();
+        resetPangRanap = new widget.Button();
+        resetBoxRalan = new widget.Button();
+        resetBoxRanap = new widget.Button();
+        jLabel45 = new widget.Label();
+        jLabel46 = new widget.Label();
+        statusOperator = new widget.Label();
+        statusPangRalan = new widget.Label();
+        statusBoxRalan = new widget.Label();
+        statusPangRanap = new widget.Label();
+        statusBoxRanap = new widget.Label();
+        BtnSimpanOperator = new widget.Button();
+        loketRalan = new widget.CekBox();
+        loketRanap = new widget.CekBox();
+        BtnSimpanOperator1 = new widget.Button();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        internalFrame25 = new widget.InternalFrame();
+        nobpjs = new widget.Label();
+        jLabel51 = new widget.Label();
+        BtnPangBPJS = new widget.Button();
+        BtnUlangPangBPJS = new widget.Button();
+        jLabel52 = new widget.Label();
+        internalFrame26 = new widget.InternalFrame();
+        noumum = new widget.Label();
+        BtnPangUmum = new widget.Button();
+        BtnUlangPangUmum = new widget.Button();
+        jLabel53 = new widget.Label();
+        jLabel54 = new widget.Label();
+        jPanel2 = new javax.swing.JPanel();
+        internalFrame27 = new widget.InternalFrame();
+        nolansia = new widget.Label();
+        BtnPangLansia = new widget.Button();
+        BtnUlangPangLansia = new widget.Button();
+        jLabel55 = new widget.Label();
+        jLabel56 = new widget.Label();
+        internalFrame28 = new widget.InternalFrame();
+        noinap = new widget.Label();
+        BtnPangInap = new widget.Button();
+        BtnUlangPangInap = new widget.Button();
+        jLabel57 = new widget.Label();
+        jLabel58 = new widget.Label();
+        internalFrame11 = new widget.InternalFrame();
+        internalFrame18 = new widget.InternalFrame();
+        internalFrame20 = new widget.InternalFrame();
+        infobpjs1 = new widget.Label();
+        infobpjs2 = new widget.Label();
+        internalFrame21 = new widget.InternalFrame();
+        infoumum1 = new widget.Label();
+        infoumum2 = new widget.Label();
+        internalFrame22 = new widget.InternalFrame();
+        infolb1 = new widget.Label();
+        infolb2 = new widget.Label();
+        internalFrame19 = new widget.InternalFrame();
+        inforanap1 = new widget.Label();
+        inforanap2 = new widget.Label();
+        internalFrame12 = new widget.InternalFrame();
+        panelGlass13 = new widget.panelisi();
+        jLabel61 = new widget.Label();
+        jLabel63 = new widget.Label();
+        jLabel64 = new widget.Label();
+        jnsReset = new widget.TextBox();
+        noTerakhir = new widget.TextBox();
+        tglReset = new widget.TextBox();
+        BtnRestor = new widget.Button();
+        Scroll2 = new widget.ScrollPane();
+        tbrestorAntrian = new widget.Table();
+        panelGlass11 = new widget.panelisi();
+        jLabel59 = new widget.Label();
+        tglA = new widget.Tanggal();
+        jLabel60 = new widget.Label();
+        tglB = new widget.Tanggal();
+        BtnCari1 = new widget.Button();
 
         jPopupMenu1.setName("jPopupMenu1"); // NOI18N
 
@@ -2964,7 +3092,7 @@ public final class DlgReg extends javax.swing.JDialog {
         panelBiasa2.setLayout(null);
 
         TglSakit1.setEditable(false);
-        TglSakit1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-03-2022" }));
+        TglSakit1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-07-2022" }));
         TglSakit1.setDisplayFormat("dd-MM-yyyy");
         TglSakit1.setName("TglSakit1"); // NOI18N
         TglSakit1.setOpaque(false);
@@ -3015,7 +3143,7 @@ public final class DlgReg extends javax.swing.JDialog {
         jLabel32.setBounds(176, 10, 20, 23);
 
         TglSakit2.setEditable(false);
-        TglSakit2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-03-2022" }));
+        TglSakit2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-07-2022" }));
         TglSakit2.setDisplayFormat("dd-MM-yyyy");
         TglSakit2.setName("TglSakit2"); // NOI18N
         TglSakit2.setOpaque(false);
@@ -3362,7 +3490,7 @@ public final class DlgReg extends javax.swing.JDialog {
         jLabel26.setBounds(0, 20, 110, 23);
 
         TglSurat.setEditable(false);
-        TglSurat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-03-2022" }));
+        TglSurat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-07-2022" }));
         TglSurat.setDisplayFormat("dd-MM-yyyy");
         TglSurat.setName("TglSurat"); // NOI18N
         TglSurat.setOpaque(false);
@@ -3491,7 +3619,7 @@ public final class DlgReg extends javax.swing.JDialog {
         jLabel28.setBounds(0, 20, 110, 23);
 
         TglSurat1.setEditable(false);
-        TglSurat1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-03-2022" }));
+        TglSurat1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-07-2022" }));
         TglSurat1.setDisplayFormat("dd-MM-yyyy");
         TglSurat1.setName("TglSurat1"); // NOI18N
         TglSurat1.setOpaque(false);
@@ -3584,7 +3712,7 @@ public final class DlgReg extends javax.swing.JDialog {
         jLabel29.setBounds(0, 25, 130, 23);
 
         TglReg.setEditable(false);
-        TglReg.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-03-2022" }));
+        TglReg.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-07-2022" }));
         TglReg.setDisplayFormat("dd-MM-yyyy");
         TglReg.setName("TglReg"); // NOI18N
         TglReg.setOpaque(false);
@@ -3824,6 +3952,11 @@ public final class DlgReg extends javax.swing.JDialog {
             }
         });
 
+        prosesTombol.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        prosesTombol.setName("prosesTombol"); // NOI18N
+        prosesTombol.setPreferredSize(new java.awt.Dimension(160, 40));
+        prosesTombol.setStringPainted(true);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
@@ -3836,290 +3969,6 @@ public final class DlgReg extends javax.swing.JDialog {
         internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Registrasi Periksa Hari Ini ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
         internalFrame1.setName("internalFrame1"); // NOI18N
         internalFrame1.setLayout(new java.awt.BorderLayout(1, 1));
-
-        jPanel2.setName("jPanel2"); // NOI18N
-        jPanel2.setOpaque(false);
-        jPanel2.setLayout(new java.awt.BorderLayout(1, 1));
-
-        panelGlass6.setName("panelGlass6"); // NOI18N
-        panelGlass6.setPreferredSize(new java.awt.Dimension(55, 55));
-        panelGlass6.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 9));
-
-        BtnSimpan.setForeground(new java.awt.Color(0, 0, 0));
-        BtnSimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/save-16x16.png"))); // NOI18N
-        BtnSimpan.setMnemonic('S');
-        BtnSimpan.setText("Simpan");
-        BtnSimpan.setToolTipText("Alt+S");
-        BtnSimpan.setName("BtnSimpan"); // NOI18N
-        BtnSimpan.setPreferredSize(new java.awt.Dimension(100, 30));
-        BtnSimpan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnSimpanActionPerformed(evt);
-            }
-        });
-        BtnSimpan.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                BtnSimpanKeyPressed(evt);
-            }
-        });
-        panelGlass6.add(BtnSimpan);
-
-        BtnBatal.setForeground(new java.awt.Color(0, 0, 0));
-        BtnBatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Cancel-2-16x16.png"))); // NOI18N
-        BtnBatal.setMnemonic('B');
-        BtnBatal.setText("Baru");
-        BtnBatal.setToolTipText("Alt+B");
-        BtnBatal.setName("BtnBatal"); // NOI18N
-        BtnBatal.setPreferredSize(new java.awt.Dimension(100, 30));
-        BtnBatal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnBatalActionPerformed(evt);
-            }
-        });
-        BtnBatal.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                BtnBatalKeyPressed(evt);
-            }
-        });
-        panelGlass6.add(BtnBatal);
-
-        BtnEdit.setForeground(new java.awt.Color(0, 0, 0));
-        BtnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/inventaris.png"))); // NOI18N
-        BtnEdit.setMnemonic('G');
-        BtnEdit.setText("Ganti");
-        BtnEdit.setToolTipText("Alt+G");
-        BtnEdit.setName("BtnEdit"); // NOI18N
-        BtnEdit.setPreferredSize(new java.awt.Dimension(100, 30));
-        BtnEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnEditActionPerformed(evt);
-            }
-        });
-        BtnEdit.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                BtnEditKeyPressed(evt);
-            }
-        });
-        panelGlass6.add(BtnEdit);
-
-        BtnHapus.setForeground(new java.awt.Color(0, 0, 0));
-        BtnHapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/stop_f2.png"))); // NOI18N
-        BtnHapus.setMnemonic('H');
-        BtnHapus.setText("Hapus");
-        BtnHapus.setToolTipText("Alt+H");
-        BtnHapus.setName("BtnHapus"); // NOI18N
-        BtnHapus.setPreferredSize(new java.awt.Dimension(100, 30));
-        BtnHapus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnHapusActionPerformed(evt);
-            }
-        });
-        BtnHapus.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                BtnHapusKeyPressed(evt);
-            }
-        });
-        panelGlass6.add(BtnHapus);
-
-        BtnPrint.setForeground(new java.awt.Color(0, 0, 0));
-        BtnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/b_print.png"))); // NOI18N
-        BtnPrint.setMnemonic('T');
-        BtnPrint.setText("Cetak");
-        BtnPrint.setToolTipText("Alt+T");
-        BtnPrint.setName("BtnPrint"); // NOI18N
-        BtnPrint.setPreferredSize(new java.awt.Dimension(100, 30));
-        BtnPrint.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnPrintActionPerformed(evt);
-            }
-        });
-        BtnPrint.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                BtnPrintKeyPressed(evt);
-            }
-        });
-        panelGlass6.add(BtnPrint);
-
-        BtnAll.setForeground(new java.awt.Color(0, 0, 0));
-        BtnAll.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Search-16x16.png"))); // NOI18N
-        BtnAll.setMnemonic('M');
-        BtnAll.setText("Semua Data");
-        BtnAll.setToolTipText("Alt+M");
-        BtnAll.setName("BtnAll"); // NOI18N
-        BtnAll.setPreferredSize(new java.awt.Dimension(120, 30));
-        BtnAll.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnAllActionPerformed(evt);
-            }
-        });
-        BtnAll.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                BtnAllKeyPressed(evt);
-            }
-        });
-        panelGlass6.add(BtnAll);
-
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel10.setText("Record :");
-        jLabel10.setName("jLabel10"); // NOI18N
-        jLabel10.setPreferredSize(new java.awt.Dimension(70, 30));
-        panelGlass6.add(jLabel10);
-
-        LCount.setForeground(new java.awt.Color(0, 0, 0));
-        LCount.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        LCount.setText("0");
-        LCount.setName("LCount"); // NOI18N
-        LCount.setPreferredSize(new java.awt.Dimension(72, 30));
-        panelGlass6.add(LCount);
-
-        BtnKeluar.setForeground(new java.awt.Color(0, 0, 0));
-        BtnKeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/exit.png"))); // NOI18N
-        BtnKeluar.setMnemonic('K');
-        BtnKeluar.setText("Keluar");
-        BtnKeluar.setToolTipText("Alt+K");
-        BtnKeluar.setName("BtnKeluar"); // NOI18N
-        BtnKeluar.setPreferredSize(new java.awt.Dimension(100, 30));
-        BtnKeluar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnKeluarActionPerformed(evt);
-            }
-        });
-        BtnKeluar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                BtnKeluarKeyPressed(evt);
-            }
-        });
-        panelGlass6.add(BtnKeluar);
-
-        jPanel2.add(panelGlass6, java.awt.BorderLayout.PAGE_END);
-
-        panelGlass7.setName("panelGlass7"); // NOI18N
-        panelGlass7.setPreferredSize(new java.awt.Dimension(44, 44));
-        panelGlass7.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 9));
-
-        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel15.setText("Periode :");
-        jLabel15.setName("jLabel15"); // NOI18N
-        jLabel15.setPreferredSize(new java.awt.Dimension(60, 23));
-        panelGlass7.add(jLabel15);
-
-        DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-03-2022" }));
-        DTPCari1.setDisplayFormat("dd-MM-yyyy");
-        DTPCari1.setName("DTPCari1"); // NOI18N
-        DTPCari1.setOpaque(false);
-        DTPCari1.setPreferredSize(new java.awt.Dimension(90, 23));
-        panelGlass7.add(DTPCari1);
-
-        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setText("s.d");
-        jLabel17.setName("jLabel17"); // NOI18N
-        jLabel17.setPreferredSize(new java.awt.Dimension(24, 23));
-        panelGlass7.add(jLabel17);
-
-        DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-03-2022" }));
-        DTPCari2.setDisplayFormat("dd-MM-yyyy");
-        DTPCari2.setName("DTPCari2"); // NOI18N
-        DTPCari2.setOpaque(false);
-        DTPCari2.setPreferredSize(new java.awt.Dimension(90, 23));
-        panelGlass7.add(DTPCari2);
-
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel6.setText("Key Word :");
-        jLabel6.setName("jLabel6"); // NOI18N
-        jLabel6.setPreferredSize(new java.awt.Dimension(158, 23));
-        panelGlass7.add(jLabel6);
-
-        TCari.setForeground(new java.awt.Color(0, 0, 0));
-        TCari.setName("TCari"); // NOI18N
-        TCari.setPreferredSize(new java.awt.Dimension(300, 23));
-        TCari.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                TCariKeyPressed(evt);
-            }
-        });
-        panelGlass7.add(TCari);
-
-        BtnCari.setForeground(new java.awt.Color(0, 0, 0));
-        BtnCari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept.png"))); // NOI18N
-        BtnCari.setMnemonic('7');
-        BtnCari.setText("Tampilkan Data");
-        BtnCari.setToolTipText("Alt+7");
-        BtnCari.setName("BtnCari"); // NOI18N
-        BtnCari.setPreferredSize(new java.awt.Dimension(150, 23));
-        BtnCari.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnCariActionPerformed(evt);
-            }
-        });
-        BtnCari.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                BtnCariKeyPressed(evt);
-            }
-        });
-        panelGlass7.add(BtnCari);
-
-        jPanel2.add(panelGlass7, java.awt.BorderLayout.CENTER);
-
-        panelGlass8.setName("panelGlass8"); // NOI18N
-        panelGlass8.setPreferredSize(new java.awt.Dimension(44, 44));
-        panelGlass8.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 9));
-
-        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel14.setText("Dokter :");
-        jLabel14.setName("jLabel14"); // NOI18N
-        jLabel14.setPreferredSize(new java.awt.Dimension(60, 23));
-        panelGlass8.add(jLabel14);
-
-        CrDokter.setEditable(false);
-        CrDokter.setForeground(new java.awt.Color(0, 0, 0));
-        CrDokter.setName("CrDokter"); // NOI18N
-        CrDokter.setPreferredSize(new java.awt.Dimension(300, 23));
-        panelGlass8.add(CrDokter);
-
-        BtnSeek3.setForeground(new java.awt.Color(0, 0, 0));
-        BtnSeek3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/190.png"))); // NOI18N
-        BtnSeek3.setMnemonic('6');
-        BtnSeek3.setToolTipText("ALt+6");
-        BtnSeek3.setName("BtnSeek3"); // NOI18N
-        BtnSeek3.setPreferredSize(new java.awt.Dimension(28, 23));
-        BtnSeek3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnSeek3ActionPerformed(evt);
-            }
-        });
-        panelGlass8.add(BtnSeek3);
-
-        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel16.setText("Poliklinik / Unit :");
-        jLabel16.setName("jLabel16"); // NOI18N
-        jLabel16.setPreferredSize(new java.awt.Dimension(125, 23));
-        panelGlass8.add(jLabel16);
-
-        CrPoli.setEditable(false);
-        CrPoli.setForeground(new java.awt.Color(0, 0, 0));
-        CrPoli.setName("CrPoli"); // NOI18N
-        CrPoli.setPreferredSize(new java.awt.Dimension(300, 23));
-        panelGlass8.add(CrPoli);
-
-        BtnSeek4.setForeground(new java.awt.Color(0, 0, 0));
-        BtnSeek4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/190.png"))); // NOI18N
-        BtnSeek4.setMnemonic('5');
-        BtnSeek4.setToolTipText("ALt+5");
-        BtnSeek4.setName("BtnSeek4"); // NOI18N
-        BtnSeek4.setPreferredSize(new java.awt.Dimension(28, 23));
-        BtnSeek4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnSeek4ActionPerformed(evt);
-            }
-        });
-        panelGlass8.add(BtnSeek4);
-
-        jPanel2.add(panelGlass8, java.awt.BorderLayout.PAGE_START);
-
-        internalFrame1.add(jPanel2, java.awt.BorderLayout.PAGE_END);
 
         PanelInput.setName("PanelInput"); // NOI18N
         PanelInput.setOpaque(false);
@@ -4579,7 +4428,10 @@ public final class DlgReg extends javax.swing.JDialog {
             }
         });
 
-        Scroll.setToolTipText("Klik data di table, kemudian klik kanan untuk memilih menu yang diinginkan");
+        internalFrame17.setName("internalFrame17"); // NOI18N
+        internalFrame17.setLayout(new java.awt.BorderLayout());
+
+        Scroll.setToolTipText("Klik data di tabel, kemudian klik kanan untuk memilih menu yang diinginkan");
         Scroll.setComponentPopupMenu(jPopupMenu1);
         Scroll.setName("Scroll"); // NOI18N
         Scroll.setOpaque(true);
@@ -4605,7 +4457,1128 @@ public final class DlgReg extends javax.swing.JDialog {
         });
         Scroll.setViewportView(tbregistrasiRalan);
 
-        TabRawat.addTab(".: Registrasi Poliklinik", Scroll);
+        internalFrame17.add(Scroll, java.awt.BorderLayout.CENTER);
+
+        panelGlass12.setName("panelGlass12"); // NOI18N
+        panelGlass12.setPreferredSize(new java.awt.Dimension(44, 150));
+        panelGlass12.setLayout(new java.awt.BorderLayout());
+
+        panelGlass8.setName("panelGlass8"); // NOI18N
+        panelGlass8.setPreferredSize(new java.awt.Dimension(44, 44));
+        panelGlass8.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 9));
+
+        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel14.setText("Dokter :");
+        jLabel14.setName("jLabel14"); // NOI18N
+        jLabel14.setPreferredSize(new java.awt.Dimension(60, 23));
+        panelGlass8.add(jLabel14);
+
+        CrDokter.setEditable(false);
+        CrDokter.setForeground(new java.awt.Color(0, 0, 0));
+        CrDokter.setName("CrDokter"); // NOI18N
+        CrDokter.setPreferredSize(new java.awt.Dimension(300, 23));
+        panelGlass8.add(CrDokter);
+
+        BtnSeek3.setForeground(new java.awt.Color(0, 0, 0));
+        BtnSeek3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/190.png"))); // NOI18N
+        BtnSeek3.setMnemonic('6');
+        BtnSeek3.setToolTipText("ALt+6");
+        BtnSeek3.setName("BtnSeek3"); // NOI18N
+        BtnSeek3.setPreferredSize(new java.awt.Dimension(28, 23));
+        BtnSeek3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSeek3ActionPerformed(evt);
+            }
+        });
+        panelGlass8.add(BtnSeek3);
+
+        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel16.setText("Poliklinik / Unit :");
+        jLabel16.setName("jLabel16"); // NOI18N
+        jLabel16.setPreferredSize(new java.awt.Dimension(125, 23));
+        panelGlass8.add(jLabel16);
+
+        CrPoli.setEditable(false);
+        CrPoli.setForeground(new java.awt.Color(0, 0, 0));
+        CrPoli.setName("CrPoli"); // NOI18N
+        CrPoli.setPreferredSize(new java.awt.Dimension(300, 23));
+        panelGlass8.add(CrPoli);
+
+        BtnSeek4.setForeground(new java.awt.Color(0, 0, 0));
+        BtnSeek4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/190.png"))); // NOI18N
+        BtnSeek4.setMnemonic('5');
+        BtnSeek4.setToolTipText("ALt+5");
+        BtnSeek4.setName("BtnSeek4"); // NOI18N
+        BtnSeek4.setPreferredSize(new java.awt.Dimension(28, 23));
+        BtnSeek4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSeek4ActionPerformed(evt);
+            }
+        });
+        panelGlass8.add(BtnSeek4);
+
+        panelGlass12.add(panelGlass8, java.awt.BorderLayout.PAGE_START);
+
+        panelGlass7.setName("panelGlass7"); // NOI18N
+        panelGlass7.setPreferredSize(new java.awt.Dimension(44, 44));
+        panelGlass7.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 9));
+
+        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel15.setText("Periode :");
+        jLabel15.setName("jLabel15"); // NOI18N
+        jLabel15.setPreferredSize(new java.awt.Dimension(60, 23));
+        panelGlass7.add(jLabel15);
+
+        DTPCari1.setEditable(false);
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-07-2022" }));
+        DTPCari1.setDisplayFormat("dd-MM-yyyy");
+        DTPCari1.setName("DTPCari1"); // NOI18N
+        DTPCari1.setOpaque(false);
+        DTPCari1.setPreferredSize(new java.awt.Dimension(90, 23));
+        panelGlass7.add(DTPCari1);
+
+        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel17.setText("s.d");
+        jLabel17.setName("jLabel17"); // NOI18N
+        jLabel17.setPreferredSize(new java.awt.Dimension(24, 23));
+        panelGlass7.add(jLabel17);
+
+        DTPCari2.setEditable(false);
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-07-2022" }));
+        DTPCari2.setDisplayFormat("dd-MM-yyyy");
+        DTPCari2.setName("DTPCari2"); // NOI18N
+        DTPCari2.setOpaque(false);
+        DTPCari2.setPreferredSize(new java.awt.Dimension(90, 23));
+        panelGlass7.add(DTPCari2);
+
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel6.setText("Key Word :");
+        jLabel6.setName("jLabel6"); // NOI18N
+        jLabel6.setPreferredSize(new java.awt.Dimension(158, 23));
+        panelGlass7.add(jLabel6);
+
+        TCari.setForeground(new java.awt.Color(0, 0, 0));
+        TCari.setName("TCari"); // NOI18N
+        TCari.setPreferredSize(new java.awt.Dimension(300, 23));
+        TCari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TCariKeyPressed(evt);
+            }
+        });
+        panelGlass7.add(TCari);
+
+        BtnCari.setForeground(new java.awt.Color(0, 0, 0));
+        BtnCari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept.png"))); // NOI18N
+        BtnCari.setMnemonic('7');
+        BtnCari.setText("Tampilkan Data");
+        BtnCari.setToolTipText("Alt+7");
+        BtnCari.setName("BtnCari"); // NOI18N
+        BtnCari.setPreferredSize(new java.awt.Dimension(150, 23));
+        BtnCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCariActionPerformed(evt);
+            }
+        });
+        BtnCari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                BtnCariKeyPressed(evt);
+            }
+        });
+        panelGlass7.add(BtnCari);
+
+        panelGlass12.add(panelGlass7, java.awt.BorderLayout.CENTER);
+
+        panelGlass6.setName("panelGlass6"); // NOI18N
+        panelGlass6.setPreferredSize(new java.awt.Dimension(55, 55));
+        panelGlass6.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 9));
+
+        BtnSimpan.setForeground(new java.awt.Color(0, 0, 0));
+        BtnSimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/save-16x16.png"))); // NOI18N
+        BtnSimpan.setMnemonic('S');
+        BtnSimpan.setText("Simpan");
+        BtnSimpan.setToolTipText("Alt+S");
+        BtnSimpan.setName("BtnSimpan"); // NOI18N
+        BtnSimpan.setPreferredSize(new java.awt.Dimension(100, 30));
+        BtnSimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSimpanActionPerformed(evt);
+            }
+        });
+        BtnSimpan.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                BtnSimpanKeyPressed(evt);
+            }
+        });
+        panelGlass6.add(BtnSimpan);
+
+        BtnBatal.setForeground(new java.awt.Color(0, 0, 0));
+        BtnBatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Cancel-2-16x16.png"))); // NOI18N
+        BtnBatal.setMnemonic('B');
+        BtnBatal.setText("Baru");
+        BtnBatal.setToolTipText("Alt+B");
+        BtnBatal.setName("BtnBatal"); // NOI18N
+        BtnBatal.setPreferredSize(new java.awt.Dimension(100, 30));
+        BtnBatal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnBatalActionPerformed(evt);
+            }
+        });
+        BtnBatal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                BtnBatalKeyPressed(evt);
+            }
+        });
+        panelGlass6.add(BtnBatal);
+
+        BtnEdit.setForeground(new java.awt.Color(0, 0, 0));
+        BtnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/inventaris.png"))); // NOI18N
+        BtnEdit.setMnemonic('G');
+        BtnEdit.setText("Ganti");
+        BtnEdit.setToolTipText("Alt+G");
+        BtnEdit.setName("BtnEdit"); // NOI18N
+        BtnEdit.setPreferredSize(new java.awt.Dimension(100, 30));
+        BtnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEditActionPerformed(evt);
+            }
+        });
+        BtnEdit.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                BtnEditKeyPressed(evt);
+            }
+        });
+        panelGlass6.add(BtnEdit);
+
+        BtnHapus.setForeground(new java.awt.Color(0, 0, 0));
+        BtnHapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/stop_f2.png"))); // NOI18N
+        BtnHapus.setMnemonic('H');
+        BtnHapus.setText("Hapus");
+        BtnHapus.setToolTipText("Alt+H");
+        BtnHapus.setName("BtnHapus"); // NOI18N
+        BtnHapus.setPreferredSize(new java.awt.Dimension(100, 30));
+        BtnHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnHapusActionPerformed(evt);
+            }
+        });
+        BtnHapus.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                BtnHapusKeyPressed(evt);
+            }
+        });
+        panelGlass6.add(BtnHapus);
+
+        BtnPrint.setForeground(new java.awt.Color(0, 0, 0));
+        BtnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/b_print.png"))); // NOI18N
+        BtnPrint.setMnemonic('T');
+        BtnPrint.setText("Cetak");
+        BtnPrint.setToolTipText("Alt+T");
+        BtnPrint.setName("BtnPrint"); // NOI18N
+        BtnPrint.setPreferredSize(new java.awt.Dimension(100, 30));
+        BtnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnPrintActionPerformed(evt);
+            }
+        });
+        BtnPrint.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                BtnPrintKeyPressed(evt);
+            }
+        });
+        panelGlass6.add(BtnPrint);
+
+        BtnAll.setForeground(new java.awt.Color(0, 0, 0));
+        BtnAll.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Search-16x16.png"))); // NOI18N
+        BtnAll.setMnemonic('M');
+        BtnAll.setText("Semua Data");
+        BtnAll.setToolTipText("Alt+M");
+        BtnAll.setName("BtnAll"); // NOI18N
+        BtnAll.setPreferredSize(new java.awt.Dimension(120, 30));
+        BtnAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAllActionPerformed(evt);
+            }
+        });
+        BtnAll.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                BtnAllKeyPressed(evt);
+            }
+        });
+        panelGlass6.add(BtnAll);
+
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setText("Record :");
+        jLabel10.setName("jLabel10"); // NOI18N
+        jLabel10.setPreferredSize(new java.awt.Dimension(70, 30));
+        panelGlass6.add(jLabel10);
+
+        LCount.setForeground(new java.awt.Color(0, 0, 0));
+        LCount.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        LCount.setText("0");
+        LCount.setName("LCount"); // NOI18N
+        LCount.setPreferredSize(new java.awt.Dimension(72, 30));
+        panelGlass6.add(LCount);
+
+        BtnKeluar.setForeground(new java.awt.Color(0, 0, 0));
+        BtnKeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/exit.png"))); // NOI18N
+        BtnKeluar.setMnemonic('K');
+        BtnKeluar.setText("Keluar");
+        BtnKeluar.setToolTipText("Alt+K");
+        BtnKeluar.setName("BtnKeluar"); // NOI18N
+        BtnKeluar.setPreferredSize(new java.awt.Dimension(100, 30));
+        BtnKeluar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnKeluarActionPerformed(evt);
+            }
+        });
+        BtnKeluar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                BtnKeluarKeyPressed(evt);
+            }
+        });
+        panelGlass6.add(BtnKeluar);
+
+        panelGlass12.add(panelGlass6, java.awt.BorderLayout.PAGE_END);
+
+        internalFrame17.add(panelGlass12, java.awt.BorderLayout.PAGE_END);
+
+        TabRawat.addTab(".: Registrasi Polikllinik", internalFrame17);
+
+        internalFrame2.setName("internalFrame2"); // NOI18N
+        internalFrame2.setPreferredSize(new java.awt.Dimension(494, 492));
+        internalFrame2.setLayout(new java.awt.BorderLayout());
+
+        Scroll1.setToolTipText("");
+        Scroll1.setName("Scroll1"); // NOI18N
+        Scroll1.setOpaque(true);
+        Scroll1.setPreferredSize(new java.awt.Dimension(492, 800));
+
+        FormInput1.setName("FormInput1"); // NOI18N
+        FormInput1.setPreferredSize(new java.awt.Dimension(490, 980));
+        FormInput1.setLayout(new java.awt.BorderLayout());
+
+        panelGlass9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "[ OPERATOR ]", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        panelGlass9.setName("panelGlass9"); // NOI18N
+        panelGlass9.setPreferredSize(new java.awt.Dimension(44, 180));
+        panelGlass9.setLayout(null);
+
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("Tentukan Pilihan Jenis Loket : ");
+        jLabel9.setName("jLabel9"); // NOI18N
+        panelGlass9.add(jLabel9);
+        jLabel9.setBounds(0, 20, 170, 23);
+
+        jLabel38.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel38.setText("Tentukan Pilihan Nomor Loket : ");
+        jLabel38.setName("jLabel38"); // NOI18N
+        panelGlass9.add(jLabel38);
+        jLabel38.setBounds(0, 50, 170, 23);
+
+        loket1.setBackground(new java.awt.Color(240, 250, 230));
+        loket1.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.pink));
+        buttonGroup2.add(loket1);
+        loket1.setText("1 (SATU)");
+        loket1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        loket1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        loket1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        loket1.setName("loket1"); // NOI18N
+        loket1.setPreferredSize(new java.awt.Dimension(95, 23));
+        panelGlass9.add(loket1);
+        loket1.setBounds(175, 50, 80, 23);
+
+        loket2.setBackground(new java.awt.Color(240, 250, 230));
+        loket2.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.pink));
+        buttonGroup2.add(loket2);
+        loket2.setText("2 (DUA)");
+        loket2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        loket2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        loket2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        loket2.setName("loket2"); // NOI18N
+        loket2.setPreferredSize(new java.awt.Dimension(95, 23));
+        panelGlass9.add(loket2);
+        loket2.setBounds(262, 50, 80, 23);
+
+        loket3.setBackground(new java.awt.Color(240, 250, 230));
+        loket3.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.pink));
+        buttonGroup2.add(loket3);
+        loket3.setText("3 (TIGA)");
+        loket3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        loket3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        loket3.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        loket3.setName("loket3"); // NOI18N
+        loket3.setPreferredSize(new java.awt.Dimension(95, 23));
+        panelGlass9.add(loket3);
+        loket3.setBounds(349, 50, 80, 23);
+
+        loket4.setBackground(new java.awt.Color(240, 250, 230));
+        loket4.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.pink));
+        buttonGroup2.add(loket4);
+        loket4.setText("4 (EMPAT)");
+        loket4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        loket4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        loket4.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        loket4.setName("loket4"); // NOI18N
+        loket4.setPreferredSize(new java.awt.Dimension(95, 23));
+        panelGlass9.add(loket4);
+        loket4.setBounds(436, 50, 80, 23);
+
+        loket5.setBackground(new java.awt.Color(240, 250, 230));
+        loket5.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.pink));
+        buttonGroup2.add(loket5);
+        loket5.setText("5 (LIMA)");
+        loket5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        loket5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        loket5.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        loket5.setName("loket5"); // NOI18N
+        loket5.setPreferredSize(new java.awt.Dimension(95, 23));
+        panelGlass9.add(loket5);
+        loket5.setBounds(523, 50, 80, 23);
+
+        loket6.setBackground(new java.awt.Color(240, 250, 230));
+        loket6.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.pink));
+        buttonGroup2.add(loket6);
+        loket6.setText("6 (ENAM)");
+        loket6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        loket6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        loket6.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        loket6.setName("loket6"); // NOI18N
+        loket6.setPreferredSize(new java.awt.Dimension(95, 23));
+        panelGlass9.add(loket6);
+        loket6.setBounds(610, 50, 80, 23);
+
+        jLabel39.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel39.setText("Reset Nomor Antrian Pasien : ");
+        jLabel39.setName("jLabel39"); // NOI18N
+        panelGlass9.add(jLabel39);
+        jLabel39.setBounds(0, 80, 170, 23);
+
+        resetPangRalan.setForeground(new java.awt.Color(0, 0, 0));
+        resetPangRalan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/block-microphone-24.png"))); // NOI18N
+        resetPangRalan.setMnemonic('J');
+        resetPangRalan.setText("RESET Panggilan RAWAT JALAN");
+        resetPangRalan.setToolTipText("Alt+J");
+        resetPangRalan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        resetPangRalan.setIconTextGap(5);
+        resetPangRalan.setName("resetPangRalan"); // NOI18N
+        resetPangRalan.setPreferredSize(new java.awt.Dimension(100, 30));
+        resetPangRalan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetPangRalanActionPerformed(evt);
+            }
+        });
+        panelGlass9.add(resetPangRalan);
+        resetPangRalan.setBounds(175, 80, 230, 30);
+
+        resetPangRanap.setBackground(new java.awt.Color(0, 102, 0));
+        resetPangRanap.setForeground(new java.awt.Color(0, 0, 0));
+        resetPangRanap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/block-microphone-24.png"))); // NOI18N
+        resetPangRanap.setMnemonic('W');
+        resetPangRanap.setText("RESET Panggilan RAWAT INAP");
+        resetPangRanap.setToolTipText("Alt+W");
+        resetPangRanap.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        resetPangRanap.setIconTextGap(5);
+        resetPangRanap.setName("resetPangRanap"); // NOI18N
+        resetPangRanap.setPreferredSize(new java.awt.Dimension(100, 30));
+        resetPangRanap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetPangRanapActionPerformed(evt);
+            }
+        });
+        panelGlass9.add(resetPangRanap);
+        resetPangRanap.setBounds(175, 118, 230, 30);
+
+        resetBoxRalan.setForeground(new java.awt.Color(0, 0, 0));
+        resetBoxRalan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/2.png"))); // NOI18N
+        resetBoxRalan.setMnemonic('T');
+        resetBoxRalan.setText("RESET Box Nomor RAWAT JALAN");
+        resetBoxRalan.setToolTipText("Alt+T");
+        resetBoxRalan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        resetBoxRalan.setIconTextGap(5);
+        resetBoxRalan.setName("resetBoxRalan"); // NOI18N
+        resetBoxRalan.setPreferredSize(new java.awt.Dimension(100, 30));
+        resetBoxRalan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetBoxRalanActionPerformed(evt);
+            }
+        });
+        panelGlass9.add(resetBoxRalan);
+        resetBoxRalan.setBounds(420, 80, 230, 30);
+
+        resetBoxRanap.setForeground(new java.awt.Color(0, 0, 0));
+        resetBoxRanap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/2.png"))); // NOI18N
+        resetBoxRanap.setMnemonic('B');
+        resetBoxRanap.setText("RESET Box Nomor RAWAT INAP");
+        resetBoxRanap.setToolTipText("Alt+B");
+        resetBoxRanap.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        resetBoxRanap.setIconTextGap(5);
+        resetBoxRanap.setName("resetBoxRanap"); // NOI18N
+        resetBoxRanap.setPreferredSize(new java.awt.Dimension(100, 30));
+        resetBoxRanap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetBoxRanapActionPerformed(evt);
+            }
+        });
+        panelGlass9.add(resetBoxRanap);
+        resetBoxRanap.setBounds(420, 118, 230, 30);
+
+        jLabel45.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel45.setText("Status Operator : ");
+        jLabel45.setName("jLabel45"); // NOI18N
+        panelGlass9.add(jLabel45);
+        jLabel45.setBounds(720, 20, 100, 23);
+
+        jLabel46.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel46.setText("Status Reset Nomor : ");
+        jLabel46.setName("jLabel46"); // NOI18N
+        panelGlass9.add(jLabel46);
+        jLabel46.setBounds(700, 50, 120, 23);
+
+        statusOperator.setForeground(new java.awt.Color(0, 0, 0));
+        statusOperator.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        statusOperator.setText("statusOperator");
+        statusOperator.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        statusOperator.setName("statusOperator"); // NOI18N
+        panelGlass9.add(statusOperator);
+        statusOperator.setBounds(823, 20, 530, 23);
+
+        statusPangRalan.setForeground(new java.awt.Color(0, 0, 0));
+        statusPangRalan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        statusPangRalan.setText("statusPangRalan");
+        statusPangRalan.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        statusPangRalan.setName("statusPangRalan"); // NOI18N
+        panelGlass9.add(statusPangRalan);
+        statusPangRalan.setBounds(823, 50, 530, 23);
+
+        statusBoxRalan.setForeground(new java.awt.Color(0, 0, 0));
+        statusBoxRalan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        statusBoxRalan.setText("statusBoxRalan");
+        statusBoxRalan.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        statusBoxRalan.setName("statusBoxRalan"); // NOI18N
+        panelGlass9.add(statusBoxRalan);
+        statusBoxRalan.setBounds(823, 80, 530, 23);
+
+        statusPangRanap.setForeground(new java.awt.Color(0, 0, 0));
+        statusPangRanap.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        statusPangRanap.setText("statusPangRanap");
+        statusPangRanap.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        statusPangRanap.setName("statusPangRanap"); // NOI18N
+        panelGlass9.add(statusPangRanap);
+        statusPangRanap.setBounds(823, 110, 530, 23);
+
+        statusBoxRanap.setForeground(new java.awt.Color(0, 0, 0));
+        statusBoxRanap.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        statusBoxRanap.setText("statusBoxRanap");
+        statusBoxRanap.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        statusBoxRanap.setName("statusBoxRanap"); // NOI18N
+        panelGlass9.add(statusBoxRanap);
+        statusBoxRanap.setBounds(823, 140, 530, 23);
+
+        BtnSimpanOperator.setForeground(new java.awt.Color(0, 0, 0));
+        BtnSimpanOperator.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/man1-24.png"))); // NOI18N
+        BtnSimpanOperator.setMnemonic('O');
+        BtnSimpanOperator.setText("Simpan Operator");
+        BtnSimpanOperator.setToolTipText("Alt+O");
+        BtnSimpanOperator.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        BtnSimpanOperator.setIconTextGap(5);
+        BtnSimpanOperator.setName("BtnSimpanOperator"); // NOI18N
+        BtnSimpanOperator.setPreferredSize(new java.awt.Dimension(100, 30));
+        BtnSimpanOperator.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSimpanOperatorActionPerformed(evt);
+            }
+        });
+        panelGlass9.add(BtnSimpanOperator);
+        BtnSimpanOperator.setBounds(430, 15, 145, 30);
+
+        loketRalan.setBackground(new java.awt.Color(235, 255, 235));
+        loketRalan.setBorder(null);
+        buttonGroup1.add(loketRalan);
+        loketRalan.setForeground(new java.awt.Color(0, 0, 0));
+        loketRalan.setText("RAWAT JALAN");
+        loketRalan.setBorderPainted(true);
+        loketRalan.setBorderPaintedFlat(true);
+        loketRalan.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        loketRalan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        loketRalan.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        loketRalan.setName("loketRalan"); // NOI18N
+        loketRalan.setOpaque(false);
+        loketRalan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loketRalanActionPerformed(evt);
+            }
+        });
+        panelGlass9.add(loketRalan);
+        loketRalan.setBounds(175, 20, 110, 23);
+
+        loketRanap.setBackground(new java.awt.Color(235, 255, 235));
+        loketRanap.setBorder(null);
+        buttonGroup1.add(loketRanap);
+        loketRanap.setForeground(new java.awt.Color(0, 0, 0));
+        loketRanap.setText("RAWAT INAP");
+        loketRanap.setBorderPainted(true);
+        loketRanap.setBorderPaintedFlat(true);
+        loketRanap.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        loketRanap.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        loketRanap.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        loketRanap.setName("loketRanap"); // NOI18N
+        loketRanap.setOpaque(false);
+        loketRanap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loketRanapActionPerformed(evt);
+            }
+        });
+        panelGlass9.add(loketRanap);
+        loketRanap.setBounds(300, 20, 110, 23);
+
+        BtnSimpanOperator1.setForeground(new java.awt.Color(0, 0, 0));
+        BtnSimpanOperator1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/icons8-audio-24.png"))); // NOI18N
+        BtnSimpanOperator1.setMnemonic('U');
+        BtnSimpanOperator1.setText("Cek Audio");
+        BtnSimpanOperator1.setToolTipText("Alt+U");
+        BtnSimpanOperator1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        BtnSimpanOperator1.setIconTextGap(5);
+        BtnSimpanOperator1.setName("BtnSimpanOperator1"); // NOI18N
+        BtnSimpanOperator1.setPreferredSize(new java.awt.Dimension(100, 30));
+        BtnSimpanOperator1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSimpanOperator1ActionPerformed(evt);
+            }
+        });
+        panelGlass9.add(BtnSimpanOperator1);
+        BtnSimpanOperator1.setBounds(590, 15, 105, 30);
+
+        FormInput1.add(panelGlass9, java.awt.BorderLayout.PAGE_START);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "[ PANGGILAN ANTRIAN ]", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        jPanel1.setName("jPanel1"); // NOI18N
+        jPanel1.setOpaque(false);
+        jPanel1.setPreferredSize(new java.awt.Dimension(816, 102));
+        jPanel1.setLayout(new java.awt.GridLayout(1, 2));
+
+        jPanel4.setName("jPanel4"); // NOI18N
+        jPanel4.setOpaque(false);
+        jPanel4.setPreferredSize(new java.awt.Dimension(250, 102));
+        jPanel4.setLayout(new java.awt.BorderLayout(1, 1));
+
+        internalFrame25.setBorder(javax.swing.BorderFactory.createTitledBorder(null, ":: Nomor Pasien Rawat Jalan BPJS ::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 0))); // NOI18N
+        internalFrame25.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        internalFrame25.setName("internalFrame25"); // NOI18N
+        internalFrame25.setPreferredSize(new java.awt.Dimension(0, 130));
+        internalFrame25.setWarnaBawah(new java.awt.Color(153, 255, 0));
+        internalFrame25.setLayout(null);
+
+        nobpjs.setForeground(new java.awt.Color(0, 0, 0));
+        nobpjs.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nobpjs.setText("nobpjs");
+        nobpjs.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        nobpjs.setName("nobpjs"); // NOI18N
+        internalFrame25.add(nobpjs);
+        nobpjs.setBounds(0, 20, 220, 70);
+
+        jLabel51.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel51.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel51.setText("PANGGILAN ANTRIAN");
+        jLabel51.setName("jLabel51"); // NOI18N
+        internalFrame25.add(jLabel51);
+        jLabel51.setBounds(226, 100, 120, 23);
+
+        BtnPangBPJS.setForeground(new java.awt.Color(0, 0, 0));
+        BtnPangBPJS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/icons8-megaphone-64.png"))); // NOI18N
+        BtnPangBPJS.setToolTipText("");
+        BtnPangBPJS.setGlassColor(new java.awt.Color(0, 102, 0));
+        BtnPangBPJS.setName("BtnPangBPJS"); // NOI18N
+        BtnPangBPJS.setPreferredSize(new java.awt.Dimension(100, 30));
+        BtnPangBPJS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnPangBPJSActionPerformed(evt);
+            }
+        });
+        internalFrame25.add(BtnPangBPJS);
+        BtnPangBPJS.setBounds(240, 20, 90, 70);
+
+        BtnUlangPangBPJS.setForeground(new java.awt.Color(0, 0, 0));
+        BtnUlangPangBPJS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/system-software-update.png"))); // NOI18N
+        BtnUlangPangBPJS.setToolTipText("");
+        BtnUlangPangBPJS.setGlassColor(new java.awt.Color(0, 102, 0));
+        BtnUlangPangBPJS.setName("BtnUlangPangBPJS"); // NOI18N
+        BtnUlangPangBPJS.setPreferredSize(new java.awt.Dimension(100, 30));
+        BtnUlangPangBPJS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnUlangPangBPJSActionPerformed(evt);
+            }
+        });
+        internalFrame25.add(BtnUlangPangBPJS);
+        BtnUlangPangBPJS.setBounds(400, 20, 68, 70);
+
+        jLabel52.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel52.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel52.setText("ULANGI PANGGILAN");
+        jLabel52.setName("jLabel52"); // NOI18N
+        internalFrame25.add(jLabel52);
+        jLabel52.setBounds(375, 100, 120, 23);
+
+        jPanel4.add(internalFrame25, java.awt.BorderLayout.PAGE_START);
+
+        internalFrame26.setBorder(javax.swing.BorderFactory.createTitledBorder(null, ":: Nomor Pasien Rawat Jalan Umum (NON BPJS) ::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 0))); // NOI18N
+        internalFrame26.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        internalFrame26.setName("internalFrame26"); // NOI18N
+        internalFrame26.setPreferredSize(new java.awt.Dimension(0, 130));
+        internalFrame26.setWarnaBawah(new java.awt.Color(153, 153, 153));
+        internalFrame26.setLayout(null);
+
+        noumum.setForeground(new java.awt.Color(0, 0, 0));
+        noumum.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        noumum.setText("noumum");
+        noumum.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        noumum.setName("noumum"); // NOI18N
+        internalFrame26.add(noumum);
+        noumum.setBounds(0, 20, 220, 70);
+
+        BtnPangUmum.setForeground(new java.awt.Color(0, 0, 0));
+        BtnPangUmum.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/icons8-megaphone-64.png"))); // NOI18N
+        BtnPangUmum.setToolTipText("");
+        BtnPangUmum.setGlassColor(new java.awt.Color(0, 0, 0));
+        BtnPangUmum.setName("BtnPangUmum"); // NOI18N
+        BtnPangUmum.setPreferredSize(new java.awt.Dimension(100, 30));
+        BtnPangUmum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnPangUmumActionPerformed(evt);
+            }
+        });
+        internalFrame26.add(BtnPangUmum);
+        BtnPangUmum.setBounds(240, 20, 90, 70);
+
+        BtnUlangPangUmum.setForeground(new java.awt.Color(0, 0, 0));
+        BtnUlangPangUmum.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/system-software-update.png"))); // NOI18N
+        BtnUlangPangUmum.setToolTipText("");
+        BtnUlangPangUmum.setGlassColor(new java.awt.Color(0, 0, 0));
+        BtnUlangPangUmum.setName("BtnUlangPangUmum"); // NOI18N
+        BtnUlangPangUmum.setPreferredSize(new java.awt.Dimension(100, 30));
+        BtnUlangPangUmum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnUlangPangUmumActionPerformed(evt);
+            }
+        });
+        internalFrame26.add(BtnUlangPangUmum);
+        BtnUlangPangUmum.setBounds(400, 20, 68, 70);
+
+        jLabel53.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel53.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel53.setText("ULANGI PANGGILAN");
+        jLabel53.setName("jLabel53"); // NOI18N
+        internalFrame26.add(jLabel53);
+        jLabel53.setBounds(375, 100, 120, 23);
+
+        jLabel54.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel54.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel54.setText("PANGGILAN ANTRIAN");
+        jLabel54.setName("jLabel54"); // NOI18N
+        internalFrame26.add(jLabel54);
+        jLabel54.setBounds(226, 100, 120, 23);
+
+        jPanel4.add(internalFrame26, java.awt.BorderLayout.CENTER);
+
+        jPanel1.add(jPanel4);
+
+        jPanel2.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel2.setName("jPanel2"); // NOI18N
+        jPanel2.setOpaque(false);
+        jPanel2.setPreferredSize(new java.awt.Dimension(350, 102));
+        jPanel2.setLayout(new java.awt.BorderLayout(1, 1));
+
+        internalFrame27.setBorder(javax.swing.BorderFactory.createTitledBorder(null, ":: Nomor Pasien Rawat Jalan LANSIA / BAYI ::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 0))); // NOI18N
+        internalFrame27.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        internalFrame27.setName("internalFrame27"); // NOI18N
+        internalFrame27.setPreferredSize(new java.awt.Dimension(0, 130));
+        internalFrame27.setWarnaBawah(new java.awt.Color(220, 124, 220));
+        internalFrame27.setLayout(null);
+
+        nolansia.setForeground(new java.awt.Color(0, 0, 0));
+        nolansia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nolansia.setText("nolansia");
+        nolansia.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        nolansia.setName("nolansia"); // NOI18N
+        internalFrame27.add(nolansia);
+        nolansia.setBounds(0, 20, 220, 70);
+
+        BtnPangLansia.setForeground(new java.awt.Color(0, 0, 0));
+        BtnPangLansia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/icons8-megaphone-64.png"))); // NOI18N
+        BtnPangLansia.setToolTipText("");
+        BtnPangLansia.setGlassColor(new java.awt.Color(102, 0, 102));
+        BtnPangLansia.setName("BtnPangLansia"); // NOI18N
+        BtnPangLansia.setPreferredSize(new java.awt.Dimension(100, 30));
+        BtnPangLansia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnPangLansiaActionPerformed(evt);
+            }
+        });
+        internalFrame27.add(BtnPangLansia);
+        BtnPangLansia.setBounds(240, 20, 90, 70);
+
+        BtnUlangPangLansia.setForeground(new java.awt.Color(0, 0, 0));
+        BtnUlangPangLansia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/system-software-update.png"))); // NOI18N
+        BtnUlangPangLansia.setToolTipText("");
+        BtnUlangPangLansia.setGlassColor(new java.awt.Color(102, 0, 102));
+        BtnUlangPangLansia.setName("BtnUlangPangLansia"); // NOI18N
+        BtnUlangPangLansia.setPreferredSize(new java.awt.Dimension(100, 30));
+        BtnUlangPangLansia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnUlangPangLansiaActionPerformed(evt);
+            }
+        });
+        internalFrame27.add(BtnUlangPangLansia);
+        BtnUlangPangLansia.setBounds(400, 20, 68, 70);
+
+        jLabel55.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel55.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel55.setText("ULANGI PANGGILAN");
+        jLabel55.setName("jLabel55"); // NOI18N
+        internalFrame27.add(jLabel55);
+        jLabel55.setBounds(375, 100, 120, 23);
+
+        jLabel56.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel56.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel56.setText("PANGGILAN ANTRIAN");
+        jLabel56.setName("jLabel56"); // NOI18N
+        internalFrame27.add(jLabel56);
+        jLabel56.setBounds(226, 100, 120, 23);
+
+        jPanel2.add(internalFrame27, java.awt.BorderLayout.PAGE_START);
+
+        internalFrame28.setBorder(javax.swing.BorderFactory.createTitledBorder(null, ":: Nomor Pasien Rawat Inap ::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 0))); // NOI18N
+        internalFrame28.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        internalFrame28.setName("internalFrame28"); // NOI18N
+        internalFrame28.setPreferredSize(new java.awt.Dimension(0, 80));
+        internalFrame28.setWarnaBawah(new java.awt.Color(255, 255, 0));
+        internalFrame28.setLayout(null);
+
+        noinap.setForeground(new java.awt.Color(0, 0, 0));
+        noinap.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        noinap.setText("noinap");
+        noinap.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        noinap.setName("noinap"); // NOI18N
+        internalFrame28.add(noinap);
+        noinap.setBounds(0, 20, 220, 70);
+
+        BtnPangInap.setForeground(new java.awt.Color(0, 0, 0));
+        BtnPangInap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/icons8-megaphone-64.png"))); // NOI18N
+        BtnPangInap.setToolTipText("");
+        BtnPangInap.setGlassColor(new java.awt.Color(255, 204, 0));
+        BtnPangInap.setName("BtnPangInap"); // NOI18N
+        BtnPangInap.setPreferredSize(new java.awt.Dimension(100, 30));
+        BtnPangInap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnPangInapActionPerformed(evt);
+            }
+        });
+        internalFrame28.add(BtnPangInap);
+        BtnPangInap.setBounds(240, 20, 90, 70);
+
+        BtnUlangPangInap.setForeground(new java.awt.Color(0, 0, 0));
+        BtnUlangPangInap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/system-software-update.png"))); // NOI18N
+        BtnUlangPangInap.setToolTipText("");
+        BtnUlangPangInap.setGlassColor(new java.awt.Color(255, 204, 0));
+        BtnUlangPangInap.setName("BtnUlangPangInap"); // NOI18N
+        BtnUlangPangInap.setPreferredSize(new java.awt.Dimension(100, 30));
+        BtnUlangPangInap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnUlangPangInapActionPerformed(evt);
+            }
+        });
+        internalFrame28.add(BtnUlangPangInap);
+        BtnUlangPangInap.setBounds(400, 20, 68, 70);
+
+        jLabel57.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel57.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel57.setText("PANGGILAN ANTRIAN");
+        jLabel57.setName("jLabel57"); // NOI18N
+        internalFrame28.add(jLabel57);
+        jLabel57.setBounds(226, 100, 120, 23);
+
+        jLabel58.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel58.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel58.setText("ULANGI PANGGILAN");
+        jLabel58.setName("jLabel58"); // NOI18N
+        internalFrame28.add(jLabel58);
+        jLabel58.setBounds(375, 100, 120, 23);
+
+        jPanel2.add(internalFrame28, java.awt.BorderLayout.CENTER);
+
+        jPanel1.add(jPanel2);
+
+        FormInput1.add(jPanel1, java.awt.BorderLayout.CENTER);
+
+        Scroll1.setViewportView(FormInput1);
+
+        internalFrame2.add(Scroll1, java.awt.BorderLayout.PAGE_START);
+
+        TabRawat.addTab(".: Operator & Panggilan Antrian", internalFrame2);
+
+        internalFrame11.setName("internalFrame11"); // NOI18N
+        internalFrame11.setLayout(new java.awt.BorderLayout());
+
+        internalFrame18.setBorder(null);
+        internalFrame18.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        internalFrame18.setName("internalFrame18"); // NOI18N
+        internalFrame18.setPreferredSize(new java.awt.Dimension(0, 240));
+        internalFrame18.setLayout(new java.awt.BorderLayout());
+
+        internalFrame20.setBorder(javax.swing.BorderFactory.createTitledBorder(null, ":: Rawat Jalan BPJS ::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 0))); // NOI18N
+        internalFrame20.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        internalFrame20.setName("internalFrame20"); // NOI18N
+        internalFrame20.setPreferredSize(new java.awt.Dimension(0, 80));
+        internalFrame20.setWarnaBawah(new java.awt.Color(204, 255, 153));
+        internalFrame20.setLayout(null);
+
+        infobpjs1.setForeground(new java.awt.Color(0, 0, 0));
+        infobpjs1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        infobpjs1.setText("infobpjs1");
+        infobpjs1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        infobpjs1.setName("infobpjs1"); // NOI18N
+        internalFrame20.add(infobpjs1);
+        infobpjs1.setBounds(20, 20, 1000, 23);
+
+        infobpjs2.setForeground(new java.awt.Color(0, 0, 0));
+        infobpjs2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        infobpjs2.setText("infobpjs2");
+        infobpjs2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        infobpjs2.setName("infobpjs2"); // NOI18N
+        internalFrame20.add(infobpjs2);
+        infobpjs2.setBounds(20, 47, 1000, 23);
+
+        internalFrame18.add(internalFrame20, java.awt.BorderLayout.PAGE_START);
+
+        internalFrame21.setBorder(javax.swing.BorderFactory.createTitledBorder(null, ":: Rawat Jalan Umum (NON BPJS) ::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 0))); // NOI18N
+        internalFrame21.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        internalFrame21.setName("internalFrame21"); // NOI18N
+        internalFrame21.setPreferredSize(new java.awt.Dimension(0, 80));
+        internalFrame21.setWarnaBawah(new java.awt.Color(204, 204, 204));
+        internalFrame21.setLayout(null);
+
+        infoumum1.setForeground(new java.awt.Color(0, 0, 0));
+        infoumum1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        infoumum1.setText("infoumum1");
+        infoumum1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        infoumum1.setName("infoumum1"); // NOI18N
+        internalFrame21.add(infoumum1);
+        infoumum1.setBounds(20, 20, 1000, 23);
+
+        infoumum2.setForeground(new java.awt.Color(0, 0, 0));
+        infoumum2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        infoumum2.setText("infoumum2");
+        infoumum2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        infoumum2.setName("infoumum2"); // NOI18N
+        internalFrame21.add(infoumum2);
+        infoumum2.setBounds(20, 47, 1000, 23);
+
+        internalFrame18.add(internalFrame21, java.awt.BorderLayout.CENTER);
+
+        internalFrame22.setBorder(javax.swing.BorderFactory.createTitledBorder(null, ":: Rawat Jalan LANSIA / BAYI ::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 0))); // NOI18N
+        internalFrame22.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        internalFrame22.setName("internalFrame22"); // NOI18N
+        internalFrame22.setPreferredSize(new java.awt.Dimension(0, 80));
+        internalFrame22.setWarnaBawah(new java.awt.Color(220, 124, 220));
+        internalFrame22.setLayout(null);
+
+        infolb1.setForeground(new java.awt.Color(0, 0, 0));
+        infolb1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        infolb1.setText("infolb1");
+        infolb1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        infolb1.setName("infolb1"); // NOI18N
+        internalFrame22.add(infolb1);
+        infolb1.setBounds(20, 20, 1000, 23);
+
+        infolb2.setForeground(new java.awt.Color(0, 0, 0));
+        infolb2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        infolb2.setText("infolb2");
+        infolb2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        infolb2.setName("infolb2"); // NOI18N
+        internalFrame22.add(infolb2);
+        infolb2.setBounds(20, 47, 1000, 23);
+
+        internalFrame18.add(internalFrame22, java.awt.BorderLayout.PAGE_END);
+
+        internalFrame11.add(internalFrame18, java.awt.BorderLayout.PAGE_START);
+
+        internalFrame19.setBorder(javax.swing.BorderFactory.createTitledBorder(null, ":: Rawat Inap ::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 0))); // NOI18N
+        internalFrame19.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        internalFrame19.setName("internalFrame19"); // NOI18N
+        internalFrame19.setPreferredSize(new java.awt.Dimension(0, 80));
+        internalFrame19.setWarnaBawah(new java.awt.Color(255, 255, 153));
+        internalFrame19.setLayout(null);
+
+        inforanap1.setForeground(new java.awt.Color(0, 0, 0));
+        inforanap1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        inforanap1.setText("inforanap1");
+        inforanap1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        inforanap1.setName("inforanap1"); // NOI18N
+        internalFrame19.add(inforanap1);
+        inforanap1.setBounds(20, 20, 1000, 23);
+
+        inforanap2.setForeground(new java.awt.Color(0, 0, 0));
+        inforanap2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        inforanap2.setText("inforanap2");
+        inforanap2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        inforanap2.setName("inforanap2"); // NOI18N
+        internalFrame19.add(inforanap2);
+        inforanap2.setBounds(20, 47, 1000, 23);
+
+        internalFrame11.add(internalFrame19, java.awt.BorderLayout.CENTER);
+
+        TabRawat.addTab(".: Informasi Antrian", internalFrame11);
+
+        internalFrame12.setName("internalFrame12"); // NOI18N
+        internalFrame12.setLayout(new java.awt.BorderLayout());
+
+        panelGlass13.setName("panelGlass13"); // NOI18N
+        panelGlass13.setPreferredSize(new java.awt.Dimension(44, 75));
+        panelGlass13.setLayout(null);
+
+        jLabel61.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel61.setText("Jenis Reset Nomor : ");
+        jLabel61.setName("jLabel61"); // NOI18N
+        jLabel61.setPreferredSize(new java.awt.Dimension(75, 23));
+        panelGlass13.add(jLabel61);
+        jLabel61.setBounds(0, 10, 140, 23);
+
+        jLabel63.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel63.setText("Nomor Terakhir : ");
+        jLabel63.setName("jLabel63"); // NOI18N
+        jLabel63.setPreferredSize(new java.awt.Dimension(75, 23));
+        panelGlass13.add(jLabel63);
+        jLabel63.setBounds(375, 10, 100, 23);
+
+        jLabel64.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel64.setText("Tgl. Reset : ");
+        jLabel64.setName("jLabel64"); // NOI18N
+        jLabel64.setPreferredSize(new java.awt.Dimension(75, 23));
+        panelGlass13.add(jLabel64);
+        jLabel64.setBounds(0, 40, 140, 23);
+
+        jnsReset.setEditable(false);
+        jnsReset.setForeground(new java.awt.Color(0, 0, 0));
+        jnsReset.setName("jnsReset"); // NOI18N
+        panelGlass13.add(jnsReset);
+        jnsReset.setBounds(143, 10, 230, 23);
+
+        noTerakhir.setEditable(false);
+        noTerakhir.setForeground(new java.awt.Color(0, 0, 0));
+        noTerakhir.setName("noTerakhir"); // NOI18N
+        panelGlass13.add(noTerakhir);
+        noTerakhir.setBounds(478, 10, 60, 23);
+
+        tglReset.setEditable(false);
+        tglReset.setForeground(new java.awt.Color(0, 0, 0));
+        tglReset.setName("tglReset"); // NOI18N
+        panelGlass13.add(tglReset);
+        tglReset.setBounds(143, 40, 230, 23);
+
+        BtnRestor.setForeground(new java.awt.Color(0, 0, 0));
+        BtnRestor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/42a.png"))); // NOI18N
+        BtnRestor.setMnemonic('7');
+        BtnRestor.setText("Restore Diproses");
+        BtnRestor.setToolTipText("Alt+7");
+        BtnRestor.setIconTextGap(8);
+        BtnRestor.setName("BtnRestor"); // NOI18N
+        BtnRestor.setPreferredSize(new java.awt.Dimension(130, 23));
+        BtnRestor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnRestorActionPerformed(evt);
+            }
+        });
+        BtnRestor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                BtnRestorKeyPressed(evt);
+            }
+        });
+        panelGlass13.add(BtnRestor);
+        BtnRestor.setBounds(380, 40, 150, 23);
+
+        internalFrame12.add(panelGlass13, java.awt.BorderLayout.PAGE_START);
+
+        Scroll2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, " History Reset Nomor Antrian Pasien ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        Scroll2.setToolTipText("");
+        Scroll2.setName("Scroll2"); // NOI18N
+        Scroll2.setOpaque(true);
+        Scroll2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Scroll2MouseClicked(evt);
+            }
+        });
+
+        tbrestorAntrian.setAutoCreateRowSorter(true);
+        tbrestorAntrian.setToolTipText("");
+        tbrestorAntrian.setName("tbrestorAntrian"); // NOI18N
+        tbrestorAntrian.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbrestorAntrianMouseClicked(evt);
+            }
+        });
+        tbrestorAntrian.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tbrestorAntrianKeyPressed(evt);
+            }
+        });
+        Scroll2.setViewportView(tbrestorAntrian);
+
+        internalFrame12.add(Scroll2, java.awt.BorderLayout.CENTER);
+
+        panelGlass11.setName("panelGlass11"); // NOI18N
+        panelGlass11.setPreferredSize(new java.awt.Dimension(44, 44));
+        panelGlass11.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 9));
+
+        jLabel59.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel59.setText("Tgl. Reset : ");
+        jLabel59.setName("jLabel59"); // NOI18N
+        jLabel59.setPreferredSize(new java.awt.Dimension(75, 23));
+        panelGlass11.add(jLabel59);
+
+        tglA.setEditable(false);
+        tglA.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-07-2022" }));
+        tglA.setDisplayFormat("dd-MM-yyyy");
+        tglA.setName("tglA"); // NOI18N
+        tglA.setOpaque(false);
+        tglA.setPreferredSize(new java.awt.Dimension(90, 23));
+        panelGlass11.add(tglA);
+
+        jLabel60.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel60.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel60.setText("s.d");
+        jLabel60.setName("jLabel60"); // NOI18N
+        jLabel60.setPreferredSize(new java.awt.Dimension(24, 23));
+        panelGlass11.add(jLabel60);
+
+        tglB.setEditable(false);
+        tglB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-07-2022" }));
+        tglB.setDisplayFormat("dd-MM-yyyy");
+        tglB.setName("tglB"); // NOI18N
+        tglB.setOpaque(false);
+        tglB.setPreferredSize(new java.awt.Dimension(90, 23));
+        panelGlass11.add(tglB);
+
+        BtnCari1.setForeground(new java.awt.Color(0, 0, 0));
+        BtnCari1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept.png"))); // NOI18N
+        BtnCari1.setMnemonic('7');
+        BtnCari1.setText("Tampilkan Data");
+        BtnCari1.setToolTipText("Alt+7");
+        BtnCari1.setName("BtnCari1"); // NOI18N
+        BtnCari1.setPreferredSize(new java.awt.Dimension(130, 23));
+        BtnCari1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCari1ActionPerformed(evt);
+            }
+        });
+        BtnCari1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                BtnCari1KeyPressed(evt);
+            }
+        });
+        panelGlass11.add(BtnCari1);
+
+        internalFrame12.add(panelGlass11, java.awt.BorderLayout.PAGE_END);
+
+        TabRawat.addTab(".: Restore Nomor Antrian", internalFrame12);
 
         internalFrame1.add(TabRawat, java.awt.BorderLayout.CENTER);
 
@@ -4723,11 +5696,12 @@ public final class DlgReg extends javax.swing.JDialog {
         } else if (cekUmur > Sequel.cariInteger("select batas_maksimal from set_batas_umur") || cekUmur < Sequel.cariInteger("select batas_minimal from set_batas_umur")) {
             JOptionPane.showMessageDialog(null, "Silahkan perbaiki dulu tgl. lahir pasien ini, karena umurnya " + umur + " " + sttsumur1);
         } else {
-            if (cekSEP == 0 || kdpoli.getText().equals("-") || kdpoli.getText().equals("HDL")) {
+            if (cekSEP == 0 || kdpoli.getText().equals("-") || kdpoli.getText().equals("HDL")) {                
                 if (Sequel.menyimpantf2("reg_periksa", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "No.Rawat", 17,
                         new String[]{TNoReg.getText(), TNoRw.getText(), tglDaftar, Sequel.cariIsi("SELECT TIME(NOW()) jam"),
                             kddokter.getText(), TNoRM.getText(), kdpoli.getText(), TPngJwb.getText(), TAlmt.getText(), THbngn.getText(), TBiaya.getText(), "Belum",
-                            TStatus.getText(), "Ralan", kdpnj.getText(), umur, sttsumur}) == true) {
+                            TStatus.getText(), "Ralan", kdpnj.getText(), umur, sttsumur}) == true) {                    
+                    simpanIKM();
                     UpdateUmur();
                     Sequel.mengedit("pasien", "no_rkm_medis='" + TNoRM.getText() + "'", "suku_bangsa='" + kdsuku.getText() + "', bahasa_pasien='" + kdbahasa.getText() + "' ");
 
@@ -4746,6 +5720,7 @@ public final class DlgReg extends javax.swing.JDialog {
                             new String[]{TNoReg.getText(), TNoRw.getText(), tglDaftar, Sequel.cariIsi("SELECT TIME(NOW()) jam"),
                                 kddokter.getText(), TNoRM.getText(), kdpoli.getText(), TPngJwb.getText(), TAlmt.getText(), THbngn.getText(), TBiaya.getText(), "Belum",
                                 TStatus.getText(), "Ralan", kdpnj.getText(), umur, sttsumur}) == true) {
+                        simpanIKM();
                         UpdateUmur();
                         Sequel.mengedit("pasien", "no_rkm_medis='" + TNoRM.getText() + "'", "suku_bangsa='" + kdsuku.getText() + "', bahasa_pasien='" + kdbahasa.getText() + "' ");
 
@@ -4764,6 +5739,7 @@ public final class DlgReg extends javax.swing.JDialog {
                                 new String[]{TNoReg.getText(), TNoRw.getText(), tglDaftar, Sequel.cariIsi("SELECT TIME(NOW()) jam"),
                                     kddokter.getText(), TNoRM.getText(), kdpoli.getText(), TPngJwb.getText(), TAlmt.getText(), THbngn.getText(), TBiaya.getText(), "Belum",
                                     TStatus.getText(), "Ralan", kdpnj.getText(), umur, sttsumur}) == true) {
+                            simpanIKM();
                             UpdateUmur();
                             Sequel.mengedit("pasien", "no_rkm_medis='" + TNoRM.getText() + "'", "suku_bangsa='" + kdsuku.getText() + "', bahasa_pasien='" + kdbahasa.getText() + "' ");
 
@@ -4782,6 +5758,7 @@ public final class DlgReg extends javax.swing.JDialog {
                                     new String[]{TNoReg.getText(), TNoRw.getText(), tglDaftar, Sequel.cariIsi("SELECT TIME(NOW()) jam"),
                                         kddokter.getText(), TNoRM.getText(), kdpoli.getText(), TPngJwb.getText(), TAlmt.getText(), THbngn.getText(), TBiaya.getText(), "Belum",
                                         TStatus.getText(), "Ralan", kdpnj.getText(), umur, sttsumur}) == true) {
+                                simpanIKM();
                                 UpdateUmur();
                                 Sequel.mengedit("pasien", "no_rkm_medis='" + TNoRM.getText() + "'", "suku_bangsa='" + kdsuku.getText() + "', bahasa_pasien='" + kdbahasa.getText() + "' ");
 
@@ -4800,6 +5777,7 @@ public final class DlgReg extends javax.swing.JDialog {
                                         new String[]{TNoReg.getText(), TNoRw.getText(), tglDaftar, Sequel.cariIsi("SELECT TIME(NOW()) jam"),
                                             kddokter.getText(), TNoRM.getText(), kdpoli.getText(), TPngJwb.getText(), TAlmt.getText(), THbngn.getText(), TBiaya.getText(), "Belum",
                                             TStatus.getText(), "Ralan", kdpnj.getText(), umur, sttsumur}) == true) {
+                                    simpanIKM();
                                     UpdateUmur();
                                     Sequel.mengedit("pasien", "no_rkm_medis='" + TNoRM.getText() + "'", "suku_bangsa='" + kdsuku.getText() + "', bahasa_pasien='" + kdbahasa.getText() + "' ");
 
@@ -6974,7 +7952,27 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
     }//GEN-LAST:event_MnCetakRegister1ActionPerformed
 
     private void TabRawatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabRawatMouseClicked
-        tampil();        
+        if (TabRawat.getSelectedIndex() == 0) {
+            tampil();
+        } else if (TabRawat.getSelectedIndex() == 1) {
+            if (var.getJenisLoket().equals("") && var.getNomorLoket().equals("")) {
+                statusOperator.setText("Anda belum menentukan jenis & no. loketnya.");
+                cekLoket();
+            } else if (!var.getJenisLoket().equals("") && var.getNomorLoket().equals("")) {
+                cekLoket();
+                statusOperator.setText("Anda sebagai loket " + var.getJenisLoket() + " dan nomor loketnya belum dipilih.");
+            } else if (var.getJenisLoket().equals("") && !var.getNomorLoket().equals("")) {
+                cekLoket();
+                statusOperator.setText("Anda belum memilih jenis loketnya dan memilih nomor loket " + var.getNomorLoket());
+            } else {
+                cekLoket();
+                statusOperator.setText("Anda sebagai loket " + var.getJenisLoket() + " utk. melayani pasien diloket " + var.getNomorLoket());
+            }
+            statusAntrian();
+        } else if (TabRawat.getSelectedIndex() == 3) {
+            emptTeksRestor();
+            tampilHistoryReset();
+        }
     }//GEN-LAST:event_TabRawatMouseClicked
 
     private void MnCetakSuratSehat1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnCetakSuratSehat1ActionPerformed
@@ -7694,6 +8692,623 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
         }
     }//GEN-LAST:event_ppSuratKontrolActionPerformed
 
+    private void resetPangRalanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetPangRalanActionPerformed
+        if (var.getJenisLoket().equals("Rawat Jalan")) {
+            i = JOptionPane.showConfirmDialog(null, "Apakah anda akan melakukan reset nomor panggilan antrian rawat jalan...??", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+            if (i == JOptionPane.YES_OPTION) {
+                if (Sequel.cariInteger("select count(-1) from antrian_pemanggil_bpjs") > 0) {
+                    Sequel.menyimpan("antrian_history_reset", "'Panggilan Antrian BPJS',"
+                            + "'" + Sequel.cariIsi("select no_antrian from antrian_pemanggil_bpjs order by no_antrian desc limit 1") + "',"
+                            + "'" + Sequel.cariIsi("select now()") + "'", "Nomor Antrian Panggilan BPJS");
+                    Sequel.queryu("delete from antrian_pemanggil_bpjs");
+                }                
+                
+                if (Sequel.cariInteger("select count(-1) from antrian_pemanggil_lansia") > 0) {
+                    Sequel.menyimpan("antrian_history_reset", "'Panggilan Antrian LANSIA-BAYI',"
+                            + "'" + Sequel.cariIsi("select no_antrian from antrian_pemanggil_lansia order by no_antrian desc limit 1") + "',"
+                            + "'" + Sequel.cariIsi("select now()") + "'", "Nomor Antrian Panggilan LANSIA-BAYI");
+                    Sequel.queryu("delete from antrian_pemanggil_lansia");
+                }
+                
+                if (Sequel.cariInteger("select count(-1) from antrian_pemanggil_umum") > 0) {
+                    Sequel.menyimpan("antrian_history_reset", "'Panggilan Antrian Umum',"
+                            + "'" + Sequel.cariIsi("select no_antrian from antrian_pemanggil_umum order by no_antrian desc limit 1") + "',"
+                            + "'" + Sequel.cariIsi("select now()") + "'", "Nomor Antrian Panggilan Umum");
+                    Sequel.queryu("delete from antrian_pemanggil_umum");
+                }
+                statusPangRalan.setText("Panggilan antrian rawat jalan SUDAH direset.");
+            }
+        } else if (var.getJenisLoket().equals("Rawat Inap")) {
+            JOptionPane.showMessageDialog(null, "Jenis loket yg. anda pilih adalah rawat inap sbg. operator antrian, proses tdk. bisa dilanjutkan...!!!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Silahkan pilih dulu salah satu jenis loketnya & simpan sbg. operator antrian...!!!");
+        }
+    }//GEN-LAST:event_resetPangRalanActionPerformed
+
+    private void resetPangRanapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetPangRanapActionPerformed
+        if (var.getJenisLoket().equals("Rawat Inap")) {
+            i = JOptionPane.showConfirmDialog(null, "Apakah anda akan melakukan reset nomor panggilan antrian rawat inap...??", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+            if (i == JOptionPane.YES_OPTION) {
+                if (Sequel.cariInteger("select count(-1) from antrian_pemanggil_inap") > 0) {
+                    Sequel.menyimpan("antrian_history_reset", "'Panggilan Antrian Ranap',"
+                            + "'" + Sequel.cariIsi("select no_antrian from antrian_pemanggil_inap order by no_antrian desc limit 1") + "',"
+                            + "'" + Sequel.cariIsi("select now()") + "'", "Nomor Antrian Panggilan Ranap");
+                    Sequel.queryu("delete from antrian_pemanggil_inap");
+                }
+                statusPangRanap.setText("Panggilan antrian rawat inap SUDAH direset.");
+            }
+        } else if (var.getJenisLoket().equals("Rawat Jalan")) {
+            JOptionPane.showMessageDialog(null, "Jenis loket yg. anda pilih adalah rawat jalan sbg. operator antrian, proses tdk. bisa dilanjutkan...!!!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Silahkan pilih dulu salah satu jenis loketnya & simpan sbg. operator antrian...!!!");
+        }
+    }//GEN-LAST:event_resetPangRanapActionPerformed
+
+    private void resetBoxRalanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBoxRalanActionPerformed
+        if (var.getJenisLoket().equals("Rawat Jalan")) {
+            i = JOptionPane.showConfirmDialog(null, "Apakah anda akan melakukan reset nomor antrian pasien rawat jalan...??", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+            if (i == JOptionPane.YES_OPTION) {
+                if (Sequel.cariInteger("select count(-1) from antrian_nomor_umum") > 0) {
+                    Sequel.menyimpan("antrian_history_reset", "'Nomor Antrian Umum',"
+                            + "'" + Sequel.cariIsi("select no_antrian from antrian_nomor_umum order by no_antrian desc limit 1") + "',"
+                            + "'" + Sequel.cariIsi("select now()") + "'", "Nomor Antrian Pasien Umum");
+                    Sequel.queryu("delete from antrian_nomor_umum");
+                }
+                
+                if (Sequel.cariInteger("select count(-1) from antrian_nomor_lansia") > 0) {
+                    Sequel.menyimpan("antrian_history_reset", "'Nomor Antrian LANSIA-BAYI',"
+                            + "'" + Sequel.cariIsi("select no_antrian from antrian_nomor_lansia order by no_antrian desc limit 1") + "',"
+                            + "'" + Sequel.cariIsi("select now()") + "'", "Nomor Antrian Pasien LANSIA-BAYI");
+                    Sequel.queryu("delete from antrian_nomor_lansia");
+                }
+                
+                if (Sequel.cariInteger("select count(-1) from antrian_nomor_bpjs") > 0) {
+                    Sequel.menyimpan("antrian_history_reset", "'Nomor Antrian BPJS',"
+                            + "'" + Sequel.cariIsi("select no_antrian from antrian_nomor_bpjs order by no_antrian desc limit 1") + "',"
+                            + "'" + Sequel.cariIsi("select now()") + "'", "Nomor Antrian Pasien BPJS");
+                    Sequel.queryu("delete from antrian_nomor_bpjs");
+                }
+                statusBoxRalan.setText("Antrian rawat jalan SUDAH direset.");
+            }
+        } else if (var.getJenisLoket().equals("Rawat Inap")) {
+            JOptionPane.showMessageDialog(null, "Jenis loket yg. anda pilih adalah rawat inap sbg. operator antrian, proses tdk. bisa dilanjutkan...!!!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Silahkan pilih dulu salah satu jenis loketnya & simpan sbg. operator antrian...!!!");
+        }
+    }//GEN-LAST:event_resetBoxRalanActionPerformed
+
+    private void resetBoxRanapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBoxRanapActionPerformed
+        if (var.getJenisLoket().equals("Rawat Inap")) {
+            i = JOptionPane.showConfirmDialog(null, "Apakah anda akan melakukan reset nomor antrian pasien rawat inap...??", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+            if (i == JOptionPane.YES_OPTION) {
+                if (Sequel.cariInteger("select count(-1) from antrian_nomor_inap") > 0) {
+                    Sequel.menyimpan("antrian_history_reset", "'Nomor Antrian Ranap',"
+                            + "'" + Sequel.cariIsi("select no_antrian from antrian_nomor_inap order by no_antrian desc limit 1") + "',"
+                            + "'" + Sequel.cariIsi("select now()") + "'", "Nomor Antrian Pasien Ranap");
+                    Sequel.queryu("delete from antrian_nomor_inap");
+                }
+                statusBoxRanap.setText("Antrian rawat inap SUDAH direset.");
+            }
+        } else if (var.getJenisLoket().equals("Rawat Jalan")) {
+            JOptionPane.showMessageDialog(null, "Jenis loket yg. anda pilih adalah rawat jalan sbg. operator antrian, proses tdk. bisa dilanjutkan...!!!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Silahkan pilih dulu salah satu jenis loketnya & simpan sbg. operator antrian...!!!");
+        }
+    }//GEN-LAST:event_resetBoxRanapActionPerformed
+
+    private void BtnSimpanOperatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSimpanOperatorActionPerformed
+        if (loketRalan.isSelected() == false && loketRanap.isSelected() == false
+                && loket1.isSelected() == false && loket2.isSelected() == false
+                && loket3.isSelected() == false && loket4.isSelected() == false
+                && loket5.isSelected() == false && loket6.isSelected() == false) {
+            JOptionPane.showMessageDialog(null, "Anda belum menentukan jenis & nomor loketnya...!!!!");
+        } else {
+            if (loketRalan.isSelected() == true) {
+                var.setNMLoket("ralan");
+            } else if (loketRanap.isSelected() == true) {
+                var.setNMLoket("ranap");
+            } else {
+                var.setNMLoket("");
+            }
+
+            if (loket1.isSelected() == true) {
+                var.setNomorLoket("1");
+            } else if (loket2.isSelected() == true) {
+                var.setNomorLoket("2");
+            } else if (loket3.isSelected() == true) {
+                var.setNomorLoket("3");
+            } else if (loket4.isSelected() == true) {
+                var.setNomorLoket("4");
+            } else if (loket5.isSelected() == true) {
+                var.setNomorLoket("5");
+            } else if (loket6.isSelected() == true) {
+                var.setNomorLoket("6");
+            } else {
+                var.setNomorLoket("");
+            }
+
+            if (var.getJenisLoket().equals("") && var.getNomorLoket().equals("")) {
+                statusOperator.setText("Anda belum menentukan jenis & no. loketnya.");
+            } else if (!var.getJenisLoket().equals("") && var.getNomorLoket().equals("")) {
+                statusOperator.setText("Anda sebagai loket " + var.getJenisLoket() + " dan nomor loketnya belum dipilih.");
+            } else if (var.getJenisLoket().equals("") && !var.getNomorLoket().equals("")) {
+                statusOperator.setText("Anda belum memilih jenis loketnya dan memilih nomor loket " + var.getNomorLoket());
+            } else {
+                statusOperator.setText("Anda sebagai loket " + var.getJenisLoket() + " utk. melayani pasien diloket " + var.getNomorLoket());
+            }
+        }
+    }//GEN-LAST:event_BtnSimpanOperatorActionPerformed
+
+    private void loketRalanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loketRalanActionPerformed
+        if (loketRalan.isSelected() == true) {
+            resetPangRalan.setEnabled(true);
+            resetPangRanap.setEnabled(false);
+            resetBoxRalan.setEnabled(true);
+            resetBoxRanap.setEnabled(false);
+        }
+    }//GEN-LAST:event_loketRalanActionPerformed
+
+    private void loketRanapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loketRanapActionPerformed
+        if (loketRanap.isSelected() == true) {            
+            resetPangRalan.setEnabled(false);
+            resetPangRanap.setEnabled(true);
+            resetBoxRalan.setEnabled(false);
+            resetBoxRanap.setEnabled(true);
+        }
+    }//GEN-LAST:event_loketRanapActionPerformed
+
+    private void BtnPangBPJSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPangBPJSActionPerformed
+        cekPangBPJS = 0;
+        cekPangUmum = 0;
+        cekPangLB = 0;
+        cekPangInap = 0;
+        
+        if (var.getJenisLoket().equals("Rawat Inap")
+                && (var.getNomorLoket().equals("1") || var.getNomorLoket().equals("2")
+                || var.getNomorLoket().equals("3") || var.getNomorLoket().equals("4")
+                || var.getNomorLoket().equals("5") || var.getNomorLoket().equals("6"))) {
+            JOptionPane.showMessageDialog(null, "Anda salah memilih jenis loket untuk panggilan antrian...!!");
+        } else if (var.getJenisLoket().equals("Rawat Jalan")
+                && (var.getNomorLoket().equals("1") || var.getNomorLoket().equals("2")
+                || var.getNomorLoket().equals("3") || var.getNomorLoket().equals("4")
+                || var.getNomorLoket().equals("5") || var.getNomorLoket().equals("6"))) {
+            cekPangBPJS = Sequel.cariInteger("select count(-1) from antrian_pemanggil_bpjs where status='proses'");
+            cekPangUmum = Sequel.cariInteger("select count(-1) from antrian_pemanggil_umum where status='proses'");
+            cekPangLB = Sequel.cariInteger("select count(-1) from antrian_pemanggil_lansia where status='proses'");
+            cekPangInap = Sequel.cariInteger("select count(-1) from antrian_pemanggil_inap where status='proses'");
+            
+            if (infobpjs2.getText().equals("Hari ini masih belum ada pasien."))  {
+                JOptionPane.showMessageDialog(null, "Belum ada pasien yang mengambil nomor antrian BPJS,...!!");
+            } else if (cekPangBPJS > 0 || cekPangUmum > 0 || cekPangLB > 0 || cekPangInap > 0) {
+                JOptionPane.showMessageDialog(null, "Loket lain masih memanggil antrian, tunggu sebentar,...!!");
+            } else if (infobpjs2.getText().equals("Antrian pasien rawat jalan BPJS sudah habis.")) {
+                JOptionPane.showMessageDialog(null, "Hentikan panggilan untuk pasien BPJS karena sudah habis dilayani, terima kasih...!!");
+            } else {
+                tambahPangBPJS();                
+                suaraPanggilanBPJS();                                
+                Sequel.mengedit("antrian_pemanggil_bpjs", "status='proses'", "status='ok'");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Silahkan tentukan dulu jenis & nomor loketnya utk. melakukan panggilan antrian & simpan sbg. operator..!!");
+        }
+    }//GEN-LAST:event_BtnPangBPJSActionPerformed
+
+    private void BtnUlangPangBPJSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnUlangPangBPJSActionPerformed
+        cekPangBPJS = 0;
+        cekPangUmum = 0;
+        cekPangLB = 0;
+        cekPangInap = 0;
+
+        if (var.getJenisLoket().equals("Rawat Inap")
+                && (var.getNomorLoket().equals("1") || var.getNomorLoket().equals("2")
+                || var.getNomorLoket().equals("3") || var.getNomorLoket().equals("4")
+                || var.getNomorLoket().equals("5") || var.getNomorLoket().equals("6"))) {
+            JOptionPane.showMessageDialog(null, "Anda salah memilih jenis loket untuk panggilan antrian...!!");
+        } else if (var.getJenisLoket().equals("Rawat Jalan")
+                && (var.getNomorLoket().equals("1") || var.getNomorLoket().equals("2")
+                || var.getNomorLoket().equals("3") || var.getNomorLoket().equals("4")
+                || var.getNomorLoket().equals("5") || var.getNomorLoket().equals("6"))) {
+            cekPangBPJS = Sequel.cariInteger("select count(-1) from antrian_pemanggil_bpjs where status='proses'");
+            cekPangUmum = Sequel.cariInteger("select count(-1) from antrian_pemanggil_umum where status='proses'");
+            cekPangLB = Sequel.cariInteger("select count(-1) from antrian_pemanggil_lansia where status='proses'");
+            cekPangInap = Sequel.cariInteger("select count(-1) from antrian_pemanggil_inap where status='proses'");
+
+            if (infobpjs2.getText().equals("Hari ini masih belum ada pasien.")) {
+                JOptionPane.showMessageDialog(null, "Belum ada pasien yang mengambil nomor antrian BPJS,...!!");
+            } else if (cekPangBPJS > 0 || cekPangUmum > 0 || cekPangLB > 0 || cekPangInap > 0) {
+                JOptionPane.showMessageDialog(null, "Loket lain masih memanggil antrian, tunggu sebentar,...!!");
+            } else if (infobpjs2.getText().contains("Masih ada") == true && nobpjs.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Lakukan panggilan dulu, kemudian panggilannya baru bisa diulangi...!!");
+            } else {
+                Sequel.mengedit("antrian_pemanggil_bpjs", "no_antrian='" + Sequel.cariIsi("SELECT no_antrian FROM antrian_pemanggil_bpjs ORDER BY no_antrian DESC LIMIT 1") + "'",
+                        "status='proses'");
+                suaraPanggilanBPJS();
+                Sequel.mengedit("antrian_pemanggil_bpjs", "no_antrian='" + Sequel.cariIsi("SELECT no_antrian FROM antrian_pemanggil_bpjs ORDER BY no_antrian DESC LIMIT 1") + "'",
+                        "status='ok'");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Silahkan tentukan dulu jenis & nomor loketnya utk. melakukan panggilan antrian & simpan sbg. operator..!!");
+        }
+    }//GEN-LAST:event_BtnUlangPangBPJSActionPerformed
+
+    private void BtnPangUmumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPangUmumActionPerformed
+        cekPangBPJS = 0;
+        cekPangUmum = 0;
+        cekPangLB = 0;
+        cekPangInap = 0;
+
+        if (var.getJenisLoket().equals("Rawat Inap")
+                && (var.getNomorLoket().equals("1") || var.getNomorLoket().equals("2")
+                || var.getNomorLoket().equals("3") || var.getNomorLoket().equals("4")
+                || var.getNomorLoket().equals("5") || var.getNomorLoket().equals("6"))) {
+            JOptionPane.showMessageDialog(null, "Anda salah memilih jenis loket untuk panggilan antrian...!!");
+        } else if (var.getJenisLoket().equals("Rawat Jalan")
+                && (var.getNomorLoket().equals("1") || var.getNomorLoket().equals("2")
+                || var.getNomorLoket().equals("3") || var.getNomorLoket().equals("4")
+                || var.getNomorLoket().equals("5") || var.getNomorLoket().equals("6"))) {
+            cekPangBPJS = Sequel.cariInteger("select count(-1) from antrian_pemanggil_bpjs where status='proses'");
+            cekPangUmum = Sequel.cariInteger("select count(-1) from antrian_pemanggil_umum where status='proses'");
+            cekPangLB = Sequel.cariInteger("select count(-1) from antrian_pemanggil_lansia where status='proses'");
+            cekPangInap = Sequel.cariInteger("select count(-1) from antrian_pemanggil_inap where status='proses'");
+            
+            if (infoumum2.getText().equals("Hari ini masih belum ada pasien.")) {
+                JOptionPane.showMessageDialog(null, "Belum ada pasien yang mengambil nomor antrian Umum (Non BPJS),...!!");
+            } else if (cekPangBPJS > 0 || cekPangUmum > 0 || cekPangLB > 0 || cekPangInap > 0) {
+                JOptionPane.showMessageDialog(null, "Loket lain masih memanggil antrian, tunggu sebentar,...!!");
+            } else if (infoumum2.getText().equals("Antrian pasien rawat jalan Umum (NON BPJS) sudah habis.")) {
+                JOptionPane.showMessageDialog(null, "Hentikan panggilan untuk pasien Umum (Non BPJS) karena sudah habis dilayani, terima kasih...!!");
+            } else {
+                tambahPangUmum();
+                suaraPanggilanUMUM();                
+                Sequel.mengedit("antrian_pemanggil_umum", "status='proses'", "status='ok'");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Silahkan tentukan dulu jenis & nomor loketnya utk. melakukan panggilan antrian & simpan sbg. operator..!!");
+        }
+    }//GEN-LAST:event_BtnPangUmumActionPerformed
+
+    private void BtnUlangPangUmumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnUlangPangUmumActionPerformed
+        cekPangBPJS = 0;
+        cekPangUmum = 0;
+        cekPangLB = 0;
+        cekPangInap = 0;
+
+        if (var.getJenisLoket().equals("Rawat Inap")
+                && (var.getNomorLoket().equals("1") || var.getNomorLoket().equals("2")
+                || var.getNomorLoket().equals("3") || var.getNomorLoket().equals("4")
+                || var.getNomorLoket().equals("5") || var.getNomorLoket().equals("6"))) {
+            JOptionPane.showMessageDialog(null, "Anda salah memilih jenis loket untuk panggilan antrian...!!");
+        } else if (var.getJenisLoket().equals("Rawat Jalan")
+                && (var.getNomorLoket().equals("1") || var.getNomorLoket().equals("2")
+                || var.getNomorLoket().equals("3") || var.getNomorLoket().equals("4")
+                || var.getNomorLoket().equals("5") || var.getNomorLoket().equals("6"))) {
+            cekPangBPJS = Sequel.cariInteger("select count(-1) from antrian_pemanggil_bpjs where status='proses'");
+            cekPangUmum = Sequel.cariInteger("select count(-1) from antrian_pemanggil_umum where status='proses'");
+            cekPangLB = Sequel.cariInteger("select count(-1) from antrian_pemanggil_lansia where status='proses'");
+            cekPangInap = Sequel.cariInteger("select count(-1) from antrian_pemanggil_inap where status='proses'");
+
+            if (infoumum2.getText().equals("Hari ini masih belum ada pasien.")) {
+                JOptionPane.showMessageDialog(null, "Belum ada pasien yang mengambil nomor antrian Umum (Non BPJS),...!!");
+            } else if (cekPangBPJS > 0 || cekPangUmum > 0 || cekPangLB > 0 || cekPangInap > 0) {
+                JOptionPane.showMessageDialog(null, "Loket lain masih memanggil antrian, tunggu sebentar,...!!");
+            } else if (infoumum2.getText().contains("Masih ada") == true && noumum.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Lakukan panggilan dulu, kemudian panggilannya baru bisa diulangi...!!");
+            } else {
+                Sequel.mengedit("antrian_pemanggil_umum", "no_antrian='" + Sequel.cariIsi("SELECT no_antrian FROM antrian_pemanggil_umum ORDER BY no_antrian DESC LIMIT 1") + "'",
+                        "status='proses'");
+                suaraPanggilanUMUM();
+                Sequel.mengedit("antrian_pemanggil_umum", "no_antrian='" + Sequel.cariIsi("SELECT no_antrian FROM antrian_pemanggil_umum ORDER BY no_antrian DESC LIMIT 1") + "'",
+                        "status='ok'");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Silahkan tentukan dulu jenis & nomor loketnya utk. melakukan panggilan antrian & simpan sbg. operator..!!");
+        }
+    }//GEN-LAST:event_BtnUlangPangUmumActionPerformed
+
+    private void BtnPangLansiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPangLansiaActionPerformed
+        cekPangBPJS = 0;
+        cekPangUmum = 0;
+        cekPangLB = 0;
+        cekPangInap = 0;
+
+        if (var.getJenisLoket().equals("Rawat Inap")
+                && (var.getNomorLoket().equals("1") || var.getNomorLoket().equals("2")
+                || var.getNomorLoket().equals("3") || var.getNomorLoket().equals("4")
+                || var.getNomorLoket().equals("5") || var.getNomorLoket().equals("6"))) {
+            JOptionPane.showMessageDialog(null, "Anda salah memilih jenis loket untuk panggilan antrian...!!");
+        } else if (var.getJenisLoket().equals("Rawat Jalan")
+                && (var.getNomorLoket().equals("1") || var.getNomorLoket().equals("2")
+                || var.getNomorLoket().equals("3") || var.getNomorLoket().equals("4")
+                || var.getNomorLoket().equals("5") || var.getNomorLoket().equals("6"))) {
+            cekPangBPJS = Sequel.cariInteger("select count(-1) from antrian_pemanggil_bpjs where status='proses'");
+            cekPangUmum = Sequel.cariInteger("select count(-1) from antrian_pemanggil_umum where status='proses'");
+            cekPangLB = Sequel.cariInteger("select count(-1) from antrian_pemanggil_lansia where status='proses'");
+            cekPangInap = Sequel.cariInteger("select count(-1) from antrian_pemanggil_inap where status='proses'");
+            
+            if (infolb2.getText().equals("Hari ini masih belum ada pasien.")) {
+                JOptionPane.showMessageDialog(null, "Belum ada pasien yang mengambil nomor antrian Lansia/Bayi,...!!");
+            } else if (cekPangBPJS > 0 || cekPangUmum > 0 || cekPangLB > 0 || cekPangInap > 0) {
+                JOptionPane.showMessageDialog(null, "Loket lain masih memanggil antrian, tunggu sebentar,...!!");
+            } else if (infolb2.getText().equals("Antrian pasien rawat jalan LANSIA / BAYI sudah habis.")) {
+                JOptionPane.showMessageDialog(null, "Hentikan panggilan untuk pasien Lansia/Bayi karena sudah habis dilayani, terima kasih...!!");
+            } else {
+                tambahPangLB();
+                suaraPanggilanLB();
+                Sequel.mengedit("antrian_pemanggil_lansia", "status='proses'", "status='ok'");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Silahkan tentukan dulu jenis & nomor loketnya utk. melakukan panggilan antrian & simpan sbg. operator..!!");
+        }
+    }//GEN-LAST:event_BtnPangLansiaActionPerformed
+
+    private void BtnUlangPangLansiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnUlangPangLansiaActionPerformed
+        cekPangBPJS = 0;
+        cekPangUmum = 0;
+        cekPangLB = 0;
+        cekPangInap = 0;
+
+        if (var.getJenisLoket().equals("Rawat Inap")
+                && (var.getNomorLoket().equals("1") || var.getNomorLoket().equals("2")
+                || var.getNomorLoket().equals("3") || var.getNomorLoket().equals("4")
+                || var.getNomorLoket().equals("5") || var.getNomorLoket().equals("6"))) {
+            JOptionPane.showMessageDialog(null, "Anda salah memilih jenis loket untuk panggilan antrian...!!");
+        } else if (var.getJenisLoket().equals("Rawat Jalan")
+                && (var.getNomorLoket().equals("1") || var.getNomorLoket().equals("2")
+                || var.getNomorLoket().equals("3") || var.getNomorLoket().equals("4")
+                || var.getNomorLoket().equals("5") || var.getNomorLoket().equals("6"))) {
+            cekPangBPJS = Sequel.cariInteger("select count(-1) from antrian_pemanggil_bpjs where status='proses'");
+            cekPangUmum = Sequel.cariInteger("select count(-1) from antrian_pemanggil_umum where status='proses'");
+            cekPangLB = Sequel.cariInteger("select count(-1) from antrian_pemanggil_lansia where status='proses'");
+            cekPangInap = Sequel.cariInteger("select count(-1) from antrian_pemanggil_inap where status='proses'");
+
+            if (infolb2.getText().equals("Hari ini masih belum ada pasien.")) {
+                JOptionPane.showMessageDialog(null, "Belum ada pasien yang mengambil nomor antrian Lansia/Bayi,...!!");
+            } else if (cekPangBPJS > 0 || cekPangUmum > 0 || cekPangLB > 0 || cekPangInap > 0) {
+                JOptionPane.showMessageDialog(null, "Loket lain masih memanggil antrian, tunggu sebentar,...!!");
+            } else if (infolb2.getText().contains("Masih ada") == true && nolansia.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Lakukan panggilan dulu, kemudian panggilannya baru bisa diulangi...!!");
+            } else {
+                Sequel.mengedit("antrian_pemanggil_lansia", "no_antrian='" + Sequel.cariIsi("SELECT no_antrian FROM antrian_pemanggil_lansia ORDER BY no_antrian DESC LIMIT 1") + "'",
+                        "status='proses'");
+                suaraPanggilanLB();
+                Sequel.mengedit("antrian_pemanggil_lansia", "no_antrian='" + Sequel.cariIsi("SELECT no_antrian FROM antrian_pemanggil_lansia ORDER BY no_antrian DESC LIMIT 1") + "'",
+                        "status='ok'");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Silahkan tentukan dulu jenis & nomor loketnya utk. melakukan panggilan antrian & simpan sbg. operator..!!");
+        }
+    }//GEN-LAST:event_BtnUlangPangLansiaActionPerformed
+
+    private void BtnPangInapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPangInapActionPerformed
+        cekPangBPJS = 0;
+        cekPangUmum = 0;
+        cekPangLB = 0;
+        cekPangInap = 0;
+
+        if (var.getJenisLoket().equals("Rawat Jalan")
+                && (var.getNomorLoket().equals("1") || var.getNomorLoket().equals("2")
+                || var.getNomorLoket().equals("3") || var.getNomorLoket().equals("4")
+                || var.getNomorLoket().equals("5") || var.getNomorLoket().equals("6"))) {
+            JOptionPane.showMessageDialog(null, "Anda salah memilih jenis loket untuk panggilan antrian...!!");
+        } else if (var.getJenisLoket().equals("Rawat Inap")
+                && (var.getNomorLoket().equals("1") || var.getNomorLoket().equals("2")
+                || var.getNomorLoket().equals("3") || var.getNomorLoket().equals("4")
+                || var.getNomorLoket().equals("5") || var.getNomorLoket().equals("6"))) {
+            cekPangBPJS = Sequel.cariInteger("select count(-1) from antrian_pemanggil_bpjs where status='proses'");
+            cekPangUmum = Sequel.cariInteger("select count(-1) from antrian_pemanggil_umum where status='proses'");
+            cekPangLB = Sequel.cariInteger("select count(-1) from antrian_pemanggil_lansia where status='proses'");
+            cekPangInap = Sequel.cariInteger("select count(-1) from antrian_pemanggil_inap where status='proses'");
+            
+            if (inforanap2.getText().equals("Hari ini masih belum ada pasien.")) {
+                JOptionPane.showMessageDialog(null, "Belum ada pasien yang mengambil nomor antrian rawat inap,...!!");
+            } else if (cekPangBPJS > 0 || cekPangUmum > 0 || cekPangLB > 0 || cekPangInap > 0) {
+                JOptionPane.showMessageDialog(null, "Loket lain masih memanggil antrian, tunggu sebentar,...!!");
+            } else if (inforanap2.getText().equals("Antrian pasien rawat inap sudah habis.")) {
+                JOptionPane.showMessageDialog(null, "Hentikan panggilan untuk pasien rawat inap karena sudah habis dilayani, terima kasih...!!");
+            } else {
+                tambahPangInap();
+                suaraPanggilanINAP();
+                Sequel.mengedit("antrian_pemanggil_inap", "status='proses'", "status='ok'");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Silahkan tentukan dulu jenis & nomor loketnya utk. melakukan panggilan antrian & simpan sbg. operator..!!");
+        }
+    }//GEN-LAST:event_BtnPangInapActionPerformed
+
+    private void BtnUlangPangInapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnUlangPangInapActionPerformed
+        cekPangBPJS = 0;
+        cekPangUmum = 0;
+        cekPangLB = 0;
+        cekPangInap = 0;
+
+        if (var.getJenisLoket().equals("Rawat Jalan")
+                && (var.getNomorLoket().equals("1") || var.getNomorLoket().equals("2")
+                || var.getNomorLoket().equals("3") || var.getNomorLoket().equals("4")
+                || var.getNomorLoket().equals("5") || var.getNomorLoket().equals("6"))) {
+            JOptionPane.showMessageDialog(null, "Anda salah memilih jenis loket untuk panggilan antrian...!!");
+        } else if (var.getJenisLoket().equals("Rawat Inap")
+                && (var.getNomorLoket().equals("1") || var.getNomorLoket().equals("2")
+                || var.getNomorLoket().equals("3") || var.getNomorLoket().equals("4")
+                || var.getNomorLoket().equals("5") || var.getNomorLoket().equals("6"))) {
+            cekPangBPJS = Sequel.cariInteger("select count(-1) from antrian_pemanggil_bpjs where status='proses'");
+            cekPangUmum = Sequel.cariInteger("select count(-1) from antrian_pemanggil_umum where status='proses'");
+            cekPangLB = Sequel.cariInteger("select count(-1) from antrian_pemanggil_lansia where status='proses'");
+            cekPangInap = Sequel.cariInteger("select count(-1) from antrian_pemanggil_inap where status='proses'");
+
+            if (inforanap2.getText().equals("Hari ini masih belum ada pasien.")) {
+                JOptionPane.showMessageDialog(null, "Belum ada pasien yang mengambil nomor antrian rawat inap,...!!");
+            } else if (cekPangBPJS > 0 || cekPangUmum > 0 || cekPangLB > 0 || cekPangInap > 0) {
+                JOptionPane.showMessageDialog(null, "Loket lain masih memanggil antrian, tunggu sebentar,...!!");
+            } else if (inforanap2.getText().contains("Masih ada") == true && noinap.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Lakukan panggilan dulu, kemudian panggilannya baru bisa diulangi...!!");
+            } else {
+                Sequel.mengedit("antrian_pemanggil_inap", "no_antrian='" + Sequel.cariIsi("SELECT no_antrian FROM antrian_pemanggil_inap ORDER BY no_antrian DESC LIMIT 1") + "'",
+                        "status='proses'");
+                suaraPanggilanINAP();
+                Sequel.mengedit("antrian_pemanggil_inap", "no_antrian='" + Sequel.cariIsi("SELECT no_antrian FROM antrian_pemanggil_inap ORDER BY no_antrian DESC LIMIT 1") + "'",
+                        "status='ok'");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Silahkan tentukan dulu jenis & nomor loketnya utk. melakukan panggilan antrian & simpan sbg. operator..!!");
+        }
+    }//GEN-LAST:event_BtnUlangPangInapActionPerformed
+
+    private void tbrestorAntrianMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbrestorAntrianMouseClicked
+        if (tabMode1.getRowCount() != 0) {
+            try {
+                getDataAntrian();
+            } catch (java.lang.NullPointerException e) {
+            }
+        }
+    }//GEN-LAST:event_tbrestorAntrianMouseClicked
+
+    private void tbrestorAntrianKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbrestorAntrianKeyPressed
+        if (tabMode1.getRowCount() != 0) {
+            if ((evt.getKeyCode() == KeyEvent.VK_ENTER) || (evt.getKeyCode() == KeyEvent.VK_UP) || (evt.getKeyCode() == KeyEvent.VK_DOWN)) {
+                try {
+                    getDataAntrian();
+                } catch (java.lang.NullPointerException e) {
+                }
+            }
+        }
+    }//GEN-LAST:event_tbrestorAntrianKeyPressed
+
+    private void Scroll2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Scroll2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Scroll2MouseClicked
+
+    private void BtnCari1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCari1ActionPerformed
+        tampilHistoryReset();
+    }//GEN-LAST:event_BtnCari1ActionPerformed
+
+    private void BtnCari1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnCari1KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnCari1KeyPressed
+
+    private void BtnRestorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRestorActionPerformed
+        if (jnsReset.getText().equals("") && noTerakhir.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Silahkan pilih dulu salah satu datanya pada tabel history nomor antrian..!!");
+            tbrestorAntrian.requestFocus();
+        } else {
+            i = JOptionPane.showConfirmDialog(null, "Apakah anda yakin akan melakukan restore " + jnsReset.getText() + "...??", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+            if (i == JOptionPane.YES_OPTION) {
+                if (jnsReset.getText().equals("Panggilan Antrian BPJS")) {
+                    x = 0;
+                    x = Integer.parseInt(noTerakhir.getText());
+
+                    for (i = 0; i < x; i++) {
+                        Sequel.menyimpan("antrian_pemanggil_bpjs", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_pemanggil_bpjs") + "',"
+                                + "'ok','1','" + Sequel.cariIsi("select now()") + "'", "Restore nomor panggilan antrian pasien BPJS");
+                    }
+
+                    emptTeksRestor();
+                    tampilHistoryReset();
+                    JOptionPane.showMessageDialog(null, "Proses restore nomor panggilan antrian pasien BPJS berhasil dikembalikan..!!");
+                } else if (jnsReset.getText().equals("Panggilan Antrian LANSIA-BAYI")) {
+                    x = 0;
+                    x = Integer.parseInt(noTerakhir.getText());
+
+                    for (i = 0; i < x; i++) {
+                        Sequel.menyimpan("antrian_pemanggil_lansia", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_pemanggil_lansia") + "',"
+                                + "'ok','1','" + Sequel.cariIsi("select now()") + "'", "Restore nomor panggilan antrian pasien LANSIA-BAYI");
+                    }
+
+                    emptTeksRestor();
+                    tampilHistoryReset();
+                    JOptionPane.showMessageDialog(null, "Proses restore nomor panggilan antrian pasien LANSIA-BAYI berhasil dikembalikan..!!");
+                } else if (jnsReset.getText().equals("Panggilan Antrian Umum")) {
+                    x = 0;
+                    x = Integer.parseInt(noTerakhir.getText());
+
+                    for (i = 0; i < x; i++) {
+                        Sequel.menyimpan("antrian_pemanggil_umum", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_pemanggil_umum") + "',"
+                                + "'ok','1','" + Sequel.cariIsi("select now()") + "'", "Restore nomor panggilan antrian pasien Umum");
+                    }
+
+                    emptTeksRestor();
+                    tampilHistoryReset();
+                    JOptionPane.showMessageDialog(null, "Proses restore nomor panggilan antrian pasien Umum berhasil dikembalikan..!!");
+                } else if (jnsReset.getText().equals("Panggilan Antrian Ranap")) {
+                    x = 0;
+                    x = Integer.parseInt(noTerakhir.getText());
+
+                    for (i = 0; i < x; i++) {
+                        Sequel.menyimpan("antrian_pemanggil_inap", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_pemanggil_inap") + "',"
+                                + "'ok','1','" + Sequel.cariIsi("select now()") + "'", "Restore nomor panggilan antrian pasien Ranap");
+                    }
+
+                    emptTeksRestor();
+                    tampilHistoryReset();
+                    JOptionPane.showMessageDialog(null, "Proses restore nomor panggilan antrian pasien ranap berhasil dikembalikan..!!");
+                } else if (jnsReset.getText().equals("Nomor Antrian Umum")) {
+                    x = 0;
+                    x = Integer.parseInt(noTerakhir.getText());
+
+                    for (i = 0; i < x; i++) {
+                        Sequel.menyimpan("antrian_nomor_umum", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_nomor_umum") + "',"
+                                + "'oke','" + Sequel.cariIsi("select now()") + "'", "Restore Nomor Antrian Pasien Rawat Jalan Umum (Non BPJS)");
+                    }
+
+                    emptTeksRestor();
+                    tampilHistoryReset();
+                    JOptionPane.showMessageDialog(null, "Proses restore nomor antrian pasien rawat jalan Umum (Non BPJS) berhasil dikembalikan..!!");
+                } else if (jnsReset.getText().equals("Nomor Antrian LANSIA-BAYI")) {
+                    x = 0;
+                    x = Integer.parseInt(noTerakhir.getText());
+
+                    for (i = 0; i < x; i++) {
+                        Sequel.menyimpan("antrian_nomor_lansia", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_nomor_lansia") + "',"
+                                + "'oke','" + Sequel.cariIsi("select now()") + "'", "Restore Nomor Antrian Pasien Rawat Jalan LANSIA-BAYI");
+                    }
+
+                    emptTeksRestor();
+                    tampilHistoryReset();
+                    JOptionPane.showMessageDialog(null, "Proses restore nomor antrian pasien rawat jalan LANSIA-BAYI berhasil dikembalikan..!!");
+                } else if (jnsReset.getText().equals("Nomor Antrian BPJS")) {
+                    x = 0;
+                    x = Integer.parseInt(noTerakhir.getText());
+
+                    for (i = 0; i < x; i++) {
+                        Sequel.menyimpan("antrian_nomor_bpjs", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_nomor_bpjs") + "',"
+                                + "'oke','" + Sequel.cariIsi("select now()") + "'", "Restore Nomor Antrian Pasien Rawat Jalan BPJS");
+                    }
+
+                    emptTeksRestor();
+                    tampilHistoryReset();
+                    JOptionPane.showMessageDialog(null, "Proses restore nomor antrian pasien rawat jalan BPJS berhasil dikembalikan..!!");
+                } else if (jnsReset.getText().equals("Nomor Antrian Ranap")) {
+                    x = 0;
+                    x = Integer.parseInt(noTerakhir.getText());
+
+                    for (i = 0; i < x; i++) {
+                        Sequel.menyimpan("antrian_nomor_inap", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_nomor_inap") + "',"
+                                + "'oke','" + Sequel.cariIsi("select now()") + "'", "Restore Nomor Antrian Pasien Rawat Inap");
+                    }
+
+                    emptTeksRestor();
+                    tampilHistoryReset();
+                    JOptionPane.showMessageDialog(null, "Proses restore nomor antrian pasien rawat inap berhasil dikembalikan..!!");
+                }
+            }
+        }
+    }//GEN-LAST:event_BtnRestorActionPerformed
+
+    private void BtnRestorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnRestorKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnRestorKeyPressed
+
+    private void BtnSimpanOperator1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSimpanOperator1ActionPerformed
+        i = JOptionPane.showConfirmDialog(null, "Apakah cek audio/suara panggilan antrian pasien akan dilakukan...??", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+        if (i == JOptionPane.YES_OPTION) {
+            Sequel.mengedit("antrian_pemanggil_bpjs", "status='proses'", "status='ok'");
+            Sequel.mengedit("antrian_pemanggil_umum", "status='proses'", "status='ok'");
+            Sequel.mengedit("antrian_pemanggil_lansia", "status='proses'", "status='ok'");
+            Sequel.mengedit("antrian_pemanggil_inap", "status='proses'", "status='ok'");
+            
+            JOptionPane.showMessageDialog(null, "Perbaikan error audio/suara panggilan antrian pasien berhasil dilakukan, proses pemanggilan antrian bisa dilakukan lagi...!!");
+        }
+    }//GEN-LAST:event_BtnSimpanOperator1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -7716,6 +9331,7 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
     private widget.Button BtnBahasa;
     private widget.Button BtnBatal;
     private widget.Button BtnCari;
+    private widget.Button BtnCari1;
     private widget.Button BtnCloseIn1;
     private widget.Button BtnCloseIn2;
     private widget.Button BtnCloseIn3;
@@ -7733,6 +9349,10 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
     private widget.Button BtnKeluar3;
     private widget.Button BtnKeluar4;
     private widget.Button BtnKeluar5;
+    private widget.Button BtnPangBPJS;
+    private widget.Button BtnPangInap;
+    private widget.Button BtnPangLansia;
+    private widget.Button BtnPangUmum;
     private widget.Button BtnPasien;
     private widget.Button BtnPoliRujuk;
     private widget.Button BtnPrint;
@@ -7740,14 +9360,21 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
     private widget.Button BtnPrint3;
     private widget.Button BtnPrint4;
     private widget.Button BtnPrint5;
+    private widget.Button BtnRestor;
     private widget.Button BtnSeek3;
     private widget.Button BtnSeek4;
     private widget.Button BtnSeek5;
     private widget.Button BtnSimpan;
     private widget.Button BtnSimpan1;
     private widget.Button BtnSimpan2;
+    private widget.Button BtnSimpanOperator;
+    private widget.Button BtnSimpanOperator1;
     private widget.Button BtnSimpanRujuk;
     private widget.Button BtnSuku;
+    private widget.Button BtnUlangPangBPJS;
+    private widget.Button BtnUlangPangInap;
+    private widget.Button BtnUlangPangLansia;
+    private widget.Button BtnUlangPangUmum;
     private widget.Button BtnUnit;
     private widget.CekBox ChkInput;
     private widget.CekBox ChkTracker;
@@ -7764,6 +9391,7 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
     private javax.swing.JDialog DlgSakit2;
     private javax.swing.JDialog DlgTanggalReg;
     private widget.PanelBiasa FormInput;
+    private widget.PanelBiasa FormInput1;
     private widget.ComboBox JnsnoID;
     private widget.TextBox Kabupaten2;
     private widget.TextBox Kd2;
@@ -7843,6 +9471,8 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
     private widget.TextBox NomorSurat;
     private javax.swing.JPanel PanelInput;
     private widget.ScrollPane Scroll;
+    private widget.ScrollPane Scroll1;
+    private widget.ScrollPane Scroll2;
     private widget.TextBox TAlmt;
     private widget.TextBox TBiaya;
     private widget.TextBox TCari;
@@ -7856,7 +9486,7 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
     private widget.TextBox TPngJwb;
     private widget.TextBox TPoli;
     private widget.TextBox TStatus;
-    private javax.swing.JTabbedPane TabRawat;
+    public javax.swing.JTabbedPane TabRawat;
     private widget.Tanggal TglReg;
     private widget.Tanggal TglSakit1;
     private widget.Tanggal TglSakit2;
@@ -7868,9 +9498,31 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
     private widget.Button btnPenjab;
     private widget.Button btnPenjab1;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private widget.TextBox cekPasien;
     private widget.TextBox drPerujuk;
+    private widget.Label infobpjs1;
+    private widget.Label infobpjs2;
+    private widget.Label infolb1;
+    private widget.Label infolb2;
+    private widget.Label inforanap1;
+    private widget.Label inforanap2;
+    private widget.Label infoumum1;
+    private widget.Label infoumum2;
     private widget.InternalFrame internalFrame1;
+    private widget.InternalFrame internalFrame11;
+    private widget.InternalFrame internalFrame12;
+    private widget.InternalFrame internalFrame17;
+    private widget.InternalFrame internalFrame18;
+    private widget.InternalFrame internalFrame19;
+    private widget.InternalFrame internalFrame2;
+    private widget.InternalFrame internalFrame20;
+    private widget.InternalFrame internalFrame21;
+    private widget.InternalFrame internalFrame22;
+    private widget.InternalFrame internalFrame25;
+    private widget.InternalFrame internalFrame26;
+    private widget.InternalFrame internalFrame27;
+    private widget.InternalFrame internalFrame28;
     private widget.InternalFrame internalFrame3;
     private widget.InternalFrame internalFrame4;
     private widget.InternalFrame internalFrame5;
@@ -7907,25 +9559,46 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
     private widget.Label jLabel35;
     private widget.Label jLabel36;
     private widget.Label jLabel37;
+    private widget.Label jLabel38;
+    private widget.Label jLabel39;
     private widget.Label jLabel4;
     private widget.Label jLabel40;
     private widget.Label jLabel41;
     private widget.Label jLabel42;
     private widget.Label jLabel43;
     private widget.Label jLabel44;
+    private widget.Label jLabel45;
+    private widget.Label jLabel46;
     private widget.Label jLabel5;
+    private widget.Label jLabel51;
+    private widget.Label jLabel52;
+    private widget.Label jLabel53;
+    private widget.Label jLabel54;
+    private widget.Label jLabel55;
+    private widget.Label jLabel56;
+    private widget.Label jLabel57;
+    private widget.Label jLabel58;
+    private widget.Label jLabel59;
     private widget.Label jLabel6;
+    private widget.Label jLabel60;
+    private widget.Label jLabel61;
+    private widget.Label jLabel63;
+    private widget.Label jLabel64;
     private widget.Label jLabel7;
     private widget.Label jLabel8;
+    private widget.Label jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPopupMenu jPopupMenu1;
     private widget.TextBox jamMati;
+    private widget.TextBox jnsReset;
     private widget.TextBox kdDokterRujuk;
     private widget.TextBox kdbahasa;
     private widget.TextBox kddokter;
@@ -7936,6 +9609,14 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
     private widget.TextBox kode_rujukanya;
     private widget.TextArea label_pesan;
     private widget.TextBox lmsakit;
+    private widget.RadioButton loket1;
+    private widget.RadioButton loket2;
+    private widget.RadioButton loket3;
+    private widget.RadioButton loket4;
+    private widget.RadioButton loket5;
+    private widget.RadioButton loket6;
+    private widget.CekBox loketRalan;
+    private widget.CekBox loketRanap;
     private widget.TextBox nmDokterRujuk;
     private widget.TextBox nmbahasa;
     private widget.TextBox nmpnj;
@@ -7943,14 +9624,23 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
     private widget.TextBox nmsuku;
     private widget.TextBox noSrt;
     private widget.TextBox noSrt1;
+    private widget.TextBox noTerakhir;
+    private widget.Label nobpjs;
+    private widget.Label noinap;
+    private widget.Label nolansia;
     private widget.TextBox norwPerujuk;
+    private widget.Label noumum;
     private widget.PanelBiasa panelBiasa2;
     private widget.PanelBiasa panelBiasa3;
     private widget.PanelBiasa panelBiasa4;
     private widget.PanelBiasa panelBiasa5;
+    private widget.panelisi panelGlass11;
+    private widget.panelisi panelGlass12;
+    private widget.panelisi panelGlass13;
     private widget.panelisi panelGlass6;
     private widget.panelisi panelGlass7;
     private widget.panelisi panelGlass8;
+    private widget.panelisi panelGlass9;
     private widget.TextBox poliPerujuk;
     private javax.swing.JMenuItem ppBerkas;
     private javax.swing.JMenuItem ppCatatanPasien;
@@ -7971,11 +9661,25 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
     private javax.swing.JMenuItem ppPasienCorona;
     private javax.swing.JMenuItem ppRiwayat;
     private javax.swing.JMenuItem ppSuratKontrol;
+    private widget.ProgressBar prosesTombol;
+    private widget.Button resetBoxRalan;
+    private widget.Button resetBoxRanap;
+    private widget.Button resetPangRalan;
+    private widget.Button resetPangRanap;
     private widget.TextBox rmMati;
     private widget.TextBox sepJkd;
     private widget.TextBox sepJmp;
+    private widget.Label statusBoxRalan;
+    private widget.Label statusBoxRanap;
+    private widget.Label statusOperator;
+    private widget.Label statusPangRalan;
+    private widget.Label statusPangRanap;
     private widget.Table tbregistrasiRalan;
+    private widget.Table tbrestorAntrian;
+    private widget.Tanggal tglA;
+    private widget.Tanggal tglB;
     private widget.TextBox tglMati;
+    private widget.TextBox tglReset;
     private widget.Label tulisan_tanggal;
     // End of variables declaration//GEN-END:variables
 
@@ -8161,6 +9865,10 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
         kdbahasa.setText("");
         nmbahasa.setText("");
         label_pesan.setText("-");
+
+        wktPanggil = "";
+        wktAmbilNomor = "";
+        panggilanFix = "";
         infoSEP();
 
         if ((var.getkode().equals("PP24")) || (var.getkode().equals("PP23"))) {
@@ -8404,6 +10112,15 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
         ppCatatanPasien.setEnabled(var.getcatatan_pasien());
         MnStatus.setEnabled(var.getsetstatusralan());
         ppPasienCorona.setEnabled(var.getpasien_corona());
+        
+        if (var.getkode().equals("Admin Utama")) {
+            TabRawat.setEnabled(true);
+            TabRawat.setEnabledAt(1, true);
+            TabRawat.setEnabledAt(3, true);
+        } else {
+            TabRawat.setEnabledAt(1, var.getOperator_antrian());
+            TabRawat.setEnabledAt(3, false);
+        }
     }
 
     private void isNumber() {
@@ -8593,6 +10310,834 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
             label_pesan.setText("Pada tgl. periksa pasien " + Sequel.cariIsi("SELECT DATE_FORMAT(b.tanggal_periksa,'%d %M %Y') tgl FROM kelengkapan_booking_sep_bpjs k "
                     + "INNER JOIN booking_registrasi b on b.kd_booking=k.kd_booking WHERE status_cetak_sep='gagal' ORDER BY b.tanggal_periksa limit 1") + " ditemukan SEP "
                     + "manual tercetak dari anjungan elektronik pasien, cek lagi dimenu booking registrasi & mohon dibikinkan SEP nya lagi..!!");
+        }
+    }
+
+    private void cekLoket() {
+        if (var.getJenisLoket().equals("Rawat Jalan")) {
+            loketRalan.setSelected(true);
+            loketRanap.setSelected(false);
+            
+            resetPangRalan.setEnabled(true);
+            resetPangRanap.setEnabled(false);
+            resetBoxRalan.setEnabled(true);
+            resetBoxRanap.setEnabled(false);
+        } else if (var.getJenisLoket().equals("Rawat Inap")) {
+            loketRalan.setSelected(false);
+            loketRanap.setSelected(true);
+            
+            resetPangRalan.setEnabled(false);
+            resetPangRanap.setEnabled(true);
+            resetBoxRalan.setEnabled(false);
+            resetBoxRanap.setEnabled(true);
+        } else {
+            loketRalan.setSelected(false);
+            loketRanap.setSelected(false);
+            
+            resetPangRalan.setEnabled(false);
+            resetPangRanap.setEnabled(false);
+            resetBoxRalan.setEnabled(false);
+            resetBoxRanap.setEnabled(false);
+        }
+        
+        if (var.getNomorLoket().equals("1")) {
+            loketRalan.setSelected(false);
+            loketRanap.setSelected(false);
+            loket1.setSelected(true);
+            loket2.setSelected(false);
+            loket3.setSelected(false);
+            loket4.setSelected(false);
+            loket5.setSelected(false);
+            loket6.setSelected(false);
+        } else if (var.getNomorLoket().equals("2")) {
+            loketRalan.setSelected(false);
+            loketRanap.setSelected(false);
+            loket1.setSelected(false);
+            loket2.setSelected(true);
+            loket3.setSelected(false);
+            loket4.setSelected(false);
+            loket5.setSelected(false);
+            loket6.setSelected(false);
+        } else if (var.getNomorLoket().equals("3")) {
+            loketRalan.setSelected(false);
+            loketRanap.setSelected(false);
+            loket1.setSelected(false);
+            loket2.setSelected(false);
+            loket3.setSelected(true);
+            loket4.setSelected(false);
+            loket5.setSelected(false);
+            loket6.setSelected(false);
+        } else if (var.getNomorLoket().equals("4")) {
+            loketRalan.setSelected(false);
+            loketRanap.setSelected(false);
+            loket1.setSelected(false);
+            loket2.setSelected(false);
+            loket3.setSelected(false);
+            loket4.setSelected(true);
+            loket5.setSelected(false);
+            loket6.setSelected(false);
+        } else if (var.getNomorLoket().equals("5")) {
+            loketRalan.setSelected(false);
+            loketRanap.setSelected(false);
+            loket1.setSelected(false);
+            loket2.setSelected(false);
+            loket3.setSelected(false);
+            loket4.setSelected(false);
+            loket5.setSelected(true);
+            loket6.setSelected(false);
+        } else if (var.getNomorLoket().equals("6")) {
+            loketRalan.setSelected(false);
+            loketRanap.setSelected(false);
+            loket1.setSelected(false);
+            loket2.setSelected(false);
+            loket3.setSelected(false);
+            loket4.setSelected(false);
+            loket5.setSelected(false);
+            loket6.setSelected(true);
+        } else {
+            loketRalan.setSelected(false);
+            loketRanap.setSelected(false);
+            loket1.setSelected(false);
+            loket2.setSelected(false);
+            loket3.setSelected(false);
+            loket4.setSelected(false);
+            loket5.setSelected(false);
+            loket6.setSelected(false);
+        }
+    }
+    
+    private void jam() {
+        ActionListener taskPerformer = new ActionListener() {
+            private int nilai_jam;
+            private int nilai_menit;
+            private int nilai_detik;
+
+            public void actionPerformed(ActionEvent e) {
+                String nol_jam = "";
+                String nol_menit = "";
+                String nol_detik = "";
+
+                Date now = Calendar.getInstance().getTime();
+
+                // Mengambil nilaj JAM, MENIT, dan DETIK Sekarang
+                    nilai_jam = now.getHours();
+                    nilai_menit = now.getMinutes();
+                    nilai_detik = now.getSeconds();
+
+                // Jika nilai JAM lebih kecil dari 10 (hanya 1 digit)
+                if (nilai_jam <= 9) {
+                    // Tambahkan "0" didepannya
+                    nol_jam = "0";
+                }
+                // Jika nilai MENIT lebih kecil dari 10 (hanya 1 digit)
+                if (nilai_menit <= 9) {
+                    // Tambahkan "0" didepannya
+                    nol_menit = "0";
+                }
+                // Jika nilai DETIK lebih kecil dari 10 (hanya 1 digit)
+                if (nilai_detik <= 9) {
+                    // Tambahkan "0" didepannya
+                    nol_detik = "0";
+                }
+                // Membuat String JAM, MENIT, DETIK
+                String jam = nol_jam + Integer.toString(nilai_jam);
+                String menit = nol_menit + Integer.toString(nilai_menit);
+                String detik = nol_detik + Integer.toString(nilai_detik);
+                
+                // Menampilkan pada Layar                
+                nobpjs.setText(Sequel.cariIsi("SELECT ifnull(no_antrian,'-') FROM antrian_pemanggil_bpjs ORDER BY no_antrian DESC LIMIT 1"));
+                nolansia.setText(Sequel.cariIsi("SELECT ifnull(concat('LB-',no_antrian),'-') FROM antrian_pemanggil_lansia ORDER BY no_antrian DESC LIMIT 1"));
+                noumum.setText(Sequel.cariIsi("SELECT ifnull(concat('PU-',no_antrian),'-') FROM antrian_pemanggil_umum ORDER BY no_antrian DESC LIMIT 1"));
+                noinap.setText(Sequel.cariIsi("SELECT ifnull(no_antrian,'-') FROM antrian_pemanggil_inap ORDER BY no_antrian DESC LIMIT 1"));
+                statusAntrian();
+                cekAntrianBPJS();
+                cekAntrianUMUM();
+                cekAntrianLB();
+                cekAntrianRanap();
+            }
+        };
+        // Timer
+        new Timer(1000, taskPerformer).start();
+    }
+    
+    private void tampilHistoryReset() {
+        Valid.tabelKosong(tabMode1);
+        try {
+            ps2 = koneksi.prepareStatement("select jenis_reset, nomor_terakhir, date_format(tgl_reset,'%Y-%m-%d') tgl, "
+                    + "date_format(tgl_reset,'%H:%i:%s') jam, date_format(tgl_reset,'%d %b %Y, Pukul : %H:%i:%s') tgl_reset from antrian_history_reset where "
+                    + "date(tgl_reset) between '" + Valid.SetTgl(tglA.getSelectedItem() + "") + "' and '" + Valid.SetTgl(tglB.getSelectedItem() + "") + "' order by tgl_reset desc");
+            try {                              
+                rs2 = ps2.executeQuery();
+                while (rs2.next()) {
+                    tabMode1.addRow(new String[]{
+                        rs2.getString("jenis_reset"),
+                        rs2.getString("nomor_terakhir"),
+                        rs2.getString("tgl"),
+                        rs2.getString("jam"),
+                        rs2.getString("tgl_reset")
+                    });
+                }
+            } catch (Exception e) {
+                System.out.println("Notifikasi : " + e);
+            } finally {
+                if (rs2 != null) {
+                    rs2.close();
+                }
+                if (ps2 != null) {
+                    ps2.close();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Notifikasi : " + e);
+        }
+    }
+   
+    private void getDataAntrian() {
+        if (tbrestorAntrian.getSelectedRow() != -1) {
+            jnsReset.setText(tbrestorAntrian.getValueAt(tbrestorAntrian.getSelectedRow(), 0).toString());
+            noTerakhir.setText(tbrestorAntrian.getValueAt(tbrestorAntrian.getSelectedRow(), 1).toString());
+            tglReset.setText(tbrestorAntrian.getValueAt(tbrestorAntrian.getSelectedRow(), 4).toString());            
+        }
+    }
+    
+    private void emptTeksRestor() {
+        jnsReset.setText("");
+        noTerakhir.setText("");
+        tglReset.setText("");
+    }
+    
+    private void statusAntrian() {
+        if (Sequel.cariInteger("select count(-1) from antrian_pemanggil_bpjs") < 1
+                && Sequel.cariInteger("select count(-1) from antrian_pemanggil_lansia") < 1
+                && Sequel.cariInteger("select count(-1) from antrian_pemanggil_umum") < 1) {
+            statusPangRalan.setText("Panggilan antrian rawat jalan SUDAH direset.");
+        } else {
+            statusPangRalan.setText("Panggilan antrian rawat jalan BELUM direset.");
+        }
+
+        if (Sequel.cariInteger("select count(-1) from antrian_pemanggil_inap") < 1) {
+            statusPangRanap.setText("Panggilan antrian rawat inap SUDAH direset.");
+        } else {
+            statusPangRanap.setText("Panggilan antrian rawat inap BELUM direset.");
+        }
+
+        if (Sequel.cariInteger("select count(-1) from antrian_nomor_umum") < 1
+                && Sequel.cariInteger("select count(-1) from antrian_nomor_lansia") < 1
+                && Sequel.cariInteger("select count(-1) from antrian_nomor_bpjs") < 1) {
+            statusBoxRalan.setText("Antrian rawat jalan SUDAH direset.");
+        } else {
+            statusBoxRalan.setText("Antrian rawat jalan BELUM direset.");
+        }
+
+        if (Sequel.cariInteger("select count(-1) from antrian_nomor_inap") < 1) {
+            statusBoxRanap.setText("Antrian rawat inap SUDAH direset.");
+        } else {
+            statusBoxRanap.setText("Antrian rawat inap BELUM direset.");
+        }
+    }
+    
+    private void cekAntrianBPJS() {
+        panggilan = 0;
+        nomorpasien = 0;
+        hasilantrian = 0;
+        
+        //cek nomor antrian pasien
+        if (Sequel.cariIsi("select no_antrian from antrian_nomor_bpjs order by no_antrian desc limit 1").equals("")) {
+            nomorpasien = 0;
+        } else {
+            nomorpasien = Integer.parseInt(Sequel.cariIsi("select no_antrian from antrian_nomor_bpjs order by no_antrian desc limit 1"));
+        }
+
+        //cek nomor panggilan pasien
+        if (Sequel.cariIsi("SELECT no_antrian FROM antrian_pemanggil_bpjs ORDER BY no_antrian DESC LIMIT 1").equals("")) {
+            panggilan = 0;
+        } else {
+            panggilan = Integer.parseInt(Sequel.cariIsi("select no_antrian from antrian_pemanggil_bpjs order by no_antrian desc limit 1"));
+        }
+        
+        if (panggilan == 0 && nomorpasien == 0) {
+            infobpjs1.setText("Hari ini masih belum ada antrian pasien rawat jalan BPJS.");
+            infobpjs2.setText("Hari ini masih belum ada pasien.");
+        } else {
+            infobpjs1.setText("Antrian terakhir pasien adalah nomor : " + nomorpasien + "");
+            
+            //hasil hitungan antrian
+            hasilantrian = nomorpasien - panggilan;
+            if (nomorpasien > panggilan) {
+                infobpjs2.setText("Ada antrian pasien rawat jalan BPJS yang belum dipanggil & dilayani oleh petugas pendaftaran.");
+            }
+            
+            if (hasilantrian >= 1) {
+                infobpjs2.setText("Masih ada : " + hasilantrian + " orang lagi yang belum dipanggil & dilayani oleh petugas pendaftaran pasien rawat jalan BPJS.");
+            }
+            
+            if (hasilantrian < 1) {
+                infobpjs2.setText("Antrian pasien rawat jalan BPJS sudah habis.");
+            }            
+            
+            if (panggilan > nomorpasien) {
+                infobpjs2.setText("Ada antrian pasien rawat jalan BPJS yang terlewati dari panggilan operator.");
+            }
+        }
+    }
+    
+    private void cekAntrianUMUM() {
+        panggilan = 0;
+        nomorpasien = 0;
+        hasilantrian = 0;
+        
+        //cek nomor antrian pasien
+        if (Sequel.cariIsi("select no_antrian from antrian_nomor_umum order by no_antrian desc limit 1").equals("")) {
+            nomorpasien = 0;
+        } else {
+            nomorpasien = Integer.parseInt(Sequel.cariIsi("select no_antrian from antrian_nomor_umum order by no_antrian desc limit 1"));
+        }
+
+        //cek nomor panggilan pasien
+        if (Sequel.cariIsi("SELECT no_antrian FROM antrian_pemanggil_umum ORDER BY no_antrian DESC LIMIT 1").equals("")) {
+            panggilan = 0;
+        } else {
+            panggilan = Integer.parseInt(Sequel.cariIsi("select no_antrian from antrian_pemanggil_umum order by no_antrian desc limit 1"));
+        }
+        
+        if (panggilan == 0 && nomorpasien == 0) {
+            infoumum1.setText("Hari ini masih belum ada antrian pasien rawat jalan Umum (NON BPJS).");
+            infoumum2.setText("Hari ini masih belum ada pasien.");
+        } else {
+            infoumum1.setText("Antrian terakhir pasien adalah nomor : PU-" + nomorpasien + "");
+            
+            //hasil hitungan antrian
+            hasilantrian = nomorpasien - panggilan;
+            if (nomorpasien > panggilan) {
+                infoumum2.setText("Ada antrian pasien rawat jalan Umum (NON BPJS) yang belum dipanggil & dilayani oleh petugas pendaftaran.");
+            }
+            
+            if (hasilantrian >= 1) {
+                infoumum2.setText("Masih ada : " + hasilantrian + " orang lagi yang belum dipanggil & dilayani oleh petugas pendaftaran pasien rawat jalan Umum (NON BPJS).");
+            }
+            
+            if (hasilantrian < 1) {
+                infoumum2.setText("Antrian pasien rawat jalan Umum (NON BPJS) sudah habis.");
+            }            
+            
+            if (panggilan > nomorpasien) {
+                infoumum2.setText("Ada antrian pasien rawat jalan Umum (NON BPJS) yang terlewati dari panggilan operator.");
+            }
+        }
+    }
+    
+    private void cekAntrianLB() {
+        panggilan = 0;
+        nomorpasien = 0;
+        hasilantrian = 0;
+        
+        //cek nomor antrian pasien
+        if (Sequel.cariIsi("select no_antrian from antrian_nomor_lansia order by no_antrian desc limit 1").equals("")) {
+            nomorpasien = 0;
+        } else {
+            nomorpasien = Integer.parseInt(Sequel.cariIsi("select no_antrian from antrian_nomor_lansia order by no_antrian desc limit 1"));
+        }
+
+        //cek nomor panggilan pasien
+        if (Sequel.cariIsi("SELECT no_antrian FROM antrian_pemanggil_lansia ORDER BY no_antrian DESC LIMIT 1").equals("")) {
+            panggilan = 0;
+        } else {
+            panggilan = Integer.parseInt(Sequel.cariIsi("select no_antrian from antrian_pemanggil_lansia order by no_antrian desc limit 1"));
+        }
+        
+        if (panggilan == 0 && nomorpasien == 0) {
+            infolb1.setText("Hari ini masih belum ada antrian pasien rawat jalan LANSIA / BAYI.");
+            infolb2.setText("Hari ini masih belum ada pasien.");
+        } else {
+            infolb1.setText("Antrian terakhir pasien adalah nomor : LB-" + nomorpasien + "");
+            
+            //hasil hitungan antrian
+            hasilantrian = nomorpasien - panggilan;
+            if (nomorpasien > panggilan) {
+                infolb2.setText("Ada antrian pasien rawat jalan LANSIA / BAYI yang belum dipanggil & dilayani oleh petugas pendaftaran.");
+            }
+            
+            if (hasilantrian >= 1) {
+                infolb2.setText("Masih ada : " + hasilantrian + " orang lagi yang belum dipanggil & dilayani oleh petugas pendaftaran pasien rawat jalan LANSIA / BAYI.");
+            }
+            
+            if (hasilantrian < 1) {
+                infolb2.setText("Antrian pasien rawat jalan LANSIA / BAYI sudah habis.");
+            }            
+            
+            if (panggilan > nomorpasien) {
+                infolb2.setText("Ada antrian pasien rawat jalan LANSIA / BAYI yang terlewati dari panggilan operator.");
+            }
+        }
+    }
+    
+    private void cekAntrianRanap() {
+        panggilan = 0;
+        nomorpasien = 0;
+        hasilantrian = 0;
+        
+        //cek nomor antrian pasien
+        if (Sequel.cariIsi("select no_antrian from antrian_nomor_inap order by no_antrian desc limit 1").equals("")) {
+            nomorpasien = 0;
+        } else {
+            nomorpasien = Integer.parseInt(Sequel.cariIsi("select no_antrian from antrian_nomor_inap order by no_antrian desc limit 1"));
+        }
+
+        //cek nomor panggilan pasien
+        if (Sequel.cariIsi("SELECT no_antrian FROM antrian_pemanggil_inap ORDER BY no_antrian DESC LIMIT 1").equals("")) {
+            panggilan = 0;
+        } else {
+            panggilan = Integer.parseInt(Sequel.cariIsi("select no_antrian from antrian_pemanggil_inap order by no_antrian desc limit 1"));
+        }
+        
+        if (panggilan == 0 && nomorpasien == 0) {
+            inforanap1.setText("Hari ini masih belum ada antrian pasien rawat inap.");
+            inforanap2.setText("Hari ini masih belum ada pasien.");
+        } else {
+            inforanap1.setText("Antrian terakhir pasien adalah nomor : " + nomorpasien + "");
+            
+            //hasil hitungan antrian
+            hasilantrian = nomorpasien - panggilan;
+            if (nomorpasien > panggilan) {
+                inforanap2.setText("Ada antrian pasien rawat inap yang belum dipanggil & dilayani oleh petugas pendaftaran.");
+            }
+            
+            if (hasilantrian >= 1) {
+                inforanap2.setText("Masih ada : " + hasilantrian + " orang lagi yang belum dipanggil & dilayani oleh petugas pendaftaran pasien rawat inap.");
+            }
+            
+            if (hasilantrian < 1) {
+                inforanap2.setText("Antrian pasien rawat inap sudah habis.");
+            }            
+            
+            if (panggilan > nomorpasien) {
+                inforanap2.setText("Ada antrian pasien rawat inap yang terlewati dari panggilan operator.");
+            }
+        }
+    }
+    
+    private void tambahPangBPJS() {
+        wktPanggil = "";
+        wktAmbilNomor = "";
+        panggilanFix = "";
+        noPangAkhir = "";
+        wktPanggil = Sequel.cariIsi("select now()");
+        
+        if (var.getNomorLoket().equals("1")) {
+            Sequel.menyimpan("antrian_pemanggil_bpjs", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_pemanggil_bpjs") + "',"
+                    + "'proses','1','" + Sequel.cariIsi("select now()") + "'", "Nomor Panggilan BPJS");
+            
+            noPangAkhir = Sequel.cariIsi("select no_antrian from antrian_pemanggil_bpjs order by no_antrian desc limit 1");
+            wktAmbilNomor = Sequel.cariIsi("select waktu_cetak from antrian_nomor_bpjs where no_antrian='" + noPangAkhir + "'");
+            panggilanFix = noPangAkhir;
+        } else if (var.getNomorLoket().equals("2")) {
+            Sequel.menyimpan("antrian_pemanggil_bpjs", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_pemanggil_bpjs") + "',"
+                    + "'proses','2','" + Sequel.cariIsi("select now()") + "'", "Nomor Panggilan BPJS");
+            
+            noPangAkhir = Sequel.cariIsi("select no_antrian from antrian_pemanggil_bpjs order by no_antrian desc limit 1");
+            wktAmbilNomor = Sequel.cariIsi("select waktu_cetak from antrian_nomor_bpjs where no_antrian='" + noPangAkhir + "'");
+            panggilanFix = noPangAkhir;
+        } else if (var.getNomorLoket().equals("3")) {
+            Sequel.menyimpan("antrian_pemanggil_bpjs", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_pemanggil_bpjs") + "',"
+                    + "'proses','3','" + Sequel.cariIsi("select now()") + "'", "Nomor Panggilan BPJS");
+            
+            noPangAkhir = Sequel.cariIsi("select no_antrian from antrian_pemanggil_bpjs order by no_antrian desc limit 1");
+            wktAmbilNomor = Sequel.cariIsi("select waktu_cetak from antrian_nomor_bpjs where no_antrian='" + noPangAkhir + "'");
+            panggilanFix = noPangAkhir;
+        } else if (var.getNomorLoket().equals("4")) {
+            Sequel.menyimpan("antrian_pemanggil_bpjs", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_pemanggil_bpjs") + "',"
+                    + "'proses','4','" + Sequel.cariIsi("select now()") + "'", "Nomor Panggilan BPJS");
+            
+            noPangAkhir = Sequel.cariIsi("select no_antrian from antrian_pemanggil_bpjs order by no_antrian desc limit 1");
+            wktAmbilNomor = Sequel.cariIsi("select waktu_cetak from antrian_nomor_bpjs where no_antrian='" + noPangAkhir + "'");
+            panggilanFix = noPangAkhir;
+        } else if (var.getNomorLoket().equals("5")) {
+            Sequel.menyimpan("antrian_pemanggil_bpjs", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_pemanggil_bpjs") + "',"
+                    + "'proses','5','" + Sequel.cariIsi("select now()") + "'", "Nomor Panggilan BPJS");
+            
+            noPangAkhir = Sequel.cariIsi("select no_antrian from antrian_pemanggil_bpjs order by no_antrian desc limit 1");
+            wktAmbilNomor = Sequel.cariIsi("select waktu_cetak from antrian_nomor_bpjs where no_antrian='" + noPangAkhir + "'");
+            panggilanFix = noPangAkhir;
+        } else if (var.getNomorLoket().equals("6")) {
+            Sequel.menyimpan("antrian_pemanggil_bpjs", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_pemanggil_bpjs") + "',"
+                    + "'proses','6','" + Sequel.cariIsi("select now()") + "'", "Nomor Panggilan BPJS");
+            
+            noPangAkhir = Sequel.cariIsi("select no_antrian from antrian_pemanggil_bpjs order by no_antrian desc limit 1");
+            wktAmbilNomor = Sequel.cariIsi("select waktu_cetak from antrian_nomor_bpjs where no_antrian='" + noPangAkhir + "'");
+            panggilanFix = noPangAkhir;            
+        }        
+    }
+    
+    private void tambahPangUmum() {
+        wktPanggil = "";
+        wktAmbilNomor = "";
+        panggilanFix = "";
+        noPangAkhir = "";
+        wktPanggil = Sequel.cariIsi("select now()");
+        
+        if (var.getNomorLoket().equals("1")) {
+            Sequel.menyimpan("antrian_pemanggil_umum", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_pemanggil_umum") + "',"
+                    + "'proses','1','" + Sequel.cariIsi("select now()") + "'", "Nomor Panggilan Umum");
+            
+            noPangAkhir = Sequel.cariIsi("select no_antrian from antrian_pemanggil_umum order by no_antrian desc limit 1");
+            wktAmbilNomor = Sequel.cariIsi("select waktu_cetak from antrian_nomor_umum where no_antrian='" + noPangAkhir + "'");
+            panggilanFix = "PU-" + noPangAkhir;
+        } else if (var.getNomorLoket().equals("2")) {
+            Sequel.menyimpan("antrian_pemanggil_umum", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_pemanggil_umum") + "',"
+                    + "'proses','2','" + Sequel.cariIsi("select now()") + "'", "Nomor Panggilan Umum");
+            
+            noPangAkhir = Sequel.cariIsi("select no_antrian from antrian_pemanggil_umum order by no_antrian desc limit 1");
+            wktAmbilNomor = Sequel.cariIsi("select waktu_cetak from antrian_nomor_umum where no_antrian='" + noPangAkhir + "'");
+            panggilanFix = "PU-" + noPangAkhir;
+        } else if (var.getNomorLoket().equals("3")) {
+            Sequel.menyimpan("antrian_pemanggil_umum", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_pemanggil_umum") + "',"
+                    + "'proses','3','" + Sequel.cariIsi("select now()") + "'", "Nomor Panggilan Umum");
+            
+            noPangAkhir = Sequel.cariIsi("select no_antrian from antrian_pemanggil_umum order by no_antrian desc limit 1");
+            wktAmbilNomor = Sequel.cariIsi("select waktu_cetak from antrian_nomor_umum where no_antrian='" + noPangAkhir + "'");
+            panggilanFix = "PU-" + noPangAkhir;
+        } else if (var.getNomorLoket().equals("4")) {
+            Sequel.menyimpan("antrian_pemanggil_umum", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_pemanggil_umum") + "',"
+                    + "'proses','4','" + Sequel.cariIsi("select now()") + "'", "Nomor Panggilan Umum");
+            
+            noPangAkhir = Sequel.cariIsi("select no_antrian from antrian_pemanggil_umum order by no_antrian desc limit 1");
+            wktAmbilNomor = Sequel.cariIsi("select waktu_cetak from antrian_nomor_umum where no_antrian='" + noPangAkhir + "'");
+            panggilanFix = "PU-" + noPangAkhir;
+        } else if (var.getNomorLoket().equals("5")) {
+            Sequel.menyimpan("antrian_pemanggil_umum", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_pemanggil_umum") + "',"
+                    + "'proses','5','" + Sequel.cariIsi("select now()") + "'", "Nomor Panggilan Umum");
+            
+            noPangAkhir = Sequel.cariIsi("select no_antrian from antrian_pemanggil_umum order by no_antrian desc limit 1");
+            wktAmbilNomor = Sequel.cariIsi("select waktu_cetak from antrian_nomor_umum where no_antrian='" + noPangAkhir + "'");
+            panggilanFix = "PU-" + noPangAkhir;
+        } else if (var.getNomorLoket().equals("6")) {
+            Sequel.menyimpan("antrian_pemanggil_umum", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_pemanggil_umum") + "',"
+                    + "'proses','6','" + Sequel.cariIsi("select now()") + "'", "Nomor Panggilan Umum");
+            
+            noPangAkhir = Sequel.cariIsi("select no_antrian from antrian_pemanggil_umum order by no_antrian desc limit 1");
+            wktAmbilNomor = Sequel.cariIsi("select waktu_cetak from antrian_nomor_umum where no_antrian='" + noPangAkhir + "'");
+            panggilanFix = "PU-" + noPangAkhir;
+        }
+    }
+    
+    private void tambahPangLB() {
+        wktPanggil = "";
+        wktAmbilNomor = "";
+        panggilanFix = "";
+        noPangAkhir = "";
+        wktPanggil = Sequel.cariIsi("select now()");
+        
+        if (var.getNomorLoket().equals("1")) {
+            Sequel.menyimpan("antrian_pemanggil_lansia", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_pemanggil_lansia") + "',"
+                    + "'proses','1','" + Sequel.cariIsi("select now()") + "'", "Nomor Panggilan Lansia/Bayi");
+            
+            noPangAkhir = Sequel.cariIsi("select no_antrian from antrian_pemanggil_lansia order by no_antrian desc limit 1");
+            wktAmbilNomor = Sequel.cariIsi("select waktu_cetak from antrian_nomor_lansia where no_antrian='" + noPangAkhir + "'");
+            panggilanFix = "LB-" + noPangAkhir;
+        } else if (var.getNomorLoket().equals("2")) {
+            Sequel.menyimpan("antrian_pemanggil_lansia", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_pemanggil_lansia") + "',"
+                    + "'proses','2','" + Sequel.cariIsi("select now()") + "'", "Nomor Panggilan Lansia/Bayi");
+            
+            noPangAkhir = Sequel.cariIsi("select no_antrian from antrian_pemanggil_lansia order by no_antrian desc limit 1");
+            wktAmbilNomor = Sequel.cariIsi("select waktu_cetak from antrian_nomor_lansia where no_antrian='" + noPangAkhir + "'");
+            panggilanFix = "LB-" + noPangAkhir;
+        } else if (var.getNomorLoket().equals("3")) {
+            Sequel.menyimpan("antrian_pemanggil_lansia", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_pemanggil_lansia") + "',"
+                    + "'proses','3','" + Sequel.cariIsi("select now()") + "'", "Nomor Panggilan Lansia/Bayi");
+            
+            noPangAkhir = Sequel.cariIsi("select no_antrian from antrian_pemanggil_lansia order by no_antrian desc limit 1");
+            wktAmbilNomor = Sequel.cariIsi("select waktu_cetak from antrian_nomor_lansia where no_antrian='" + noPangAkhir + "'");
+            panggilanFix = "LB-" + noPangAkhir;
+        } else if (var.getNomorLoket().equals("4")) {
+            Sequel.menyimpan("antrian_pemanggil_lansia", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_pemanggil_lansia") + "',"
+                    + "'proses','4','" + Sequel.cariIsi("select now()") + "'", "Nomor Panggilan Lansia/Bayi");
+            
+            noPangAkhir = Sequel.cariIsi("select no_antrian from antrian_pemanggil_lansia order by no_antrian desc limit 1");
+            wktAmbilNomor = Sequel.cariIsi("select waktu_cetak from antrian_nomor_lansia where no_antrian='" + noPangAkhir + "'");
+            panggilanFix = "LB-" + noPangAkhir;
+        } else if (var.getNomorLoket().equals("5")) {
+            Sequel.menyimpan("antrian_pemanggil_lansia", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_pemanggil_lansia") + "',"
+                    + "'proses','5','" + Sequel.cariIsi("select now()") + "'", "Nomor Panggilan Lansia/Bayi");
+            
+            noPangAkhir = Sequel.cariIsi("select no_antrian from antrian_pemanggil_lansia order by no_antrian desc limit 1");
+            wktAmbilNomor = Sequel.cariIsi("select waktu_cetak from antrian_nomor_lansia where no_antrian='" + noPangAkhir + "'");
+            panggilanFix = "LB-" + noPangAkhir;
+        } else if (var.getNomorLoket().equals("6")) {
+            Sequel.menyimpan("antrian_pemanggil_lansia", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_pemanggil_lansia") + "',"
+                    + "'proses','6','" + Sequel.cariIsi("select now()") + "'", "Nomor Panggilan Lansia/Bayi");
+            
+            noPangAkhir = Sequel.cariIsi("select no_antrian from antrian_pemanggil_lansia order by no_antrian desc limit 1");
+            wktAmbilNomor = Sequel.cariIsi("select waktu_cetak from antrian_nomor_lansia where no_antrian='" + noPangAkhir + "'");
+            panggilanFix = "LB-" + noPangAkhir;
+        }
+    }
+    
+    private void tambahPangInap() {
+        wktPanggil = "";
+        wktAmbilNomor = "";
+        panggilanFix = "";
+        noPangAkhir = "";
+        wktPanggil = Sequel.cariIsi("select now()");
+        
+        if (var.getNomorLoket().equals("1")) {
+            Sequel.menyimpan("antrian_pemanggil_inap", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_pemanggil_inap") + "',"
+                    + "'proses','1','" + Sequel.cariIsi("select now()") + "'", "Nomor Panggilan Rawat Inap");
+            
+            noPangAkhir = Sequel.cariIsi("select no_antrian from antrian_pemanggil_inap order by no_antrian desc limit 1");
+            wktAmbilNomor = Sequel.cariIsi("select waktu_cetak from antrian_nomor_inap where no_antrian='" + noPangAkhir + "'");
+            panggilanFix = noPangAkhir;
+        } else if (var.getNomorLoket().equals("2")) {
+            Sequel.menyimpan("antrian_pemanggil_inap", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_pemanggil_inap") + "',"
+                    + "'proses','2','" + Sequel.cariIsi("select now()") + "'", "Nomor Panggilan Rawat Inap");
+            
+            noPangAkhir = Sequel.cariIsi("select no_antrian from antrian_pemanggil_inap order by no_antrian desc limit 1");
+            wktAmbilNomor = Sequel.cariIsi("select waktu_cetak from antrian_nomor_inap where no_antrian='" + noPangAkhir + "'");
+            panggilanFix = noPangAkhir;
+        } else if (var.getNomorLoket().equals("3")) {
+            Sequel.menyimpan("antrian_pemanggil_inap", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_pemanggil_inap") + "',"
+                    + "'proses','3','" + Sequel.cariIsi("select now()") + "'", "Nomor Panggilan Rawat Inap");
+            
+            noPangAkhir = Sequel.cariIsi("select no_antrian from antrian_pemanggil_inap order by no_antrian desc limit 1");
+            wktAmbilNomor = Sequel.cariIsi("select waktu_cetak from antrian_nomor_inap where no_antrian='" + noPangAkhir + "'");
+            panggilanFix = noPangAkhir;
+        } else if (var.getNomorLoket().equals("4")) {
+            Sequel.menyimpan("antrian_pemanggil_inap", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_pemanggil_inap") + "',"
+                    + "'proses','4','" + Sequel.cariIsi("select now()") + "'", "Nomor Panggilan Rawat Inap");
+            
+            noPangAkhir = Sequel.cariIsi("select no_antrian from antrian_pemanggil_inap order by no_antrian desc limit 1");
+            wktAmbilNomor = Sequel.cariIsi("select waktu_cetak from antrian_nomor_inap where no_antrian='" + noPangAkhir + "'");
+            panggilanFix = noPangAkhir;
+        } else if (var.getNomorLoket().equals("5")) {
+            Sequel.menyimpan("antrian_pemanggil_inap", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_pemanggil_inap") + "',"
+                    + "'proses','5','" + Sequel.cariIsi("select now()") + "'", "Nomor Panggilan Rawat Inap");
+            
+            noPangAkhir = Sequel.cariIsi("select no_antrian from antrian_pemanggil_inap order by no_antrian desc limit 1");
+            wktAmbilNomor = Sequel.cariIsi("select waktu_cetak from antrian_nomor_inap where no_antrian='" + noPangAkhir + "'");
+            panggilanFix = noPangAkhir;
+        } else if (var.getNomorLoket().equals("6")) {
+            Sequel.menyimpan("antrian_pemanggil_inap", "'" + Sequel.cariIsi("select ifnull(MAX(no_antrian)+1,1) from antrian_pemanggil_inap") + "',"
+                    + "'proses','6','" + Sequel.cariIsi("select now()") + "'", "Nomor Panggilan Rawat Inap");
+            
+            noPangAkhir = Sequel.cariIsi("select no_antrian from antrian_pemanggil_inap order by no_antrian desc limit 1");
+            wktAmbilNomor = Sequel.cariIsi("select waktu_cetak from antrian_nomor_inap where no_antrian='" + noPangAkhir + "'");
+            panggilanFix = noPangAkhir;
+        }
+    }
+    
+    private void persenTombolPanggilan() {
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //proses bar diatur 30%. nilai i < 31 hasilnya 30%
+                for (int i = 0; i < 31; i++) {
+                    try {
+                        prosesTombol.setValue(i);
+                        Thread.sleep(30);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(DlgReg.class.getName()).log(Level.SEVERE, null, ex);                        
+                    }
+                }
+
+                if (prosesTombol.getString().equals("30%")) {
+                    BtnPangBPJS.setEnabled(true);
+                    BtnUlangPangBPJS.setEnabled(true);
+                    BtnPangUmum.setEnabled(true);
+                    BtnUlangPangUmum.setEnabled(true);
+                    BtnPangLansia.setEnabled(true);
+                    BtnUlangPangLansia.setEnabled(true);
+                    BtnPangInap.setEnabled(true);
+                    BtnUlangPangInap.setEnabled(true);
+                }
+            }
+        });
+
+        t.start();
+    }
+    
+    private void simpanIKM() {
+        if (var.getOperator_antrian() == true && !wktAmbilNomor.equals("") && !wktPanggil.equals("") || !var.getJenisLoket().equals("Rawat Inap")) {
+            Sequel.menyimpan("antrian_history", "'" + panggilanFix + "','" + wktAmbilNomor + "',"
+                    + "'" + wktPanggil + "','" + Sequel.cariIsi("select now()") + "','" + TNoRw.getText() + "'", "Simpan data IKM");
+
+            wktPanggil = "";
+            wktAmbilNomor = "";
+            panggilanFix = "";
+        }
+    }
+    
+    private void panggilAntrian(int antrian){        
+        if (antrian < 12) {
+            try {
+                music = new BackgroundMusic(urut[antrian]);
+                music.start();
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                System.out.println(ex);
+            }
+        } else if (antrian < 20) {
+            try {
+                music = new BackgroundMusic(urut[antrian - 10]);
+                music.start();
+                Thread.sleep(700);
+            } catch (InterruptedException ex) {
+                System.out.println(ex);
+            }
+
+            try {
+                music = new BackgroundMusic("./suara/belas.mp3");
+                music.start();
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                System.out.println(ex);
+            }
+        } else if (antrian < 100) {
+            try {
+                music = new BackgroundMusic(urut[antrian / 10]);
+                music.start();
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                System.out.println(ex);
+            }
+
+            try {
+                music = new BackgroundMusic("./suara/puluh.mp3");
+                music.start();
+                Thread.sleep(600);
+            } catch (InterruptedException ex) {
+                System.out.println(ex);
+            }
+
+            panggilAntrian(antrian % 10);
+        } else if (antrian < 200) {
+            try {
+                music = new BackgroundMusic("./suara/seratus.mp3");
+                music.start();
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                System.out.println(ex);
+            }
+
+            panggilAntrian(antrian - 100);
+        } else if (antrian < 1000) {
+            panggilAntrian(antrian / 100);
+
+            try {
+                music = new BackgroundMusic("./suara/ratus.mp3");
+                music.start();
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                System.out.println(ex);
+            }
+
+            panggilAntrian(antrian % 100);
+        }
+    }
+    
+    private void suaraPanggilanBPJS() {
+        try {
+            music = new BackgroundMusic("./suara/intro_rawat_jalan_bpj_s.mp3");
+            music.start();
+            
+            BtnPangBPJS.setEnabled(false);
+            BtnUlangPangBPJS.setEnabled(false);
+            BtnPangUmum.setEnabled(false);
+            BtnUlangPangUmum.setEnabled(false);
+            BtnPangLansia.setEnabled(false);
+            BtnUlangPangLansia.setEnabled(false);
+            BtnPangInap.setEnabled(false);
+            BtnUlangPangInap.setEnabled(false);
+            
+            Thread.sleep(5000);
+            panggilAntrian(Integer.parseInt(Sequel.cariIsi("select no_antrian from antrian_pemanggil_bpjs order by no_antrian desc limit 1")));
+            music = new BackgroundMusic("./suara/diloket.mp3");
+            music.start();
+            Thread.sleep(1000);
+            panggilAntrian(Integer.parseInt(var.getNomorLoket()));
+            
+            persenTombolPanggilan();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }
+    
+    private void suaraPanggilanUMUM() {
+        try {
+            music = new BackgroundMusic("./suara/intro_rawat_jalan_umum_p_u.mp3");
+            music.start();
+            
+            BtnPangBPJS.setEnabled(false);
+            BtnUlangPangBPJS.setEnabled(false);
+            BtnPangUmum.setEnabled(false);
+            BtnUlangPangUmum.setEnabled(false);
+            BtnPangLansia.setEnabled(false);
+            BtnUlangPangLansia.setEnabled(false);
+            BtnPangInap.setEnabled(false);
+            BtnUlangPangInap.setEnabled(false);
+            
+            Thread.sleep(5600);
+            panggilAntrian(Integer.parseInt(Sequel.cariIsi("select no_antrian from antrian_pemanggil_umum order by no_antrian desc limit 1")));
+            music = new BackgroundMusic("./suara/diloket.mp3");
+            music.start();
+            Thread.sleep(1000);
+            panggilAntrian(Integer.parseInt(var.getNomorLoket()));
+            
+            persenTombolPanggilan();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }
+    
+    private void suaraPanggilanLB() {
+        try {
+            music = new BackgroundMusic("./suara/intro_rawat_jalan_lansia_atau_bayi_baru_lahir_elbe.mp3");
+            music.start();
+            
+            BtnPangBPJS.setEnabled(false);
+            BtnUlangPangBPJS.setEnabled(false);
+            BtnPangUmum.setEnabled(false);
+            BtnUlangPangUmum.setEnabled(false);
+            BtnPangLansia.setEnabled(false);
+            BtnUlangPangLansia.setEnabled(false);
+            BtnPangInap.setEnabled(false);
+            BtnUlangPangInap.setEnabled(false);
+            
+            Thread.sleep(6800);
+            panggilAntrian(Integer.parseInt(Sequel.cariIsi("select no_antrian from antrian_pemanggil_lansia order by no_antrian desc limit 1")));
+            music = new BackgroundMusic("./suara/diloket.mp3");
+            music.start();
+            Thread.sleep(1000);
+            panggilAntrian(Integer.parseInt(var.getNomorLoket()));
+            
+            persenTombolPanggilan();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }
+    
+    private void suaraPanggilanINAP() {
+        try {
+            music = new BackgroundMusic("./suara/intro_rawat_inap.mp3");
+            music.start();
+            
+            BtnPangBPJS.setEnabled(false);
+            BtnUlangPangBPJS.setEnabled(false);
+            BtnPangUmum.setEnabled(false);
+            BtnUlangPangUmum.setEnabled(false);
+            BtnPangLansia.setEnabled(false);
+            BtnUlangPangLansia.setEnabled(false);
+            BtnPangInap.setEnabled(false);
+            BtnUlangPangInap.setEnabled(false);
+            
+            Thread.sleep(4400);
+            panggilAntrian(Integer.parseInt(Sequel.cariIsi("select no_antrian from antrian_pemanggil_inap order by no_antrian desc limit 1")));
+            music = new BackgroundMusic("./suara/diloket.mp3");
+            music.start();
+            Thread.sleep(1000);
+            panggilAntrian(Integer.parseInt(var.getNomorLoket()));
+            
+            persenTombolPanggilan();
+        } catch (Exception ex) {
+            System.out.println(ex);
         }
     }
 }

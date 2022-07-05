@@ -125,7 +125,8 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
             + "where set_otomatis_tindakan_ralan.kd_dokter=? and set_otomatis_tindakan_ralan.kd_pj=?";
     public DlgBilingRalan billing = new DlgBilingRalan(null, false);
     private int i = 0, pilihan = 0, sudah = 0, x = 0, n = 0, z = 0, cekSuratTindakan = 0, diagnosa_cek = 0, r = 0, cekPilihanRehab = 0,
-            cekResep = 0, cekTotKun = 0, cekDiag = 0, cekPem = 0, cekPemPet = 0, cekRujukInternal = 0, cekSEP = 0;
+            cekResep = 0, cekTotKun = 0, cekDiag = 0, cekPem = 0, cekPemPet = 0, cekRujukInternal = 0, cekSEP = 0, panggilan = 0, 
+            nomorpasien = 0, hasilantrian = 0;
     private SimpleDateFormat dateformat = new SimpleDateFormat("yyyy/MM/dd");
     public DlgKamarInap kamarinap = new DlgKamarInap(null, false);
     public DlgCariDokter2 dokter = new DlgCariDokter2(null, false);
@@ -142,6 +143,8 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
 
         this.setLocation(8, 1);
         setSize(885, 674);
+        
+        jam();
 
         tabModekasir = new DefaultTableModel(null, new String[]{
             "No.Rawat", "Kd.Dokter", "Dokter Dituju", "Nomer RM", "Nama Pasien", "Status", "Poliklinik/Inst.", "Jenis Bayar", "Jns. Kunjungan",
@@ -317,8 +320,6 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
                 }
             });
         }
-
-        jam();
 
         billing.dokter.addWindowListener(new WindowListener() {
             @Override
@@ -741,10 +742,6 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         dataGZ = new widget.TextBox();
         TNoReg = new widget.TextBox();
         cekKodeBoking = new widget.TextBox();
-        CmbJam = new widget.ComboBox();
-        CmbMenit = new widget.ComboBox();
-        CmbDetik = new widget.ComboBox();
-        ChkWaktu = new widget.CekBox();
         cekTerdaftar = new widget.TextBox();
         cekPasien = new widget.TextBox();
         TglKunRwt = new widget.Tanggal();
@@ -781,6 +778,14 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         TabRawat = new javax.swing.JTabbedPane();
         Scroll1 = new widget.ScrollPane();
         tbKasirRalan = new widget.Table();
+        internalFrame2 = new widget.InternalFrame();
+        internalFrame18 = new widget.InternalFrame();
+        internalFrame20 = new widget.InternalFrame();
+        infobpjs = new widget.Label();
+        internalFrame21 = new widget.InternalFrame();
+        infoumum = new widget.Label();
+        internalFrame22 = new widget.InternalFrame();
+        infolb = new widget.Label();
 
         jPopupMenu1.setForeground(new java.awt.Color(60, 80, 50));
         jPopupMenu1.setName("jPopupMenu1"); // NOI18N
@@ -2434,7 +2439,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         norwBoking.setBounds(298, 110, 177, 23);
 
         tglPeriksa.setEditable(false);
-        tglPeriksa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20-04-2022" }));
+        tglPeriksa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "11-05-2022" }));
         tglPeriksa.setDisplayFormat("dd-MM-yyyy");
         tglPeriksa.setName("tglPeriksa"); // NOI18N
         tglPeriksa.setOpaque(false);
@@ -3087,47 +3092,6 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
             }
         });
 
-        CmbJam.setForeground(new java.awt.Color(0, 0, 0));
-        CmbJam.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
-        CmbJam.setName("CmbJam"); // NOI18N
-        CmbJam.setOpaque(false);
-        CmbJam.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                CmbJamKeyPressed(evt);
-            }
-        });
-
-        CmbMenit.setForeground(new java.awt.Color(0, 0, 0));
-        CmbMenit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
-        CmbMenit.setName("CmbMenit"); // NOI18N
-        CmbMenit.setOpaque(false);
-        CmbMenit.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                CmbMenitKeyPressed(evt);
-            }
-        });
-
-        CmbDetik.setForeground(new java.awt.Color(0, 0, 0));
-        CmbDetik.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
-        CmbDetik.setName("CmbDetik"); // NOI18N
-        CmbDetik.setOpaque(false);
-        CmbDetik.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                CmbDetikKeyPressed(evt);
-            }
-        });
-
-        ChkWaktu.setBackground(new java.awt.Color(235, 255, 235));
-        ChkWaktu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(195, 215, 195)));
-        ChkWaktu.setForeground(new java.awt.Color(0, 0, 0));
-        ChkWaktu.setSelected(true);
-        ChkWaktu.setBorderPainted(true);
-        ChkWaktu.setBorderPaintedFlat(true);
-        ChkWaktu.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        ChkWaktu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ChkWaktu.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        ChkWaktu.setName("ChkWaktu"); // NOI18N
-
         cekTerdaftar.setHighlighter(null);
         cekTerdaftar.setName("cekTerdaftar"); // NOI18N
         cekTerdaftar.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -3145,7 +3109,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         });
 
         TglKunRwt.setEditable(false);
-        TglKunRwt.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20-04-2022" }));
+        TglKunRwt.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "11-05-2022" }));
         TglKunRwt.setDisplayFormat("dd-MM-yyyy");
         TglKunRwt.setName("TglKunRwt"); // NOI18N
         TglKunRwt.setOpaque(false);
@@ -3163,6 +3127,11 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Rawat Jalan ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
         internalFrame1.setName("internalFrame1"); // NOI18N
@@ -3370,7 +3339,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         panelGlass8.add(jLabel15);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20-04-2022" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "11-05-2022" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -3390,7 +3359,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         panelGlass8.add(jLabel17);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20-04-2022" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "11-05-2022" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -3492,7 +3461,71 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         });
         Scroll1.setViewportView(tbKasirRalan);
 
-        TabRawat.addTab(".: Registrasi Rawat Jalan", Scroll1);
+        TabRawat.addTab(".: Registrasi Pasien", Scroll1);
+
+        internalFrame2.setName("internalFrame2"); // NOI18N
+        internalFrame2.setPreferredSize(new java.awt.Dimension(2, 402));
+        internalFrame2.setLayout(new java.awt.BorderLayout());
+
+        internalFrame18.setBorder(null);
+        internalFrame18.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        internalFrame18.setName("internalFrame18"); // NOI18N
+        internalFrame18.setLayout(new java.awt.BorderLayout());
+
+        internalFrame20.setBorder(javax.swing.BorderFactory.createTitledBorder(null, ":: Rawat Jalan BPJS ::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 0))); // NOI18N
+        internalFrame20.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        internalFrame20.setName("internalFrame20"); // NOI18N
+        internalFrame20.setPreferredSize(new java.awt.Dimension(0, 80));
+        internalFrame20.setWarnaBawah(new java.awt.Color(204, 255, 153));
+        internalFrame20.setLayout(null);
+
+        infobpjs.setForeground(new java.awt.Color(0, 0, 0));
+        infobpjs.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        infobpjs.setText("infobpjs");
+        infobpjs.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        infobpjs.setName("infobpjs"); // NOI18N
+        internalFrame20.add(infobpjs);
+        infobpjs.setBounds(20, 20, 1080, 50);
+
+        internalFrame18.add(internalFrame20, java.awt.BorderLayout.PAGE_START);
+
+        internalFrame21.setBorder(javax.swing.BorderFactory.createTitledBorder(null, ":: Rawat Jalan Umum (NON BPJS) ::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 0))); // NOI18N
+        internalFrame21.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        internalFrame21.setName("internalFrame21"); // NOI18N
+        internalFrame21.setPreferredSize(new java.awt.Dimension(0, 80));
+        internalFrame21.setWarnaBawah(new java.awt.Color(204, 204, 204));
+        internalFrame21.setLayout(null);
+
+        infoumum.setForeground(new java.awt.Color(0, 0, 0));
+        infoumum.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        infoumum.setText("infoumum");
+        infoumum.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        infoumum.setName("infoumum"); // NOI18N
+        internalFrame21.add(infoumum);
+        infoumum.setBounds(20, 20, 1080, 50);
+
+        internalFrame18.add(internalFrame21, java.awt.BorderLayout.CENTER);
+
+        internalFrame22.setBorder(javax.swing.BorderFactory.createTitledBorder(null, ":: Rawat Jalan LANSIA / BAYI ::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 0))); // NOI18N
+        internalFrame22.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        internalFrame22.setName("internalFrame22"); // NOI18N
+        internalFrame22.setPreferredSize(new java.awt.Dimension(0, 80));
+        internalFrame22.setWarnaBawah(new java.awt.Color(220, 124, 220));
+        internalFrame22.setLayout(null);
+
+        infolb.setForeground(new java.awt.Color(0, 0, 0));
+        infolb.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        infolb.setText("infolb");
+        infolb.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        infolb.setName("infolb"); // NOI18N
+        internalFrame22.add(infolb);
+        infolb.setBounds(20, 20, 1080, 50);
+
+        internalFrame18.add(internalFrame22, java.awt.BorderLayout.PAGE_END);
+
+        internalFrame2.add(internalFrame18, java.awt.BorderLayout.PAGE_START);
+
+        TabRawat.addTab(".: Informasi Antrian Loket", internalFrame2);
 
         internalFrame1.add(TabRawat, java.awt.BorderLayout.CENTER);
 
@@ -4778,7 +4811,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
                         emptBooking();
                     } else if (cekPasien.getText().equals("")) {
                         Sequel.menyimpantf2("reg_periksa", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "No.Rawat", 17,
-                                new String[]{TNoReg.getText(), norwBoking.getText(), Valid.SetTgl(tglPeriksa.getSelectedItem() + ""), CmbJam.getSelectedItem() + ":" + CmbMenit.getSelectedItem() + ":" + CmbDetik.getSelectedItem(),
+                                new String[]{TNoReg.getText(), norwBoking.getText(), Valid.SetTgl(tglPeriksa.getSelectedItem() + ""), Sequel.cariIsi("SELECT TIME(NOW())"),
                                     KdDokter.getText(), norm.getText(), kdpoli1.getText(), "-", "-", "-", 0 + "", "Belum",
                                     "Lama", "Ralan", kdpnj.getText(), umur, sttsumur});
 
@@ -4794,7 +4827,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
                 }
             } else if (cekTerdaftar.getText().equals("")) {
                 Sequel.menyimpantf2("reg_periksa", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "No.Rawat", 17,
-                        new String[]{TNoReg.getText(), norwBoking.getText(), Valid.SetTgl(tglPeriksa.getSelectedItem() + ""), CmbJam.getSelectedItem() + ":" + CmbMenit.getSelectedItem() + ":" + CmbDetik.getSelectedItem(),
+                        new String[]{TNoReg.getText(), norwBoking.getText(), Valid.SetTgl(tglPeriksa.getSelectedItem() + ""), Sequel.cariIsi("SELECT TIME(NOW())"),
                             KdDokter.getText(), norm.getText(), kdpoli1.getText(), "-", "-", "-", 0 + "", "Belum",
                             "Lama", "Ralan", kdpnj.getText(), umur, sttsumur});
 
@@ -4897,18 +4930,6 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
     private void kdbokingKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kdbokingKeyTyped
         evt.setKeyChar(Character.toUpperCase(evt.getKeyChar()));
     }//GEN-LAST:event_kdbokingKeyTyped
-
-    private void CmbJamKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CmbJamKeyPressed
-//        Valid.pindah(evt, DTPReg, CmbMenit);
-    }//GEN-LAST:event_CmbJamKeyPressed
-
-    private void CmbMenitKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CmbMenitKeyPressed
-        Valid.pindah(evt, CmbJam, CmbDetik);
-    }//GEN-LAST:event_CmbMenitKeyPressed
-
-    private void CmbDetikKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CmbDetikKeyPressed
-        Valid.pindah(evt, CmbMenit, kddokter);
-    }//GEN-LAST:event_CmbDetikKeyPressed
 
     private void cekTerdaftarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cekTerdaftarKeyPressed
         // TODO add your handling code here:
@@ -6017,6 +6038,10 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
         }
     }//GEN-LAST:event_MnDataKankerBtnPrintActionPerformed
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        TabRawat.setSelectedIndex(0);
+    }//GEN-LAST:event_formWindowOpened
+
     /**
      * @param args the command line arguments
      */
@@ -6060,10 +6085,6 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
     private widget.Button BtnSimpan6;
     private widget.Button BtnSimpan7;
     public widget.CekBox ChkAutoRefres;
-    private widget.CekBox ChkWaktu;
-    private widget.ComboBox CmbDetik;
-    private widget.ComboBox CmbJam;
-    private widget.ComboBox CmbMenit;
     private widget.TextBox CrPoli;
     private widget.TextBox CrPtg;
     private widget.Tanggal DTPCari1;
@@ -6176,8 +6197,16 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
     private widget.TextBox dataGZ;
     private widget.TextArea desMati;
     private widget.TextBox icdMati;
+    private widget.Label infobpjs;
+    private widget.Label infolb;
+    private widget.Label infoumum;
     private widget.InternalFrame internalFrame1;
     private widget.InternalFrame internalFrame10;
+    private widget.InternalFrame internalFrame18;
+    private widget.InternalFrame internalFrame2;
+    private widget.InternalFrame internalFrame20;
+    private widget.InternalFrame internalFrame21;
+    private widget.InternalFrame internalFrame22;
     private widget.InternalFrame internalFrame3;
     private widget.InternalFrame internalFrame4;
     private widget.InternalFrame internalFrame5;
@@ -6763,15 +6792,9 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
                 Date now = Calendar.getInstance().getTime();
 
                 // Mengambil nilaj JAM, MENIT, dan DETIK Sekarang
-                if (ChkWaktu.isSelected() == true) {
                     nilai_jam = now.getHours();
                     nilai_menit = now.getMinutes();
                     nilai_detik = now.getSeconds();
-                } else if (ChkWaktu.isSelected() == false) {
-                    nilai_jam = CmbJam.getSelectedIndex();
-                    nilai_menit = CmbMenit.getSelectedIndex();
-                    nilai_detik = CmbDetik.getSelectedIndex();
-                }
 
                 // Jika nilai JAM lebih kecil dari 10 (hanya 1 digit)
                 if (nilai_jam <= 9) {
@@ -6792,11 +6815,11 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
                 String jam = nol_jam + Integer.toString(nilai_jam);
                 String menit = nol_menit + Integer.toString(nilai_menit);
                 String detik = nol_detik + Integer.toString(nilai_detik);
-                // Menampilkan pada Layar
-                //tampil_jam.setText("  " + jam + " : " + menit + " : " + detik + "  ");
-                CmbJam.setSelectedItem(jam);
-                CmbMenit.setSelectedItem(menit);
-                CmbDetik.setSelectedItem(detik);
+                
+                // Menampilkan pada Layar                
+                hitungAntrianBPJS();
+                hitungAntrianUMUM();
+                hitungAntrianLB();
             }
         };
         // Timer
@@ -7275,5 +7298,119 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
         //interval 1000 ms = 1 detik
         //interval 30000 ms = 30 detik atau setngah menit
         new Timer(30000, taskPerformer).stop();
+    }
+    
+    private void hitungAntrianBPJS() {
+        panggilan = 0;
+        nomorpasien = 0;
+        hasilantrian = 0;
+        
+        //cek nomor antrian pasien
+        if (Sequel.cariIsi("select no_antrian from antrian_nomor_bpjs order by no_antrian desc limit 1").equals("")) {
+            nomorpasien = 0;
+        } else {
+            nomorpasien = Integer.parseInt(Sequel.cariIsi("select no_antrian from antrian_nomor_bpjs order by no_antrian desc limit 1"));
+        }
+
+        //cek nomor panggilan pasien
+        if (Sequel.cariIsi("SELECT no_antrian FROM antrian_pemanggil_bpjs ORDER BY no_antrian DESC LIMIT 1").equals("")) {
+            panggilan = 0;
+        } else {
+            panggilan = Integer.parseInt(Sequel.cariIsi("select no_antrian from antrian_pemanggil_bpjs order by no_antrian desc limit 1"));
+        }
+        
+        if (panggilan == 0 && nomorpasien == 0) {
+            infobpjs.setText("Diloket pendaftaran pasien rawat jalan BPJS belum ada pasien atau Sisa antrian pasien sudah habis...!!!");
+        } else {
+            //hasil hitungan antrian
+            hasilantrian = nomorpasien - panggilan;
+            if (nomorpasien > panggilan) {
+                infobpjs.setText("Masih ada antrian pasien rawat jalan BPJS yang belum dipanggil & dilayani oleh petugas pendaftaran.");
+            }
+            
+            if (hasilantrian >= 1) {
+                infobpjs.setText("Masih ada " + hasilantrian + " orang lagi yang belum dipanggil & dilayani oleh petugas pendaftaran pasien rawat jalan BPJS.");
+            }
+            
+            if (hasilantrian < 1) {
+                infobpjs.setText("Antrian diloket pendaftaran pasien rawat jalan BPJS sudah habis.");
+            }
+        }
+    }
+    
+    private void hitungAntrianUMUM() {
+        panggilan = 0;
+        nomorpasien = 0;
+        hasilantrian = 0;
+        
+        //cek nomor antrian pasien
+        if (Sequel.cariIsi("select no_antrian from antrian_nomor_umum order by no_antrian desc limit 1").equals("")) {
+            nomorpasien = 0;
+        } else {
+            nomorpasien = Integer.parseInt(Sequel.cariIsi("select no_antrian from antrian_nomor_umum order by no_antrian desc limit 1"));
+        }
+
+        //cek nomor panggilan pasien
+        if (Sequel.cariIsi("SELECT no_antrian FROM antrian_pemanggil_umum ORDER BY no_antrian DESC LIMIT 1").equals("")) {
+            panggilan = 0;
+        } else {
+            panggilan = Integer.parseInt(Sequel.cariIsi("select no_antrian from antrian_pemanggil_umum order by no_antrian desc limit 1"));
+        }
+        
+        if (panggilan == 0 && nomorpasien == 0) {
+            infoumum.setText("Diloket pendaftaran pasien rawat jalan Umum (NON BPJS) belum ada pasien atau Sisa antrian pasien sudah habis...!!!");
+        } else {
+            //hasil hitungan antrian
+            hasilantrian = nomorpasien - panggilan;
+            if (nomorpasien > panggilan) {
+                infoumum.setText("Masih ada antrian pasien rawat jalan Umum (NON BPJS) yang belum dipanggil & dilayani oleh petugas pendaftaran.");
+            }
+            
+            if (hasilantrian >= 1) {
+                infoumum.setText("Masih ada " + hasilantrian + " orang lagi yang belum dipanggil & dilayani oleh petugas pendaftaran pasien rawat jalan Umum (NON BPJS).");
+            }
+            
+            if (hasilantrian < 1) {
+                infoumum.setText("Antrian diloket pendaftaran pasien rawat jalan Umum (NON BPJS) sudah habis.");
+            }
+        }
+    }
+    
+    private void hitungAntrianLB() {
+        panggilan = 0;
+        nomorpasien = 0;
+        hasilantrian = 0;
+        
+        //cek nomor antrian pasien
+        if (Sequel.cariIsi("select no_antrian from antrian_nomor_lansia order by no_antrian desc limit 1").equals("")) {
+            nomorpasien = 0;
+        } else {
+            nomorpasien = Integer.parseInt(Sequel.cariIsi("select no_antrian from antrian_nomor_lansia order by no_antrian desc limit 1"));
+        }
+
+        //cek nomor panggilan pasien
+        if (Sequel.cariIsi("SELECT no_antrian FROM antrian_pemanggil_lansia ORDER BY no_antrian DESC LIMIT 1").equals("")) {
+            panggilan = 0;
+        } else {
+            panggilan = Integer.parseInt(Sequel.cariIsi("select no_antrian from antrian_pemanggil_lansia order by no_antrian desc limit 1"));
+        }
+        
+        if (panggilan == 0 && nomorpasien == 0) {
+            infolb.setText("Diloket pendaftaran pasien rawat jalan Lansia/Bayi belum ada pasien atau Sisa antrian pasien sudah habis...!!!");
+        } else {
+            //hasil hitungan antrian
+            hasilantrian = nomorpasien - panggilan;
+            if (nomorpasien > panggilan) {
+                infolb.setText("Masih ada antrian pasien rawat jalan Lansia/Bayi yang belum dipanggil & dilayani oleh petugas pendaftaran.");
+            }
+            
+            if (hasilantrian >= 1) {
+                infolb.setText("Masih ada " + hasilantrian + " orang lagi yang belum dipanggil & dilayani oleh petugas pendaftaran pasien rawat jalan Lansia/Bayi.");
+            }
+            
+            if (hasilantrian < 1) {
+                infolb.setText("Antrian diloket pendaftaran pasien rawat jalan Lansia/Bayi sudah habis.");
+            }
+        }
     }
 }

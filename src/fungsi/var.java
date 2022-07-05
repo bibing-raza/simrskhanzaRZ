@@ -20,7 +20,8 @@ public final class var {
     private static PreparedStatement ps, ps2;
     private static ResultSet rs, rs2;
 
-    private static String kode = "", kdbangsal = "", namars = "", alamatrs = "", kabupatenrs = "", propinsirs = "", kontakrs = "", emailrs = "", form = "", namauser = "";
+    private static String kode = "", kdbangsal = "", namars = "", alamatrs = "", kabupatenrs = "", propinsirs = "", kontakrs = "", emailrs = "",
+            form = "", namauser = "", jenisLoket = "", nomorLoket = "";
     private static int jml1 = 0, jml2 = 0, lebar = 0, tinggi = 0;
     private static boolean aktif=false,admin = false, user = false, vakum = false, aplikasi = false, penyakit = false, obat_penyakit = false, dokter = false, jadwal_praktek = false, petugas = false, pasien = false, registrasi = false,
             tindakan_ralan = false, kamar_inap = false, tindakan_ranap = false, operasi = false, rujukan_keluar = false, rujukan_masuk = false, beri_obat = false,
@@ -78,7 +79,7 @@ public final class var {
             tombol_nota_billing = false, tombol_simpan_hasil_rad = false, monev_asuhan_gizi = false, inacbg_klaim_raza = false, pengajuan_klaim_inacbg_raza = false,
             copy_pemeriksaan_dokter_kepetugas_ralan = false, jkn_belum_diproses_klaim = false, input_kode_icd = false, kendali_Mutu_kendali_Biaya_INACBG = false, dashboard_eResep = false, bpjs_sep_internal = false,
             kemenkes_sitt = false, rencana_kontrol_jkn = false, spri_jkn = false, hapus_sep = false, penilaian_awal_medis_ralan_kebidanan = false, penilaian_awal_keperawatan_kebidanan = false,
-            ikhtisar_perawatan_hiv = false, survey_kepuasan = false, kemenkes_kanker=false, aktivasi_bridging=false;
+            ikhtisar_perawatan_hiv = false, survey_kepuasan = false, kemenkes_kanker=false, aktivasi_bridging=false, operator_antrian=false;
 
     public static void setData(String user, String pass) {
         try {
@@ -462,6 +463,7 @@ public final class var {
                     var.survey_kepuasan=true;
                     var.kemenkes_kanker=true;
                     var.aktivasi_bridging=true;
+                    var.operator_antrian=true;
                 } else if (rs.getRow() >= 1) {
                     var.kode = "Admin Utama";
                     var.penyakit = true;
@@ -825,6 +827,7 @@ public final class var {
                     var.survey_kepuasan = true;
                     var.kemenkes_kanker = true;
                     var.aktivasi_bridging = true;
+                    var.operator_antrian = true;
                 } else if (rs2.getRow() >= 1) {
                     rs2.beforeFirst();
                     rs2.next();
@@ -1191,6 +1194,7 @@ public final class var {
                     var.survey_kepuasan = rs2.getBoolean("survey_kepuasan");
                     var.kemenkes_kanker = rs2.getBoolean("kemenkes_kanker");
                     var.aktivasi_bridging = rs2.getBoolean("aktivasi_bridging");
+                    var.operator_antrian = rs2.getBoolean("operator_antrian");
                 } else if ((rs.getRow() == 0) && (rs2.getRow() == 0)) {
                     var.kode = "";
                     var.penyakit = false;
@@ -1555,6 +1559,7 @@ public final class var {
                     var.survey_kepuasan = false;
                     var.kemenkes_kanker = false;
                     var.aktivasi_bridging = false;
+                    var.operator_antrian = false;
                 }
             } catch (Exception e) {
                 System.out.println("Notifikasi : " + e);
@@ -1574,6 +1579,34 @@ public final class var {
             }
         } catch (Exception e) {
             System.out.println("Notifikasi : " + e);
+        }
+    }
+    
+    public static void setNMLoket(String nmrawat) {
+        if (nmrawat.equals("ralan")) {
+            var.jenisLoket = "Rawat Jalan";
+        } else if (nmrawat.equals("ranap")) {
+            var.jenisLoket = "Rawat Inap";
+        } else {
+            var.jenisLoket = "";
+        }
+    }
+
+    public static void setNomorLoket(String noloket) {
+        if (noloket.equals("1")) {
+            var.nomorLoket = "1";
+        } else if (noloket.equals("2")) {
+            var.nomorLoket = "2";
+        } else if (noloket.equals("3")) {
+            var.nomorLoket = "3";
+        } else if (noloket.equals("4")) {
+            var.nomorLoket = "4";
+        } else if (noloket.equals("5")) {
+            var.nomorLoket = "5";
+        } else if (noloket.equals("6")) {
+            var.nomorLoket = "6";
+        } else if (noloket.equals("")) {
+            var.nomorLoket = "";
         }
     }
 
@@ -2067,6 +2100,14 @@ public final class var {
 
     public static String getkode() {
         return var.kode;
+    }
+    
+    public static String getJenisLoket() {
+        return var.jenisLoket;
+    }
+    
+    public static String getNomorLoket() {
+        return var.nomorLoket;
     }
 
     public static void setkdbangsal(String kdbangsal) {
@@ -2856,4 +2897,5 @@ public final class var {
         public static boolean getsurvey_kepuasan(){return var.survey_kepuasan;}
         public static boolean getkemenkes_kanker(){return var.kemenkes_kanker;}
         public static boolean getset_bridging(){return var.aktivasi_bridging;}
+        public static boolean getOperator_antrian(){return var.operator_antrian;}
 }

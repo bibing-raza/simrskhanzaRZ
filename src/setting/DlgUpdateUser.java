@@ -608,7 +608,7 @@ public class DlgUpdateUser extends javax.swing.JDialog {
                     + "pengajuan_klaim_inacbg_raza,copy_pemeriksaan_dokter_kepetugas_ralan,jkn_belum_diproses_klaim,input_kode_icd,indikator_mutu_unit,"
                     + "kendali_Mutu_kendali_Biaya_INACBG,dashboard_eResep,bpjs_sep_internal,kemenkes_sitt,rencana_kontrol_jkn,spri_jkn,hapus_sep,"
                     + "penilaian_awal_medis_ralan_kebidanan,penilaian_awal_keperawatan_kebidanan,ikhtisar_perawatan_hiv,survey_kepuasan,kemenkes_kanker,"
-                    + "aktivasi_bridging from user where id_user=AES_ENCRYPT(?,'nur')");
+                    + "aktivasi_bridging,operator_antrian from user where id_user=AES_ENCRYPT(?,'nur')");
             try {
                 ps.setString(1, user);
                 rs = ps.executeQuery();
@@ -1987,6 +1987,10 @@ public class DlgUpdateUser extends javax.swing.JDialog {
 
                     if ("[N]Reg Lama Per Tanggal".toLowerCase().contains(TCari.getText().toLowerCase())) {
                         tabMode.addRow(new Object[]{false, "[N]Reg Lama Per Tanggal", rs.getBoolean("grafik_kunjungan_statusdaftartanggal")});
+                    }
+                    
+                    if ("[O]Operator Antrian".toLowerCase().contains(TCari.getText().toLowerCase())) {
+                        tabMode.addRow(new Object[]{false, "[O]Operator Antrian", rs.getBoolean("operator_antrian")});
                     }
                     
                     if ("[O]Set Bridging".toLowerCase().contains(TCari.getText().toLowerCase())) {
@@ -3474,6 +3478,10 @@ public class DlgUpdateUser extends javax.swing.JDialog {
 
             if("[N]Reg Lama Per Tanggal".equals(tbUser.getValueAt(i,1).toString())){
                 Sequel.mengedit("user","id_user=AES_ENCRYPT('"+TKd.getText()+"','nur')","grafik_kunjungan_statusdaftartanggal='"+tbUser.getValueAt(i,2).toString()+"'");
+            }
+            
+            if("[O]Operator Antrian".equals(tbUser.getValueAt(i,1).toString())){
+                Sequel.mengedit("user","id_user=AES_ENCRYPT('"+TKd.getText()+"','nur')","operator_antrian='"+tbUser.getValueAt(i,2).toString()+"'");
             }
             
             if("[O]Set Bridging".equals(tbUser.getValueAt(i,1).toString())){
