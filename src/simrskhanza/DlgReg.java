@@ -11074,7 +11074,7 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
             BtnPangInap.setEnabled(false);
             BtnUlangPangInap.setEnabled(false);
             
-            Thread.sleep(5600);
+            Thread.sleep(6300);
             panggilAntrian(Integer.parseInt(Sequel.cariIsi("select no_antrian from antrian_pemanggil_umum order by no_antrian desc limit 1")));
             music = new BackgroundMusic("./suara/diloket.mp3");
             music.start();
