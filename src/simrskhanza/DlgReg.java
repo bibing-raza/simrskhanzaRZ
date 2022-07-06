@@ -10955,7 +10955,7 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
     }
     
     private void simpanIKM() {
-        if (var.getOperator_antrian() == true && !wktAmbilNomor.equals("") && !wktPanggil.equals("") || !var.getJenisLoket().equals("Rawat Inap")) {
+        if (var.getOperator_antrian() == true && !wktAmbilNomor.equals("") && !wktPanggil.equals("") && !var.getJenisLoket().equals("Rawat Inap")) {
             Sequel.menyimpan("antrian_history", "'" + panggilanFix + "','" + wktAmbilNomor + "',"
                     + "'" + wktPanggil + "','" + Sequel.cariIsi("select now()") + "','" + TNoRw.getText() + "'", "Simpan data IKM");
 
