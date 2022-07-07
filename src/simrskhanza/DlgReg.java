@@ -9865,10 +9865,6 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
         kdbahasa.setText("");
         nmbahasa.setText("");
         label_pesan.setText("-");
-
-        wktPanggil = "";
-        wktAmbilNomor = "";
-        panggilanFix = "";
         infoSEP();
 
         if ((var.getkode().equals("PP24")) || (var.getkode().equals("PP23"))) {
