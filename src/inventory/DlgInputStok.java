@@ -450,7 +450,7 @@ public class DlgInputStok extends javax.swing.JDialog {
         });
         scrollPane2.setViewportView(tbInfoStok);
 
-        TabRawat.addTab("Stok Opname Obat, Alkes & BHP Medis", scrollPane2);
+        TabRawat.addTab("Informasi Stok Obat, Alkes & BHP Medis", scrollPane2);
 
         internalFrame1.add(TabRawat, java.awt.BorderLayout.CENTER);
 

@@ -376,8 +376,8 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Stok Opname Obat, Alkes &amp; BHP Medis">
-                    <Property name="tabTitle" type="java.lang.String" value="Stok Opname Obat, Alkes &amp; BHP Medis"/>
+                  <JTabbedPaneConstraints tabName="Informasi Stok Obat, Alkes &amp; BHP Medis">
+                    <Property name="tabTitle" type="java.lang.String" value="Informasi Stok Obat, Alkes &amp; BHP Medis"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
