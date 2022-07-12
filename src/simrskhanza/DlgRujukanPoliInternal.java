@@ -17,6 +17,7 @@ import fungsi.koneksiDB;
 import fungsi.sekuel;
 import fungsi.validasi;
 import fungsi.var;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -179,6 +180,8 @@ public class DlgRujukanPoliInternal extends javax.swing.JDialog {
         keterangan = new widget.TextArea();
         Scroll6 = new widget.ScrollPane();
         tbRujukInternal = new widget.Table();
+        jLabel17 = new widget.Label();
+        ketHari = new widget.Label();
         panelGlass8 = new widget.panelisi();
         BtnBatal = new widget.Button();
         BtnSimpan = new widget.Button();
@@ -190,6 +193,11 @@ public class DlgRujukanPoliInternal extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255), 3), "::[ Rujukan Poliklinik Internal ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
         internalFrame1.setName("internalFrame1"); // NOI18N
@@ -276,28 +284,13 @@ public class DlgRujukanPoliInternal extends javax.swing.JDialog {
         jLabel15.setBounds(0, 68, 100, 23);
 
         tglDirujuk.setEditable(false);
-        tglDirujuk.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-06-2022" }));
+        tglDirujuk.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "13-06-2022" }));
         tglDirujuk.setDisplayFormat("dd-MM-yyyy");
         tglDirujuk.setName("tglDirujuk"); // NOI18N
         tglDirujuk.setOpaque(false);
-        tglDirujuk.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                tglDirujukItemStateChanged(evt);
-            }
-        });
-        tglDirujuk.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tglDirujukMouseClicked(evt);
-            }
-        });
         tglDirujuk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tglDirujukActionPerformed(evt);
-            }
-        });
-        tglDirujuk.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                tglDirujukKeyPressed(evt);
             }
         });
         FormInput.add(tglDirujuk);
@@ -347,6 +340,20 @@ public class DlgRujukanPoliInternal extends javax.swing.JDialog {
 
         FormInput.add(Scroll6);
         Scroll6.setBounds(100, 390, 660, 120);
+
+        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel17.setText("Ket. : ");
+        jLabel17.setName("jLabel17"); // NOI18N
+        FormInput.add(jLabel17);
+        jLabel17.setBounds(190, 68, 40, 23);
+
+        ketHari.setForeground(new java.awt.Color(0, 0, 0));
+        ketHari.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        ketHari.setText("-");
+        ketHari.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        ketHari.setName("ketHari"); // NOI18N
+        FormInput.add(ketHari);
+        ketHari.setBounds(230, 68, 530, 23);
 
         internalFrame1.add(FormInput, java.awt.BorderLayout.CENTER);
         FormInput.getAccessibleContext().setAccessibleName("");
@@ -485,6 +492,10 @@ public class DlgRujukanPoliInternal extends javax.swing.JDialog {
         } else if (keterangan.getText().trim().equals("") || keterangan.getText().trim().length() < 6) {
             JOptionPane.showMessageDialog(null, "Silahkan diisi dulu dg. benar keterangan/deskripsi utk. rujukan internal polikliniknya...!!");
             keterangan.requestFocus();
+        } else if (Sequel.cariInteger("select count(-1) from hari_libur where tgl_libur='" + Valid.SetTgl(tglDirujuk.getSelectedItem() + "") + "'") > 0) {
+            JOptionPane.showMessageDialog(rootPane, "Pelayanan rawat jalan poliklinik TUTUP karena, sedang/atau/memperingati "
+                    + Sequel.cariIsi("select keterangan from hari_libur where tgl_libur='" + Valid.SetTgl(tglDirujuk.getSelectedItem() + "") + "'")
+                    + ", silahkan ganti hari lain utk. tgl. rencana dirujuknya");
         } else {
             if (Sequel.menyimpantf("rujukan_internal_poli", "?,?,?,?,?,?,?,?,?,?", "Rujukan Sama", 10, new String[]{
                 TNoRw.getText(), Sequel.cariIsi("select kd_poli from reg_periksa where no_rawat='" + TNoRw.getText() + "' and status_lanjut='Ralan'"),
@@ -557,21 +568,9 @@ public class DlgRujukanPoliInternal extends javax.swing.JDialog {
         
     }//GEN-LAST:event_TNoRwKeyPressed
 
-    private void tglDirujukItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tglDirujukItemStateChanged
-
-    }//GEN-LAST:event_tglDirujukItemStateChanged
-
-    private void tglDirujukMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tglDirujukMouseClicked
-
-    }//GEN-LAST:event_tglDirujukMouseClicked
-
     private void tglDirujukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tglDirujukActionPerformed
-
+        cekHariLibur();
     }//GEN-LAST:event_tglDirujukActionPerformed
-
-    private void tglDirujukKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tglDirujukKeyPressed
-
-    }//GEN-LAST:event_tglDirujukKeyPressed
 
     private void keteranganKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_keteranganKeyPressed
         //        Valid.pindah(evt,COB,LokasiLaka);
@@ -588,6 +587,10 @@ public class DlgRujukanPoliInternal extends javax.swing.JDialog {
         } else if (tglSimpan.equals("")) {
             JOptionPane.showMessageDialog(null, "Silahkan anda pilih dulu salah satu daftar poliklinik tujuan rujukan...!!!");
             tbRujukInternal.requestFocus();
+        } else if (Sequel.cariInteger("select count(-1) from hari_libur where tgl_libur='" + Valid.SetTgl(tglDirujuk.getSelectedItem() + "") + "'") > 0) {
+            JOptionPane.showMessageDialog(rootPane, "Pelayanan rawat jalan poliklinik TUTUP karena, sedang/atau/memperingati "
+                    + Sequel.cariIsi("select keterangan from hari_libur where tgl_libur='" + Valid.SetTgl(tglDirujuk.getSelectedItem() + "") + "'")
+                    + ", silahkan ganti hari lain utk. tgl. rencana dirujuknya");
         } else {
             Sequel.mengedit("rujukan_internal_poli", "no_rawat='" + TNoRw.getText() + "' and tgl_simpan='" + tglSimpan + "'",
                     "kd_poli_pembalas='" + kdpoli.getText() + "', "
@@ -722,6 +725,10 @@ public class DlgRujukanPoliInternal extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_BtnHapusKeyPressed
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        cekHariLibur();
+    }//GEN-LAST:event_formWindowOpened
+
     /**
     * @param args the command line arguments
     */
@@ -756,9 +763,11 @@ public class DlgRujukanPoliInternal extends javax.swing.JDialog {
     private widget.InternalFrame internalFrame1;
     private widget.Label jLabel15;
     private widget.Label jLabel16;
+    private widget.Label jLabel17;
     private widget.Label jLabel19;
     private widget.Label jLabel3;
     private widget.TextBox kdpoli;
+    private widget.Label ketHari;
     private widget.TextArea keterangan;
     private widget.panelisi panelGlass8;
     private widget.Table tbRujukInternal;
@@ -789,6 +798,7 @@ public class DlgRujukanPoliInternal extends javax.swing.JDialog {
         TPoli.setText("");
         keterangan.setText("");
         BtnUnit.requestFocus();
+        cekHariLibur();
     }
     
     public void SatuTujuanPoli() {
@@ -843,6 +853,18 @@ public class DlgRujukanPoliInternal extends javax.swing.JDialog {
             }
         } catch (SQLException e) {
             System.out.println("Notifikasi : " + e);
+        }
+    }
+    
+    private void cekHariLibur() {
+        ketHari.setText("-");
+        
+        if (Sequel.cariIsi("select ifnull(tgl_libur,'') from hari_libur where tgl_libur='" + Valid.SetTgl(tglDirujuk.getSelectedItem() + "") + "'").equals("")) {
+            ketHari.setText("Kalender/penanggalan/hari normal seperti biasa.");
+            ketHari.setForeground(Color.BLACK);
+        } else {
+            ketHari.setText(Sequel.cariIsi("select keterangan from hari_libur where tgl_libur='" + Valid.SetTgl(tglDirujuk.getSelectedItem() + "") + "'"));
+            ketHari.setForeground(Color.RED);
         }
     }
 }

@@ -22,6 +22,7 @@ import fungsi.sekuel;
 import fungsi.validasi;
 import fungsi.var;
 import informasi.InformasiJadwal;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
@@ -1482,6 +1483,8 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         jLabel33 = new widget.Label();
         verif_data = new widget.ComboBox();
         ChkNoTelp = new widget.CekBox();
+        jLabel35 = new widget.Label();
+        label_hari = new widget.TextArea();
         internalFrame3 = new widget.InternalFrame();
         panelisi2 = new widget.panelisi();
         jLabel8 = new widget.Label();
@@ -2511,24 +2514,9 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         TanggalPeriksa.setDisplayFormat("dd-MM-yyyy");
         TanggalPeriksa.setName("TanggalPeriksa"); // NOI18N
         TanggalPeriksa.setOpaque(false);
-        TanggalPeriksa.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                TanggalPeriksaItemStateChanged(evt);
-            }
-        });
-        TanggalPeriksa.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TanggalPeriksaMouseClicked(evt);
-            }
-        });
         TanggalPeriksa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TanggalPeriksaActionPerformed(evt);
-            }
-        });
-        TanggalPeriksa.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                TanggalPeriksaKeyPressed(evt);
             }
         });
         panelisi1.add(TanggalPeriksa);
@@ -2621,7 +2609,7 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
             }
         });
         panelisi1.add(kdboking);
-        kdboking.setBounds(610, 10, 130, 23);
+        kdboking.setBounds(607, 10, 130, 23);
 
         jLabel21.setForeground(new java.awt.Color(0, 0, 0));
         jLabel21.setText("No. Telpn. Pemesan : ");
@@ -2661,7 +2649,7 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
             }
         });
         panelisi1.add(norawat);
-        norawat.setBounds(610, 38, 130, 23);
+        norawat.setBounds(607, 38, 130, 23);
 
         jLabel32.setForeground(new java.awt.Color(0, 0, 0));
         jLabel32.setText("Suku/Bangsa : ");
@@ -2766,6 +2754,21 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
         });
         panelisi1.add(ChkNoTelp);
         ChkNoTelp.setBounds(118, 210, 490, 23);
+
+        jLabel35.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel35.setText("Ket. Hari : ");
+        jLabel35.setName("jLabel35"); // NOI18N
+        panelisi1.add(jLabel35);
+        jLabel35.setBounds(520, 66, 85, 23);
+
+        label_hari.setEditable(false);
+        label_hari.setColumns(20);
+        label_hari.setRows(5);
+        label_hari.setText("-");
+        label_hari.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        label_hari.setName("label_hari"); // NOI18N
+        panelisi1.add(label_hari);
+        label_hari.setBounds(607, 64, 350, 85);
 
         internalFrame2.add(panelisi1, java.awt.BorderLayout.CENTER);
 
@@ -3761,6 +3764,10 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
             ChkInput.setSelected(true);
             isForm();
             emptTeks();
+        } else if (Sequel.cariInteger("select count(-1) from hari_libur where tgl_libur='" + Valid.SetTgl(TanggalPeriksa.getSelectedItem() + "") + "'") > 0) {
+            JOptionPane.showMessageDialog(rootPane, "Pelayanan rawat jalan poliklinik TUTUP karena, sedang/atau/memperingati "
+                    + Sequel.cariIsi("select keterangan from hari_libur where tgl_libur='" + Valid.SetTgl(TanggalPeriksa.getSelectedItem() + "") + "'")
+                    + ", silahkan ganti hari lain utk. rencana tgl. periksanya");
         } else {
             if (kdpnj.getText().equals("B01") || (kdpnj.getText().equals("A03"))) {
 
@@ -4016,6 +4023,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         FormInput.setEnabledAt(1, false);
         FormInput.setEnabledAt(2, false);
         FormInput.setEnabledAt(3, false);
+        cekHariLibur();
     }//GEN-LAST:event_formWindowOpened
 
     private void DTPCari1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_DTPCari1ItemStateChanged
@@ -4029,17 +4037,6 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private void DTPCari4ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_DTPCari4ItemStateChanged
         R3.setSelected(true);
     }//GEN-LAST:event_DTPCari4ItemStateChanged
-
-    private void TanggalPeriksaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TanggalPeriksaKeyPressed
-
-    }//GEN-LAST:event_TanggalPeriksaKeyPressed
-
-    private void TanggalPeriksaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_TanggalPeriksaItemStateChanged
-        try {
-            isNomer();
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_TanggalPeriksaItemStateChanged
 
     private void BtnPoliKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnPoliKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
@@ -4121,13 +4118,8 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     }//GEN-LAST:event_TanggalBookingKeyPressed
 
     private void TanggalPeriksaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TanggalPeriksaActionPerformed
-
+        cekHariLibur();
     }//GEN-LAST:event_TanggalPeriksaActionPerformed
-
-    private void TanggalPeriksaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TanggalPeriksaMouseClicked
-        KdDokter.setText("");
-        NmDokter.setText("");
-    }//GEN-LAST:event_TanggalPeriksaMouseClicked
 
     private void BtnGantiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGantiActionPerformed
         if (TNoRM.getText().trim().equals("") || TPasien.getText().trim().equals("")) {
@@ -4157,6 +4149,10 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             ChkInput.setSelected(true);
             isForm();
             BtnBatal.requestFocus();
+        } else if (Sequel.cariInteger("select count(-1) from hari_libur where tgl_libur='" + Valid.SetTgl(TanggalPeriksa.getSelectedItem() + "") + "'") > 0) {
+            JOptionPane.showMessageDialog(rootPane, "Pelayanan rawat jalan poliklinik TUTUP karena, sedang/atau/memperingati "
+                    + Sequel.cariIsi("select keterangan from hari_libur where tgl_libur='" + Valid.SetTgl(TanggalPeriksa.getSelectedItem() + "") + "'")
+                    + ", silahkan ganti hari lain utk. rencana tgl. periksanya");
         } else {
             if (kdpnj.getText().equals("B01") || (kdpnj.getText().equals("A03"))) {
                 if (TglLahir.getText().trim().equals("")) {
@@ -5125,6 +5121,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.Label jLabel32;
     private widget.Label jLabel33;
     private widget.Label jLabel34;
+    private widget.Label jLabel35;
     private widget.Label jLabel36;
     private widget.Label jLabel37;
     private widget.Label jLabel39;
@@ -5151,6 +5148,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.TextBox kdsuku;
     private widget.TextBox kode_rujukanya;
     private widget.Label label_cetak;
+    private widget.TextArea label_hari;
     private widget.TextBox nmbahasa;
     private widget.TextBox nmdpjpLayan;
     private widget.TextBox nmfaskes_keluar;
@@ -5305,6 +5303,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         ChkNoTelp.setSelected(false);
         TanggalBooking.setDate(new Date());
         TanggalPeriksa.setDate(new Date());
+        cekHariLibur();
         isNomer();
         emptKelengkapanSEP();
     }
@@ -6414,6 +6413,18 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
         if (TNoRM.getText().trim().equals("") || tabMode5.getRowCount() < 1) {
             JOptionPane.showMessageDialog(rootPane, "Periksa lagi No. RM pasien & harus terisi dengan benar...!!!");
+        }
+    }
+    
+    private void cekHariLibur() {
+        label_hari.setText("-");
+        
+        if (Sequel.cariIsi("select ifnull(tgl_libur,'') from hari_libur where tgl_libur='" + Valid.SetTgl(TanggalPeriksa.getSelectedItem() + "") + "'").equals("")) {
+            label_hari.setText("Kalender/penanggalan/hari normal seperti biasa.");
+            label_hari.setForeground(Color.BLACK);
+        } else {
+            label_hari.setText(Sequel.cariIsi("select keterangan from hari_libur where tgl_libur='" + Valid.SetTgl(TanggalPeriksa.getSelectedItem() + "") + "'"));
+            label_hari.setForeground(Color.RED);
         }
     }
 }

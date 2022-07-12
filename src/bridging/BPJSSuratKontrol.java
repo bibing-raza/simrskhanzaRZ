@@ -8,6 +8,7 @@ import fungsi.koneksiDB;
 import fungsi.sekuel;
 import fungsi.validasi;
 import fungsi.var;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
@@ -305,6 +306,8 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         jLabel16 = new widget.Label();
         JK = new widget.TextBox();
         jLabel17 = new widget.Label();
+        jLabel18 = new widget.Label();
+        label_hari = new widget.TextArea();
 
         jPopupMenu1.setName("jPopupMenu1"); // NOI18N
 
@@ -345,6 +348,11 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255), 3), "::[ Surat Rencana Kontrol VClaim ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
         internalFrame1.setName("internalFrame1"); // NOI18N
@@ -590,7 +598,7 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         panelCari.add(R1);
 
         tglSurat1.setEditable(false);
-        tglSurat1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-03-2022" }));
+        tglSurat1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-07-2022" }));
         tglSurat1.setDisplayFormat("dd-MM-yyyy");
         tglSurat1.setName("tglSurat1"); // NOI18N
         tglSurat1.setOpaque(false);
@@ -610,7 +618,7 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         panelCari.add(jLabel22);
 
         tglSurat2.setEditable(false);
-        tglSurat2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-03-2022" }));
+        tglSurat2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-07-2022" }));
         tglSurat2.setDisplayFormat("dd-MM-yyyy");
         tglSurat2.setName("tglSurat2"); // NOI18N
         tglSurat2.setOpaque(false);
@@ -633,7 +641,7 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         panelCari.add(R2);
 
         tglKontrol1.setEditable(false);
-        tglKontrol1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-03-2022" }));
+        tglKontrol1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-07-2022" }));
         tglKontrol1.setDisplayFormat("dd-MM-yyyy");
         tglKontrol1.setName("tglKontrol1"); // NOI18N
         tglKontrol1.setOpaque(false);
@@ -653,7 +661,7 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         panelCari.add(jLabel25);
 
         tglKontrol2.setEditable(false);
-        tglKontrol2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-03-2022" }));
+        tglKontrol2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-07-2022" }));
         tglKontrol2.setDisplayFormat("dd-MM-yyyy");
         tglKontrol2.setName("tglKontrol2"); // NOI18N
         tglKontrol2.setOpaque(false);
@@ -801,10 +809,15 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         label_rencana.setBounds(295, 70, 120, 23);
 
         TanggalKontrol.setEditable(false);
-        TanggalKontrol.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-03-2022" }));
+        TanggalKontrol.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-07-2022" }));
         TanggalKontrol.setDisplayFormat("dd-MM-yyyy");
         TanggalKontrol.setName("TanggalKontrol"); // NOI18N
         TanggalKontrol.setOpaque(false);
+        TanggalKontrol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TanggalKontrolActionPerformed(evt);
+            }
+        });
         FormInput.add(TanggalKontrol);
         TanggalKontrol.setBounds(416, 70, 95, 23);
 
@@ -881,6 +894,21 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         FormInput.add(jLabel17);
         jLabel17.setBounds(0, 70, 90, 23);
 
+        jLabel18.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel18.setText("Ket. Hari : ");
+        jLabel18.setName("jLabel18"); // NOI18N
+        FormInput.add(jLabel18);
+        jLabel18.setBounds(511, 70, 70, 23);
+
+        label_hari.setEditable(false);
+        label_hari.setColumns(20);
+        label_hari.setRows(5);
+        label_hari.setText("-");
+        label_hari.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        label_hari.setName("label_hari"); // NOI18N
+        FormInput.add(label_hari);
+        label_hari.setBounds(578, 67, 350, 85);
+
         PanelInput.add(FormInput, java.awt.BorderLayout.CENTER);
 
         internalFrame1.add(PanelInput, java.awt.BorderLayout.PAGE_START);
@@ -897,6 +925,10 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
             Valid.textKosong(KdDokter, "Dokter");
         } else if (NmPoli.getText().trim().equals("") || NmPoli.getText().trim().equals("")) {
             Valid.textKosong(KdPoli, "Poli");
+        } else if (Sequel.cariInteger("select count(-1) from hari_libur where tgl_libur='" + Valid.SetTgl(TanggalKontrol.getSelectedItem() + "") + "'") > 0) {
+            JOptionPane.showMessageDialog(rootPane, "Pelayanan rawat jalan poliklinik TUTUP karena, sedang/atau/memperingati "
+                    + Sequel.cariIsi("select keterangan from hari_libur where tgl_libur='" + Valid.SetTgl(TanggalKontrol.getSelectedItem() + "") + "'")
+                    + ", silahkan ganti hari lain utk. tgl. rencana kontrolnya");
         } else {
             try {
                 HttpHeaders headers = new HttpHeaders();
@@ -1144,6 +1176,10 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             Valid.textKosong(KdDokter, "Dokter");
         } else if (NmPoli.getText().trim().equals("") || NmPoli.getText().trim().equals("")) {
             Valid.textKosong(KdPoli, "Poli");
+        } else if (Sequel.cariInteger("select count(-1) from hari_libur where tgl_libur='" + Valid.SetTgl(TanggalKontrol.getSelectedItem() + "") + "'") > 0) {
+            JOptionPane.showMessageDialog(rootPane, "Pelayanan rawat jalan poliklinik TUTUP karena, sedang/atau/memperingati "
+                    + Sequel.cariIsi("select keterangan from hari_libur where tgl_libur='" + Valid.SetTgl(TanggalKontrol.getSelectedItem() + "") + "'")
+                    + ", silahkan ganti hari lain utk. tgl. rencana kontrolnya");
         } else {
             if (tbSuratKontrol.getSelectedRow() != -1) {
                 try {
@@ -1354,6 +1390,14 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         }
     }//GEN-LAST:event_MnAmbilSuratKontrolVCLAIMActionPerformed
 
+    private void TanggalKontrolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TanggalKontrolActionPerformed
+        cekHariLibur();
+    }//GEN-LAST:event_TanggalKontrolActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        cekHariLibur();
+    }//GEN-LAST:event_formWindowOpened
+
     /**
     * @param args the command line arguments
     */
@@ -1411,6 +1455,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.Label jLabel13;
     private widget.Label jLabel16;
     private widget.Label jLabel17;
+    private widget.Label jLabel18;
     private widget.Label jLabel22;
     private widget.Label jLabel25;
     private widget.Label jLabel4;
@@ -1422,6 +1467,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
+    private widget.TextArea label_hari;
     private widget.Label label_rencana;
     private widget.panelisi panelCari;
     private widget.panelisi panelGlass10;
@@ -1562,6 +1608,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         KdPoli.setText("");
         NmPoli.setText("");
         TanggalKontrol.requestFocus();
+        cekHariLibur();
     }   
 
     private void getData() {
@@ -1717,6 +1764,18 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             if (e.toString().contains("UnknownHostException")) {
                 JOptionPane.showMessageDialog(null, "Koneksi ke server BPJS terputus...!");
             }
+        }
+    }
+    
+    private void cekHariLibur() {
+        label_hari.setText("-");
+        
+        if (Sequel.cariIsi("select ifnull(tgl_libur,'') from hari_libur where tgl_libur='" + Valid.SetTgl(TanggalKontrol.getSelectedItem() + "") + "'").equals("")) {
+            label_hari.setText("Kalender/penanggalan/hari normal seperti biasa.");
+            label_hari.setForeground(Color.BLACK);
+        } else {
+            label_hari.setText(Sequel.cariIsi("select keterangan from hari_libur where tgl_libur='" + Valid.SetTgl(TanggalKontrol.getSelectedItem() + "") + "'"));
+            label_hari.setForeground(Color.RED);
         }
     }
  }
