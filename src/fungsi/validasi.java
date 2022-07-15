@@ -2026,5 +2026,24 @@ public final class validasi {
             System.out.println(e);
         }
     }
+    
+    public boolean MyReportToExcelBooleanRs(ResultSet rs2, String nm_filenya) {
+        try {            
+
+            XSSFWorkbook workbook = new XSSFWorkbook();
+            XSSFSheet sheet = workbook.createSheet("Data");
+
+            writeHeaderLine(rs2, sheet);
+
+            writeDataLines(rs2, workbook, sheet);
+
+            FileOutputStream outputStream = new FileOutputStream(nm_filenya + ".xlsx");
+            workbook.write(outputStream);
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+    }
 }
   
