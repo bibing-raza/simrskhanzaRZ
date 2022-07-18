@@ -1066,7 +1066,7 @@ public final class DlgDataKanker extends javax.swing.JDialog {
         panelGlass9.add(jLabel58);
 
         DTPCari1.setEditable(false);
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-04-2022" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "18-07-2022" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -1081,7 +1081,7 @@ public final class DlgDataKanker extends javax.swing.JDialog {
         panelGlass9.add(jLabel59);
 
         DTPCari2.setEditable(false);
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-04-2022" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "18-07-2022" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -1228,6 +1228,7 @@ public final class DlgDataKanker extends javax.swing.JDialog {
         FormInput1.add(jLabel10);
         jLabel10.setBounds(495, 40, 40, 23);
 
+        NIK.setEditable(false);
         NIK.setForeground(new java.awt.Color(0, 0, 0));
         NIK.setName("NIK"); // NOI18N
         FormInput1.add(NIK);
@@ -1920,7 +1921,7 @@ public final class DlgDataKanker extends javax.swing.JDialog {
         jLabel28.setBounds(0, 580, 120, 23);
 
         tglDiagnosa.setEditable(false);
-        tglDiagnosa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26-04-2022" }));
+        tglDiagnosa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "18-07-2022" }));
         tglDiagnosa.setDisplayFormat("dd-MM-yyyy");
         tglDiagnosa.setName("tglDiagnosa"); // NOI18N
         tglDiagnosa.setOpaque(false);
@@ -3702,10 +3703,10 @@ public final class DlgDataKanker extends javax.swing.JDialog {
         stts_lanjt = "";
         try {
             ps=koneksi.prepareStatement("select p.no_rkm_medis, p.nm_pasien, p.tgl_lahir, rp.umurdaftar, "
-                    + "rp.sttsumur, ifnull(p.no_peserta,'0') no_peserta, if(p.no_ktp='','0',p.no_ktp) no_ktp,"
+                    + "rp.sttsumur, IF(LENGTH(p.no_peserta)<5,'000000',p.no_peserta) no_peserta, IF(LENGTH(p.no_ktp)<5,'000000',p.no_ktp) no_ktp,"
                     + "p.alamat, rp.status_lanjut, rp.tgl_registrasi, kb.nm_kab, kc.nm_kec, kl.nm_kel, if(p.jk='L','Laki-laki','Perempuan') jk, "
                     + "ifnull(dp.kd_penyakit,'') kd_penyakit, ifnull(py.nm_penyakit,'') nm_penyakit, if(rp.kd_pj='B01',concat(pj.png_jawab,' - ',bs.peserta),pj.png_jawab) png_jawab, "
-                    + "ifnull(rm.perujuk,'') asalrujukan, if(p.no_tlp='0','00000',p.no_tlp) no_tlp from pasien p "
+                    + "ifnull(rm.perujuk,'') asalrujukan, IF(LENGTH(p.no_tlp)<5,'000000',p.no_tlp) no_tlp from pasien p "
                     + "inner join reg_periksa rp on rp.no_rkm_medis=p.no_rkm_medis "
                     + "inner join kelurahan kl ON kl.kd_kel=p.kd_kel "
                     + "inner join kecamatan kc ON kc.kd_kec=p.kd_kec "

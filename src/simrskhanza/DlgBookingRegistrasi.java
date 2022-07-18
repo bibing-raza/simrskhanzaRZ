@@ -3765,7 +3765,7 @@ public class DlgBookingRegistrasi extends javax.swing.JDialog {
             isForm();
             emptTeks();
         } else if (Sequel.cariInteger("select count(-1) from hari_libur where tgl_libur='" + Valid.SetTgl(TanggalPeriksa.getSelectedItem() + "") + "'") > 0) {
-            JOptionPane.showMessageDialog(rootPane, "Pelayanan rawat jalan poliklinik TUTUP karena, sedang/atau/memperingati "
+            JOptionPane.showMessageDialog(rootPane, "Pelayanan rawat jalan poliklinik TUTUP, karena sedang/memperingati "
                     + Sequel.cariIsi("select keterangan from hari_libur where tgl_libur='" + Valid.SetTgl(TanggalPeriksa.getSelectedItem() + "") + "'")
                     + ", silahkan ganti hari lain utk. rencana tgl. periksanya");
         } else {
@@ -4150,7 +4150,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             isForm();
             BtnBatal.requestFocus();
         } else if (Sequel.cariInteger("select count(-1) from hari_libur where tgl_libur='" + Valid.SetTgl(TanggalPeriksa.getSelectedItem() + "") + "'") > 0) {
-            JOptionPane.showMessageDialog(rootPane, "Pelayanan rawat jalan poliklinik TUTUP karena, sedang/atau/memperingati "
+            JOptionPane.showMessageDialog(rootPane, "Pelayanan rawat jalan poliklinik TUTUP, karena sedang/memperingati "
                     + Sequel.cariIsi("select keterangan from hari_libur where tgl_libur='" + Valid.SetTgl(TanggalPeriksa.getSelectedItem() + "") + "'")
                     + ", silahkan ganti hari lain utk. rencana tgl. periksanya");
         } else {

@@ -926,7 +926,7 @@ public class BPJSSuratKontrol extends javax.swing.JDialog {
         } else if (NmPoli.getText().trim().equals("") || NmPoli.getText().trim().equals("")) {
             Valid.textKosong(KdPoli, "Poli");
         } else if (Sequel.cariInteger("select count(-1) from hari_libur where tgl_libur='" + Valid.SetTgl(TanggalKontrol.getSelectedItem() + "") + "'") > 0) {
-            JOptionPane.showMessageDialog(rootPane, "Pelayanan rawat jalan poliklinik TUTUP karena, sedang/atau/memperingati "
+            JOptionPane.showMessageDialog(rootPane, "Pelayanan rawat jalan poliklinik TUTUP, karena sedang/memperingati "
                     + Sequel.cariIsi("select keterangan from hari_libur where tgl_libur='" + Valid.SetTgl(TanggalKontrol.getSelectedItem() + "") + "'")
                     + ", silahkan ganti hari lain utk. tgl. rencana kontrolnya");
         } else {
@@ -1177,7 +1177,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         } else if (NmPoli.getText().trim().equals("") || NmPoli.getText().trim().equals("")) {
             Valid.textKosong(KdPoli, "Poli");
         } else if (Sequel.cariInteger("select count(-1) from hari_libur where tgl_libur='" + Valid.SetTgl(TanggalKontrol.getSelectedItem() + "") + "'") > 0) {
-            JOptionPane.showMessageDialog(rootPane, "Pelayanan rawat jalan poliklinik TUTUP karena, sedang/atau/memperingati "
+            JOptionPane.showMessageDialog(rootPane, "Pelayanan rawat jalan poliklinik TUTUP, karena sedang/memperingati "
                     + Sequel.cariIsi("select keterangan from hari_libur where tgl_libur='" + Valid.SetTgl(TanggalKontrol.getSelectedItem() + "") + "'")
                     + ", silahkan ganti hari lain utk. tgl. rencana kontrolnya");
         } else {
