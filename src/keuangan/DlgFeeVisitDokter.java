@@ -29,7 +29,8 @@ import javax.swing.*;
 import javax.swing.filechooser.*;
 
 public class DlgFeeVisitDokter extends javax.swing.JDialog {
-    private final DefaultTableModel tabMode, tabMode1, tabMode2, tabMode3;
+    private final DefaultTableModel tabMode, tabMode1, tabMode2, tabMode3,
+            tabMode4, tabMode5, tabMode6, tabMode7;
     private sekuel Sequel = new sekuel();
     private validasi Valid = new validasi();
     private Jurnal jur = new Jurnal();
@@ -40,8 +41,8 @@ public class DlgFeeVisitDokter extends javax.swing.JDialog {
     private int i = 0, jmlvisit = 0, jmlbyphone = 0, ttljmlvisit = 0, ttljmlbyphone = 0, x = 0;
     private double visit = 0, ttlvisit = 0, byphone = 0, ttlbyphone = 0, bruto = 0, ttlbruto = 0,
             jasa = 0, ttljasa = 0, uangrs = 0, ttluangrs = 0, tarifvisit = 0, tarifbyphone;
-    private PreparedStatement pskamar, psvisit, psvisit1, psbyphone, psrekap, psrekap1;
-    private ResultSet rskamar, rsvisit, rsvisit1, rsbyphone, rsrekap, rsrekap1;
+    private PreparedStatement pskamar, psvisit, psvisit1, psbyphone, psrekap, psrekap1, psrekap2, psrekap3, psrekap4, psrekap5;
+    private ResultSet rskamar, rsvisit, rsvisit1, rsbyphone, rsrekap, rsrekap1, rsrekap2, rsrekap3, rsrekap4, rsrekap5;
     private String sjmlvisit = "", sjmlbyphone = "", svisit = "", sbyphone = "", sbruto = "",
             sjasa = "", suangrs = "", starifvisit = "", starifbyphone = "", ruangDipilih = "", dialog_simpan = "";
 
@@ -52,7 +53,7 @@ public class DlgFeeVisitDokter extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
 
-        Object[] row = {"Tgl. Visite", "Nama Dokter Yg. Menangani", "No. RM", "Nama Pasien", "Ruang Inap/Perawatan","Cara Bayar"};
+        Object[] row = {"Tgl. Visite", "Pemeriksaan Visite", "Nama Dokter Yg. Menangani", "No. RM", "Nama Pasien", "Ruang Inap/Perawatan", "Cara Bayar"};
 
         tabMode = new DefaultTableModel(null, row) {
             @Override
@@ -61,7 +62,8 @@ public class DlgFeeVisitDokter extends javax.swing.JDialog {
             }
             Class[] types = new Class[]{
                 java.lang.String.class, java.lang.String.class, java.lang.String.class,
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class,
+                java.lang.String.class
             };
 
             @Override
@@ -74,32 +76,36 @@ public class DlgFeeVisitDokter extends javax.swing.JDialog {
         tbVisit.setPreferredScrollableViewportSize(new Dimension(800,800));
         tbVisit.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (i = 0; i < 6; i++) {
+        for (i = 0; i < 7; i++) {
             TableColumn column = tbVisit.getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setPreferredWidth(75);
             } else if (i == 1) {
-                column.setPreferredWidth(290);
+                column.setPreferredWidth(315);
             } else if (i == 2) {
-                column.setPreferredWidth(70);
+                column.setPreferredWidth(290);
             } else if (i == 3) {
-                column.setPreferredWidth(250);
+                column.setPreferredWidth(70);
             } else if (i == 4) {
-                column.setPreferredWidth(300);
+                column.setPreferredWidth(250);
             } else if (i == 5) {
+                column.setPreferredWidth(300);
+            } else if (i == 6) {
                 column.setPreferredWidth(200);
             }
         }
         tbVisit.setDefaultRenderer(Object.class, new WarnaTable());  
         
-        tabMode1 = new DefaultTableModel(null, new Object[]{"Tgl. Visite", "Nama Dokter Umum/Yg. Mewakili", "No. RM", "Nama Pasien", "Ruang Inap/Perawatan","Cara Bayar"}) {
+        tabMode1 = new DefaultTableModel(null, new Object[]{"Tgl. Visite", "Pemeriksaan Visite", "Nama Dokter Umum/Yg. Mewakili", 
+            "No. RM", "Nama Pasien", "Ruang Inap/Perawatan","Cara Bayar"}) {
             @Override
             public boolean isCellEditable(int rowIndex, int colIndex) {
                 return false;
             }
             Class[] types = new Class[]{
                 java.lang.String.class, java.lang.String.class, java.lang.String.class,
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class,
+                java.lang.String.class
             };
 
             @Override
@@ -112,19 +118,21 @@ public class DlgFeeVisitDokter extends javax.swing.JDialog {
         tbVisit1.setPreferredScrollableViewportSize(new Dimension(800,800));
         tbVisit1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (i = 0; i < 6; i++) {
+        for (i = 0; i < 7; i++) {
             TableColumn column = tbVisit1.getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setPreferredWidth(75);
             } else if (i == 1) {
-                column.setPreferredWidth(290);
+                column.setPreferredWidth(315);
             } else if (i == 2) {
-                column.setPreferredWidth(70);
+                column.setPreferredWidth(290);
             } else if (i == 3) {
-                column.setPreferredWidth(250);
+                column.setPreferredWidth(70);
             } else if (i == 4) {
-                column.setPreferredWidth(300);
+                column.setPreferredWidth(250);
             } else if (i == 5) {
+                column.setPreferredWidth(300);
+            } else if (i == 6) {
                 column.setPreferredWidth(200);
             }
         }
@@ -148,12 +156,12 @@ public class DlgFeeVisitDokter extends javax.swing.JDialog {
                 return types[columnIndex];
             }
         };
-        tbRekap.setModel(tabMode2);
-        tbRekap.setPreferredScrollableViewportSize(new Dimension(800,800));
-        tbRekap.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tbRekap0.setModel(tabMode2);
+        tbRekap0.setPreferredScrollableViewportSize(new Dimension(800,800));
+        tbRekap0.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
         for (i = 0; i < 12; i++) {
-            TableColumn column = tbRekap.getColumnModel().getColumn(i);
+            TableColumn column = tbRekap0.getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setPreferredWidth(30);
             } else if (i == 1) {
@@ -180,7 +188,111 @@ public class DlgFeeVisitDokter extends javax.swing.JDialog {
                 column.setPreferredWidth(75);
             }
         }
-        tbRekap.setDefaultRenderer(Object.class, new WarnaTable());  
+        tbRekap0.setDefaultRenderer(Object.class, new WarnaTable());  
+        
+        tabMode4 = new DefaultTableModel(null, new Object[]{"No.", "Nama Dokter Yg. Menangani", "Kelas 1", "Kelas 2",
+            "Kelas 3", "Kelas VIP", "Kelas Super VIP", "Rawat Khusus", "Intensif", "High Care", "Isolasi", "Total Visite"}) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;
+            }
+            Class[] types = new Class[]{
+                java.lang.String.class, java.lang.String.class, java.lang.String.class,
+                java.lang.String.class, java.lang.String.class, java.lang.String.class,
+                java.lang.String.class, java.lang.String.class, java.lang.String.class,
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                return types[columnIndex];
+            }
+        };
+        tbRekap2.setModel(tabMode4);
+        tbRekap2.setPreferredScrollableViewportSize(new Dimension(800,800));
+        tbRekap2.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        for (i = 0; i < 12; i++) {
+            TableColumn column = tbRekap2.getColumnModel().getColumn(i);
+            if (i == 0) {
+                column.setPreferredWidth(30);
+            } else if (i == 1) {
+                column.setPreferredWidth(290);
+            } else if (i == 2) {
+                column.setPreferredWidth(70);
+            } else if (i == 3) {
+                column.setPreferredWidth(70);
+            } else if (i == 4) {
+                column.setPreferredWidth(70);
+            } else if (i == 5) {
+                column.setPreferredWidth(75);
+            } else if (i == 6) {
+                column.setPreferredWidth(110);
+            } else if (i == 7) {
+                column.setPreferredWidth(95);
+            } else if (i == 8) {
+                column.setPreferredWidth(85);
+            } else if (i == 9) {
+                column.setPreferredWidth(85);
+            } else if (i == 10) {
+                column.setPreferredWidth(85);
+            } else if (i == 11) {
+                column.setPreferredWidth(75);
+            }
+        }
+        tbRekap2.setDefaultRenderer(Object.class, new WarnaTable());
+        
+        tabMode5 = new DefaultTableModel(null, new Object[]{"No.", "Nama Dokter Yg. Menangani", "Kelas 1", "Kelas 2",
+            "Kelas 3", "Kelas VIP", "Kelas Super VIP", "Rawat Khusus", "Intensif", "High Care", "Isolasi", "Total Visite"}) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;
+            }
+            Class[] types = new Class[]{
+                java.lang.String.class, java.lang.String.class, java.lang.String.class,
+                java.lang.String.class, java.lang.String.class, java.lang.String.class,
+                java.lang.String.class, java.lang.String.class, java.lang.String.class,
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                return types[columnIndex];
+            }
+        };
+        tbRekap3.setModel(tabMode5);
+        tbRekap3.setPreferredScrollableViewportSize(new Dimension(800,800));
+        tbRekap3.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        for (i = 0; i < 12; i++) {
+            TableColumn column = tbRekap3.getColumnModel().getColumn(i);
+            if (i == 0) {
+                column.setPreferredWidth(30);
+            } else if (i == 1) {
+                column.setPreferredWidth(290);
+            } else if (i == 2) {
+                column.setPreferredWidth(70);
+            } else if (i == 3) {
+                column.setPreferredWidth(70);
+            } else if (i == 4) {
+                column.setPreferredWidth(70);
+            } else if (i == 5) {
+                column.setPreferredWidth(75);
+            } else if (i == 6) {
+                column.setPreferredWidth(110);
+            } else if (i == 7) {
+                column.setPreferredWidth(95);
+            } else if (i == 8) {
+                column.setPreferredWidth(85);
+            } else if (i == 9) {
+                column.setPreferredWidth(85);
+            } else if (i == 10) {
+                column.setPreferredWidth(85);
+            } else if (i == 11) {
+                column.setPreferredWidth(75);
+            }
+        }
+        tbRekap3.setDefaultRenderer(Object.class, new WarnaTable());
         
         tabMode3 = new DefaultTableModel(null, new Object[]{"No.", "Nama Dokter Umum/Yg. Mewakili", "Kelas 1", "Kelas 2",
             "Kelas 3", "Kelas VIP", "Kelas Super VIP", "Rawat Khusus", "Intensif", "High Care", "Isolasi", "Total Visite"}) {
@@ -233,6 +345,110 @@ public class DlgFeeVisitDokter extends javax.swing.JDialog {
             }
         }
         tbRekap1.setDefaultRenderer(Object.class, new WarnaTable());  
+        
+        tabMode6 = new DefaultTableModel(null, new Object[]{"No.", "Nama Dokter Umum/Yg. Mewakili", "Kelas 1", "Kelas 2",
+            "Kelas 3", "Kelas VIP", "Kelas Super VIP", "Rawat Khusus", "Intensif", "High Care", "Isolasi", "Total Visite"}) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;
+            }
+            Class[] types = new Class[]{
+                java.lang.String.class, java.lang.String.class, java.lang.String.class,
+                java.lang.String.class, java.lang.String.class, java.lang.String.class,
+                java.lang.String.class, java.lang.String.class, java.lang.String.class,
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                return types[columnIndex];
+            }
+        };
+        tbRekap4.setModel(tabMode6);
+        tbRekap4.setPreferredScrollableViewportSize(new Dimension(800,800));
+        tbRekap4.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        for (i = 0; i < 12; i++) {
+            TableColumn column = tbRekap4.getColumnModel().getColumn(i);
+            if (i == 0) {
+                column.setPreferredWidth(30);
+            } else if (i == 1) {
+                column.setPreferredWidth(290);
+            } else if (i == 2) {
+                column.setPreferredWidth(70);
+            } else if (i == 3) {
+                column.setPreferredWidth(70);
+            } else if (i == 4) {
+                column.setPreferredWidth(70);
+            } else if (i == 5) {
+                column.setPreferredWidth(75);
+            } else if (i == 6) {
+                column.setPreferredWidth(110);
+            } else if (i == 7) {
+                column.setPreferredWidth(95);
+            } else if (i == 8) {
+                column.setPreferredWidth(85);
+            } else if (i == 9) {
+                column.setPreferredWidth(85);
+            } else if (i == 10) {
+                column.setPreferredWidth(85);
+            } else if (i == 11) {
+                column.setPreferredWidth(75);
+            }
+        }
+        tbRekap4.setDefaultRenderer(Object.class, new WarnaTable());  
+        
+        tabMode7 = new DefaultTableModel(null, new Object[]{"No.", "Nama Dokter Umum/Yg. Mewakili", "Kelas 1", "Kelas 2",
+            "Kelas 3", "Kelas VIP", "Kelas Super VIP", "Rawat Khusus", "Intensif", "High Care", "Isolasi", "Total Visite"}) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;
+            }
+            Class[] types = new Class[]{
+                java.lang.String.class, java.lang.String.class, java.lang.String.class,
+                java.lang.String.class, java.lang.String.class, java.lang.String.class,
+                java.lang.String.class, java.lang.String.class, java.lang.String.class,
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                return types[columnIndex];
+            }
+        };
+        tbRekap5.setModel(tabMode7);
+        tbRekap5.setPreferredScrollableViewportSize(new Dimension(800,800));
+        tbRekap5.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        for (i = 0; i < 12; i++) {
+            TableColumn column = tbRekap5.getColumnModel().getColumn(i);
+            if (i == 0) {
+                column.setPreferredWidth(30);
+            } else if (i == 1) {
+                column.setPreferredWidth(290);
+            } else if (i == 2) {
+                column.setPreferredWidth(70);
+            } else if (i == 3) {
+                column.setPreferredWidth(70);
+            } else if (i == 4) {
+                column.setPreferredWidth(70);
+            } else if (i == 5) {
+                column.setPreferredWidth(75);
+            } else if (i == 6) {
+                column.setPreferredWidth(110);
+            } else if (i == 7) {
+                column.setPreferredWidth(95);
+            } else if (i == 8) {
+                column.setPreferredWidth(85);
+            } else if (i == 9) {
+                column.setPreferredWidth(85);
+            } else if (i == 10) {
+                column.setPreferredWidth(85);
+            } else if (i == 11) {
+                column.setPreferredWidth(75);
+            }
+        }
+        tbRekap5.setDefaultRenderer(Object.class, new WarnaTable()); 
         
         kddokter.setDocument(new batasInput((byte)10).getKata(kddokter));
                 
@@ -377,14 +593,19 @@ public class DlgFeeVisitDokter extends javax.swing.JDialog {
         jLabel8 = new widget.Label();
         cmbRuangan = new widget.ComboBox();
         panelisi1 = new widget.panelisi();
+        panelisi2 = new widget.panelisi();
         BtnBatal = new widget.Button();
-        BtnCari = new widget.Button();
         jLabel9 = new widget.Label();
         cmbPrin = new widget.ComboBox();
         BtnPrint = new widget.Button();
-        BtnKeluar = new widget.Button();
         jLabel7 = new widget.Label();
         LCount = new widget.Label();
+        panelisi3 = new widget.panelisi();
+        jLabel10 = new widget.Label();
+        TCari = new widget.TextBox();
+        BtnCari = new widget.Button();
+        BtnAll = new widget.Button();
+        BtnKeluar = new widget.Button();
         TabRawat = new javax.swing.JTabbedPane();
         internalFrame2 = new widget.InternalFrame();
         scrollPane1 = new widget.ScrollPane();
@@ -394,10 +615,18 @@ public class DlgFeeVisitDokter extends javax.swing.JDialog {
         tbVisit1 = new widget.Table();
         internalFrame4 = new widget.InternalFrame();
         scrollPane3 = new widget.ScrollPane();
-        tbRekap = new widget.Table();
+        tbRekap0 = new widget.Table();
+        scrollPane5 = new widget.ScrollPane();
+        tbRekap2 = new widget.Table();
+        scrollPane6 = new widget.ScrollPane();
+        tbRekap3 = new widget.Table();
         internalFrame5 = new widget.InternalFrame();
         scrollPane4 = new widget.ScrollPane();
         tbRekap1 = new widget.Table();
+        scrollPane7 = new widget.ScrollPane();
+        tbRekap4 = new widget.Table();
+        scrollPane8 = new widget.ScrollPane();
+        tbRekap5 = new widget.Table();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -413,7 +642,7 @@ public class DlgFeeVisitDokter extends javax.swing.JDialog {
         internalFrame1.setLayout(new java.awt.BorderLayout(1, 1));
 
         panelisi4.setName("panelisi4"); // NOI18N
-        panelisi4.setPreferredSize(new java.awt.Dimension(100, 105));
+        panelisi4.setPreferredSize(new java.awt.Dimension(100, 76));
         panelisi4.setLayout(null);
 
         label11.setForeground(new java.awt.Color(0, 0, 0));
@@ -421,7 +650,7 @@ public class DlgFeeVisitDokter extends javax.swing.JDialog {
         label11.setName("label11"); // NOI18N
         label11.setPreferredSize(new java.awt.Dimension(85, 23));
         panelisi4.add(label11);
-        label11.setBounds(6, 11, 85, 23);
+        label11.setBounds(0, 11, 95, 23);
 
         Tgl1.setEditable(false);
         Tgl1.setDisplayFormat("dd-MM-yyyy");
@@ -538,11 +767,11 @@ public class DlgFeeVisitDokter extends javax.swing.JDialog {
         jLabel17.setBounds(340, 40, 70, 23);
 
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel8.setText("Ruangan Inap :");
+        jLabel8.setText("Ruangan Inap : ");
         jLabel8.setName("jLabel8"); // NOI18N
         jLabel8.setPreferredSize(new java.awt.Dimension(90, 30));
         panelisi4.add(jLabel8);
-        jLabel8.setBounds(320, 70, 90, 23);
+        jLabel8.setBounds(0, 40, 95, 23);
 
         cmbRuangan.setForeground(new java.awt.Color(0, 0, 0));
         cmbRuangan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SEMUA RUANG", "ZAAL", "RKPD", "PARU", "JANTUNG", "AS-SAMI", "AS-SAMI/UMUM", "ANAK", "BEDAH", "INTERNIST", "ICU/ICCU", "NICU", "OBGYN", "VIP", "SVIP", "BAYI-SEHAT", "AR-RAUDAH", "SYARAF", "MATA-THT-KK", "ISOLASI COVID19", "ISOLASI BAYI COVID19", "COVID19" }));
@@ -564,13 +793,17 @@ public class DlgFeeVisitDokter extends javax.swing.JDialog {
             }
         });
         panelisi4.add(cmbRuangan);
-        cmbRuangan.setBounds(416, 70, 150, 23);
+        cmbRuangan.setBounds(96, 40, 150, 23);
 
         internalFrame1.add(panelisi4, java.awt.BorderLayout.PAGE_START);
 
         panelisi1.setName("panelisi1"); // NOI18N
-        panelisi1.setPreferredSize(new java.awt.Dimension(100, 56));
-        panelisi1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 9));
+        panelisi1.setPreferredSize(new java.awt.Dimension(100, 107));
+        panelisi1.setLayout(new java.awt.BorderLayout());
+
+        panelisi2.setName("panelisi2"); // NOI18N
+        panelisi2.setPreferredSize(new java.awt.Dimension(100, 56));
+        panelisi2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 9));
 
         BtnBatal.setForeground(new java.awt.Color(0, 0, 0));
         BtnBatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Cancel-2-16x16.png"))); // NOI18N
@@ -589,53 +822,19 @@ public class DlgFeeVisitDokter extends javax.swing.JDialog {
                 BtnBatalKeyPressed(evt);
             }
         });
-        panelisi1.add(BtnBatal);
-
-        BtnCari.setForeground(new java.awt.Color(0, 0, 0));
-        BtnCari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept.png"))); // NOI18N
-        BtnCari.setMnemonic('2');
-        BtnCari.setText("Tampilkan Data");
-        BtnCari.setToolTipText("Alt+2");
-        BtnCari.setName("BtnCari"); // NOI18N
-        BtnCari.setPreferredSize(new java.awt.Dimension(130, 30));
-        BtnCari.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnCariActionPerformed(evt);
-            }
-        });
-        BtnCari.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                BtnCariKeyPressed(evt);
-            }
-        });
-        panelisi1.add(BtnCari);
+        panelisi2.add(BtnBatal);
 
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Yang mau diprint : ");
         jLabel9.setName("jLabel9"); // NOI18N
         jLabel9.setPreferredSize(new java.awt.Dimension(100, 23));
-        panelisi1.add(jLabel9);
+        panelisi2.add(jLabel9);
 
         cmbPrin.setForeground(new java.awt.Color(0, 0, 0));
-        cmbPrin.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Detail Visite Dokter Yang Menangani", "Detail Visite Dokter Umum/Yang Mewakili", "Rekap Visite Dokter Yang Menangani", "Rekap Visite Dokter Umum/Yang Mewakili", "Export File Excel Visite Dokter Umum/Yang Mewakili", "Export File Excel Visite Dokter Pasien COVID-19", "Export File Excel Konsul Dokter Pasien COVID-19" }));
+        cmbPrin.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Detail Visite Semua Hari Perawatan Dokter Yang Menangani", "Detail Visite Semua Hari Perawatan Dokter Umum/Yang Mewakili", "Rekap Visite Semua Hari Perawatan Dokter Yang Menangani", "Rekap Visite Semua Hari Perawatan Dokter Umum/Yang Mewakili", "Export File Excel Visite Dokter Umum/Yang Mewakili", "Export File Excel Visite Dokter Pasien COVID-19", "Export File Excel Konsul Dokter Pasien COVID-19", "Detail Visite Hari Normal Dokter Yang Menangani", "Detail Visite Hari Normal Dokter Umum/Yang Mewakili", "Rekap Visite Hari Normal Dokter Yang Menangani", "Rekap Visite Hari Normal Dokter Umum/Yang Mewakili", "Detail Visite Hari Libur Dokter Yang Menangani", "Detail Visite Hari Libur Dokter Umum/Yang Mewakili", "Rekap Visite Hari Libur Dokter Yang Menangani", "Rekap Visite Hari Libur Dokter Umum/Yang Mewakili" }));
         cmbPrin.setName("cmbPrin"); // NOI18N
-        cmbPrin.setPreferredSize(new java.awt.Dimension(290, 23));
-        cmbPrin.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cmbPrinMouseClicked(evt);
-            }
-        });
-        cmbPrin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbPrinActionPerformed(evt);
-            }
-        });
-        cmbPrin.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cmbPrinKeyPressed(evt);
-            }
-        });
-        panelisi1.add(cmbPrin);
+        cmbPrin.setPreferredSize(new java.awt.Dimension(350, 23));
+        panelisi2.add(cmbPrin);
 
         BtnPrint.setForeground(new java.awt.Color(0, 0, 0));
         BtnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/b_print.png"))); // NOI18N
@@ -654,7 +853,80 @@ public class DlgFeeVisitDokter extends javax.swing.JDialog {
                 BtnPrintKeyPressed(evt);
             }
         });
-        panelisi1.add(BtnPrint);
+        panelisi2.add(BtnPrint);
+
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setText("Record :");
+        jLabel7.setName("jLabel7"); // NOI18N
+        jLabel7.setPreferredSize(new java.awt.Dimension(65, 23));
+        panelisi2.add(jLabel7);
+
+        LCount.setForeground(new java.awt.Color(0, 0, 0));
+        LCount.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        LCount.setText("0");
+        LCount.setName("LCount"); // NOI18N
+        LCount.setPreferredSize(new java.awt.Dimension(100, 23));
+        panelisi2.add(LCount);
+
+        panelisi1.add(panelisi2, java.awt.BorderLayout.PAGE_START);
+
+        panelisi3.setName("panelisi3"); // NOI18N
+        panelisi3.setPreferredSize(new java.awt.Dimension(100, 56));
+        panelisi3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 9));
+
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setText("Key Word : ");
+        jLabel10.setName("jLabel10"); // NOI18N
+        jLabel10.setPreferredSize(new java.awt.Dimension(80, 23));
+        panelisi3.add(jLabel10);
+
+        TCari.setForeground(new java.awt.Color(0, 0, 0));
+        TCari.setName("TCari"); // NOI18N
+        TCari.setPreferredSize(new java.awt.Dimension(250, 23));
+        TCari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TCariKeyPressed(evt);
+            }
+        });
+        panelisi3.add(TCari);
+
+        BtnCari.setForeground(new java.awt.Color(0, 0, 0));
+        BtnCari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept.png"))); // NOI18N
+        BtnCari.setMnemonic('2');
+        BtnCari.setText("Tampilkan Data");
+        BtnCari.setToolTipText("Alt+2");
+        BtnCari.setName("BtnCari"); // NOI18N
+        BtnCari.setPreferredSize(new java.awt.Dimension(130, 30));
+        BtnCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCariActionPerformed(evt);
+            }
+        });
+        BtnCari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                BtnCariKeyPressed(evt);
+            }
+        });
+        panelisi3.add(BtnCari);
+
+        BtnAll.setForeground(new java.awt.Color(0, 0, 0));
+        BtnAll.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Search-16x16.png"))); // NOI18N
+        BtnAll.setMnemonic('M');
+        BtnAll.setText("Semua Data");
+        BtnAll.setToolTipText("Alt+M");
+        BtnAll.setName("BtnAll"); // NOI18N
+        BtnAll.setPreferredSize(new java.awt.Dimension(120, 30));
+        BtnAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAllActionPerformed(evt);
+            }
+        });
+        BtnAll.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                BtnAllKeyPressed(evt);
+            }
+        });
+        panelisi3.add(BtnAll);
 
         BtnKeluar.setForeground(new java.awt.Color(0, 0, 0));
         BtnKeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/exit.png"))); // NOI18N
@@ -673,20 +945,9 @@ public class DlgFeeVisitDokter extends javax.swing.JDialog {
                 BtnKeluarKeyPressed(evt);
             }
         });
-        panelisi1.add(BtnKeluar);
+        panelisi3.add(BtnKeluar);
 
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel7.setText("Record :");
-        jLabel7.setName("jLabel7"); // NOI18N
-        jLabel7.setPreferredSize(new java.awt.Dimension(65, 23));
-        panelisi1.add(jLabel7);
-
-        LCount.setForeground(new java.awt.Color(0, 0, 0));
-        LCount.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        LCount.setText("0");
-        LCount.setName("LCount"); // NOI18N
-        LCount.setPreferredSize(new java.awt.Dimension(100, 23));
-        panelisi1.add(LCount);
+        panelisi1.add(panelisi3, java.awt.BorderLayout.CENTER);
 
         internalFrame1.add(panelisi1, java.awt.BorderLayout.PAGE_END);
 
@@ -762,10 +1023,12 @@ public class DlgFeeVisitDokter extends javax.swing.JDialog {
         internalFrame4.setName("internalFrame4"); // NOI18N
         internalFrame4.setLayout(new java.awt.BorderLayout(1, 1));
 
+        scrollPane3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "[ Rekap Visite Semua Hari Perawatan Dokter Yang Menangani ]  ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 0))); // NOI18N
         scrollPane3.setName("scrollPane3"); // NOI18N
         scrollPane3.setOpaque(true);
+        scrollPane3.setPreferredSize(new java.awt.Dimension(460, 210));
 
-        tbRekap.setModel(new javax.swing.table.DefaultTableModel(
+        tbRekap0.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -776,11 +1039,55 @@ public class DlgFeeVisitDokter extends javax.swing.JDialog {
 
             }
         ));
-        tbRekap.setToolTipText("Silahkan klik untuk memilih data yang mau diedit ataupun dihapus");
-        tbRekap.setName("tbRekap"); // NOI18N
-        scrollPane3.setViewportView(tbRekap);
+        tbRekap0.setToolTipText("Silahkan klik untuk memilih data yang mau diedit ataupun dihapus");
+        tbRekap0.setName("tbRekap0"); // NOI18N
+        scrollPane3.setViewportView(tbRekap0);
 
-        internalFrame4.add(scrollPane3, java.awt.BorderLayout.CENTER);
+        internalFrame4.add(scrollPane3, java.awt.BorderLayout.PAGE_START);
+
+        scrollPane5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "[ Rekap Visite Hari NORMAL Dokter Yang Menangani ]  ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 0))); // NOI18N
+        scrollPane5.setName("scrollPane5"); // NOI18N
+        scrollPane5.setOpaque(true);
+        scrollPane5.setPreferredSize(new java.awt.Dimension(460, 160));
+
+        tbRekap2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tbRekap2.setToolTipText("Silahkan klik untuk memilih data yang mau diedit ataupun dihapus");
+        tbRekap2.setName("tbRekap2"); // NOI18N
+        scrollPane5.setViewportView(tbRekap2);
+
+        internalFrame4.add(scrollPane5, java.awt.BorderLayout.CENTER);
+
+        scrollPane6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "[ Rekap Visite Hari LIBUR Dokter Yang Menangani ]  ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 0))); // NOI18N
+        scrollPane6.setName("scrollPane6"); // NOI18N
+        scrollPane6.setOpaque(true);
+        scrollPane6.setPreferredSize(new java.awt.Dimension(460, 200));
+
+        tbRekap3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tbRekap3.setToolTipText("Silahkan klik untuk memilih data yang mau diedit ataupun dihapus");
+        tbRekap3.setName("tbRekap3"); // NOI18N
+        scrollPane6.setViewportView(tbRekap3);
+
+        internalFrame4.add(scrollPane6, java.awt.BorderLayout.PAGE_END);
 
         TabRawat.addTab("REKAP Visite Dokter Yg. Menangani", internalFrame4);
 
@@ -789,8 +1096,10 @@ public class DlgFeeVisitDokter extends javax.swing.JDialog {
         internalFrame5.setName("internalFrame5"); // NOI18N
         internalFrame5.setLayout(new java.awt.BorderLayout(1, 1));
 
+        scrollPane4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "[ Rekap Visite Semua Hari Perawatan Dokter Umum/Yg. Mewakili ]", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 0))); // NOI18N
         scrollPane4.setName("scrollPane4"); // NOI18N
         scrollPane4.setOpaque(true);
+        scrollPane4.setPreferredSize(new java.awt.Dimension(460, 210));
 
         tbRekap1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -807,7 +1116,51 @@ public class DlgFeeVisitDokter extends javax.swing.JDialog {
         tbRekap1.setName("tbRekap1"); // NOI18N
         scrollPane4.setViewportView(tbRekap1);
 
-        internalFrame5.add(scrollPane4, java.awt.BorderLayout.CENTER);
+        internalFrame5.add(scrollPane4, java.awt.BorderLayout.PAGE_START);
+
+        scrollPane7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "[ Rekap Visite Hari NORMAL Dokter Umum/Yg. Mewakili ]", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 0))); // NOI18N
+        scrollPane7.setName("scrollPane7"); // NOI18N
+        scrollPane7.setOpaque(true);
+        scrollPane7.setPreferredSize(new java.awt.Dimension(460, 160));
+
+        tbRekap4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tbRekap4.setToolTipText("Silahkan klik untuk memilih data yang mau diedit ataupun dihapus");
+        tbRekap4.setName("tbRekap4"); // NOI18N
+        scrollPane7.setViewportView(tbRekap4);
+
+        internalFrame5.add(scrollPane7, java.awt.BorderLayout.CENTER);
+
+        scrollPane8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "[ Rekap Visite Hari LIBUR Dokter Umum/Yg. Mewakili ]", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 0, 0))); // NOI18N
+        scrollPane8.setName("scrollPane8"); // NOI18N
+        scrollPane8.setOpaque(true);
+        scrollPane8.setPreferredSize(new java.awt.Dimension(460, 200));
+
+        tbRekap5.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tbRekap5.setToolTipText("Silahkan klik untuk memilih data yang mau diedit ataupun dihapus");
+        tbRekap5.setName("tbRekap5"); // NOI18N
+        scrollPane8.setViewportView(tbRekap5);
+
+        internalFrame5.add(scrollPane8, java.awt.BorderLayout.PAGE_END);
 
         TabRawat.addTab("REKAP Visite Dokter Umum/Yg. Mewakili", internalFrame5);
 
@@ -828,52 +1181,67 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
             JOptionPane.showMessageDialog(null, "Pilih dulu salah satu jenis laporan yang akan diprint...!!");
             cmbPrin.requestFocus();
         } else {
-            if (cmbPrin.getSelectedItem().toString().equals("Detail Visite Dokter Yang Menangani")) {
+            if (cmbPrin.getSelectedIndex() == 1) {
                 if (tabMode.getRowCount() == 0) {
                     JOptionPane.showMessageDialog(null, "Maaf, data sudah habis. Tidak ada data yang bisa anda print...!!!!");
                     BtnBatal.requestFocus();
                 } else if (tabMode.getRowCount() != 0) {
                     prinDetailVisitMenangani();
                 }
-                
-            } else if (cmbPrin.getSelectedItem().toString().equals("Detail Visite Dokter Umum/Yang Mewakili")) {
+            } else if (cmbPrin.getSelectedIndex() == 2) {
                 if (tabMode1.getRowCount() == 0) {
                     JOptionPane.showMessageDialog(null, "Maaf, data sudah habis. Tidak ada data yang bisa anda print...!!!!");
                     BtnBatal.requestFocus();
                 } else if (tabMode1.getRowCount() != 0) {
                     prinDetailVisitMewakili();
                 }
-            
-            } else if (cmbPrin.getSelectedItem().toString().equals("Rekap Visite Dokter Yang Menangani")) {
-                if (tabMode2.getRowCount() == 0) {
+            } else if (cmbPrin.getSelectedIndex() == 3) {
+                prinRekapDokterMenangani();
+            } else if (cmbPrin.getSelectedIndex() == 4) {
+                prinRekapDokterMewakili();
+            } else if (cmbPrin.getSelectedIndex() == 5) {
+                exportFileExcelRekapDokterMewakili();
+            } else if (cmbPrin.getSelectedIndex() == 6) {
+                exportFileExcelVisitCovid();
+            } else if (cmbPrin.getSelectedIndex() == 7) {
+                exportFileExcelKonsulCovid();            
+            } else if (cmbPrin.getSelectedIndex() == 8) {
+                if (tabMode.getRowCount() == 0) {
                     JOptionPane.showMessageDialog(null, "Maaf, data sudah habis. Tidak ada data yang bisa anda print...!!!!");
                     BtnBatal.requestFocus();
-                } else if (tabMode2.getRowCount() != 0) {
-                    prinRekapDokterMenangani();
-                }
-                
-            } else if (cmbPrin.getSelectedItem().toString().equals("Rekap Visite Dokter Umum/Yang Mewakili")) {
-                if (tabMode3.getRowCount() == 0) {
+                } else if (tabMode.getRowCount() != 0) {
+                    prinDetailVisitMenangani();
+                }            
+            } else if (cmbPrin.getSelectedIndex() == 9) {
+                if (tabMode1.getRowCount() == 0) {
                     JOptionPane.showMessageDialog(null, "Maaf, data sudah habis. Tidak ada data yang bisa anda print...!!!!");
                     BtnBatal.requestFocus();
-                } else if (tabMode3.getRowCount() != 0) {
-                    prinRekapDokterMewakili();
+                } else if (tabMode1.getRowCount() != 0) {
+                    prinDetailVisitMewakili();
                 }
-                
-            } else if (cmbPrin.getSelectedItem().toString().equals("Export File Excel Visite Dokter Umum/Yang Mewakili")) {
-                if (tabMode3.getRowCount() == 0) {
-                    JOptionPane.showMessageDialog(null, "Maaf, data sudah habis. Tidak ada data yang bisa diexport menjadi file excel...!!!!");
+            } else if (cmbPrin.getSelectedIndex() == 10) {                
+                prinRekapDokterMenangani();                
+            } else if (cmbPrin.getSelectedIndex() == 11) {
+                prinRekapDokterMewakili();
+            } else if (cmbPrin.getSelectedIndex() == 12) {
+                if (tabMode.getRowCount() == 0) {
+                    JOptionPane.showMessageDialog(null, "Maaf, data sudah habis. Tidak ada data yang bisa anda print...!!!!");
                     BtnBatal.requestFocus();
-                } else if (tabMode3.getRowCount() != 0) {
-                    exportFileExcelRekapDokterMewakili();
+                } else if (tabMode.getRowCount() != 0) {
+                    prinDetailVisitMenangani();
                 }
-                
-            }  else if (cmbPrin.getSelectedItem().toString().equals("Export File Excel Visite Dokter Pasien COVID-19")) {
-                exportFileExcelVisitCovid();                
-            
-            } else if (cmbPrin.getSelectedItem().toString().equals("Export File Excel Konsul Dokter Pasien COVID-19")) {
-                exportFileExcelKonsulCovid();
-            }           
+            } else if (cmbPrin.getSelectedIndex() == 13) {
+                if (tabMode1.getRowCount() == 0) {
+                    JOptionPane.showMessageDialog(null, "Maaf, data sudah habis. Tidak ada data yang bisa anda print...!!!!");
+                    BtnBatal.requestFocus();
+                } else if (tabMode1.getRowCount() != 0) {
+                    prinDetailVisitMewakili();
+                }
+            } else if (cmbPrin.getSelectedIndex() == 14) {
+                prinRekapDokterMenangani();
+            } else if (cmbPrin.getSelectedIndex() == 15) {
+                prinRekapDokterMewakili();
+            } 
         }
 
 //        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -1016,11 +1384,6 @@ private void BtnSeek2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
 }//GEN-LAST:event_BtnSeek2KeyPressed
 
 private void BtnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCariActionPerformed
-//        if(kddokter.getText().equals("")){
-//            JOptionPane.showMessageDialog(rootPane,"Silahkan pilih dokter terlebih dahulu..!!");
-//        }else{
-//            prosesCari();
-//        }
     cmbPrin.setSelectedIndex(0);
     
     if (TabRawat.getSelectedIndex() == 0) {
@@ -1029,17 +1392,21 @@ private void BtnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
         prosesCari1();
     } else if (TabRawat.getSelectedIndex() == 2) {
         rekapVisit();
+        rekapVisitNormal1();
+        rekapVisitLibur1();
     } else if (TabRawat.getSelectedIndex() == 3) {
         rekapVisit1();
+        rekapVisitNormal2();
+        rekapVisitLibur2();
     }
 }//GEN-LAST:event_BtnCariActionPerformed
 
 private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnCariKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_SPACE){
-            BtnCariActionPerformed(null);
-        }else{
-            Valid.pindah(evt, kddokter, BtnPrint);
-        }
+    if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
+        BtnCariActionPerformed(null);
+    } else {
+        Valid.pindah(evt, kddokter, BtnPrint);
+    }
 }//GEN-LAST:event_BtnCariKeyPressed
 
     private void Tgl1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Tgl1KeyPressed
@@ -1124,18 +1491,6 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         }
     }//GEN-LAST:event_BtnBatalKeyPressed
 
-    private void cmbPrinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbPrinMouseClicked
-
-    }//GEN-LAST:event_cmbPrinMouseClicked
-
-    private void cmbPrinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPrinActionPerformed
-
-    }//GEN-LAST:event_cmbPrinActionPerformed
-
-    private void cmbPrinKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmbPrinKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbPrinKeyPressed
-
     private void TabRawatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabRawatMouseClicked
         cmbPrin.setSelectedIndex(0);
         if (TabRawat.getSelectedIndex() == 0) {
@@ -1144,10 +1499,40 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
             prosesCari1();
         } else if (TabRawat.getSelectedIndex() == 2) {
             rekapVisit();
+            rekapVisitNormal1();
+            rekapVisitLibur1();
         } else if (TabRawat.getSelectedIndex() == 3) {
             rekapVisit1();
+            rekapVisitNormal2();
+            rekapVisitLibur2();
         }
     }//GEN-LAST:event_TabRawatMouseClicked
+
+    private void BtnAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAllActionPerformed
+        TCari.setText("");
+        empttext();
+        BtnCariActionPerformed(null);
+    }//GEN-LAST:event_BtnAllActionPerformed
+
+    private void BtnAllKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnAllKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {            
+            TCari.setText("");
+            empttext();
+            BtnCariActionPerformed(null);
+        } else {
+            Valid.pindah(evt, TCari, BtnKeluar);
+        }
+    }//GEN-LAST:event_BtnAllKeyPressed
+
+    private void TCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TCariKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            BtnCariActionPerformed(null);
+        } else if (evt.getKeyCode() == KeyEvent.VK_PAGE_DOWN) {
+            BtnCari.requestFocus();
+        } else if (evt.getKeyCode() == KeyEvent.VK_PAGE_UP) {
+            BtnKeluar.requestFocus();
+        }
+    }//GEN-LAST:event_TCariKeyPressed
 
     /**
     * @param args the command line arguments
@@ -1166,12 +1551,14 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private widget.Button BtnAll;
     private widget.Button BtnBatal;
     private widget.Button BtnCari;
     private widget.Button BtnKeluar;
     private widget.Button BtnPrint;
     private widget.Button BtnSeek2;
     private widget.Label LCount;
+    private widget.TextBox TCari;
     private javax.swing.JTabbedPane TabRawat;
     private widget.Tanggal Tgl1;
     private widget.Tanggal Tgl2;
@@ -1183,6 +1570,7 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private widget.InternalFrame internalFrame3;
     private widget.InternalFrame internalFrame4;
     private widget.InternalFrame internalFrame5;
+    private widget.Label jLabel10;
     private widget.Label jLabel17;
     private widget.Label jLabel7;
     private widget.Label jLabel8;
@@ -1195,13 +1583,23 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private widget.TextBox nmdokter;
     private widget.TextBox nmpenjab;
     private widget.panelisi panelisi1;
+    private widget.panelisi panelisi2;
+    private widget.panelisi panelisi3;
     private widget.panelisi panelisi4;
     private widget.ScrollPane scrollPane1;
     private widget.ScrollPane scrollPane2;
     private widget.ScrollPane scrollPane3;
     private widget.ScrollPane scrollPane4;
-    private widget.Table tbRekap;
+    private widget.ScrollPane scrollPane5;
+    private widget.ScrollPane scrollPane6;
+    private widget.ScrollPane scrollPane7;
+    private widget.ScrollPane scrollPane8;
+    private widget.Table tbRekap0;
     private widget.Table tbRekap1;
+    private widget.Table tbRekap2;
+    private widget.Table tbRekap3;
+    private widget.Table tbRekap4;
+    private widget.Table tbRekap5;
     private widget.Table tbVisit;
     private widget.Table tbVisit1;
     // End of variables declaration//GEN-END:variables
@@ -1209,9 +1607,9 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private void prosesCari(){
         Valid.tabelKosong(tabMode);    
         try {
-            psvisit = koneksi.prepareStatement("SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, d.nm_dokter, "
+            psvisit = koneksi.prepareStatement("SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
                     + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
-                    + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
+                    + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
                     + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
                     + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
                     + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
@@ -1220,8 +1618,14 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                     + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
                     + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
                     + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and "
-                    + "b.nm_bangsal like ? and pj.png_jawab like ? and rd.kd_dokter like ? "
+                    + "and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and "
+                    + "b.nm_bangsal like ? and pj.png_jawab like ? and rd.kd_dokter like ? and rp.no_rkm_medis like ? or "                            
+                    + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                    + "and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and "
+                    + "b.nm_bangsal like ? and pj.png_jawab like ? and rd.kd_dokter like ? and p.nm_pasien like ? or "                                    
+                    + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                    + "and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and "
+                    + "b.nm_bangsal like ? and pj.png_jawab like ? and rd.kd_dokter like ? and ji.nm_perawatan like ? "
                     + "ORDER BY d.nm_dokter, rd.tgl_perawatan");
 
             try {       
@@ -1229,16 +1633,35 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                     psvisit.setString(1, "%%");
                     psvisit.setString(2, "%" + nmpenjab.getText().trim() + "%");
                     psvisit.setString(3, "%" + kddokter.getText().trim() + "%");
+                    psvisit.setString(4, "%" + TCari.getText().trim() + "%");
+                    psvisit.setString(5, "%%");
+                    psvisit.setString(6, "%" + nmpenjab.getText().trim() + "%");
+                    psvisit.setString(7, "%" + kddokter.getText().trim() + "%");
+                    psvisit.setString(8, "%" + TCari.getText().trim() + "%");
+                    psvisit.setString(9, "%%");
+                    psvisit.setString(10, "%" + nmpenjab.getText().trim() + "%");
+                    psvisit.setString(11, "%" + kddokter.getText().trim() + "%");
+                    psvisit.setString(12, "%" + TCari.getText().trim() + "%");
                 } else {
                     psvisit.setString(1, "%" + ruangDipilih + "%");
                     psvisit.setString(2, "%" + nmpenjab.getText().trim() + "%");
                     psvisit.setString(3, "%" + kddokter.getText().trim() + "%");
+                    psvisit.setString(4, "%" + TCari.getText().trim() + "%");
+                    psvisit.setString(5, "%" + ruangDipilih + "%");
+                    psvisit.setString(6, "%" + nmpenjab.getText().trim() + "%");
+                    psvisit.setString(7, "%" + kddokter.getText().trim() + "%");
+                    psvisit.setString(8, "%" + TCari.getText().trim() + "%");
+                    psvisit.setString(9, "%" + ruangDipilih + "%");
+                    psvisit.setString(10, "%" + nmpenjab.getText().trim() + "%");
+                    psvisit.setString(11, "%" + kddokter.getText().trim() + "%");
+                    psvisit.setString(12, "%" + TCari.getText().trim() + "%");
                 }
                 
                 rsvisit = psvisit.executeQuery();
                 while (rsvisit.next()) {
                     tabMode.addRow(new Object[]{
                         rsvisit.getString("tgl_visit"),
+                        rsvisit.getString("nm_perawatan"),
                         rsvisit.getString("nm_dokter"),
                         rsvisit.getString("no_rm"),
                         rsvisit.getString("nm_pasien"),
@@ -1326,9 +1749,9 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private void prosesCari1(){
         Valid.tabelKosong(tabMode1);    
         try {
-            psvisit1 = koneksi.prepareStatement("SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, d.nm_dokter, "
+            psvisit1 = koneksi.prepareStatement("SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
                     + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
-                    + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
+                    + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
                     + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
                     + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
                     + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
@@ -1337,8 +1760,14 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                     + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
                     + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
                     + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and "
-                    + "b.nm_bangsal like ? and pj.png_jawab like ? and rd.kd_dokter_mewakili like ? "
+                    + "and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and "
+                    + "b.nm_bangsal like ? and pj.png_jawab like ? and rd.kd_dokter_mewakili like ? and rp.no_rkm_medis like ? or "                            
+                    + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                    + "and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and "
+                    + "b.nm_bangsal like ? and pj.png_jawab like ? and rd.kd_dokter_mewakili like ? and p.nm_pasien like ? or "                                    
+                    + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                    + "and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and "
+                    + "b.nm_bangsal like ? and pj.png_jawab like ? and rd.kd_dokter_mewakili like ? and ji.nm_perawatan like ? "
                     + "ORDER BY d.nm_dokter, rd.tgl_perawatan");
 
             try {       
@@ -1346,16 +1775,35 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                     psvisit1.setString(1, "%%");
                     psvisit1.setString(2, "%" + nmpenjab.getText().trim() + "%");
                     psvisit1.setString(3, "%" + kddokter.getText().trim() + "%");
+                    psvisit1.setString(4, "%" + TCari.getText().trim() + "%");                    
+                    psvisit1.setString(5, "%%");
+                    psvisit1.setString(6, "%" + nmpenjab.getText().trim() + "%");
+                    psvisit1.setString(7, "%" + kddokter.getText().trim() + "%");
+                    psvisit1.setString(8, "%" + TCari.getText().trim() + "%");                    
+                    psvisit1.setString(9, "%%");
+                    psvisit1.setString(10, "%" + nmpenjab.getText().trim() + "%");
+                    psvisit1.setString(11, "%" + kddokter.getText().trim() + "%");
+                    psvisit1.setString(12, "%" + TCari.getText().trim() + "%");
                 } else {
                     psvisit1.setString(1, "%" + ruangDipilih + "%");
                     psvisit1.setString(2, "%" + nmpenjab.getText().trim() + "%");
                     psvisit1.setString(3, "%" + kddokter.getText().trim() + "%");
+                    psvisit1.setString(4, "%" + TCari.getText().trim() + "%");                    
+                    psvisit1.setString(5, "%" + ruangDipilih + "%");
+                    psvisit1.setString(6, "%" + nmpenjab.getText().trim() + "%");
+                    psvisit1.setString(7, "%" + kddokter.getText().trim() + "%");
+                    psvisit1.setString(8, "%" + TCari.getText().trim() + "%");                    
+                    psvisit1.setString(9, "%" + ruangDipilih + "%");
+                    psvisit1.setString(10, "%" + nmpenjab.getText().trim() + "%");
+                    psvisit1.setString(11, "%" + kddokter.getText().trim() + "%");
+                    psvisit1.setString(12, "%" + TCari.getText().trim() + "%");
                 }
                 
                 rsvisit1 = psvisit1.executeQuery();
                 while (rsvisit1.next()) {
                     tabMode1.addRow(new Object[]{
                         rsvisit1.getString("tgl_visit"),
+                        rsvisit1.getString("nm_perawatan"),
                         rsvisit1.getString("nm_dokter"),
                         rsvisit1.getString("no_rm"),
                         rsvisit1.getString("nm_pasien"),
@@ -1449,7 +1897,153 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         } catch (SQLException e) {
             System.out.println("Notifikasi : " + e);
         }
-        LCount.setText(""+tabMode2.getRowCount());
+        LCount.setText("-");
+    }
+    
+    private void rekapVisitNormal1(){
+        Valid.tabelKosong(tabMode4);    
+        try {
+            psrekap2 = koneksi.prepareStatement("select a.nm_dokter, "
+                    + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                    + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                    + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                    + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                    + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                    + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                    + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total FROM rawat_inap_dr rd "
+                    + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                    + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
+                    + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                    + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                    + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                    + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                    + "and ji.nm_perawatan not like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') "
+                    + "and b.nm_bangsal like ? and pj.png_jawab like ? GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter");
+
+            try {       
+                if (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG")) {
+                    psrekap2.setString(1, "%%");
+                    psrekap2.setString(2, "%" + nmpenjab.getText().trim() + "%");
+                } else {
+                    psrekap2.setString(1, "%" + ruangDipilih + "%");
+                    psrekap2.setString(2, "%" + nmpenjab.getText().trim() + "%");
+                }
+                
+                rsrekap2 = psrekap2.executeQuery();
+                x = 1;
+                while (rsrekap2.next()) {
+                    tabMode4.addRow(new Object[]{
+                        x + ".",
+                        rsrekap2.getString("nm_dokter"),
+                        rsrekap2.getString("Kelas_1"),
+                        rsrekap2.getString("Kelas_2"),
+                        rsrekap2.getString("Kelas_3"),
+                        rsrekap2.getString("Kelas_vip"),
+                        rsrekap2.getString("Kelas_vvip"),
+                        rsrekap2.getString("rwt_khusus"),
+                        rsrekap2.getString("intensif"),
+                        rsrekap2.getString("high_care"),
+                        rsrekap2.getString("isolasi"),
+                        rsrekap2.getString("total_visit")
+                    });
+                    x++;
+                }
+                this.setCursor(Cursor.getDefaultCursor());
+            } catch (Exception e) {
+                System.out.println("simrskhanza.DlgFeeVisitDokter.rekapVisitNormal1() : " + e);
+            } finally {
+                if (rsrekap2 != null) {
+                    rsrekap2.close();
+                }
+                if (psrekap2 != null) {
+                    psrekap2.close();
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Notifikasi : " + e);
+        }
+        LCount.setText("-");
+    }
+    
+    private void rekapVisitLibur1(){
+        Valid.tabelKosong(tabMode5);    
+        try {
+            psrekap3 = koneksi.prepareStatement("select a.nm_dokter, "
+                    + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                    + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                    + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                    + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                    + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                    + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                    + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total FROM rawat_inap_dr rd "
+                    + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                    + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
+                    + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                    + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                    + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                    + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                    + "and ji.nm_perawatan like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') "
+                    + "and b.nm_bangsal like ? and pj.png_jawab like ? GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter");
+
+            try {       
+                if (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG")) {
+                    psrekap3.setString(1, "%%");
+                    psrekap3.setString(2, "%" + nmpenjab.getText().trim() + "%");
+                } else {
+                    psrekap3.setString(1, "%" + ruangDipilih + "%");
+                    psrekap3.setString(2, "%" + nmpenjab.getText().trim() + "%");
+                }
+                
+                rsrekap3 = psrekap3.executeQuery();
+                x = 1;
+                while (rsrekap3.next()) {
+                    tabMode5.addRow(new Object[]{
+                        x + ".",
+                        rsrekap3.getString("nm_dokter"),
+                        rsrekap3.getString("Kelas_1"),
+                        rsrekap3.getString("Kelas_2"),
+                        rsrekap3.getString("Kelas_3"),
+                        rsrekap3.getString("Kelas_vip"),
+                        rsrekap3.getString("Kelas_vvip"),
+                        rsrekap3.getString("rwt_khusus"),
+                        rsrekap3.getString("intensif"),
+                        rsrekap3.getString("high_care"),
+                        rsrekap3.getString("isolasi"),
+                        rsrekap3.getString("total_visit")
+                    });
+                    x++;
+                }
+                this.setCursor(Cursor.getDefaultCursor());
+            } catch (Exception e) {
+                System.out.println("simrskhanza.DlgFeeVisitDokter.rekapVisitLibur1() : " + e);
+            } finally {
+                if (rsrekap3 != null) {
+                    rsrekap3.close();
+                }
+                if (psrekap3 != null) {
+                    psrekap3.close();
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Notifikasi : " + e);
+        }
+        LCount.setText("-");
     }
     
     private void rekapVisit1(){
@@ -1521,7 +2115,153 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         } catch (SQLException e) {
             System.out.println("Notifikasi : " + e);
         }
-        LCount.setText(""+tabMode3.getRowCount());
+        LCount.setText("-");
+    }
+    
+    private void rekapVisitNormal2(){
+        Valid.tabelKosong(tabMode6);    
+        try {
+            psrekap4 = koneksi.prepareStatement("select a.nm_dokter, "
+                    + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                    + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                    + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                    + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                    + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                    + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                    + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total FROM rawat_inap_dr rd "
+                    + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                    + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
+                    + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                    + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                    + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                    + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                    + "and ji.nm_perawatan not like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') "
+                    + "and b.nm_bangsal like ? and pj.png_jawab like ? GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter");
+
+            try {       
+                if (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG")) {
+                    psrekap4.setString(1, "%%");
+                    psrekap4.setString(2, "%" + nmpenjab.getText().trim() + "%");
+                } else {
+                    psrekap4.setString(1, "%" + ruangDipilih + "%");
+                    psrekap4.setString(2, "%" + nmpenjab.getText().trim() + "%");
+                }
+                
+                rsrekap4 = psrekap4.executeQuery();
+                x = 1;
+                while (rsrekap4.next()) {
+                    tabMode6.addRow(new Object[]{
+                        x + ".",
+                        rsrekap4.getString("nm_dokter"),
+                        rsrekap4.getString("Kelas_1"),
+                        rsrekap4.getString("Kelas_2"),
+                        rsrekap4.getString("Kelas_3"),
+                        rsrekap4.getString("Kelas_vip"),
+                        rsrekap4.getString("Kelas_vvip"),
+                        rsrekap4.getString("rwt_khusus"),
+                        rsrekap4.getString("intensif"),
+                        rsrekap4.getString("high_care"),
+                        rsrekap4.getString("isolasi"),
+                        rsrekap4.getString("total_visit")
+                    });
+                    x++;
+                }
+                this.setCursor(Cursor.getDefaultCursor());
+            } catch (Exception e) {
+                System.out.println("simrskhanza.DlgFeeVisitDokter.rekapVisitNormal2() : " + e);
+            } finally {
+                if (rsrekap4 != null) {
+                    rsrekap4.close();
+                }
+                if (psrekap4 != null) {
+                    psrekap4.close();
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Notifikasi : " + e);
+        }
+        LCount.setText("-");
+    }
+    
+    private void rekapVisitLibur2(){
+        Valid.tabelKosong(tabMode7);    
+        try {
+            psrekap5 = koneksi.prepareStatement("select a.nm_dokter, "
+                    + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                    + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                    + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                    + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                    + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                    + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                    + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total FROM rawat_inap_dr rd "
+                    + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                    + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
+                    + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                    + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                    + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                    + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                    + "and ji.nm_perawatan like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') "
+                    + "and b.nm_bangsal like ? and pj.png_jawab like ? GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter");
+
+            try {       
+                if (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG")) {
+                    psrekap5.setString(1, "%%");
+                    psrekap5.setString(2, "%" + nmpenjab.getText().trim() + "%");
+                } else {
+                    psrekap5.setString(1, "%" + ruangDipilih + "%");
+                    psrekap5.setString(2, "%" + nmpenjab.getText().trim() + "%");
+                }
+                
+                rsrekap5 = psrekap5.executeQuery();
+                x = 1;
+                while (rsrekap5.next()) {
+                    tabMode7.addRow(new Object[]{
+                        x + ".",
+                        rsrekap5.getString("nm_dokter"),
+                        rsrekap5.getString("Kelas_1"),
+                        rsrekap5.getString("Kelas_2"),
+                        rsrekap5.getString("Kelas_3"),
+                        rsrekap5.getString("Kelas_vip"),
+                        rsrekap5.getString("Kelas_vvip"),
+                        rsrekap5.getString("rwt_khusus"),
+                        rsrekap5.getString("intensif"),
+                        rsrekap5.getString("high_care"),
+                        rsrekap5.getString("isolasi"),
+                        rsrekap5.getString("total_visit")
+                    });
+                    x++;
+                }
+                this.setCursor(Cursor.getDefaultCursor());
+            } catch (Exception e) {
+                System.out.println("simrskhanza.DlgFeeVisitDokter.rekapVisitLibur2() : " + e);
+            } finally {
+                if (rsrekap5 != null) {
+                    rsrekap5.close();
+                }
+                if (psrekap5 != null) {
+                    psrekap5.close();
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Notifikasi : " + e);
+        }
+        LCount.setText("-");
     }
     
     public void empttext() {
@@ -1545,41 +2285,118 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         param.put("emailrs", var.getemailrs());
         param.put("logo", Sequel.cariGambar("select logo from setting"));
         param.put("periode", "Periode Tgl. " + Tgl1.getSelectedItem() + " S.D " + Tgl2.getSelectedItem()+" Untuk Dokter Yang Menangani");
-
-        if (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG")) {
-            param.put("ruangan", "SEMUA RUANG PERAWATAN");
-            Valid.MyReport("rptDetailVisitInap.jrxml", "report", "::[ Laporan Rincian Detail Visite Dokter Rawat Inap ]::",
-                    "SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, d.nm_dokter, "
-                    + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
-                    + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
-                    + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
-                    + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                    + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                    + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                    + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                    + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                    + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
-                    + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and "
-                    + "pj.png_jawab like '%" + nmpenjab.getText() + "%' and rd.kd_dokter like '%" + kddokter.getText() + "%' "
-                    + "ORDER BY d.nm_dokter, rd.tgl_perawatan", param);
-        } else {
-            param.put("ruangan", "RUANG PERAWATAN " + cmbRuangan.getSelectedItem());
-            Valid.MyReport("rptDetailVisitInap.jrxml", "report", "::[ Laporan Rincian Detail Visite Dokter Rawat Inap ]::",
-                    "SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, d.nm_dokter, "
-                    + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
-                    + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
-                    + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
-                    + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                    + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                    + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                    + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                    + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                    + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
-                    + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and "
-                    + "b.nm_bangsal like '%" + ruangDipilih + "%' and pj.png_jawab like '%" + nmpenjab.getText() + "%' and rd.kd_dokter like '%" + kddokter.getText() + "%' "
-                    + "ORDER BY d.nm_dokter, rd.tgl_perawatan", param);
+       
+        if (cmbPrin.getSelectedIndex() == 1) {
+            param.put("judul", "Detail Visite Semua Hari Perawatan Dokter Yang Menangani");
+            if (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG")) {
+                param.put("ruangan", "SEMUA RUANG PERAWATAN");
+                Valid.MyReport("rptDetailVisitInap.jrxml", "report", "::[ Laporan Rincian Detail Visite Semua Hari Perawatan Dokter Rawat Inap ]::",
+                        "SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
+                        + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and "
+                        + "pj.png_jawab like '%" + nmpenjab.getText() + "%' and rd.kd_dokter like '%" + kddokter.getText() + "%' "
+                        + "ORDER BY d.nm_dokter, rd.tgl_perawatan", param);
+            } else {
+                param.put("ruangan", "RUANG PERAWATAN " + cmbRuangan.getSelectedItem());
+                Valid.MyReport("rptDetailVisitInap.jrxml", "report", "::[ Laporan Rincian Detail Visite Semua Hari Perawatan Dokter Rawat Inap ]::",
+                        "SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
+                        + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and "
+                        + "b.nm_bangsal like '%" + ruangDipilih + "%' and pj.png_jawab like '%" + nmpenjab.getText() + "%' and rd.kd_dokter like '%" + kddokter.getText() + "%' "
+                        + "ORDER BY d.nm_dokter, rd.tgl_perawatan", param);
+            }
+        } else if (cmbPrin.getSelectedIndex() == 8) {
+            param.put("judul", "Detail Visite Hari Normal Dokter Yang Menangani");
+            if (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG")) {
+                param.put("ruangan", "SEMUA RUANG PERAWATAN");
+                Valid.MyReport("rptDetailVisitInap.jrxml", "report", "::[ Laporan Rincian Detail Visite Hari Normal Dokter Rawat Inap ]::",
+                        "SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
+                        + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan not like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and "
+                        + "pj.png_jawab like '%" + nmpenjab.getText() + "%' and rd.kd_dokter like '%" + kddokter.getText() + "%' "
+                        + "ORDER BY d.nm_dokter, rd.tgl_perawatan", param);
+            } else {
+                param.put("ruangan", "RUANG PERAWATAN " + cmbRuangan.getSelectedItem());
+                Valid.MyReport("rptDetailVisitInap.jrxml", "report", "::[ Laporan Rincian Detail Visite Hari Normal Dokter Rawat Inap ]::",
+                        "SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
+                        + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan not like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and "
+                        + "b.nm_bangsal like '%" + ruangDipilih + "%' and pj.png_jawab like '%" + nmpenjab.getText() + "%' and rd.kd_dokter like '%" + kddokter.getText() + "%' "
+                        + "ORDER BY d.nm_dokter, rd.tgl_perawatan", param);
+            } 
+        } else if (cmbPrin.getSelectedIndex() == 12) {
+            param.put("judul", "Detail Visite Hari Libur Dokter Yang Menangani");
+            if (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG")) {
+                param.put("ruangan", "SEMUA RUANG PERAWATAN");
+                Valid.MyReport("rptDetailVisitInap.jrxml", "report", "::[ Laporan Rincian Detail Visite Hari Libur Dokter Rawat Inap ]::",
+                        "SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
+                        + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and "
+                        + "pj.png_jawab like '%" + nmpenjab.getText() + "%' and rd.kd_dokter like '%" + kddokter.getText() + "%' "
+                        + "ORDER BY d.nm_dokter, rd.tgl_perawatan", param);
+            } else {
+                param.put("ruangan", "RUANG PERAWATAN " + cmbRuangan.getSelectedItem());
+                Valid.MyReport("rptDetailVisitInap.jrxml", "report", "::[ Laporan Rincian Detail Visite Hari Libur Dokter Rawat Inap ]::",
+                        "SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
+                        + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and "
+                        + "b.nm_bangsal like '%" + ruangDipilih + "%' and pj.png_jawab like '%" + nmpenjab.getText() + "%' and rd.kd_dokter like '%" + kddokter.getText() + "%' "
+                        + "ORDER BY d.nm_dokter, rd.tgl_perawatan", param);
+            } 
         }
 
         this.setCursor(Cursor.getDefaultCursor());
@@ -1597,41 +2414,118 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         param.put("emailrs", var.getemailrs());
         param.put("logo", Sequel.cariGambar("select logo from setting"));
         param.put("periode", "Periode Tgl. " + Tgl1.getSelectedItem() + " S.D " + Tgl2.getSelectedItem()+" Untuk Dokter Umum/Yang Mewakili");
-
-        if (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG")) {
-            param.put("ruangan", "SEMUA RUANG PERAWATAN");
-            Valid.MyReport("rptDetailVisitInap1.jrxml", "report", "::[ Laporan Rincian Detail Visite Dokter Rawat Inap ]::",
-                    "SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, d.nm_dokter, "
-                    + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
-                    + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
-                    + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
-                    + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                    + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                    + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                    + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                    + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                    + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
-                    + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and "
-                    + "pj.png_jawab like '%" + nmpenjab.getText() + "%' and rd.kd_dokter_mewakili like '%" + kddokter.getText() + "%' "
-                    + "ORDER BY d.nm_dokter, rd.tgl_perawatan", param);
-        } else {
-            param.put("ruangan", "RUANG PERAWATAN " + cmbRuangan.getSelectedItem());
-            Valid.MyReport("rptDetailVisitInap1.jrxml", "report", "::[ Laporan Rincian Detail Visite Dokter Rawat Inap ]::",
-                    "SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, d.nm_dokter, "
-                    + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
-                    + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
-                    + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
-                    + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                    + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                    + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                    + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                    + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                    + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
-                    + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and "
-                    + "b.nm_bangsal like '%" + ruangDipilih + "%' and pj.png_jawab like '%" + nmpenjab.getText() + "%' and rd.kd_dokter_mewakili like '%" + kddokter.getText() + "%' "
-                    + "ORDER BY d.nm_dokter, rd.tgl_perawatan", param);
+        
+        if (cmbPrin.getSelectedIndex() == 2) {
+            param.put("judul", "Detail Visite Semua Hari Perawatan Dokter Umum/Yang Mewakili");
+            if (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG")) {
+                param.put("ruangan", "SEMUA RUANG PERAWATAN");
+                Valid.MyReport("rptDetailVisitInap1.jrxml", "report", "::[ Laporan Rincian Detail Visite Semua Hari Perawatan Dokter Rawat Inap ]::",
+                        "SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
+                        + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and "
+                        + "pj.png_jawab like '%" + nmpenjab.getText() + "%' and rd.kd_dokter_mewakili like '%" + kddokter.getText() + "%' "
+                        + "ORDER BY d.nm_dokter, rd.tgl_perawatan", param);
+            } else {
+                param.put("ruangan", "RUANG PERAWATAN " + cmbRuangan.getSelectedItem());
+                Valid.MyReport("rptDetailVisitInap1.jrxml", "report", "::[ Laporan Rincian Detail Visite Semua Hari Perawatan Dokter Rawat Inap ]::",
+                        "SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
+                        + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and "
+                        + "b.nm_bangsal like '%" + ruangDipilih + "%' and pj.png_jawab like '%" + nmpenjab.getText() + "%' and rd.kd_dokter_mewakili like '%" + kddokter.getText() + "%' "
+                        + "ORDER BY d.nm_dokter, rd.tgl_perawatan", param);
+            }
+        } else if (cmbPrin.getSelectedIndex() == 9) {
+            param.put("judul", "Detail Visite Hari Normal Dokter Umum/Yang Mewakili");
+            if (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG")) {
+                param.put("ruangan", "SEMUA RUANG PERAWATAN");
+                Valid.MyReport("rptDetailVisitInap1.jrxml", "report", "::[ Laporan Rincian Detail Visite Hari Normal Dokter Rawat Inap ]::",
+                        "SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
+                        + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan not like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and "
+                        + "pj.png_jawab like '%" + nmpenjab.getText() + "%' and rd.kd_dokter_mewakili like '%" + kddokter.getText() + "%' "
+                        + "ORDER BY d.nm_dokter, rd.tgl_perawatan", param);
+            } else {
+                param.put("ruangan", "RUANG PERAWATAN " + cmbRuangan.getSelectedItem());
+                Valid.MyReport("rptDetailVisitInap1.jrxml", "report", "::[ Laporan Rincian Detail Visite Hari Normal Dokter Rawat Inap ]::",
+                        "SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
+                        + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan not like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and "
+                        + "b.nm_bangsal like '%" + ruangDipilih + "%' and pj.png_jawab like '%" + nmpenjab.getText() + "%' and rd.kd_dokter_mewakili like '%" + kddokter.getText() + "%' "
+                        + "ORDER BY d.nm_dokter, rd.tgl_perawatan", param);
+            }
+        } else if (cmbPrin.getSelectedIndex() == 13) {
+            param.put("judul", "Detail Visite Hari Libur Dokter Umum/Yang Mewakili");
+            if (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG")) {
+                param.put("ruangan", "SEMUA RUANG PERAWATAN");
+                Valid.MyReport("rptDetailVisitInap1.jrxml", "report", "::[ Laporan Rincian Detail Visite Hari Libur Dokter Rawat Inap ]::",
+                        "SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
+                        + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and "
+                        + "pj.png_jawab like '%" + nmpenjab.getText() + "%' and rd.kd_dokter_mewakili like '%" + kddokter.getText() + "%' "
+                        + "ORDER BY d.nm_dokter, rd.tgl_perawatan", param);
+            } else {
+                param.put("ruangan", "RUANG PERAWATAN " + cmbRuangan.getSelectedItem());
+                Valid.MyReport("rptDetailVisitInap1.jrxml", "report", "::[ Laporan Rincian Detail Visite Hari Libur Dokter Rawat Inap ]::",
+                        "SELECT date_format(rd.tgl_perawatan,'%d-%m-%Y') tgl_visit, ji.nm_perawatan, d.nm_dokter, "
+                        + "rp.no_rkm_medis no_rm, p.nm_pasien, b.nm_bangsal, pj.png_jawab cr_byr FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj WHERE "
+                        + "rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and "
+                        + "b.nm_bangsal like '%" + ruangDipilih + "%' and pj.png_jawab like '%" + nmpenjab.getText() + "%' and rd.kd_dokter_mewakili like '%" + kddokter.getText() + "%' "
+                        + "ORDER BY d.nm_dokter, rd.tgl_perawatan", param);
+            }
         }
 
         this.setCursor(Cursor.getDefaultCursor());
@@ -1650,131 +2544,387 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         param.put("logo", Sequel.cariGambar("select logo from setting"));
         param.put("periode", "Periode Tgl. " + Tgl1.getSelectedItem() + " S.D " + Tgl2.getSelectedItem());
 
-        if (kdpenjab.getText().equals("") && (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
-            param.put("cara_byr", "SEMUA JENIS BAYAR UNTUK DOKTER YANG MENANGANI");
-            param.put("ruangan", "UNTUK " + cmbRuangan.getSelectedItem().toString() + " PERAWATAN");
-            Valid.MyReport("rptRekapVisiteInap.jrxml", "report", "::[ Laporan Rekap Detail Visite Dokter Rawat Inap ]::",
-                    "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
-                    + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
-                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
-                    + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
-                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
-                    + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
-                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
-                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
-                    + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total "
-                    + "FROM rawat_inap_dr rd INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
-                    + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
-                    + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                    + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                    + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                    + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                    + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                    + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                    + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') "
-                    + "and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
-        } else if (!kdpenjab.getText().equals("") && (!cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
-            param.put("cara_byr", "UNTUK JENIS BAYAR PASIEN " + nmpenjab.getText()+" KHUSUS DOKTER YANG MENANGANI");
-            param.put("ruangan", "UNTUK RUANG PERAWATAN " + cmbRuangan.getSelectedItem());
-            Valid.MyReport("rptRekapVisiteInap.jrxml", "report", "::[ Laporan Rekap Detail Visite Dokter Rawat Inap ]::",
-                    "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
-                    + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
-                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
-                    + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
-                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
-                    + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
-                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
-                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
-                    + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total "
-                    + "FROM rawat_inap_dr rd INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
-                    + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
-                    + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                    + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                    + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                    + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                    + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                    + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                    + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and b.nm_bangsal like '%" + ruangDipilih + "%' and ji.nm_perawatan like '%visit%' and ji.status='1' "
-                    + "and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
-                    + "GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
-        } else if (!kdpenjab.getText().equals("") && (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
-            param.put("cara_byr", "UNTUK JENIS BAYAR PASIEN " + nmpenjab.getText()+" KHUSUS DOKTER YANG MENANGANI");
-            param.put("ruangan", "UNTUK " + cmbRuangan.getSelectedItem().toString() + " PERAWATAN");
-            Valid.MyReport("rptRekapVisiteInap.jrxml", "report", "::[ Laporan Rekap Detail Visite Dokter Rawat Inap ]::",
-                    "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
-                    + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
-                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
-                    + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
-                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
-                    + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
-                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
-                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
-                    + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total "
-                    + "FROM rawat_inap_dr rd INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
-                    + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
-                    + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                    + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                    + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                    + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                    + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                    + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                    + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') "
-                    + "and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
-        } else if (kdpenjab.getText().equals("") && (!cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
-            param.put("cara_byr", "SEMUA JENIS BAYAR UNTUK DOKTER YANG MENANGANI");
-            param.put("ruangan", "UNTUK RUANG PERAWATAN " + cmbRuangan.getSelectedItem());
-            Valid.MyReport("rptRekapVisiteInap.jrxml", "report", "::[ Laporan Rekap Detail Visite Dokter Rawat Inap ]::",
-                    "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
-                    + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
-                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
-                    + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
-                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
-                    + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
-                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
-                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
-                    + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total "
-                    + "FROM rawat_inap_dr rd INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
-                    + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
-                    + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                    + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                    + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                    + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                    + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                    + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                    + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and b.nm_bangsal like '%" + ruangDipilih + "%' and ji.nm_perawatan like '%visit%' and ji.status='1' "
-                    + "and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
-                    + "GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+        if (cmbPrin.getSelectedIndex() == 3) {
+            param.put("judul", "Rekap Visite Semua Hari Perawatan Dokter Yang Menangani");
+            if (kdpenjab.getText().equals("") && (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
+                param.put("cara_byr", "SEMUA JENIS BAYAR UNTUK DOKTER YANG MENANGANI");
+                param.put("ruangan", "UNTUK " + cmbRuangan.getSelectedItem().toString() + " PERAWATAN");
+                Valid.MyReport("rptRekapVisiteInap.jrxml", "report", "::[ Laporan Rekap Detail Visite Semua Hari Perawatan Dokter Rawat Inap ]::",
+                        "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total "
+                        + "FROM rawat_inap_dr rd INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') "
+                        + "and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+            } else if (!kdpenjab.getText().equals("") && (!cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
+                param.put("cara_byr", "UNTUK JENIS BAYAR PASIEN " + nmpenjab.getText() + " KHUSUS DOKTER YANG MENANGANI");
+                param.put("ruangan", "UNTUK RUANG PERAWATAN " + cmbRuangan.getSelectedItem());
+                Valid.MyReport("rptRekapVisiteInap.jrxml", "report", "::[ Laporan Rekap Detail Visite Semua Hari Perawatan Dokter Rawat Inap ]::",
+                        "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total "
+                        + "FROM rawat_inap_dr rd INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and b.nm_bangsal like '%" + ruangDipilih + "%' and ji.nm_perawatan like '%visit%' and ji.status='1' "
+                        + "and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
+                        + "GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+            } else if (!kdpenjab.getText().equals("") && (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
+                param.put("cara_byr", "UNTUK JENIS BAYAR PASIEN " + nmpenjab.getText() + " KHUSUS DOKTER YANG MENANGANI");
+                param.put("ruangan", "UNTUK " + cmbRuangan.getSelectedItem().toString() + " PERAWATAN");
+                Valid.MyReport("rptRekapVisiteInap.jrxml", "report", "::[ Laporan Rekap Detail Visite Semua Hari Perawatan Dokter Rawat Inap ]::",
+                        "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total "
+                        + "FROM rawat_inap_dr rd INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') "
+                        + "and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+            } else if (kdpenjab.getText().equals("") && (!cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
+                param.put("cara_byr", "SEMUA JENIS BAYAR UNTUK DOKTER YANG MENANGANI");
+                param.put("ruangan", "UNTUK RUANG PERAWATAN " + cmbRuangan.getSelectedItem());
+                Valid.MyReport("rptRekapVisiteInap.jrxml", "report", "::[ Laporan Rekap Detail Visite Semua Hari Perawatan Dokter Rawat Inap ]::",
+                        "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total "
+                        + "FROM rawat_inap_dr rd INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and b.nm_bangsal like '%" + ruangDipilih + "%' and ji.nm_perawatan like '%visit%' and ji.status='1' "
+                        + "and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
+                        + "GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+            }
+        } else if (cmbPrin.getSelectedIndex() == 10) {
+            param.put("judul", "Rekap Visite Hari Normal Dokter Yang Menangani");
+            if (kdpenjab.getText().equals("") && (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
+                param.put("cara_byr", "SEMUA JENIS BAYAR UNTUK DOKTER YANG MENANGANI");
+                param.put("ruangan", "UNTUK " + cmbRuangan.getSelectedItem().toString() + " PERAWATAN");
+                Valid.MyReport("rptRekapVisiteInap.jrxml", "report", "::[ Laporan Rekap Detail Visite Hari Normal Dokter Rawat Inap ]::",
+                        "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan not like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') "
+                        + "and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+            } else if (!kdpenjab.getText().equals("") && (!cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
+                param.put("cara_byr", "UNTUK JENIS BAYAR PASIEN " + nmpenjab.getText() + " KHUSUS DOKTER YANG MENANGANI");
+                param.put("ruangan", "UNTUK RUANG PERAWATAN " + cmbRuangan.getSelectedItem());
+                Valid.MyReport("rptRekapVisiteInap.jrxml", "report", "::[ Laporan Rekap Detail Visite Hari Normal Dokter Rawat Inap ]::",
+                        "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and b.nm_bangsal like '%" + ruangDipilih + "%' and ji.nm_perawatan not like '%libur%' and ji.status='1' "
+                        + "and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
+                        + "GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+            } else if (!kdpenjab.getText().equals("") && (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
+                param.put("cara_byr", "UNTUK JENIS BAYAR PASIEN " + nmpenjab.getText() + " KHUSUS DOKTER YANG MENANGANI");
+                param.put("ruangan", "UNTUK " + cmbRuangan.getSelectedItem().toString() + " PERAWATAN");
+                Valid.MyReport("rptRekapVisiteInap.jrxml", "report", "::[ Laporan Rekap Detail Visite Hari Normal Dokter Rawat Inap ]::",
+                        "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan not like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') "
+                        + "and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+            } else if (kdpenjab.getText().equals("") && (!cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
+                param.put("cara_byr", "SEMUA JENIS BAYAR UNTUK DOKTER YANG MENANGANI");
+                param.put("ruangan", "UNTUK RUANG PERAWATAN " + cmbRuangan.getSelectedItem());
+                Valid.MyReport("rptRekapVisiteInap.jrxml", "report", "::[ Laporan Rekap Detail Visite Hari Normal Dokter Rawat Inap ]::",
+                        "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and b.nm_bangsal like '%" + ruangDipilih + "%' and ji.nm_perawatan not like '%libur%' and ji.status='1' "
+                        + "and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
+                        + "GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+            }
+        } else if (cmbPrin.getSelectedIndex() == 14) {
+            param.put("judul", "Rekap Visite Hari Libur Dokter Yang Menangani");
+            if (kdpenjab.getText().equals("") && (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
+                param.put("cara_byr", "SEMUA JENIS BAYAR UNTUK DOKTER YANG MENANGANI");
+                param.put("ruangan", "UNTUK " + cmbRuangan.getSelectedItem().toString() + " PERAWATAN");
+                Valid.MyReport("rptRekapVisiteInap.jrxml", "report", "::[ Laporan Rekap Detail Visite Hari Libur Dokter Rawat Inap ]::",
+                        "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') "
+                        + "and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+            } else if (!kdpenjab.getText().equals("") && (!cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
+                param.put("cara_byr", "UNTUK JENIS BAYAR PASIEN " + nmpenjab.getText() + " KHUSUS DOKTER YANG MENANGANI");
+                param.put("ruangan", "UNTUK RUANG PERAWATAN " + cmbRuangan.getSelectedItem());
+                Valid.MyReport("rptRekapVisiteInap.jrxml", "report", "::[ Laporan Rekap Detail Visite Hari Libur Dokter Rawat Inap ]::",
+                        "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and b.nm_bangsal like '%" + ruangDipilih + "%' and ji.nm_perawatan like '%libur%' and ji.status='1' "
+                        + "and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
+                        + "GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+            } else if (!kdpenjab.getText().equals("") && (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
+                param.put("cara_byr", "UNTUK JENIS BAYAR PASIEN " + nmpenjab.getText() + " KHUSUS DOKTER YANG MENANGANI");
+                param.put("ruangan", "UNTUK " + cmbRuangan.getSelectedItem().toString() + " PERAWATAN");
+                Valid.MyReport("rptRekapVisiteInap.jrxml", "report", "::[ Laporan Rekap Detail Visite Hari Libur Dokter Rawat Inap ]::",
+                        "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') "
+                        + "and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+            } else if (kdpenjab.getText().equals("") && (!cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
+                param.put("cara_byr", "SEMUA JENIS BAYAR UNTUK DOKTER YANG MENANGANI");
+                param.put("ruangan", "UNTUK RUANG PERAWATAN " + cmbRuangan.getSelectedItem());
+                Valid.MyReport("rptRekapVisiteInap.jrxml", "report", "::[ Laporan Rekap Detail Visite Hari Libur Dokter Rawat Inap ]::",
+                        "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter) total FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and b.nm_bangsal like '%" + ruangDipilih + "%' and ji.nm_perawatan like '%libur%' and ji.status='1' "
+                        + "and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
+                        + "GROUP BY rd.kd_dokter, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+            }
         }
+        
         this.setCursor(Cursor.getDefaultCursor());
         rekapVisit();
+        rekapVisitNormal1();
+        rekapVisitLibur1();
     }
     
     private void prinRekapDokterMewakili() {
@@ -1789,131 +2939,386 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         param.put("logo", Sequel.cariGambar("select logo from setting"));
         param.put("periode", "Periode Tgl. " + Tgl1.getSelectedItem() + " S.D " + Tgl2.getSelectedItem());
 
-        if (kdpenjab.getText().equals("") && (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
-            param.put("cara_byr", "SEMUA JENIS BAYAR UNTUK DOKTER UMUM/YANG MEWAKILI");
-            param.put("ruangan", "UNTUK " + cmbRuangan.getSelectedItem().toString() + " PERAWATAN");
-            Valid.MyReport("rptRekapVisiteInap1.jrxml", "report", "::[ Laporan Rekap Detail Visite Dokter Rawat Inap ]::",
-                    "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
-                    + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
-                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
-                    + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
-                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
-                    + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
-                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
-                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
-                    + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total "
-                    + "FROM rawat_inap_dr rd INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
-                    + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
-                    + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                    + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                    + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                    + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                    + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                    + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                    + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') "
-                    + "and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
-        } else if (!kdpenjab.getText().equals("") && (!cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
-            param.put("cara_byr", "UNTUK JENIS BAYAR PASIEN " + nmpenjab.getText()+" KHUSUS DOKTER UMUM/YANG MEWAKILI");
-            param.put("ruangan", "UNTUK RUANG PERAWATAN " + cmbRuangan.getSelectedItem());
-            Valid.MyReport("rptRekapVisiteInap1.jrxml", "report", "::[ Laporan Rekap Detail Visite Dokter Rawat Inap ]::",
-                    "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
-                    + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
-                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
-                    + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
-                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
-                    + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
-                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
-                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
-                    + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total "
-                    + "FROM rawat_inap_dr rd INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
-                    + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
-                    + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                    + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                    + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                    + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                    + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                    + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                    + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and b.nm_bangsal like '%" + ruangDipilih + "%' and ji.nm_perawatan like '%visit%' and ji.status='1' "
-                    + "and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
-                    + "GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
-        } else if (!kdpenjab.getText().equals("") && (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
-            param.put("cara_byr", "UNTUK JENIS BAYAR PASIEN " + nmpenjab.getText()+" KHUSUS DOKTER UMUM/YANG MEWAKILI");
-            param.put("ruangan", "UNTUK " + cmbRuangan.getSelectedItem().toString() + " PERAWATAN");
-            Valid.MyReport("rptRekapVisiteInap1.jrxml", "report", "::[ Laporan Rekap Detail Visite Dokter Rawat Inap ]::",
-                    "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
-                    + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
-                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
-                    + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
-                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
-                    + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
-                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
-                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
-                    + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total "
-                    + "FROM rawat_inap_dr rd INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
-                    + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
-                    + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                    + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                    + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                    + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                    + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                    + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                    + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') "
-                    + "and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
-        } else if (kdpenjab.getText().equals("") && (!cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
-            param.put("cara_byr", "SEMUA JENIS BAYAR UNTUK DOKTER UMUM/YANG MEWAKILI");
-            param.put("ruangan", "UNTUK RUANG PERAWATAN " + cmbRuangan.getSelectedItem());
-            Valid.MyReport("rptRekapVisiteInap1.jrxml", "report", "::[ Laporan Rekap Detail Visite Dokter Rawat Inap ]::",
-                    "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
-                    + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
-                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
-                    + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
-                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
-                    + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
-                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
-                    + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
-                    + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
-                    + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
-                    + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total "
-                    + "FROM rawat_inap_dr rd INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
-                    + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
-                    + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
-                    + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
-                    + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
-                    + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
-                    + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
-                    + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
-                    + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
-                    + "and b.nm_bangsal like '%" + ruangDipilih + "%' and ji.nm_perawatan like '%visit%' and ji.status='1' "
-                    + "and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
-                    + "GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+        if (cmbPrin.getSelectedIndex() == 4) {
+            param.put("judul", "Rekap Visite Semua Hari Perawatan Dokter Umum/Yang Mewakili");
+            if (kdpenjab.getText().equals("") && (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
+                param.put("cara_byr", "SEMUA JENIS BAYAR UNTUK DOKTER UMUM/YANG MEWAKILI");
+                param.put("ruangan", "UNTUK " + cmbRuangan.getSelectedItem().toString() + " PERAWATAN");
+                Valid.MyReport("rptRekapVisiteInap1.jrxml", "report", "::[ Laporan Rekap Detail Visite Semua Hari Perawatan Dokter Rawat Inap ]::",
+                        "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total "
+                        + "FROM rawat_inap_dr rd INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') "
+                        + "and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+            } else if (!kdpenjab.getText().equals("") && (!cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
+                param.put("cara_byr", "UNTUK JENIS BAYAR PASIEN " + nmpenjab.getText() + " KHUSUS DOKTER UMUM/YANG MEWAKILI");
+                param.put("ruangan", "UNTUK RUANG PERAWATAN " + cmbRuangan.getSelectedItem());
+                Valid.MyReport("rptRekapVisiteInap1.jrxml", "report", "::[ Laporan Rekap Detail Visite Semua Hari Perawatan Dokter Rawat Inap ]::",
+                        "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total "
+                        + "FROM rawat_inap_dr rd INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and b.nm_bangsal like '%" + ruangDipilih + "%' and ji.nm_perawatan like '%visit%' and ji.status='1' "
+                        + "and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
+                        + "GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+            } else if (!kdpenjab.getText().equals("") && (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
+                param.put("cara_byr", "UNTUK JENIS BAYAR PASIEN " + nmpenjab.getText() + " KHUSUS DOKTER UMUM/YANG MEWAKILI");
+                param.put("ruangan", "UNTUK " + cmbRuangan.getSelectedItem().toString() + " PERAWATAN");
+                Valid.MyReport("rptRekapVisiteInap1.jrxml", "report", "::[ Laporan Rekap Detail Visite Semua Hari Perawatan Dokter Rawat Inap ]::",
+                        "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total "
+                        + "FROM rawat_inap_dr rd INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan like '%visit%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') "
+                        + "and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+            } else if (kdpenjab.getText().equals("") && (!cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
+                param.put("cara_byr", "SEMUA JENIS BAYAR UNTUK DOKTER UMUM/YANG MEWAKILI");
+                param.put("ruangan", "UNTUK RUANG PERAWATAN " + cmbRuangan.getSelectedItem());
+                Valid.MyReport("rptRekapVisiteInap1.jrxml", "report", "::[ Laporan Rekap Detail Visite Semua Hari Perawatan Dokter Rawat Inap ]::",
+                        "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total "
+                        + "FROM rawat_inap_dr rd INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and b.nm_bangsal like '%" + ruangDipilih + "%' and ji.nm_perawatan like '%visit%' and ji.status='1' "
+                        + "and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
+                        + "GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+            }
+        } else if (cmbPrin.getSelectedIndex() == 11) {
+            param.put("judul", "Rekap Visite Hari Normal Dokter Umum/Yang Mewakili");
+            if (kdpenjab.getText().equals("") && (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
+                param.put("cara_byr", "SEMUA JENIS BAYAR UNTUK DOKTER UMUM/YANG MEWAKILI");
+                param.put("ruangan", "UNTUK " + cmbRuangan.getSelectedItem().toString() + " PERAWATAN");
+                Valid.MyReport("rptRekapVisiteInap1.jrxml", "report", "::[ Laporan Rekap Detail Visite Hari Normal Dokter Rawat Inap ]::",
+                        "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan not like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') "
+                        + "and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+            } else if (!kdpenjab.getText().equals("") && (!cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
+                param.put("cara_byr", "UNTUK JENIS BAYAR PASIEN " + nmpenjab.getText() + " KHUSUS DOKTER UMUM/YANG MEWAKILI");
+                param.put("ruangan", "UNTUK RUANG PERAWATAN " + cmbRuangan.getSelectedItem());
+                Valid.MyReport("rptRekapVisiteInap1.jrxml", "report", "::[ Laporan Rekap Detail Visite Hari Normal Dokter Rawat Inap ]::",
+                        "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and b.nm_bangsal like '%" + ruangDipilih + "%' and ji.nm_perawatan not like '%libur%' and ji.status='1' "
+                        + "and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
+                        + "GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+            } else if (!kdpenjab.getText().equals("") && (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
+                param.put("cara_byr", "UNTUK JENIS BAYAR PASIEN " + nmpenjab.getText() + " KHUSUS DOKTER UMUM/YANG MEWAKILI");
+                param.put("ruangan", "UNTUK " + cmbRuangan.getSelectedItem().toString() + " PERAWATAN");
+                Valid.MyReport("rptRekapVisiteInap1.jrxml", "report", "::[ Laporan Rekap Detail Visite Hari Normal Dokter Rawat Inap ]::",
+                        "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan not like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') "
+                        + "and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+            } else if (kdpenjab.getText().equals("") && (!cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
+                param.put("cara_byr", "SEMUA JENIS BAYAR UNTUK DOKTER UMUM/YANG MEWAKILI");
+                param.put("ruangan", "UNTUK RUANG PERAWATAN " + cmbRuangan.getSelectedItem());
+                Valid.MyReport("rptRekapVisiteInap1.jrxml", "report", "::[ Laporan Rekap Detail Visite Hari Normal Dokter Rawat Inap ]::",
+                        "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and b.nm_bangsal like '%" + ruangDipilih + "%' and ji.nm_perawatan not like '%libur%' and ji.status='1' "
+                        + "and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
+                        + "GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+            }
+        } else if (cmbPrin.getSelectedIndex() == 15) {
+            param.put("judul", "Rekap Visite Hari Libur Dokter Umum/Yang Mewakili");
+            if (kdpenjab.getText().equals("") && (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
+                param.put("cara_byr", "SEMUA JENIS BAYAR UNTUK DOKTER UMUM/YANG MEWAKILI");
+                param.put("ruangan", "UNTUK " + cmbRuangan.getSelectedItem().toString() + " PERAWATAN");
+                Valid.MyReport("rptRekapVisiteInap1.jrxml", "report", "::[ Laporan Rekap Detail Visite Hari Libur Dokter Rawat Inap ]::",
+                        "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') "
+                        + "and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+            } else if (!kdpenjab.getText().equals("") && (!cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
+                param.put("cara_byr", "UNTUK JENIS BAYAR PASIEN " + nmpenjab.getText() + " KHUSUS DOKTER UMUM/YANG MEWAKILI");
+                param.put("ruangan", "UNTUK RUANG PERAWATAN " + cmbRuangan.getSelectedItem());
+                Valid.MyReport("rptRekapVisiteInap1.jrxml", "report", "::[ Laporan Rekap Detail Visite Hari Libur Dokter Rawat Inap ]::",
+                        "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and b.nm_bangsal like '%" + ruangDipilih + "%' and ji.nm_perawatan like '%libur%' and ji.status='1' "
+                        + "and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
+                        + "GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+            } else if (!kdpenjab.getText().equals("") && (cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
+                param.put("cara_byr", "UNTUK JENIS BAYAR PASIEN " + nmpenjab.getText() + " KHUSUS DOKTER UMUM/YANG MEWAKILI");
+                param.put("ruangan", "UNTUK " + cmbRuangan.getSelectedItem().toString() + " PERAWATAN");
+                Valid.MyReport("rptRekapVisiteInap1.jrxml", "report", "::[ Laporan Rekap Detail Visite Hari Libur Dokter Rawat Inap ]::",
+                        "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and ji.nm_perawatan like '%libur%' and ji.status='1' and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') "
+                        + "and pj.png_jawab like '%" + nmpenjab.getText() + "%' GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+            } else if (kdpenjab.getText().equals("") && (!cmbRuangan.getSelectedItem().toString().equals("SEMUA RUANG"))) {
+                param.put("cara_byr", "SEMUA JENIS BAYAR UNTUK DOKTER UMUM/YANG MEWAKILI");
+                param.put("ruangan", "UNTUK RUANG PERAWATAN " + cmbRuangan.getSelectedItem());
+                Valid.MyReport("rptRekapVisiteInap1.jrxml", "report", "::[ Laporan Rekap Detail Visite Hari Libur Dokter Rawat Inap ]::",
+                        "select a.nm_dokter, CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT) Kelas_2, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT) Kelas_3, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT) Kelas_vip, "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT) Kelas_vvip, "
+                        + "CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end),INT) rwt_khusus, "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT) intensif, "
+                        + "CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT) high_care, "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT) isolasi, "
+                        + "CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas 2' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas 3' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Kelas VIP' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Kelas VVIP' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'Rawat Khusus' then total else 0 end)+ "
+                        + "CONVERT(sum(case when kelas = 'Intensif' then total else 0 end),INT)+CONVERT(sum(case when kelas = 'High Care' then total else 0 end),INT)+ "
+                        + "CONVERT(sum(case when kelas = 'Isolasi' then total else 0 end),INT),INT) total_visit "
+                        + "from (SELECT d.nm_dokter,k.kelas,COUNT(rd.kd_dokter_mewakili) total FROM rawat_inap_dr rd "
+                        + "INNER JOIN jns_perawatan_inap ji on ji.kd_jenis_prw=rd.kd_jenis_prw and ji.nm_perawatan like '%visit%' "
+                        + "INNER JOIN dokter d on d.kd_dokter=rd.kd_dokter_mewakili "
+                        + "INNER JOIN reg_periksa rp on rp.no_rawat=rd.no_rawat "
+                        + "INNER JOIN pasien p on p.no_rkm_medis=rp.no_rkm_medis "
+                        + "INNER JOIN kamar_inap ki on ki.no_rawat=rp.no_rawat "
+                        + "INNER JOIN kamar k on k.kd_kamar=ki.kd_kamar "
+                        + "INNER JOIN bangsal b on b.kd_bangsal=k.kd_bangsal "
+                        + "INNER JOIN penjab pj on pj.kd_pj=rp.kd_pj "
+                        + "WHERE rd.tgl_perawatan BETWEEN '" + Valid.SetTgl(Tgl1.getSelectedItem() + "") + "' and '" + Valid.SetTgl(Tgl2.getSelectedItem() + "") + "' "
+                        + "and b.nm_bangsal like '%" + ruangDipilih + "%' and ji.nm_perawatan like '%libur%' and ji.status='1' "
+                        + "and ki.stts_pulang not in ('-','pindah kamar') and rd.kd_dokter_mewakili not in ('-','--') and pj.png_jawab like '%" + nmpenjab.getText() + "%' "
+                        + "GROUP BY rd.kd_dokter_mewakili, k.kelas ORDER BY d.nm_dokter, k.kelas) as a group by a.nm_dokter", param);
+            }
         }
         this.setCursor(Cursor.getDefaultCursor());
         rekapVisit1();
+        rekapVisitNormal2();
+        rekapVisitLibur2();
     }
     
     private void exportFileExcelRekapDokterMewakili() {

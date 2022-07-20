@@ -14,6 +14,7 @@
 	<parameter name="ruangan" class="java.lang.String"/>
 	<parameter name="periode" class="java.lang.String"/>
 	<parameter name="cara_byr" class="java.lang.String"/>
+	<parameter name="judul" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[select a.nm_dokter, 
 CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, 
@@ -70,7 +71,7 @@ group by a.nm_dokter]]>
 	<field name="isolasi" class="java.lang.Long"/>
 	<field name="total_visit" class="java.lang.Long"/>
 	<title>
-		<band height="102">
+		<band height="109">
 			<textField>
 				<reportElement x="0" y="5" width="734" height="17"/>
 				<textElement textAlignment="Center" lineSpacing="Single">
@@ -103,25 +104,32 @@ group by a.nm_dokter]]>
 				</graphicElement>
 			</line>
 			<textField>
-				<reportElement x="0" y="71" width="734" height="13"/>
+				<reportElement x="0" y="81" width="734" height="13"/>
 				<textElement textAlignment="Center" lineSpacing="Single">
 					<font fontName="Tahoma" size="10"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{periode}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="83" width="734" height="13"/>
+				<reportElement x="0" y="93" width="734" height="13"/>
 				<textElement textAlignment="Center" lineSpacing="Single">
 					<font fontName="Tahoma" size="10"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{cara_byr}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="59" width="734" height="14"/>
+				<reportElement x="0" y="69" width="734" height="14"/>
 				<textElement textAlignment="Center" lineSpacing="Single">
 					<font fontName="Tahoma" size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA["LAPORAN REKAP VISITE DOKTER RAWAT INAP "+$P{ruangan}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ruangan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="58" width="734" height="13"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{judul}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="770" leftMargin="36" rightMargin="36" topMargin="36" bottomMargin="20">
-	<property name="ireport.zoom" value="1.8181818181818519"/>
+	<property name="ireport.zoom" value="1.5026296018031833"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<property name="ireport.callouts" value="##Mon Aug 21 21:59:06 SGT 2017"/>
@@ -14,6 +14,7 @@
 	<parameter name="ruangan" class="java.lang.String"/>
 	<parameter name="periode" class="java.lang.String"/>
 	<parameter name="cara_byr" class="java.lang.String"/>
+	<parameter name="judul" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[select a.nm_dokter, 
 CONVERT(sum(case when kelas = 'Kelas 1' then total else 0 end),INT) Kelas_1, 
@@ -63,7 +64,7 @@ and b.nm_bangsal like '%%' and pj.png_jawab like '%%' GROUP BY rd.kd_dokter_mewa
 	<field name="isolasi" class="java.lang.Long"/>
 	<field name="total_visit" class="java.lang.Long"/>
 	<title>
-		<band height="102">
+		<band height="113">
 			<textField>
 				<reportElement x="0" y="5" width="734" height="17"/>
 				<textElement textAlignment="Center" lineSpacing="Single">
@@ -96,25 +97,32 @@ and b.nm_bangsal like '%%' and pj.png_jawab like '%%' GROUP BY rd.kd_dokter_mewa
 				</graphicElement>
 			</line>
 			<textField>
-				<reportElement x="0" y="71" width="734" height="13"/>
+				<reportElement x="0" y="83" width="734" height="13"/>
 				<textElement textAlignment="Center" lineSpacing="Single">
 					<font fontName="Tahoma" size="10"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{periode}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="83" width="734" height="13"/>
+				<reportElement x="0" y="95" width="734" height="13"/>
 				<textElement textAlignment="Center" lineSpacing="Single">
 					<font fontName="Tahoma" size="10"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{cara_byr}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="59" width="734" height="14"/>
+				<reportElement x="0" y="71" width="734" height="14"/>
 				<textElement textAlignment="Center" lineSpacing="Single">
 					<font fontName="Tahoma" size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA["LAPORAN REKAP VISITE DOKTER RAWAT INAP "+$P{ruangan}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ruangan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="60" width="734" height="13"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{judul}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
