@@ -270,6 +270,7 @@ public class DlgInputStok extends javax.swing.JDialog {
         label9 = new widget.Label();
         TCari = new widget.TextBox();
         BtnCari1 = new widget.Button();
+        BtnAll = new widget.Button();
         label10 = new widget.Label();
         LTotal = new widget.Label();
 
@@ -281,7 +282,7 @@ public class DlgInputStok extends javax.swing.JDialog {
 
         ppBersihkan.setBackground(new java.awt.Color(255, 255, 255));
         ppBersihkan.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        ppBersihkan.setForeground(new java.awt.Color(102, 51, 0));
+        ppBersihkan.setForeground(new java.awt.Color(0, 0, 0));
         ppBersihkan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/stop_f2.png"))); // NOI18N
         ppBersihkan.setText("Bersihkan Jumlah");
         ppBersihkan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -298,7 +299,7 @@ public class DlgInputStok extends javax.swing.JDialog {
 
         ppStok.setBackground(new java.awt.Color(255, 255, 255));
         ppStok.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        ppStok.setForeground(new java.awt.Color(102, 51, 0));
+        ppStok.setForeground(new java.awt.Color(0, 0, 0));
         ppStok.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
         ppStok.setText("Tampilkan Semua Stok");
         ppStok.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -317,8 +318,8 @@ public class DlgInputStok extends javax.swing.JDialog {
 
         ppExportFile.setBackground(new java.awt.Color(255, 255, 255));
         ppExportFile.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        ppExportFile.setForeground(new java.awt.Color(102, 51, 0));
-        ppExportFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/stop_f2.png"))); // NOI18N
+        ppExportFile.setForeground(new java.awt.Color(0, 0, 0));
+        ppExportFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/export-excel.png"))); // NOI18N
         ppExportFile.setText("Export Data Ke Excel");
         ppExportFile.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         ppExportFile.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -606,6 +607,25 @@ public class DlgInputStok extends javax.swing.JDialog {
         });
         panelisi5.add(BtnCari1);
 
+        BtnAll.setForeground(new java.awt.Color(0, 0, 0));
+        BtnAll.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Search-16x16.png"))); // NOI18N
+        BtnAll.setMnemonic('M');
+        BtnAll.setText("Semua Data");
+        BtnAll.setToolTipText("Alt+M");
+        BtnAll.setName("BtnAll"); // NOI18N
+        BtnAll.setPreferredSize(new java.awt.Dimension(120, 23));
+        BtnAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAllActionPerformed(evt);
+            }
+        });
+        BtnAll.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                BtnAllKeyPressed(evt);
+            }
+        });
+        panelisi5.add(BtnAll);
+
         label10.setForeground(new java.awt.Color(0, 0, 0));
         label10.setText("Total :");
         label10.setName("label10"); // NOI18N
@@ -752,7 +772,7 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
 
 private void TCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TCariKeyPressed
     if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-        tampil();
+        BtnCari1ActionPerformed(null);
     } else if (evt.getKeyCode() == KeyEvent.VK_PAGE_DOWN) {
         BtnCari1.requestFocus();
     } else if (evt.getKeyCode() == KeyEvent.VK_PAGE_UP) {
@@ -889,6 +909,18 @@ private void BtnGudangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         }
     }//GEN-LAST:event_ppExportFileActionPerformed
 
+    private void BtnAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAllActionPerformed
+        TCari.setText("");
+        BtnCari1ActionPerformed(null);
+    }//GEN-LAST:event_BtnAllActionPerformed
+
+    private void BtnAllKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnAllKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
+            TCari.setText("");
+            BtnCari1ActionPerformed(null);
+        }
+    }//GEN-LAST:event_BtnAllKeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -906,6 +938,7 @@ private void BtnGudangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private widget.Button BtnAll;
     private widget.Button BtnCari;
     private widget.Button BtnCari1;
     private widget.Button BtnGudang;
@@ -997,11 +1030,10 @@ private void BtnGudangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         } catch (SQLException e) {
             System.out.println("Notifikasi : " + e);
         }
-
+            LTotal.setText("" + tabMode.getRowCount());
     }
 
     private void tampilStok() {
-
         Valid.tabelKosong(tabMode1);
         try {
             cek = Sequel.cariInteger("select DATE_FORMAT(NOW(),'%Y-%m-%d') = '" + Valid.SetTgl(Tgl.getSelectedItem() + "") + "'");
@@ -1038,21 +1070,10 @@ private void BtnGudangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                     rsinfo.getString("stok")});
             }
 
-            rsprint = psinfo.executeQuery();
-            dialog_simpan = "";
-            dialog_simpan = Valid.openDialog();
-            if (!dialog_simpan.equals("the user cancelled the operation")) {
-                if (Valid.MyReportToExcelBooleanRs(rsprint, dialog_simpan) == true) {
-                    JOptionPane.showMessageDialog(null, "Data berhasil diexport menjadi file excel,..!!!");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Data gagal diexport menjadi file excel,..!!!");
-                }
-            }
-
         } catch (SQLException e) {
             System.out.println("Notifikasi : " + e);
         }
-
+            LTotal.setText("" + tabMode1.getRowCount());
     }
 
     private void getData() {
